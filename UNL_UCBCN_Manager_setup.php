@@ -56,12 +56,23 @@ class UNL_UCBCN_Manager_setup_postinstall
     	// Copy the template files over to the location they answered.
     	$docroot = $answers['docroot'].DIRECTORY_SEPARATOR;
 		$templateroot = $docroot.'templates'.DIRECTORY_SEPARATOR.$answers['template'].DIRECTORY_SEPARATOR;
-		$datadir = '@DATA_DIR@'. DIRECTORY_SEPARATOR . 'UNL_UCBCN_Manager' . DIRECTORY_SEPARATOR;;
+		$datadir = '@DATA_DIR@'. DIRECTORY_SEPARATOR . 'UNL_UCBCN_Manager' . DIRECTORY_SEPARATOR;
 		if ($this->createIndex) {
 			copy($datadir.'index.php', $docroot.'index.php');
 		}
 		
 		$this->dircpy($datadir.'templates', $docroot.'templates', true);
+		return self::file_str_replace(
+    				array(	'@DSN@',
+    						//'@URI@',
+    						'@TEMPLATE@'),
+    				array(	$this->dsn,
+    						//$answers['uri'],
+    						$answers['template']),
+					array(	$docroot.'index.php',
+							$templateroot.'main.css',
+							$templateroot.'Manager.php')
+							);
     }
     
     function file_str_replace($search,$replace,$file)

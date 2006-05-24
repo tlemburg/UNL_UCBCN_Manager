@@ -1,6 +1,6 @@
 <html>
 <head></head>
-<link rel="stylesheet" type="text/css" media="screen" href="main.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="templates/@TEMPLATE@/main.css" />
 <body>
 <h1>UNL's Event Publishing System</h1>
 <h2>Plan. Publish. Share.</h2>
