@@ -32,33 +32,31 @@
  
  
   /*--[skeleton attributes]--*/
-  #container{
-  	width:980px;
-  	margin:35px auto 0 auto;
-	text-align:left;
-  }
-  
-  #header{
+   #header{
 	width:980px;
 	height:101px;
   	background:url(images/head.gif) no-repeat;
 	margin:0 auto;
   }
   
+  #container{
+  	width:980px;
+  	margin:35px auto 0 auto;
+	text-align:left;
+  }
+   
   #main_left{
   	float:left;
   	width:695px;
+  	padding:0 0 0 22px;
 	margin:44px 0 0 0;
-	padding:0 0 0 22px;
-	
   }
   
   #right_area{
   	float:right;
 	width:241px;
 	margin:44px 0 0 0;
-	padding:0 22px 0 0;
-  	
+	display:inline;
   }
   
   /*--[navigation]--*/
@@ -68,9 +66,9 @@
 	background:#eee;
   }
   
-  /*--[maincontentarea]--*/
-  #maincontentarea{
-  	float:right;display:inline;
+ /*--[main content area]--*/
+  #maincontentarea{clear:right;
+  	float:right;
   	width:480px;
-	background:#666;
+	
   }
