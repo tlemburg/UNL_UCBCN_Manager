@@ -39,24 +39,32 @@
 	margin:0 auto;
   }
   
+  #maintitle{
+  	padding:0 0 0 22px;
+  }
+  
   #container{
   	width:980px;
   	margin:35px auto 0 auto;
 	text-align:left;
   }
-   
+    #container:after {
+    content: "."; 
+    display: block; 
+    clear: both; 
+    visibility: hidden;
+}
   #main_left{
   	float:left;
-  	width:695px;
-  	padding:0 0 0 22px;
-	margin:44px 0 0 0;
+  	width:673px;
+  	margin:44px 0 0 22px;
+  	display:inline;
   }
   
   #right_area{
   	float:right;
-	width:241px;
-	margin:44px 0 0 0;
-	display:inline;
+	width:219px;
+	margin:44px 22px 0 0;background:#eee;
   }
   
   /*--[navigation]--*/
@@ -67,8 +75,8 @@
   }
   
  /*--[main content area]--*/
-  #maincontentarea{clear:right;
+  #maincontentarea{
+  	clear:right;
   	float:right;
-  	width:480px;
-	
+  	width:458px;
   }
