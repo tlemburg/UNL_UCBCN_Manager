@@ -22,6 +22,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	/** Main content of the page sent to the client. */
 	var $output;
 	
+	/**
+	 * Constructor for the UNL_UCBCN_Manager.
+	 * 
+	 * @param array $options Associative array with options to set for member variables.
+	 * 
+	 */
 	function __construct($options)
 	{
 		$this->setOptions($options);
@@ -35,7 +41,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$this->a->start();
 	}
 	
-	
+	/**
+	 * Returns a html snippet for the navigation.
+	 * 
+	 * @return html unordered list.
+	 */
 	function showNavigation()
 	{
 		return	'<ul>' .
@@ -48,6 +58,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	
 	/**
 	 * Returns a HTML form for the user to authenticate with.
+	 * 
+	 * @return html form for authenticating the user.
 	 */
 	function showLoginForm()
 	{
@@ -60,17 +72,29 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	
 	/**
 	 * Returns a form for entering/editing an event.
+	 * 
+	 * @return string HTML form for entering an event into the database.
 	 */
 	function showEventSubmitForm()
 	{
 		$events = $this->factory('event');
 		$fb = DB_DataObject_FormBuilder::create($events);
-		$form = $fb->getForm();
-		return $form->toHtml();
+		$form = $fb->getForm($_SERVER['PHP_SELF'].'?action=createEvent');
+		if ($form->validate()) {
+			// Form has passed the client/server validation and can be inserted.
+			$form->process(array(&$fb, 'processForm'), false);
+			$form->freeze();
+			$form->removeElement('__submit__');
+			return $form->toHtml();
+		} else {
+			return $form->toHtml();
+		}
 	}
 	
 	/**
 	 * Returns a html form for importing xml/.ics files.
+	 * 
+	 * @return string HTML form for uploading a file.
 	 */
 	function showImportForm()
 	{
@@ -85,6 +109,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 * on querystring parameters and authentication level.
 	 * 
 	 * @param string $action A manual action to send to the client.
+	 * @return none.
 	 */
 	function run($action='')
 	{
