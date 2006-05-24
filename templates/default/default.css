@@ -2,3 +2,73 @@
  * default.css
  * Everything goes in here.
  */
+ 
+ /*--[global attributes]--*/
+ *{
+ 	margin:0;
+	padding:0;
+ }
+ 
+ a{
+ 	outline:none;
+ }
+ 
+ h1{
+	width:362px;
+	height:67px;
+	background:url(images/title.gif) no-repeat;
+	text-indent:-9999px; 	
+ }
+ 
+ h2{
+ 	display:none;
+ }
+ 
+ body{
+ 	text-align:center;
+ 	font: 71%/150% "Lucida Grande", Verdana, Arial;
+	color:#3b3b3b;
+ }
+ 
+ 
+  /*--[skeleton attributes]--*/
+  #container{
+  	width:980px;
+  	margin:35px auto 0 auto;
+	text-align:left;
+  }
+  
+  #header{
+	width:980px;
+	height:101px;
+  	background:url(images/head.gif) no-repeat;
+	margin:0 auto;
+  }
+  
+  #main_left{
+  	float:left;
+  	width:695px;
+	margin:44px 0 0 0;
+	padding:0 0 0 22px;
+	
+  }
+  
+  #right_area{
+  	float:right;
+	width:241px;
+	margin:44px 0 0 0;
+	padding:0 22px 0 0;
+  	
+  }
+  
+  /*--[navigation]--*/
+  #navigation{
+  	float:left;
+	width:215px;background:#eee;
+  }
+  
+  /*--[maincontentarea]--*/
+  #maincontentarea{
+  	float:right;
+  	width:480px;background:#666;
+  }
