@@ -48,12 +48,13 @@
   	margin:35px auto 0 auto;
 	text-align:left;
   }
-    #container:after {
-    content: "."; 
-    display: block; 
-    clear: both; 
-    visibility: hidden;
-}
+	    #container:after {
+	    content: "."; 
+	    display: block; 
+	    clear: both; 
+	    visibility: hidden;
+	 	}
+ 
   #main_left{
   	float:left;
   	width:673px;
