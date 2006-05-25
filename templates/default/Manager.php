@@ -23,7 +23,7 @@
 </div><!-- close main left -->
 
 <div id="right_area">
-dummy
+<?php echo $this->accountright; ?>
 </div><!-- close right-area -->
 
 
