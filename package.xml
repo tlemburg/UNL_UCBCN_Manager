@@ -15,8 +15,8 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-05-24</date>
- <time>09:00:33</time>
+ <date>2006-05-25</date>
+ <time>11:35:42</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -34,6 +34,17 @@
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="templates">
     <dir name="default">
+     <dir name="images">
+      <file name="dott.gif" role="data" />
+      <file name="head.gif" role="data" />
+      <file name="heading.gif" role="data" />
+      <file name="nav_calendar.png" role="data" />
+      <file name="nav_create.png" role="data" />
+      <file name="nav_import.png" role="data" />
+      <file name="nav_search.png" role="data" />
+      <file name="nav_subscribe.png" role="data" />
+      <file name="title.gif" role="data" />
+     </dir> <!-- //templates/default/images -->
      <file name="default.css" role="data" />
      <file name="ieonly.css" role="data" />
      <file name="main.css" role="data" />
@@ -128,7 +139,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-24</date>
+   <date>2006-05-25</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth

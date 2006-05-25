@@ -19,6 +19,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	var $a;	
 	/** Navigation */
 	var $navigation;
+	/** Account on right column */
+	var $accountright;
+	/** Unique body ID */
+	var $uniquebody;
 	/** Main content of the page sent to the client. */
 	var $output;
 	
@@ -48,12 +52,58 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showNavigation()
 	{
-		return	'<ul>' .
-				'<li><a href="?">Pending Events</a></li>'.
-				'<li><a href="?action=createEvent">Create Event</a></li>'.
-				'<li><a href="?action=import">Import</a></li>'.
-				'<li><a href="?logout=true">LogOut</a></li>'.
-				'</ul>';
+		return	'<ul>'."\n".
+				'<li id="calendar"><a href="#" title="My Calendar">Pending Events</a></li>'."\n".
+				'<li id="create"><a href="?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
+				'<li id="search"><a href="#" title="Search">Search</a></li>'."\n".
+				'<li id="subscribe"><a href="#" title="Subscribe">Subscribe</a></li>'."\n".
+				'<li id="import"><a href="?action=import" title="Import/Export">Import/Export</a></li>'."\n".
+				'</ul>'."\n";
+	}
+	
+	/**
+	 * Returns a html snippet for the account section.
+	 * 
+	 * @return html unordered list.
+	 */
+	function showAccountRight()
+	{
+		return	'<ul>'."\n".
+				'<li><a href="#">Account Info</a></li>'."\n".
+				'<li><a href="?logout=true">LogOut</a></li>'."\n".
+				'<li><a href="#">Help</a></li>'."\n".
+				'</ul>'."\n";
+	}
+	
+	/**
+	 * Returns unique BODY tag ID
+	 * 
+	 * @return ID.
+	 */
+	function showBodyID()
+	{
+		$url_path = $_SERVER["REQUEST_URI"];
+			switch (TRUE){
+				case (eregi("/*.*/?action=createEvent/*.*",$url_path)):
+				return 'id="create"';
+				break;
+				
+				case (eregi("/*.*/?action=import/*.*",$url_path)):
+				return 'id="import"';
+				break;
+				
+				case (eregi("/*.*/?action=search/*.*",$url_path)):
+				return 'id="search"';
+				break;
+				
+				case (eregi("/*.*/?action=subscribe/*.*",$url_path)):
+				return 'id="subscribe"';
+				break;
+				
+				default:
+				return 'id="normal"';
+				break;
+				}
 	}
 	
 	/**
@@ -113,8 +163,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function run($action='')
 	{
-		if ($this->a->checkAuth()) {
+		//if ($this->a->checkAuth()) {
 			$this->navigation = $this->showNavigation();
+			$this->accountright = $this->showAccountRight();
+			$this->uniquebody = $this->showBodyID();
 			// User is authenticated.
 			if (empty($action) && isset($_GET['action'])) {
 				$action = $_GET['action'];
@@ -131,9 +183,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->output = '<p>List of pending events.</p>';
 				break;
 			}
-		} else {
+		//} else {
 			// User is not logged in.
-			$this->output = $this->showLoginForm();
-		}
+		//	$this->output = $this->showLoginForm();
+		//}
 	}
 }
