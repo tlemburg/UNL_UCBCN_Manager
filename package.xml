@@ -16,7 +16,7 @@
   <active>yes</active>
  </lead>
  <date>2006-05-25</date>
- <time>13:30:30</time>
+ <time>14:30:54</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -35,6 +35,10 @@
    <dir name="templates">
     <dir name="default">
      <dir name="images">
+      <file name="account_bottom.gif" role="data" />
+      <file name="account_head.gif" role="data" />
+      <file name="account_middle.gif" role="data" />
+      <file name="date.gif" role="data" />
       <file name="dott.gif" role="data" />
       <file name="dott.png" role="data" />
       <file name="head.gif" role="data" />
