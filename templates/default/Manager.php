@@ -1,6 +1,7 @@
 <html>
-<head></head>
+<head>
 <link rel="stylesheet" type="text/css" media="screen" href="templates/@TEMPLATE@/main.css" />
+</head>
 <body <?php echo $this->uniquebody; ?>>
 
 <div id="header"></div><!-- close header -->
