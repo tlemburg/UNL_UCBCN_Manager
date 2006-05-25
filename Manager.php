@@ -69,12 +69,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showAccountRight()
 	{
 		return	'<p id="date">'.date("F jS, Y").'</p>'."\n".
+				'<div id="account_box">'."\n".
 				'<p>Welcome, Tom Hanks</p>'."\n".
 				'<ul>'."\n".
 				'<li><a href="#">Account Info</a></li>'."\n".
 				'<li><a href="?logout=true">LogOut</a></li>'."\n".
 				'<li><a href="#">Help</a></li>'."\n".
-				'</ul>'."\n";
+				'</ul>'."\n".
+				'</div>';
 	}
 	
 	/**
