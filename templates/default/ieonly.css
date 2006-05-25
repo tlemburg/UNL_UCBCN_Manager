@@ -2,3 +2,7 @@
  * ieonly.css
  * IE only hacks go in here
  */
+ 
+ * html #right_area{
+	height:200px;
+  }
