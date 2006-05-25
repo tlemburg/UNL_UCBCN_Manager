@@ -121,7 +121,11 @@
   
   /*--[right area]--*/
   #right_area ul{
-  list-style:none;
+  	list-style:none;
   }
   
-  
+  p#date{
+  	margin:10px 0 0 0;
+  	padding:0 0 0 20px;
+  	background:url(images/date.gif) no-repeat;
+  }
