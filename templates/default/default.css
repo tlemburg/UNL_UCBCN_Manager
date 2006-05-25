@@ -71,8 +71,12 @@
   
   #right_area{
   	float:right;
-	width:219px;
+	width:204px;
 	margin:44px 22px 0 0;
+	padding:0 0 0 15px;
+	background:url(images/dott.png) repeat-y;
+	min-height:200px;
+	
   }
   
   /*--[navigation]--*/
@@ -83,9 +87,9 @@
   
 	  #navigation ul{
 		width:200px;
-		margin:5px 0;
+		margin:3px 0;
 		padding:5px 0 0 0;
-		background:url(images/dott.gif) repeat-x;
+		background:url(images/dott.png) repeat-x;
 		list-style:none;
 	  }
 
@@ -112,5 +116,13 @@
   #maincontentarea{
   	clear:right;
   	float:right;
-  	width:458px;
+  	width:443px;
+	padding:0 15px 0 0;
   }
+  
+  /*--[right area]--*/
+  #right_area ul{
+  list-style:none;
+  }
+  
+  
