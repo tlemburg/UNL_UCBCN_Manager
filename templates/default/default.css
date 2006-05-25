@@ -24,6 +24,13 @@
  	display:none;
  }
  
+ h3{
+ 	padding:0 0 0 12px;
+ 	background:url(images/heading.gif) no-repeat 0 2px;
+ 	font:normal 1.5em Arial, Helvetica, sans-serif;
+	color:#333;
+}
+ 
  body{
  	text-align:center;
  	font: 71%/150% "Lucida Grande", Verdana, Arial;
@@ -65,16 +72,40 @@
   #right_area{
   	float:right;
 	width:219px;
-	margin:44px 22px 0 0;background:#eee;
+	margin:44px 22px 0 0;
   }
   
   /*--[navigation]--*/
   #navigation{
   	float:left;
 	width:215px;
-	background:#eee;
   }
   
+	  #navigation ul{
+		width:200px;
+		margin:5px 0;
+		padding:5px 0 0 0;
+		background:url(images/dott.gif) repeat-x;
+		list-style:none;
+	  }
+
+		   #navigation ul li a{
+		    display:block;
+			width:190px;
+			height:41px;
+			text-indent:-9999px;
+		   }
+		   
+		   #navigation ul li#calendar a{background:url(images/nav_calendar.png) no-repeat;}
+		   #navigation ul li#create a{background:url(images/nav_create.png) no-repeat;}
+		   #navigation ul li#search a{background:url(images/nav_search.png) no-repeat;}
+		   #navigation ul li#subscribe a{background:url(images/nav_subscribe.png) no-repeat;}
+		   #navigation ul li#import a{background:url(images/nav_import.png) no-repeat;}
+		  
+		   #navigation ul li#calendar a:hover, #navigation ul li#create a:hover, 
+		   #navigation ul li#search a:hover, #navigation ul li#subscribe a:hover, 
+		   #navigation ul li#import a:hover {background-position:0 -41px;}
+
  /*--[main content area]--*/
   #maincontentarea{
   	clear:right;
