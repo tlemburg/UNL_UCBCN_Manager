@@ -11,6 +11,7 @@
  
  a{
  	outline:none;
+	color:#d74364;
  }
  
  h1{
@@ -34,7 +35,7 @@
  body{
  	text-align:center;
  	font: 71%/150% "Lucida Grande", Verdana, Arial;
-	color:#3b3b3b;
+	color:#434343;
  }
  
  
@@ -120,10 +121,26 @@
   }
   
   /*--[right area]--*/
-  #right_area ul{
-  	list-style:none;
+   #account_box{
+  	margin:5px 0;
+	padding:0 0 28px 0;
+	width:178px;
+	background:url(images/account_bottom.gif) no-repeat bottom right;
+	
   }
-  
+ 
+  #account_box p{
+  	padding:6px 8px 0 8px;
+  	background:url(images/account_head.gif) no-repeat top left;
+  }
+ 
+  #account_box ul{
+  	margin:-8px 0;
+  	padding:10px 8px;
+  	background:url(images/account_middle.gif) repeat-y;
+	list-style:none;
+  }
+ 
   p#date{
   	margin:10px 0 0 0;
   	padding:0 0 0 20px;
