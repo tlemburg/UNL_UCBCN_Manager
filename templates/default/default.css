@@ -104,7 +104,9 @@
 		  
 		   #navigation ul li#calendar a:hover, #navigation ul li#create a:hover, 
 		   #navigation ul li#search a:hover, #navigation ul li#subscribe a:hover, 
-		   #navigation ul li#import a:hover {background-position:0 -41px;}
+		   #navigation ul li#import a:hover, body#create #navigation ul li#create a, 
+		   body#search #navigation ul li#search a, body#subscribe #navigation ul li#subscribe a, 
+		   body#import #navigation ul li#import a{background-position:0 -41px;}
 
  /*--[main content area]--*/
   #maincontentarea{
