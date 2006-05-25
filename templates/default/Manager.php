@@ -14,17 +14,17 @@
 	
 	<div id="main_left">
 		<div id="navigation">
-		<h3>Navigation</h3>
+		<h3 id="sec_nav">Navigation</h3>
 		<?php echo $this->navigation; ?>
 		</div><!-- close navigation -->
 		<div id="maincontentarea">
-		<h3>Main Screen</h3>
+		<h3 id="sec_main">Main Screen</h3>
 		<?php UNL_UCBCN::displayRegion($this->output); ?>
 		</div><!-- close main content area -->
 	</div><!-- close main left -->
 	
 	<div id="right_area">
-	<h3>Account</h3>
+	<h3 id="sec_acc">Account</h3>
 	<?php echo $this->accountright; ?>
 	</div><!-- close right-area -->
 
