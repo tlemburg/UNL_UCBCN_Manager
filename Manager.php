@@ -80,37 +80,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	}
 	
 	/**
-	 * Returns unique BODY tag ID
-	 * 
-	 * @return ID.
-	 */
-	function showBodyID()
-	{
-		$url_path = $_SERVER["REQUEST_URI"];
-			switch (TRUE){
-				case (eregi("/*.*/?action=createEvent/*.*",$url_path)):
-				return 'id="create"';
-				break;
-				
-				case (eregi("/*.*/?action=import/*.*",$url_path)):
-				return 'id="import"';
-				break;
-				
-				case (eregi("/*.*/?action=search/*.*",$url_path)):
-				return 'id="search"';
-				break;
-				
-				case (eregi("/*.*/?action=subscribe/*.*",$url_path)):
-				return 'id="subscribe"';
-				break;
-				
-				default:
-				return 'id="normal"';
-				break;
-				}
-	}
-	
-	/**
 	 * Returns a HTML form for the user to authenticate with.
 	 * 
 	 * @return html form for authenticating the user.
@@ -170,7 +139,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		//if ($this->a->checkAuth()) {
 			$this->navigation = $this->showNavigation();
 			$this->accountright = $this->showAccountRight();
-			$this->uniquebody = $this->showBodyID();
 			// User is authenticated.
 			if (empty($action) && isset($_GET['action'])) {
 				$action = $_GET['action'];
@@ -179,12 +147,21 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			{
 				case 'createEvent':
 					$this->output = $this->showEventSubmitForm();
+					$this->uniquebody = 'id="create"';
 				break;
 				case 'import':
 					$this->output = $this->showImportForm();
+					$this->uniquebody = 'id="import"';
+				break;
+				case 'search':
+					$this->uniquebody = 'id="search"';
+				break;
+				case 'subscribe':
+					$this->uniquebody = 'id="subscribe"';
 				break;
 				default:
 					$this->output = '<p>List of pending events.</p>';
+					$this->uniquebody = 'id="normal"';
 				break;
 			}
 		//} else {
