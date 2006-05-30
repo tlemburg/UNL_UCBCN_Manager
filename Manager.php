@@ -282,11 +282,39 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if ($account->find() && $account->fetch()) {
 			return $account;
 		} else {
-			$values = array();
-			return $this->createAccount($values);
+			$values = array(
+						'uidcreated'		=> $this->user->uid,
+						'uidlastupdated'	=> '');
+			$account = $this->createAccount($values);
+			$user_has_permission->account_id = $account->id;
+			$user_has_permission->insert();
+			//$account->user_has_permission_user_id		 = $user_has_permission->user_uid;
+			$account->user_has_permission_permission_id = $user_has_permission->id;
+			$account->update();
+			return $account;
 		}
 	}
 	
+	/**
+	 * Checks if a user has a given permission over the account.
+	 * 
+	 * @param string uid
+	 * @param string permission
+	 * @return bool true or false
+	 */
+	 function userHasPermission($uid,$permission,$account_id)
+	 {
+	 	$permission				= $this->factory('permission');
+	 	$permission->name		= $permission;
+	 	$account				= $this->factory('account');
+	 	$account->id			= $account_id;
+	 	$user_has_permission	= $this->factory('user_has_permission');
+	 	$user_has_permission->linkAdd($permission);
+	 	$user_has_permission->linkAdd($account);
+	 	$user_has_permission->user_uid = $uid;
+	 	return $user_has_permission->find();
+	 }
+
 	/**
 	 * This function creates a calendar account.
 	 * 
