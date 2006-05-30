@@ -64,12 +64,18 @@ $log = PEAR_Frontend::singleton();
 $task = new PEAR_Task_Postinstallscript_rw($pfm, $config, $log,
     array('name' => 'UNL_UCBCN_Manager_setup.php', 'role' => 'php'));
 $task->addParamGroup('questionCreate', array(
-	$task->getParam('createtemplate',	'Create/Upgrade default templates?', 'string', 'yes'),
-	$task->getParam('createindex',	'Create/Upgrade sample index page?', 'string', 'yes'),
+	$task->getParam('createtemplate',		'Create/Upgrade default templates?', 'string', 'yes'),
+	$task->getParam('createindex',			'Create/Upgrade sample index page?', 'string', 'yes'),
+	$task->getParam('createaccount',		'Create a calendar account?', 'string', 'yes'),
 	));
 $task->addParamGroup('fileSetup', array(
-	$task->getParam('docroot',		'Path to root of webserver', 'string', '/Library/WebServer/Documents/events/manager/'),
-	$task->getParam('template',	'Template style to use', 'string', 'default')
+	$task->getParam('docroot',		'Path to root of webserver', 'string', '/var/www/events/manager'),
+	$task->getParam('template',		'Template style to use', 'string', 'default')
+    ));
+$task->addParamGroup('accountSetup', array(
+	$task->getParam('dsn',			'Database connection string (DSN)', 'string', 'mysqli://eventcal:eventcal@localhost/eventcal'),
+	$task->getParam('name',			'Account Title', 'string', 'UNL Events'),
+	$task->getParam('shortname',	'Account Short Name', 'string', 'unlevents')
     ));
 
 $pfm->addPostinstallTask($task, 'UNL_UCBCN_Manager_setup.php');

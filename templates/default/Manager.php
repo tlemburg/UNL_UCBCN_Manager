@@ -1,5 +1,6 @@
 <html>
 <head>
+<title><?php echo $this->doctitle; ?></title>
 <link rel="stylesheet" type="text/css" media="screen" href="templates/@TEMPLATE@/main.css" />
 </head>
 <body <?php echo $this->uniquebody; ?>>

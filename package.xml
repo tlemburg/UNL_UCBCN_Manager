@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
     http://pear.php.net/dtd/tasks-1.0.xsd
     http://pear.php.net/dtd/package-2.0
     http://pear.php.net/dtd/package-2.0.xsd">
@@ -15,8 +15,8 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-05-25</date>
- <time>14:30:54</time>
+ <date>2006-05-29</date>
+ <time>13:23:41</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -88,6 +88,12 @@
        <tasks:type>string</tasks:type>
        <tasks:default>yes</tasks:default>
       </tasks:param>
+      <tasks:param>
+       <tasks:name>createaccount</tasks:name>
+       <tasks:prompt>Create a calendar account?</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>yes</tasks:default>
+      </tasks:param>
      </tasks:paramgroup>
      <tasks:paramgroup>
       <tasks:id>fileSetup</tasks:id>
@@ -95,13 +101,34 @@
        <tasks:name>docroot</tasks:name>
        <tasks:prompt>Path to root of webserver</tasks:prompt>
        <tasks:type>string</tasks:type>
-       <tasks:default>/Library/WebServer/Documents/events/manager/</tasks:default>
+       <tasks:default>/var/www/events/manager</tasks:default>
       </tasks:param>
       <tasks:param>
        <tasks:name>template</tasks:name>
        <tasks:prompt>Template style to use</tasks:prompt>
        <tasks:type>string</tasks:type>
        <tasks:default>default</tasks:default>
+      </tasks:param>
+     </tasks:paramgroup>
+     <tasks:paramgroup>
+      <tasks:id>accountSetup</tasks:id>
+      <tasks:param>
+       <tasks:name>dsn</tasks:name>
+       <tasks:prompt>Database connection string (DSN)</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>mysqli://eventcal:eventcal@localhost/eventcal</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>name</tasks:name>
+       <tasks:prompt>Account Title</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>UNL Events</tasks:default>
+      </tasks:param>
+      <tasks:param>
+       <tasks:name>shortname</tasks:name>
+       <tasks:prompt>Account Short Name</tasks:prompt>
+       <tasks:type>string</tasks:type>
+       <tasks:default>unlevents</tasks:default>
       </tasks:param>
      </tasks:paramgroup>
     </tasks:postinstallscript>
@@ -144,8 +171,8 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-05-25</date>
-   <license uri="http://www.php.net/license">PHP License</license>
+   <date>2006-05-29</date>
+   <license>PHP License</license>
    <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth
 		* Create Event form.

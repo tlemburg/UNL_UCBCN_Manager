@@ -1,8 +1,11 @@
 <?php
+require_once 'UNL/UCBCN.php';
+
 class UNL_UCBCN_Manager_setup_postinstall
 {
 	var $createFiles;
 	var $createIndex;
+	var $createAccount;
 	var $dsn;
 	
 	function init(&$config, &$pkg, $lastversion)
@@ -32,13 +35,20 @@ class UNL_UCBCN_Manager_setup_postinstall
         	case 'questionCreate':
         		$this->createFiles		= ($answers['createtemplate']=='yes')?true:false;
         		$this->createIndex		= ($answers['createindex']=='yes')?true:false;
-    			return $this->createFiles;
-            case 'fileSetup' :
+        		$this->createAccount	= ($answers['createaccount']=='yes')?true:false;
+    			return true && $this->createFiles && $this->createIndex && $this->createAccount;
+            case 'fileSetup':
             	if ($this->createFiles) {
                		return $this->createFiles($answers);
             	} else {
             		return true;
             	}
+            case 'accountSetup':
+				if ($this->createAccount) {
+					return $this->createAccount($answers);
+				} else {
+					return true;
+				}
             case '_undoOnError' :
                 // answers contains paramgroups that succeeded in reverse order
                 foreach ($answers as $group) {
@@ -49,6 +59,30 @@ class UNL_UCBCN_Manager_setup_postinstall
                 }
             break;
         }
+    }
+    
+    /**
+     * This function will create a calendar account if it 
+     * does not already exist.
+     * 
+     * @param array $answers Responses from the user.
+     */
+    function createAccount($answers)
+    {
+		$back = new UNL_UCBCN(array('dsn'=>$answers['dsn']));
+		$account			= $back->factory('account');
+		$account->shortname	= $answers['shortname'];
+		if (!$account->find()) {
+			$op = 'insert';
+			$account->datecreated = date('Y-m-d H:i:s');
+		} else {
+			$this->_ui->outputData('Account already exists, touching last updated datetime.');
+			$account->fetch();
+			$op = 'update';
+		}
+		$account->name		= $answers['name'];
+		$account->lastupdated = date('Y-m-d H:i:s');
+		return $account->$op();
     }
     
     function createFiles($answers)
@@ -85,6 +119,7 @@ class UNL_UCBCN_Manager_setup_postinstall
     				return $a;
     			}
     		}
+    		return $a;
     	} else {
     		if (file_exists($file)) {
 				$contents = file_get_contents($file);
@@ -102,6 +137,7 @@ class UNL_UCBCN_Manager_setup_postinstall
 				}
     		} else {
     			$this->_ui->outputData($file.' does not exist!');
+    			return false;
     		}
     	}
     }
