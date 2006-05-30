@@ -64,7 +64,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showNavigation()
 	{
 		return	'<ul>'."\n".
-				'<li id="calendar"><a href="#" title="My Calendar">Pending Events</a></li>'."\n".
+				'<li id="calendar"><a href="?" title="My Calendar">Pending Events</a></li>'."\n".
 				'<li id="create"><a href="?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
 				'<li id="search"><a href="#" title="Search">Search</a></li>'."\n".
 				'<li id="subscribe"><a href="#" title="Subscribe">Subscribe</a></li>'."\n".
@@ -322,7 +322,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function dbInsert($table,$values)
 	{
 		$rec = $this->factory($table);
-		$vars = getObjectVars($rec);
+		$vars = get_object_vars($rec);
 		foreach ($values as $var=>$value) {
 			if (in_array($var,$vars)) {
 				$rec->$var = $value;
