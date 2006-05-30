@@ -277,11 +277,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		$account = $this->factory('account');
 		$user_has_permission = $this->factory('user_has_permission');
-		$user->user_uid = $uid;
-		$account->linkAdd($user);
+		$user_has_permission->user_uid = $uid;
+		$account->linkAdd($user_has_permission);
 		if ($account->find() && $account->fetch()) {
 			return $account;
 		} else {
+			$values = array();
 			return $this->createAccount($values);
 		}
 	}
