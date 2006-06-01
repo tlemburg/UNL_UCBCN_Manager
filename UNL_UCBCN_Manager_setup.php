@@ -36,7 +36,7 @@ class UNL_UCBCN_Manager_setup_postinstall
         		$this->createFiles		= ($answers['createtemplate']=='yes')?true:false;
         		$this->createIndex		= ($answers['createindex']=='yes')?true:false;
         		$this->createAccount	= ($answers['createaccount']=='yes')?true:false;
-    			return true && $this->createFiles && $this->createIndex && $this->createAccount;
+        		return true;
             case 'fileSetup':
             	if ($this->createFiles) {
                		return $this->createFiles($answers);

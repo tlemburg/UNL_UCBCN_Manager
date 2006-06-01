@@ -69,7 +69,7 @@ $task->addParamGroup('questionCreate', array(
 	$task->getParam('createaccount',		'Create a calendar account?', 'string', 'yes'),
 	));
 $task->addParamGroup('fileSetup', array(
-	$task->getParam('docroot',		'Path to root of webserver', 'string', '/var/www/events/manager'),
+	$task->getParam('docroot',		'Path to root of webserver', 'string', '/Library/WebServer/Documents/events/manager'),
 	$task->getParam('template',		'Template style to use', 'string', 'default')
     ));
 $task->addParamGroup('accountSetup', array(

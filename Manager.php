@@ -110,16 +110,37 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	/**
 	 * Returns a form for entering/editing an event.
 	 * 
+	 * @param int ID of the event to retrieve and generate a form for.
 	 * @return string HTML form for entering an event into the database.
 	 */
-	function showEventSubmitForm()
+	function showEventSubmitForm($id = NULL)
 	{
 		$events = $this->factory('event');
+		if (isset($id)) {
+			if (!$events->get($id)) {
+				return new UNL_UCBCN_Error('Error, the event with that record was not found!');
+			}
+		}
 		$fb = DB_DataObject_FormBuilder::create($events);
 		$form = $fb->getForm($_SERVER['PHP_SELF'].'?action=createEvent');
+		$form->setDefaults(array(
+					'datecreated'		=> date('Y-m-d H:i:s'),
+					'uidcreated'		=> $this->user->uid,
+					'uidlastupdated'	=> $this->user->uid));
 		if ($form->validate()) {
 			// Form has passed the client/server validation and can be inserted.
-			$form->process(array(&$fb, 'processForm'), false);
+			$result = $form->process(array(&$fb, 'processForm'), false);
+			if ($result) {
+				// EVENT Has been added... now check permissions and add to selected calendars.
+				$values = array(
+								'account_id'	=> $this->account->id,
+								'event_id'		=> $events->id,
+								'uid_created'	=> $this->user->uid,
+								'date_last_updated'	=> date('Y-m-d H:i:s'),
+								'uid_last_updated'	=> $this->user->uid,
+								'status'		=> 'pending');
+				$this->dbInsert('account_has_event',$values);
+			}
 			$form->freeze();
 			$form->removeElement('__submit__');
 			return $form->toHtml();
@@ -163,7 +184,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			switch($action)
 			{
 				case 'createEvent':
-					$this->output = $this->showEventSubmitForm();
+					if (isset($_GET['id'])) {
+						$id = (int)$_GET['id'];
+					} else {
+						$id = NULL;
+					}
+					$this->output = $this->showEventSubmitForm($id);
 					$this->uniquebody = 'id="create"';
 				break;
 				case 'import':
@@ -180,7 +206,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->output = $this->showAccountForm();
 				break;
 				default:
-					$this->output = '<p>List of pending events.</p>';
+					$this->output = $this->showEventListing('pending');
 					$this->uniquebody = 'id="normal"';
 				break;
 			}
@@ -191,6 +217,30 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	}
 	
 	/**
+	 * Shows the list of events for the current user.
+	 * 
+	 * @param string $type The type of events to return, pending, posted or archived
+	 * 
+	 * @return string HTML snippet of events currently in the system.
+	 */
+	function showEventListing($status='pending')
+	{
+		$e = ucfirst($status).' Events:';
+		$a_event = $this->factory('account_has_event');
+		$a_event->status = $status;
+		$a_event->account_id = $this->account->id;
+		if ($a_event->find()) {
+			while ($a_event->fetch()) {
+				$event = $a_event->getLink('event_id');
+				$e .= $event->title.' <a href="?action=createEvent&amp;id='.$event->id.'">Edit</a>';
+			}
+		} else {
+			$e .= 'Sorry, there are no '.$status.' events.';
+		}
+		return $e;
+	}
+	
+	/**
 	 * Returns a form to edit the current acccount.
 	 * @return string html form.
 	 */
@@ -198,8 +248,15 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		if (isset($this->account)) {
 			$fb = DB_DataObject_FormBuilder::create($this->account);
-			$form = $fb->getForm();
-			return $form->toHtml();
+			$form = $fb->getForm('?action=account');
+			if ($form->validate()) {
+				$form->process(array(&$fb, 'processForm'), false);
+				$form->freeze();
+				$form->removeElement('__submit__');
+				return '<p>Account info saved...</p>'.$form->toHtml();
+			} else {
+				return $form->toHtml();
+			}
 		} else {
 			return $this->showAccounts();
 		}
@@ -227,7 +284,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$output .= $form->toHtml();
 		} else {
 			// Error, user has no permission to anything!
-			$output = 'Sorry, you do not have permission to edit/access any accounts.';
+			$output = new UNL_UCBCN_Error('Sorry, you do not have permission to edit/access any accounts.');
 		}
 		return $output;
 	}
@@ -286,8 +343,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						'uidcreated'		=> $this->user->uid,
 						'uidlastupdated'	=> '');
 			$account = $this->createAccount($values);
-			$user_has_permission->account_id = $account->id;
-			$user_has_permission->insert();
+			$permissions = $this->factory('permission');
+			$permissions->whereAdd('name LIKE "Event%"');
+			if ($permissions->find()) {
+				while ($permissions->fetch()) {
+					$this->addPermission($uid,$account->id,$permissions->id);
+				}
+			}
 			//$account->user_has_permission_user_id		 = $user_has_permission->user_uid;
 			$account->user_has_permission_permission_id = $user_has_permission->id;
 			$account->update();
@@ -300,6 +362,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 * 
 	 * @param string uid
 	 * @param string permission
+	 * @param int account id;
 	 * @return bool true or false
 	 */
 	 function userHasPermission($uid,$permission,$account_id)
@@ -314,6 +377,23 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 	$user_has_permission->user_uid = $uid;
 	 	return $user_has_permission->find();
 	 }
+
+	/**
+	 * This function adds the given permission for the user.
+	 * 
+	 * @param string $uid Username to add permission for.
+	 * @param int $account_id ID of the account to add permission for.
+	 * @param int $permission_id ID of the permission you wish to add for the person.
+	 */
+	function addPermission($uid,$account_id,$permission_id)
+	{
+		$values = array(
+						'account_id'	=> $account_id,
+						'user_uid'		=> $uid,
+						'permission_id'=>	$permission_id
+						);
+		return $this->dbInsert('user_has_permission',$values);
+	}
 
 	/**
 	 * This function creates a calendar account.
