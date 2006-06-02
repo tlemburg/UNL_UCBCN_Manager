@@ -22,7 +22,7 @@
 </div><!-- close navigation -->
 
 <div id="maincontentarea">
-<h3 id="sec_main">Main Screen</h3>
+<h3 id="sec_main"><?php echo $this->sectitle; ?></h3>
 <?php UNL_UCBCN::displayRegion($this->output); ?>
 </div><!-- close main content area -->
 

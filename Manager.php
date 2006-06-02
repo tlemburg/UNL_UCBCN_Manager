@@ -22,16 +22,18 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	/** User object */
 	var $user;
 	/** Navigation */
-	var $navigation;
+	public $navigation;
 	/** Account on right column */
-	var $accountright;
+	public $accountright;
 	/** Unique body ID */
-	var $uniquebody;
+	public $uniquebody;
 	/** Main content of the page sent to the client. */
-	var $output;
+	public $output;
 	/** Page Title */
-	var $doctitle;
-
+	public $doctitle;
+	/** Section Title */
+	public $sectitle;
+	
 	/**
 	 * Constructor for the UNL_UCBCN_Manager.
 	 * 
@@ -100,7 +102,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$intro = '<p>Welcome to the University Event Publishing System, please log in using your
 					Username and Password.</p>';		
 		$form = new HTML_QuickForm('login');
-		$form->addElement('header','loginhead','Event Publisher Login');
 		$form->addElement('text','username','User');
 		$form->addElement('password','password','Password');
 		$form->addElement('submit','submit','Submit');
@@ -132,14 +133,16 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$result = $form->process(array(&$fb, 'processForm'), false);
 			if ($result) {
 				// EVENT Has been added... now check permissions and add to selected calendars.
-				$values = array(
-								'account_id'	=> $this->account->id,
-								'event_id'		=> $events->id,
-								'uid_created'	=> $this->user->uid,
-								'date_last_updated'	=> date('Y-m-d H:i:s'),
-								'uid_last_updated'	=> $this->user->uid,
-								'status'		=> 'pending');
-				$this->dbInsert('account_has_event',$values);
+				switch (true) {
+					case $this->userHasPermission($this->user,'Event Post',$this->account):
+						$this->addAccountHasEvent($this->account,$events,'posted',$this->user);
+					break;
+					case $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->account):
+						$this->addAccountHasEvent($this->account,$events,'pending',$this->user);
+					break;
+					default:
+						return UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar.');
+				}
 			}
 			$form->freeze();
 			$form->removeElement('__submit__');
@@ -150,13 +153,35 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	}
 	
 	/**
+	 * Adds an event to an account.
+	 * 
+	 * @param object Account, UNL_UCBCN_Account object.
+	 * @param object UNL_UCBCN_Event object.
+	 * @param sring status=[pending|posted|archived]
+	 * @param object UNL_UCBCN_User object
+	 * 
+	 * @return object UNL_UCBCN_Account_has_event
+	 */
+	function addAccountHasEvent($account,$event,$status,$user)
+	{
+		$values = array(
+						'account_id'	=> $account->id,
+						'event_id'		=> $event->id,
+						'uid_created'	=> $user->uid,
+						'date_last_updated'	=> date('Y-m-d H:i:s'),
+						'uid_last_updated'	=> $user->uid,
+						'status'		=> 'pending');
+		return $this->dbInsert('account_has_event',$values);
+	}
+	
+	/**
 	 * Returns a html form for importing xml/.ics files.
 	 * 
 	 * @return string HTML form for uploading a file.
 	 */
 	function showImportForm()
 	{
-		$form = new HTML_QuickForm();
+		$form = new HTML_QuickForm('import','POST','?action=import');
 		$form->addElement('header','importhead','Import iCalendar .ics/xml:');
 		$form->addElement('file','filename','Filename');
 		return $form->toHtml();
@@ -184,36 +209,63 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			switch($action)
 			{
 				case 'createEvent':
-					if (isset($_GET['id'])) {
-						$id = (int)$_GET['id'];
-					} else {
-						$id = NULL;
-					}
-					$this->output = $this->showEventSubmitForm($id);
 					$this->uniquebody = 'id="create"';
+					$this->sectitle = 'Create/Edit Event';
+					if ($this->userHasPermission($this->user,'Event Create',$this->account)) {
+						if (isset($_GET['id'])) {
+							$id = (int)$_GET['id'];
+						} else {
+							$id = NULL;
+						}
+						$this->output = $this->showEventSubmitForm($id);
+					} else {
+						$this->output = new UNL_UCBCN_Error('Sorry, you do not have permission to create events.');
+					}
 				break;
 				case 'import':
 					$this->output = $this->showImportForm();
 					$this->uniquebody = 'id="import"';
+					$this->sectitle = 'Import .ics or .xml Event';
 				break;
 				case 'search':
 					$this->uniquebody = 'id="search"';
+					$this->sectitle = 'Event Search';
 				break;
 				case 'subscribe':
 					$this->uniquebody = 'id="subscribe"';
+					$this->sectitle = 'Subscribe to Events';
 				break;
 				case 'account':
 					$this->output = $this->showAccountForm();
+					$this->sectitle = 'Edit '.$this->account->name.' Info';
 				break;
 				default:
-					$this->output = $this->showEventListing('pending');
+					$this->output = '<ul>' .
+										'<li><a href="?list=pending">Pending</a></li>' .
+										'<li><a href="?list=posted">Posted</a></li>' .
+										'<li><a href="?list=archived">Archived</a></li>' .
+									'</ul>';
+					switch ($_GET['list']) {
+						case 'pending':
+						case 'posted':
+						case 'archived':
+							$this->sectitle = ucfirst($_GET['list']).' Events';
+							$this->output .= $this->showEventListing($_GET['list']);
+						break;
+						default:
+							$this->output .= $this->showEventListing('pending');
+							$this->sectitle = 'Pending Events';
+						break;
+					}
 					$this->uniquebody = 'id="normal"';
 				break;
 			}
 		} else {
 			// User is not logged in.
+			$this->sectitle = 'Event Manager Login';
 			$this->output = $this->showLoginForm();
 		}
+		$this->doctitle .= ' | '.$this->sectitle;
 	}
 	
 	/**
@@ -225,7 +277,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showEventListing($status='pending')
 	{
-		$e = ucfirst($status).' Events:';
+		$e = '';
 		$a_event = $this->factory('account_has_event');
 		$a_event->status = $status;
 		$a_event->account_id = $this->account->id;
@@ -360,21 +412,19 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	/**
 	 * Checks if a user has a given permission over the account.
 	 * 
-	 * @param string uid
+	 * @param object UNL_UCBCN_User
 	 * @param string permission
-	 * @param int account id;
+	 * @param object UNL_UCBCN_Account
 	 * @return bool true or false
 	 */
-	 function userHasPermission($uid,$permission,$account_id)
+	 function userHasPermission($user,$permission,$account)
 	 {
 	 	$permission				= $this->factory('permission');
 	 	$permission->name		= $permission;
-	 	$account				= $this->factory('account');
-	 	$account->id			= $account_id;
 	 	$user_has_permission	= $this->factory('user_has_permission');
 	 	$user_has_permission->linkAdd($permission);
 	 	$user_has_permission->linkAdd($account);
-	 	$user_has_permission->user_uid = $uid;
+	 	$user_has_permission->user_uid = $user->uid;
 	 	return $user_has_permission->find();
 	 }
 
