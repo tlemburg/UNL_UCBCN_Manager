@@ -236,7 +236,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->sectitle = 'Subscribe to Events';
 				break;
 				case 'account':
-					$this->output = $this->showAccountForm();
+					if (isset($_GET['new']) && $_GET['new']=='true') {
+						$this->output =		'<p>Welcome to the University Event publishing system!</p>'.
+											'<p>We\'ve created an account for you, simply enter in the additional details to begin publishing your events!</p>';
+					}
+					$this->output .= $this->showAccountForm();
 					$this->sectitle = 'Edit '.$this->account->name.' Info';
 				break;
 				default:
@@ -287,7 +291,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$e .= $event->title.' <a href="?action=createEvent&amp;id='.$event->id.'">Edit</a>';
 			}
 		} else {
-			$e .= 'Sorry, there are no '.$status.' events.';
+			$e .= '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
 		}
 		return $e;
 	}
@@ -391,9 +395,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if ($account->find() && $account->fetch()) {
 			return $account;
 		} else {
+			// No account exists!
 			$values = array(
+						'name'				=> ucfirst($this->user->uid).'\'s Calendar!',
+						'shortname'			=> $this->user->uid,
 						'uidcreated'		=> $this->user->uid,
-						'uidlastupdated'	=> '');
+						'uidlastupdated'	=> $this->user->uid);
 			$account = $this->createAccount($values);
 			$permissions = $this->factory('permission');
 			$permissions->whereAdd('name LIKE "Event%"');
@@ -405,7 +412,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			//$account->user_has_permission_user_id		 = $user_has_permission->user_uid;
 			$account->user_has_permission_permission_id = $user_has_permission->id;
 			$account->update();
-			return $account;
+			// Account has been created, but has no details, send the user to the edit account page?
+			$this->localRedirect('?action=account&new=true');
 		}
 	}
 	
@@ -464,7 +472,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$values = array_merge($defaults,$values);
 			return $this->dbInsert('account',$values);
 		} else {
-			return 'Error, could not create account.';
+			return new UNL_UCBCN_Error('Error, could not create account.');
 		}
 	}
 	
@@ -492,5 +500,37 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		} else {
 			return $rec;
 		}
+	}
+	
+	/**
+	 * Redirects to the given full or partial URL.
+	 * will turn the given url into an absolute url
+	 * using the above getURL() function. This function
+	 * does not return.
+	 *
+	 * @param string $url Full/partial url to redirect to
+	 * @param  bool  $keepProtocol Whether to keep the current protocol or to force HTTP
+	 */
+	function localRedirect($url, $keepProtocol = true)
+	{
+		$url = self::getURL($url, $keepProtocol);
+		if  ($keepProtocol == false) {
+			$url = preg_replace("/^https/", "http", $url);
+		}
+		header('Location: ' . $url);
+		exit;
+	}
+	
+	/**
+	 * Returns an absolute URL using Net_URL
+	 *
+	 * @param  string $url All/part of a url
+	 * @return string      Full url
+	 */
+	function getURL($url)
+	{
+		include_once 'Net/URL.php';
+		$obj = new Net_URL($url);
+		return $obj->getURL();
 	}
 }
