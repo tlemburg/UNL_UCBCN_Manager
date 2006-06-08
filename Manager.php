@@ -296,10 +296,26 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$a_event->status = $status;
 		$a_event->account_id = $this->account->id;
 		if ($a_event->find()) {
+			$e .= '<table>';
+			$e .= '<thead>' .
+					'<tr>' .
+					'<th scope="column">Select</th>' .
+					'<th scope="column">Date</th>' .
+					'<th scope="column">Event Title</th>' .
+					'<th scope="column">Edit</th>' .
+					'</tr>' .
+					'</thead>' .
+					'<tbody>';
 			while ($a_event->fetch()) {
 				$event = $a_event->getLink('event_id');
-				$e .= $event->title.' <a href="?action=createEvent&amp;id='.$event->id.'">Edit</a>';
+				$e .= '<tr>'.
+						'<td><input type="checkbox" name="event['.$event->id.']" />' .
+						'<td>'.$event->startdate.'</td>' .
+						'<td>'.$event->title.'</td>' .
+						'<td><a href="?action=createEvent&amp;id='.$event->id.'">Edit</a></td>' .
+						'</tr>';
 			}
+			$e .= '</tbody></table>';
 		} else {
 			$e .= '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
 		}
