@@ -103,13 +103,15 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		$intro = '<p>Welcome to the University Event Publishing System, please log in using your
 					Username and Password.</p>';		
+		$lostpassword = '<p id="lost"><a href="#" title="" id="forgot">Forgot your password?</a></p>';
 		$form = new HTML_QuickForm('login');
 		$form->addElement('text','username','User');
 		$form->addElement('password','password','Password');
 		$form->addElement('submit','submit','Submit');
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$form->accept($renderer);
-		return $intro.$renderer->toHtml();
+		return $intro.$renderer->toHtml().$lostpassword;
+		
 	}
 	
 	/**
@@ -274,6 +276,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		} else {
 			// User is not logged in.
 			$this->sectitle = 'Event Manager Login';
+			$this->uniquebody = 'id="login"';
 			$this->output = $this->showLoginForm();
 		}
 		$this->doctitle .= ' | '.$this->sectitle;
