@@ -299,10 +299,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$e .= '<table>';
 			$e .= '<thead>' .
 					'<tr>' .
-					'<th scope="column">Select</th>' .
-					'<th scope="column">Date</th>' .
-					'<th scope="column">Event Title</th>' .
-					'<th scope="column">Edit</th>' .
+					'<th scope="col">Select</th>' .
+					'<th scope="col">Date</th>' .
+					'<th scope="col">Event Title</th>' .
+					'<th scope="col">Edit</th>' .
 					'</tr>' .
 					'</thead>' .
 					'<tbody>';
