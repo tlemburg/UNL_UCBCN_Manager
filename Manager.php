@@ -297,31 +297,42 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$a_event->account_id = $this->account->id;
 		if ($a_event->find()) {
 			$oddrow = false;
+			$e .= '<form action="?list='.$status.'" method="post">';
 			$e .= '<table>';
 			$e .= '<thead>' .
 					'<tr>' .
-					'<th scope="col">Select</th>' .
-					'<th scope="col">Date</th>' .
-					'<th scope="col">Event Title</th>' .
-					'<th scope="col">Edit</th>' .
+					'<th scope="col" class="select">Select</th>' .
+					'<th scope="col" class="date">Date</th>' .
+					'<th scope="col" class="title">Event Title</th>' .
+					'<th scope="col" class="edit">Edit</th>' .
 					'</tr>' .
 					'</thead>' .
 					'<tbody>';
 			while ($a_event->fetch()) {
 				$event = $a_event->getLink('event_id');
-				$e .= '<tr';
-				if ($oddrow) {
-					$e .= ' class="alt"';
+				if (isset($_POST['event'][$event->id]) 
+					&& isset($_POST['delete']) 
+					&& $this->userHasPermission($this->user,'Event Remove from Pending',$this->account)) {
+					// User has chosen to delete the event selected, and has permission to delete from pending.
+						$a_event->delete();
+				} else {
+					$e .= '<tr';
+					if ($oddrow) {
+						$e .= ' class="alt"';
+					}
+					$e .= '>';
+					$oddrow = !$oddrow;
+					$e .=	'<td class="select"><input type="checkbox" name="event['.$event->id.']" />' .
+							'<td class="date">'.$event->startdate.'</td>' .
+							'<td class="title">'.$event->title.'</td>' .
+							'<td class="edit"><a href="?action=createEvent&amp;id='.$event->id.'">Edit</a></td>' .
+							'</tr>';
 				}
-				$e .= '>';
-				$oddrow = !$oddrow;
-				$e .=	'<td><input type="checkbox" name="event['.$event->id.']" />' .
-						'<td>'.$event->startdate.'</td>' .
-						'<td>'.$event->title.'</td>' .
-						'<td><a href="?action=createEvent&amp;id='.$event->id.'">Edit</a></td>' .
-						'</tr>';
 			}
 			$e .= '</tbody></table>';
+			$e .= '<input type="submit" name="delete" value="Delete" />';
+			$e .= '<input type="submit" name="post" value="Add to Posted" />';
+			$e .= '</form>';
 		} else {
 			$e .= '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
 		}
