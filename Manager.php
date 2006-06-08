@@ -12,6 +12,8 @@ require_once 'UNL/UCBCN.php';
 require_once 'DB/DataObject/FormBuilder.php';
 require_once 'HTML/QuickForm.php';
 require_once 'Auth.php';
+// Custom quickform renderer.
+require_once 'UNL/UCBCN/Manager/Tableless.php';
 
 class UNL_UCBCN_Manager extends UNL_UCBCN {
 
@@ -68,8 +70,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		return	'<ul>'."\n".
 				'<li id="calendar"><a href="?" title="My Calendar">Pending Events</a></li>'."\n".
 				'<li id="create"><a href="?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
-				'<li id="search"><a href="#" title="Search">Search</a></li>'."\n".
-				'<li id="subscribe"><a href="#" title="Subscribe">Subscribe</a></li>'."\n".
+				'<li id="search"><a href="?action=search" title="Search">Search</a></li>'."\n".
+				'<li id="subscribe"><a href="?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
 				'<li id="import"><a href="?action=import" title="Import/Export">Import/Export</a></li>'."\n".
 				'</ul>'."\n";
 	}
@@ -105,7 +107,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$form->addElement('text','username','User');
 		$form->addElement('password','password','Password');
 		$form->addElement('submit','submit','Submit');
-		return $intro.$form->toHtml();
+		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
+		return $intro.$renderer->toHtml();
 	}
 	
 	/**
@@ -124,6 +128,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		}
 		$fb = DB_DataObject_FormBuilder::create($events);
 		$form = $fb->getForm($_SERVER['PHP_SELF'].'?action=createEvent');
+		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
 		$form->setDefaults(array(
 					'datecreated'		=> date('Y-m-d H:i:s'),
 					'uidcreated'		=> $this->user->uid,
@@ -146,9 +152,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			$form->freeze();
 			$form->removeElement('__submit__');
-			return $form->toHtml();
+			return $renderer->toHtml();
 		} else {
-			return $form->toHtml();
+			return $renderer->toHtml();
 		}
 	}
 	
@@ -184,7 +190,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$form = new HTML_QuickForm('import','POST','?action=import');
 		$form->addElement('header','importhead','Import iCalendar .ics/xml:');
 		$form->addElement('file','filename','Filename');
-		return $form->toHtml();
+		$form->addElement('submit','Submit','Submit');
+		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
+		return $renderer->toHtml();
 	}
 	
 	/**
@@ -303,19 +312,40 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showAccountForm()
 	{
 		if (isset($this->account)) {
+			$msg = '';
 			$fb = DB_DataObject_FormBuilder::create($this->account);
 			$form = $fb->getForm('?action=account');
+			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->accept($renderer);
 			if ($form->validate()) {
 				$form->process(array(&$fb, 'processForm'), false);
 				$form->freeze();
 				$form->removeElement('__submit__');
-				return '<p>Account info saved...</p>'.$form->toHtml();
-			} else {
-				return $form->toHtml();
+				$msg = '<p>Account info saved...</p>';
 			}
+			return $msg.$renderer->toHtml().$this->showAccountUsers();
 		} else {
 			return $this->showAccounts();
 		}
+	}
+	
+	/**
+	 * 
+	 */
+	function showAccountUsers()
+	{
+		$permissions_list = '<h4>User Permissions</h4>';
+		$user_has_permission = $this->factory('user_has_permission');
+		$user_has_permission->account_id = $this->account->id;
+		$users = $this->factory('user');
+		$users->groupBy('uid');
+		$users->joinAdd($user_has_permission);
+		if ($users->find()) {
+			while ($users->fetch()) {
+				$permissions_list .= $users->uid;
+			}
+		}
+		return $permissions_list;
 	}
 
 	/**
@@ -330,6 +360,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$user_has_permission->uid = $this->user->uid;
 		if ($user_has_permission->find()) {
 			$form = new HTML_QuickForm();
+			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->accept($renderer);
 			$form->addElement('header','accounthead','Choose an account:');
 			$acc_select = HTML_QuickForm::createElement('select','account_id','Account');
 			while ($user_has_permission->fetch()) {
@@ -337,7 +369,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			$form->addElement($acc_select);
 			$form->addElement('submit','submit','Submit');
-			$output .= $form->toHtml();
+			$output .= $renderer->toHtml();
 		} else {
 			// Error, user has no permission to anything!
 			$output = new UNL_UCBCN_Error('Sorry, you do not have permission to edit/access any accounts.');

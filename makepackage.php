@@ -27,7 +27,8 @@ $pfm->setOptions(array(
 	'simpleoutput' => true,
 	'roles'=>array('php'=>'data'	),
 	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'=>'php',
-						'Manager.php'=>'php')
+						'Manager.php'=>'php',
+						'Manager/Tableless.php'=>'php')
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
 $pfm->setPackageType('php'); // this is a PEAR-style php script package

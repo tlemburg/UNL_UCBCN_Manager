@@ -15,8 +15,8 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-06-02</date>
- <time>13:37:19</time>
+ <date>2006-06-08</date>
+ <time>09:51:04</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -29,9 +29,13 @@
  <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth
 		* Create Event form.
+		* Added Dependency on NET_URL
 		* Default template for the manager.</notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
+   <dir name="Manager">
+    <file name="Tableless.php" role="php" />
+   </dir> <!-- /Manager -->
    <dir name="templates">
     <dir name="default">
      <dir name="images">
@@ -49,14 +53,14 @@
       <file name="nav_search.png" role="data" />
       <file name="nav_subscribe.png" role="data" />
       <file name="title.gif" role="data" />
-     </dir> <!-- //templates/default/images -->
+     </dir> <!-- /templates/default/images -->
      <file name="default.css" role="data" />
      <file name="Error.php" role="data" />
      <file name="ieonly.css" role="data" />
      <file name="main.css" role="data" />
      <file name="Manager.php" role="data" />
-    </dir> <!-- //templates/default -->
-   </dir> <!-- //templates -->
+    </dir> <!-- /templates/default -->
+   </dir> <!-- /templates -->
    <file name="index.php" role="data">
     <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
     <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
@@ -155,6 +159,11 @@
     <min>1.3.0</min>
    </package>
    <package>
+    <name>NET_URL</name>
+    <channel>pear.php.net</channel>
+    <min>1.0</min>
+   </package>
+   <package>
     <name>UNL_UCBCN</name>
     <channel>pear.unl.edu</channel>
     <min>0.0.1</min>
@@ -172,11 +181,12 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-06-02</date>
+   <date>2006-06-08</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth
 		* Create Event form.
+		* Added Dependency on NET_URL
 		* Default template for the manager.</notes>
   </release>
  </changelog>
