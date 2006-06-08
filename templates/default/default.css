@@ -31,10 +31,12 @@
  	font:normal 1.5em Arial, Helvetica, sans-serif;
 	color:#333;
 }
- 
+ p{
+  margin:1.1em 0;
+ }
  body{
  	text-align:center;
- 	font: 71%/150% "Lucida Grande", Verdana, Arial;
+ 	font: 80%/130% "Lucida Grande", Verdana, Arial;
 	color:#434343;
  }
  
@@ -69,7 +71,7 @@
   	margin:44px 0 0 22px;
   	display:inline;
   }
-  
+
   #right_area{
   	float:right;
 	width:204px;
@@ -121,6 +123,7 @@
   }
   
   /*--[right area]--*/
+
    #account_box{
   	margin:5px 0;
 	padding:0 0 28px 0;
@@ -197,4 +200,43 @@ form div.header {
 
 textarea {
   overflow: auto;
+}
+
+/* login form */
+  
+body#login #right_area, body#login #navigation{
+  	display:none;
+  }
+body#login #main_left{
+  	position:relative;
+  }
+body#login #maincontentarea{
+	position:absolute;
+	left:42%;
+  }
+body#login p#lost{
+	margin:-5em 0 0 12.5em;  
+  }
+body#login a#forgot{
+   background:url(images/lost_password.gif) no-repeat;
+   text-decoration:none;
+   padding:1px 0 2px 25px;
+  }
+form#login{
+	width:431px;
+	height:186px;
+	background:#fff url(images/login-calendar_03.gif) no-repeat;
+	padding:75px 0 0 0;
+	font-size:18px;
+	letter-spacing:-1px;
+	}
+	
+form#login input{
+	background:#deecfd;
+	border:1px solid #c2d4e2;
+	font-size:17px;
+	padding:3px;
+}
+form#login label{
+	margin-top:3px;
 }
