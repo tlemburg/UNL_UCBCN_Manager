@@ -253,6 +253,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->sectitle = 'Edit '.$this->account->name.' Info';
 				break;
 				default:
+					$this->uniquebody = 'id="normal"';
 					$this->output = '<ul>' .
 										'<li><a href="?list=pending">Pending</a></li>' .
 										'<li><a href="?list=posted">Posted</a></li>' .
@@ -270,7 +271,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 							$this->sectitle = 'Pending Events';
 						break;
 					}
-					$this->uniquebody = 'id="normal"';
 				break;
 			}
 		} else {
@@ -296,6 +296,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$a_event->status = $status;
 		$a_event->account_id = $this->account->id;
 		if ($a_event->find()) {
+			$oddrow = false;
 			$e .= '<table>';
 			$e .= '<thead>' .
 					'<tr>' .
@@ -308,8 +309,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					'<tbody>';
 			while ($a_event->fetch()) {
 				$event = $a_event->getLink('event_id');
-				$e .= '<tr>'.
-						'<td><input type="checkbox" name="event['.$event->id.']" />' .
+				$e .= '<tr';
+				if ($oddrow) {
+					$e .= ' class="alt"';
+				}
+				$e .= '>';
+				$oddrow = !$oddrow;
+				$e .=	'<td><input type="checkbox" name="event['.$event->id.']" />' .
 						'<td>'.$event->startdate.'</td>' .
 						'<td>'.$event->title.'</td>' .
 						'<td><a href="?action=createEvent&amp;id='.$event->id.'">Edit</a></td>' .
@@ -347,7 +353,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	}
 	
 	/**
+	 * This function returns a list of users that have 'some' 
+	 * permission to the current account.
 	 * 
+	 * @return string html list of users.
 	 */
 	function showAccountUsers()
 	{
