@@ -35,7 +35,7 @@ require_once 'HTML/QuickForm/Renderer/Default.php';
  *  }
  *  
  *  form br {
- *    clear: left;
+ *    display: none;
  *  }
  *  
  *  form label { 
@@ -49,7 +49,7 @@ require_once 'HTML/QuickForm/Renderer/Default.php';
  *  
  *  form input, form textarea {
  *    width: auto;
- *    margin:0 0 5px 10px;
+ *    margin: 0 0 5px 10px;
  *  }
  *  
  *  form span.error {
@@ -62,6 +62,11 @@ require_once 'HTML/QuickForm/Renderer/Default.php';
  *    margin-bottom: 10px;
  *  }
  *  
+ *  form div.error br {
+ *    display: inline;
+ *    clear: left;
+ *  }
+ *
  *  form div.header {
  *    white-space: nowrap;
  *    background-color: #CCCCCC;
@@ -92,7 +97,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     * @access   private
     */
     var $_elementTemplate = 
-        "\n\t<div<!-- BEGIN error --> class=\"error\"<!-- END error -->><!-- BEGIN error -->\n\t\t<label></label><span class=\"error\">{error}</span><br /><!-- END error -->\n\t\t<label><!-- BEGIN required --><span style=\"color: #ff0000\">*</span><!-- END required -->{label}</label>{element}<br />\n</div>";
+        "\n\t<div<!-- BEGIN error --> class=\"error\"<!-- END error -->><!-- BEGIN error -->\n\t\t<label></label><span class=\"error\">{error}</span><br /><!-- END error -->\n\t\t<label><!-- BEGIN required --><span style=\"color: #ff0000\">*</span><!-- END required -->{label}</label>{element}\n\t</div>\n\t<br />";
 
    /**
     * Form template string

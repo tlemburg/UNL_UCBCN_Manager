@@ -152,10 +152,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			$form->freeze();
 			$form->removeElement('__submit__');
-			return $renderer->toHtml();
-		} else {
-			return $renderer->toHtml();
 		}
+		return $renderer->toHtml();
 	}
 	
 	/**

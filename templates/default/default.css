@@ -156,7 +156,7 @@ form {
 }
 
 form br {
-  clear: left;
+  display: none;
 }
 
 form label { 
@@ -170,7 +170,7 @@ form label {
 
 form input, form textarea {
   width: auto;
-  margin:0 0 5px 10px;
+  margin: 0 0 5px 10px;
 }
 
 form span.error {
@@ -181,6 +181,11 @@ form span.error {
 form div.error {
   border: 1px solid red;
   margin-bottom: 10px;
+}
+
+form div.error br {
+  display: inline;
+  clear: left;
 }
 
 form div.header {
