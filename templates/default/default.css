@@ -173,13 +173,13 @@ form label {
 }
 form .header {
   white-space: nowrap;
-  border-bottom:1px solid #999;
+  border-bottom:1px solid #c8c7c7;
   margin:5px 0 4px 0;
    padding:4px 0;
 }
 form .header b{
   padding:5px;
-  border:1px solid #999;
+  border:1px solid #c8c7c7;
 }
 form input, textarea, select {
   border:1px solid #8ebcd6;
