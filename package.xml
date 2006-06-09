@@ -15,8 +15,8 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-06-08</date>
- <time>14:45:48</time>
+ <date>2006-06-09</date>
+ <time>08:14:05</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -47,11 +47,14 @@
       <file name="dott.png" role="data" />
       <file name="head.gif" role="data" />
       <file name="heading.gif" role="data" />
+      <file name="login-calendar_03.gif" role="data" />
+      <file name="lost_password.gif" role="data" />
       <file name="nav_calendar.png" role="data" />
       <file name="nav_create.png" role="data" />
       <file name="nav_import.png" role="data" />
       <file name="nav_search.png" role="data" />
       <file name="nav_subscribe.png" role="data" />
+      <file name="submit.gif" role="data" />
       <file name="title.gif" role="data" />
      </dir> <!-- /templates/default/images -->
      <file name="default.css" role="data" />
@@ -181,7 +184,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-06-08</date>
+   <date>2006-06-09</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth

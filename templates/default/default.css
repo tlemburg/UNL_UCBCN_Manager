@@ -67,7 +67,7 @@
  
   #main_left{
   	float:left;
-  	width:673px;
+  	width:693px;
   	margin:44px 0 0 22px;
   	display:inline;
   }
@@ -119,8 +119,8 @@
   #maincontentarea{
   	clear:right;
   	float:right;
-  	width:443px;
-	padding:0 15px 0 0;
+  	width:463px;
+	padding:0 5px 0 0;
   }
   
   /*--[right area]--*/
@@ -134,12 +134,12 @@
   }
  
   #account_box p{
-  	padding:6px 8px 0 8px;
+  	padding:6px 8px 0 8px;margin:0;
   	background:url(images/account_head.gif) no-repeat top left;
   }
  
   #account_box ul{
-  	margin:-15px 0;
+  	margin:-8px 0;
   	padding:10px 8px;
   	background:url(images/account_middle.gif) repeat-y;
 	list-style:none;
@@ -202,9 +202,56 @@ form div.header {
 textarea {
   overflow: auto;
 }
+/* my calendar event list */
+body#normal div#maincontentarea ul{
+	list-style:none;
+	margin:10px 0 0 0;
+	padding:6px 6px 5px 6px;
+	border-bottom:1px solid #bebcbc;
+}
+	body#normal div#maincontentarea ul li{
+	display:inline;
+	margin:2px;
+	padding:6px;
+	border:1px solid #bebcbc;
+	}
+		body#normal div#maincontentarea ul li a{
+		text-decoration:none;
+		}
+			body#normal div#maincontentarea ul li a:hover{
+			text-decoration:underline;
+			}
+body#normal div#maincontentarea table{
+	border-collapse:collapse;
+	margin:10px 0;
+	width:100%;
+}
+body#normal div#maincontentarea table thead th{
+	background:#eee;
+	padding:7px;
+	text-align:left;
+}
+body#normal div#maincontentarea table tr.alt{
+	background:#eef6fb;
+}
+body#normal div#maincontentarea table tr td{
+	padding:7px;
+}
+body#normal div#maincontentarea td.edit a{
+	display:block;
+	text-indent:-9999px;
+	background:url(images/edit.gif) no-repeat;
+	width:33px;
+	height:21px;
+}
+body#normal div#maincontentarea td.edit a:hover{
+	background-position:0 -22px;
+}
+
+
+
 
 /* login form */
-  
 body#login #right_area, body#login #navigation{
   	display:none;
   }
