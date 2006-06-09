@@ -202,6 +202,7 @@ form div.header {
 textarea {
   overflow: auto;
 }
+
 /* my calendar event list */
 body#normal div#maincontentarea ul{
 	list-style:none;
@@ -232,7 +233,7 @@ body#normal div#maincontentarea table thead th{
 	text-align:left;
 }
 body#normal div#maincontentarea table tr.alt{
-	background:#eef6fb;
+	background:#e8f5fa;
 }
 body#normal div#maincontentarea table tr td{
 	padding:7px;
@@ -247,9 +248,6 @@ body#normal div#maincontentarea td.edit a{
 body#normal div#maincontentarea td.edit a:hover{
 	background-position:0 -22px;
 }
-
-
-
 
 /* login form */
 body#login #right_area, body#login #navigation{
