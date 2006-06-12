@@ -175,10 +175,12 @@ form .header {
   white-space: nowrap;
   border-bottom:1px solid #c8c7c7;
   margin:5px 0 4px 0;
-   padding:4px 0;
+  padding:10px 0 2px 0;
+  line-height:1.5;
 }
 form .header b{
-  padding:5px;
+  padding:4px;
+
   border:1px solid #c8c7c7;
 }
 form input, textarea, select {
@@ -217,25 +219,28 @@ form fieldset{
 /* my calendar event list */
 body#normal div#maincontentarea ul{
 	list-style:none;
-	margin:10px 0 0 0;
-	padding:6px 6px 5px 6px;
+	line-height:1;
+	margin:10px 0 15px 0;
+	padding:6px 6px 28px 6px;
 	border-bottom:1px solid #bebcbc;
 }
 	body#normal div#maincontentarea ul li{
-	display:inline;
+	float:left;
 	margin:2px;
 	padding:6px;
 	border:1px solid #bebcbc;
 	}
 		body#normal div#maincontentarea ul li a{
 		text-decoration:none;
+		display:block;
 		}
 			body#normal div#maincontentarea ul li a:hover{
 			text-decoration:underline;
 			}
 body#normal div#maincontentarea table{
 	border-collapse:collapse;
-	margin:10px 0;
+	clear:both;
+	margin:0 0 15px 0;
 	width:100%;
 }
 body#normal div#maincontentarea table thead th{
