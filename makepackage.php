@@ -29,7 +29,8 @@ $pfm->setOptions(array(
 	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'	=> 'php',
 						'Manager.php'					=> 'php',
 						'Manager/Tableless.php'		=> 'php',
-						'Manager/EventListing.php'		=> 'php')
+						'Manager/EventListing.php'		=> 'php',
+						'Manager/FormBuilder.php'		=> 'php')
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
 $pfm->setPackageType('php'); // this is a PEAR-style php script package

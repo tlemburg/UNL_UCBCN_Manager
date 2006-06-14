@@ -9,7 +9,7 @@
  */
 
 require_once 'UNL/UCBCN.php';
-require_once 'DB/DataObject/FormBuilder.php';
+require_once 'UNL/UCBCN/Manager/FormBuilder.php';
 require_once 'HTML/QuickForm.php';
 require_once 'Auth.php';
 require_once 'UNL/UCBCN/Manager/EventListing.php';
@@ -132,7 +132,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				return new UNL_UCBCN_Error('Error, the event with that record was not found!');
 			}
 		}
-		$fb = DB_DataObject_FormBuilder::create($events);
+		$fb = UNL_UCBCN_Manager_FormBuilder::create($events,false,'QuickForm','UNL_UCBCN_Manager_FormBuilder');
+		$fb->linkNewValue = array('__reverseLink_eventdatetime_event_idlocation_id_1','location_id');
 		$fb->reverseLinks = array(array('table'=>'eventdatetime'));
 		$fb->reverseLinkNewValue = true;
 		$fb->linkElementTypes = array('__reverseLink_eventdatetime_event_id'=>'subForm');
