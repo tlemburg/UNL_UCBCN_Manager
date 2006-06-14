@@ -26,9 +26,10 @@ $pfm->setOptions(array(
 						'install.sh'),
 	'simpleoutput' => true,
 	'roles'=>array('php'=>'data'	),
-	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'=>'php',
-						'Manager.php'=>'php',
-						'Manager/Tableless.php'=>'php')
+	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'	=> 'php',
+						'Manager.php'					=> 'php',
+						'Manager/Tableless.php'		=> 'php',
+						'Manager/EventListing.php'		=> 'php')
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
 $pfm->setPackageType('php'); // this is a PEAR-style php script package
@@ -54,7 +55,6 @@ $pfm->setPhpDep('5.0.0');
 $pfm->setPearinstallerDep('1.4.3');
 $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.php.net', '0.18.1');
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
-$pfm->addPackageDepWithChannel('required', 'NET_URL', 'pear.php.net', '1.0');
 $pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.0.1');
 foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
 	$pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');

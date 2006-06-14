@@ -256,6 +256,9 @@ body#normal div#maincontentarea table tr.alt{
 	border-top:1px solid #8ebcd6;
 	border-bottom:1px solid #8ebcd6;
 }
+body#normal div#maincontentarea table tr.updated {
+	background:#ffffcc;
+}
 body#normal div#maincontentarea table tr td{
 	padding:7px;
 }
