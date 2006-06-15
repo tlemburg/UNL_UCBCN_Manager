@@ -12,7 +12,7 @@ require_once 'UNL/UCBCN.php';
 require_once 'UNL/UCBCN/Manager/FormBuilder.php';
 require_once 'HTML/QuickForm.php';
 require_once 'Auth.php';
-require_once 'UNL/UCBCN/Manager/EventListing.php';
+require_once 'UNL/UCBCN/EventListing.php';
 // Custom quickform renderer.
 require_once 'UNL/UCBCN/Manager/Tableless.php';
 
@@ -303,7 +303,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$a_event->status = $status;
 		$a_event->calendar_id = $this->calendar->id;
 		if ($a_event->find()) {
-			$listing = new UNL_UCBCN_Manager_EventListing();
+			$listing = new UNL_UCBCN_EventListing();
 			$listing->status = $status;
 			while ($a_event->fetch()) {
 				$event = $a_event->getLink('event_id');

@@ -15,8 +15,8 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-06-14</date>
- <time>11:24:56</time>
+ <date>2006-06-15</date>
+ <time>10:51:05</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -34,7 +34,7 @@
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
-    <file name="EventListing.php" role="php" />
+    <file name="FormBuilder.php" role="php" />
     <file name="Tableless.php" role="php" />
    </dir> <!-- /Manager -->
    <dir name="templates">
@@ -62,10 +62,10 @@
      </dir> <!-- /templates/default/images -->
      <file name="default.css" role="data" />
      <file name="Error.php" role="data" />
+     <file name="EventListing.php" role="data" />
      <file name="ieonly.css" role="data" />
      <file name="main.css" role="data" />
      <file name="Manager.php" role="data" />
-     <file name="Manager_EventListing.php" role="data" />
     </dir> <!-- /templates/default -->
    </dir> <!-- /templates -->
    <file name="index.php" role="data">
@@ -183,7 +183,7 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-06-14</date>
+   <date>2006-06-15</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth
