@@ -221,7 +221,7 @@ body#normal div#maincontentarea ul{
 	list-style:none;
 	line-height:1;
 	margin:10px 0 15px 0;
-	padding:6px 6px 28px 6px;
+	padding:6px 6px 2.2em 6px;
 	border-bottom:1px solid #bebcbc;
 }
 	body#normal div#maincontentarea ul li{
@@ -244,10 +244,23 @@ body#normal div#maincontentarea table{
 	width:100%;
 }
 body#normal div#maincontentarea table thead th{
-	background:#3e83c9;color:#fff;
+	background:#3e83c9;color:#fff;	
 	padding:7px;
 	text-align:left;
 }
+body#normal div#maincontentarea table thead th.date a, body#normal div#maincontentarea table thead th.title a{
+	color:#FFFFFF;
+	display:block;
+	background:url(images/sort.gif) no-repeat;
+	background-position:42px 6px;
+	text-decoration:none;
+	}
+body#normal div#maincontentarea table thead th.title a{
+	background-position:91px 6px;
+	}
+	body#normal div#maincontentarea table thead th a:hover{
+	text-decoration:underline;
+	}
 body#normal div#maincontentarea table tr:hover, body#normal div#maincontentarea table tr.alt:hover{
 	background:#ffffcc;
 }
