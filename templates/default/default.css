@@ -155,55 +155,55 @@
  * Form CSS Styles
  */
 form {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    min-width: 500px;
+    max-width: 600px;
+    width: 560px;
 }
-
+form fieldset {
+    border: 1px solid black;
+    padding: 10px;
+    margin: 0;
+}
+form fieldset legend {
+    font-weight: bold;
+}
+form label {
+    margin: 0 0 0 5px;
+}
+form label.qflabel {
+    display: block;
+    float: left;
+    width: 150px;
+    padding: 0;
+    margin: 5px 0 0 0;
+    text-align: right;
+}
+form input, form textarea, form select {
+    width: auto;
+}
+form textarea {
+    overflow: auto;
+}
 form br {
-  display: none;
+    clear: left;
 }
-
-form label { 
-  display: block;
-  float: left;
-  width: 150px;
-  padding: 0;
-  margin: 0 0 5px;
-  text-align: right;
+form div.qfgroup, form div.qfelement {
+    display: inline;
+    float: left;
+    margin: 5px 0 0 10px;
+    padding: 0;
 }
-form .header {
-  white-space: nowrap;
-  border-bottom:1px solid #c8c7c7;
-  margin:5px 0 4px 0;
-  padding:10px 0 2px 0;
-  line-height:1.5;
-}
-form .header b{
-  padding:4px;
-
-  border:1px solid #c8c7c7;
-}
-form input, textarea, select {
-  border:1px solid #8ebcd6;
-  width: auto;
-  padding:3px;
-  margin: 0 0 5px 10px;
-}
-form textarea{
-  height:7em;
+form div.qfelement div.qfgroup {
+    margin: 0 0 0 0;
 }
 form span.error {
-  color: red;
-  margin: 5px 0 0 10px;
+    color: red;
 }
-
 form div.error {
-  border: 1px solid red;
-  margin-bottom: 10px;
-}
-
-form div {
- clear:left;
+    border: 1px solid red;
+    padding: 5px;
 }
 
 
@@ -216,6 +216,7 @@ form fieldset{
   border:none;
   background:#e8f5fa;
 }
+
 /* my calendar event list */
 body#normal div#maincontentarea ul{
 	list-style:none;
