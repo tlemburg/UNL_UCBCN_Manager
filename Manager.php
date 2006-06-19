@@ -26,6 +26,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	var $calendar;
 	/** User object */
 	var $user;
+	/** URI to the management frontend */
+	public $uri = '';
+	/** URI to the public frontend UNL_UCBCN_Frontend */
+	public $frontenduri = '';
 	/** Navigation */
 	public $navigation;
 	/** Account on right column */
@@ -59,8 +63,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if ($this->a->checkAuth()) {
 			// User has entered correct authentication details, now find get their user record.
 			$this->user			= $this->getUser($this->a->getUsername());
-			$this->calendar		= $this->getCalendar($this->user,false,'?action=account&new=true');
-			$this->account		= $this->getAccount($this->calendar);
+			$this->account		= $this->getAccount($this->user);
+			$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
 		}
 	}
 	
@@ -72,11 +76,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showNavigation()
 	{
 		return	'<ul>'."\n".
-				'<li id="calendar"><a href="?" title="My Calendar">Pending Events</a></li>'."\n".
-				'<li id="create"><a href="?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
-				'<li id="search"><a href="?action=search" title="Search">Search</a></li>'."\n".
-				'<li id="subscribe"><a href="?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
-				'<li id="import"><a href="?action=import" title="Import/Export">Import/Export</a></li>'."\n".
+				'<li id="calendar"><a href="'.$this->uri.'?" title="My Calendar">Pending Events</a></li>'."\n".
+				'<li id="create"><a href="'.$this->uri.'?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
+				'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
+				'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
+				'<li id="import"><a href="'.$this->uri.'?action=import" title="Import/Export">Import/Export</a></li>'."\n".
 				'</ul>'."\n";
 	}
 	
@@ -91,8 +95,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				'<div id="account_box">'."\n".
 				'<p>Welcome, '.$this->user->uid.'</p>'."\n".
 				'<ul>'."\n".
-				'<li><a href="?action=account">Account Info</a></li>'."\n".
-				'<li><a href="?logout=true">LogOut</a></li>'."\n".
+				'<li><a href="'.$this->frontenduri.'?calendar_id='.$this->calendar->id.'">Live Calendar</a></li>'."\n".
+				'<li><a href="'.$this->uri.'?action=account">Account Info</a></li>'."\n".
+				'<li><a href="'.$this->uri.'?action=calendar">Calendar Info</a></li>'."\n".
+				'<li><a href="'.$this->uri.'?logout=true">LogOut</a></li>'."\n".
 				'<li><a href="#">Help</a></li>'."\n".
 				'</ul>'."\n".
 				'</div>';
@@ -133,11 +139,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 		}
 		$fb = UNL_UCBCN_Manager_FormBuilder::create($events,false,'QuickForm','UNL_UCBCN_Manager_FormBuilder');
-		$fb->linkNewValue = array('__reverseLink_eventdatetime_event_idlocation_id_1','location_id');
-		$fb->reverseLinks = array(array('table'=>'eventdatetime'));
-		$fb->reverseLinkNewValue = true;
-		$fb->linkElementTypes = array('__reverseLink_eventdatetime_event_id'=>'subForm');
-		$form = $fb->getForm($_SERVER['PHP_SELF'].'?action=createEvent');
+		$form = $fb->getForm($this->uri.'?action=createEvent');
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$form->accept($renderer);
 		$form->setDefaults(array(
@@ -159,7 +161,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					default:
 						return UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar.');
 				}
-				$this->localRedirect('?list=posted&new_event_id='.$events->id);
+				$this->localRedirect($this->uri.'?list=posted&new_event_id='.$events->id);
 			}
 			$form->freeze();
 			$form->removeElement('__submit__');
@@ -174,7 +176,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showImportForm()
 	{
-		$form = new HTML_QuickForm('import','POST','?action=import');
+		$form = new HTML_QuickForm('import','POST',$this->uri.'?action=import');
 		$form->addElement('header','importhead','Import iCalendar .ics/xml:');
 		$form->addElement('file','filename','Filename');
 		$form->addElement('submit','Submit','Submit');
@@ -237,7 +239,15 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 											'<p>We\'ve created an account for you, simply enter in the additional details to begin publishing your events!</p>';
 					}
 					$this->output .= $this->showAccountForm();
+					$this->output .= '<h3>Calendars Under This Account:</h3>';
+					$this->output .= $this->showCalendars();
 					$this->sectitle = 'Edit '.$this->account->name.' Info';
+				break;
+				case 'calendar':
+					$this->output .= $this->showCalendarForm();
+					$this->output .= '<h3>Users With Access to this Calendar:</h3>';
+					$this->output .= $this->showCalendarUsers();
+					$this->sectitle = 'Edit '.$this->calendar->name.' Info';
 				break;
 				default:
 					$this->uniquebody = 'id="normal"';
@@ -321,9 +331,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$e[] = '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
 		}
 		array_unshift($e, '<ul>' .
-							'<li><a href="?list=pending">Pending ('.$this->getEventCount($this->calendar,'pending').')</a></li>' .
-							'<li><a href="?list=posted">Posted ('.$this->getEventCount($this->calendar,'posted').')</a></li>' .
-							'<li><a href="?list=archived">Archived ('.$this->getEventCount($this->calendar,'archived').')</a></li>' .
+							'<li><a href="'.$this->uri.'?list=pending">Pending ('.$this->getEventCount($this->calendar,'pending').')</a></li>' .
+							'<li><a href="'.$this->uri.'?list=posted">Posted ('.$this->getEventCount($this->calendar,'posted').')</a></li>' .
+							'<li><a href="'.$this->uri.'?list=archived">Archived ('.$this->getEventCount($this->calendar,'archived').')</a></li>' .
 						'</ul>');
 		return $e;
 	}
@@ -346,59 +356,101 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$form->removeElement('__submit__');
 				$msg = '<p>Account info saved...</p>';
 			}
-			return $msg.$renderer->toHtml().$this->showAccountUsers();
+			return $msg.$renderer->toHtml();
 		} else {
-			return $this->showAccounts();
+			return $this->showCalendars();
+		}
+	}
+	
+	/** This function returns a form for editing the calendar details.
+	 * 
+	 */
+	 function showCalendarForm()
+	 {
+	 	if (isset($this->calendar)) {
+	 		$fb = DB_DataObject_FormBuilder::create($this->calendar);
+			$form = $fb->getForm($this->uri.'?action=calendar');
+			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->accept($renderer);
+			if ($form->validate()) {
+				$form->process(array(&$fb, 'processForm'), false);
+				$form->freeze();
+				$form->removeElement('__submit__');
+				$msg = '<p>Calendar info saved...</p>';
+			}
+			return $renderer->toHtml();
+	 	} else {
+	 		return $this->showChooseCalendar();
+	 	}
+	 }
+	
+	/**
+	 * This function returns a list of calendars for the current account.
+	 */
+	function showCalendars()
+	{
+		$calendars = $this->factory('calendar');
+		$calendars->account_id = $this->account->id;
+		if ($calendars->find()) {
+			$l = array('<ul>');
+			while ($calendars->fetch()) {
+				$l[] = $calendars->name.'&nbsp;<a href="'.$this->uri.'?action=calendar&amp;id='.$calendars->id.'">Edit</a>';
+			}
+			$l[] = '</ul>';
+			return implode("\n",$l);
+		} else {
+			return new UNL_UCBCN_Erro('Error, no calendars exist for the current account!');
 		}
 	}
 	
 	/**
 	 * This function returns a list of users that have 'some' 
-	 * permission to the current account.
+	 * permission to the current calendar.
 	 * 
 	 * @return string html list of users.
 	 */
-	function showAccountUsers()
+	function showCalendarUsers()
 	{
-		$permissions_list = '<h4>User Permissions</h4>';
+		$permissions_list = array('<ul>');
 		$user_has_permission = $this->factory('user_has_permission');
-		$user_has_permission->account_id = $this->account->id;
+		$user_has_permission->calendar_id = $this->calendar->id;
 		$users = $this->factory('user');
 		$users->groupBy('uid');
 		$users->joinAdd($user_has_permission);
 		if ($users->find()) {
 			while ($users->fetch()) {
-				$permissions_list .= $users->uid;
+				$permissions_list[] = '<li>'.$users->uid.'</li>';
 			}
 		}
-		return $permissions_list;
+		$permissions_list[] = '</ul>';
+		return implode("\n",$permissions_list);
 	}
 
 	/**
-	 * This function returns all the accounts this user has access to.
+	 * This function returns all the calendars this user has access to.
 	 * 
 	 * @return html form for choosing account
 	 */
-	function showAccounts()
+	function showChooseCalendar()
 	{
-		$output = '<p>Please choose the account you wish to manage.</p>';
+		$output = '<p>Please choose the calendar you wish to manage.</p>';
 		$user_has_permission = $this->factory('user_has_permission');
 		$user_has_permission->uid = $this->user->uid;
 		if ($user_has_permission->find()) {
 			$form = new HTML_QuickForm();
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
-			$form->addElement('header','accounthead','Choose an account:');
-			$acc_select = HTML_QuickForm::createElement('select','account_id','Account');
+			$form->addElement('header','calendarhead','Choose a Calendar:');
+			$cal_select = HTML_QuickForm::createElement('select','calendar_id','Calendar');
 			while ($user_has_permission->fetch()) {
-				$acc_select->addOption($user_has_permission->account_id);
+				$cal_select->addOption($user_has_permission->calendar_id);
 			}
-			$form->addElement($acc_select);
+			$form->addElement($cal_select);
 			$form->addElement('submit','submit','Submit');
 			$output .= $renderer->toHtml();
 		} else {
 			// Error, user has no permission to anything!
-			$output = new UNL_UCBCN_Error('Sorry, you do not have permission to edit/access any accounts.');
+			$output = new UNL_UCBCN_Error('Sorry, you do not have permission to edit/access any calendars.');
 		}
 		return $output;
 	}
