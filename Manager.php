@@ -159,7 +159,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						$this->addCalendarHasEvent($this->calendar,$events,'pending',$this->user);
 					break;
 					default:
-						return UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar.');
+						return new UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar "'.$this->calendar->name.'".');
 				}
 				$this->localRedirect($this->uri.'?list=posted&new_event_id='.$events->id);
 			}
@@ -217,7 +217,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						}
 						$this->output = $this->showEventSubmitForm($id);
 					} else {
-						$this->output = new UNL_UCBCN_Error('Sorry, you do not have permission to create events.');
+						$this->output = new UNL_UCBCN_Error('Sorry, you do not have permission to create events. Are the event permissions in the database?');
 					}
 				break;
 				case 'import':
@@ -234,19 +234,21 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->sectitle = 'Subscribe to Events';
 				break;
 				case 'account':
+					$this->output = array();
 					if (isset($_GET['new']) && $_GET['new']=='true') {
-						$this->output =		'<p>Welcome to the University Event publishing system!</p>'.
+						$this->output[] =	'<p>Welcome to the University Event publishing system!</p>'.
 											'<p>We\'ve created an account for you, simply enter in the additional details to begin publishing your events!</p>';
 					}
-					$this->output .= $this->showAccountForm();
-					$this->output .= '<h3>Calendars Under This Account:</h3>';
-					$this->output .= $this->showCalendars();
+					$this->output[] = $this->showAccountForm();
+					$this->output[] = '<h3>Calendars Under This Account:</h3>';
+					$this->output[] = $this->showCalendars();
 					$this->sectitle = 'Edit '.$this->account->name.' Info';
 				break;
 				case 'calendar':
-					$this->output .= $this->showCalendarForm();
-					$this->output .= '<h3>Users With Access to this Calendar:</h3>';
-					$this->output .= $this->showCalendarUsers();
+					$this->output = array();
+					$this->output[] = $this->showCalendarForm();
+					$this->output[] = '<h3>Users With Access to this Calendar:</h3>';
+					$this->output[] = $this->showCalendarUsers();
 					$this->sectitle = 'Edit '.$this->calendar->name.' Info';
 				break;
 				default:
@@ -347,16 +349,20 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if (isset($this->account)) {
 			$msg = '';
 			$fb = DB_DataObject_FormBuilder::create($this->account);
-			$form = $fb->getForm('?action=account');
-			$renderer =& new HTML_QuickForm_Renderer_Tableless();
-			$form->accept($renderer);
-			if ($form->validate()) {
-				$form->process(array(&$fb, 'processForm'), false);
-				$form->freeze();
-				$form->removeElement('__submit__');
-				$msg = '<p>Account info saved...</p>';
+			if (!PEAR::isError($fb)) {
+				$form = $fb->getForm('?action=account');
+				$renderer =& new HTML_QuickForm_Renderer_Tableless();
+				$form->accept($renderer);
+				if ($form->validate()) {
+					$form->process(array(&$fb, 'processForm'), false);
+					$form->freeze();
+					$form->removeElement('__submit__');
+					$msg = '<p>Account info saved...</p>';
+				}
+				return $msg.$renderer->toHtml();
+			} else {
+				return new UNL_UCBCN_Error('showAccountForm could not create a formbuilder object! The error it returned was:'.$fb->message);
 			}
-			return $msg.$renderer->toHtml();
 		} else {
 			return $this->showCalendars();
 		}
@@ -399,7 +405,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$l[] = '</ul>';
 			return implode("\n",$l);
 		} else {
-			return new UNL_UCBCN_Erro('Error, no calendars exist for the current account!');
+			return new UNL_UCBCN_Error('Error, no calendars exist for the current account!');
 		}
 	}
 	
