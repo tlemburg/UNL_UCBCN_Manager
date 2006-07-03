@@ -76,7 +76,7 @@ class UNL_UCBCN_Manager_setup_postinstall
 			$op = 'insert';
 			$account->datecreated = date('Y-m-d H:i:s');
 		} else {
-			$this->_ui->outputData('Account already exists, touching last updated datetime.');
+			$this->outputData('Account already exists, touching last updated datetime.');
 			$account->fetch();
 			$op = 'update';
 		}
@@ -129,14 +129,14 @@ class UNL_UCBCN_Manager_setup_postinstall
 				$a = fwrite($fp, $contents, strlen($contents));
 				fclose($fp);
 				if ($a) {
-					$this->_ui->outputData($file);
+					$this->outputData($file);
 					return true;
 				} else {
-					$this->_ui->outputData('Could not update ' . $file);
+					$this->outputData('Could not update ' . $file);
 					return false;
 				}
     		} else {
-    			$this->_ui->outputData($file.' does not exist!');
+    			$this->outputData($file.' does not exist!');
     			return false;
     		}
     	}
@@ -153,7 +153,7 @@ class UNL_UCBCN_Manager_setup_postinstall
 					if(is_file( $path)) {
 						if(!is_file( $dest . DIRECTORY_SEPARATOR . $file) || $overwrite) {
 							if(!copy( $path, $dest . DIRECTORY_SEPARATOR . $file)){
-								$this->_ui->outputData('File ('.$path.') could not be copied, likely a permissions problem.');
+								$this->outputData('File ('.$path.') could not be copied, likely a permissions problem.');
 							}
 						}
 					} elseif(is_dir( $path)){
@@ -166,9 +166,21 @@ class UNL_UCBCN_Manager_setup_postinstall
 			}
 			closedir($handle);
 		} else {
-			$this->_ui->outputData('Could not open '.$source);
+			$this->outputData('Could not open '.$source);
 			return false;
 		}
 	}
+	
+	/**
+     * takes in a string and sends it to the client.
+     */
+    function outputData($msg)
+    {
+    	if (isset($this->_ui)) {
+    		$this->_ui->outputData($msg);
+    	} else {
+    		echo $msg;
+    	}
+    }
 }
 ?>
