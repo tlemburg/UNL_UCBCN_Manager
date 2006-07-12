@@ -4,16 +4,39 @@
  */
   
   /*--[navigation]--*/
-		   
-		   #navigation ul li#calendar a{background:url(images/nav_calendar.png) no-repeat;}
-		   #navigation ul li#create a{background:url(images/nav_create.png) no-repeat;}
-		   #navigation ul li#search a{background:url(images/nav_search.png) no-repeat;}
-		   #navigation ul li#subscribe a{background:url(images/nav_subscribe.png) no-repeat;}
-		   #navigation ul li#import a{background:url(images/nav_import.png) no-repeat;}
+
+	  #navlinks ul{
+		width:auto;
+		border-bottom:3px double #ddd;
+		margin:3px 0;
+		padding:5px 0 7px 0;
+		background:none;
+		list-style:none;
+	  }
+	   #navlinks ul li{
+			padding:0;
+			margin:0;
+			}
+		h4#sec_nav{background:none;border-bottom:1px solid #ddd;color:#333;padding:0;}
+		#nav_end{display:none;}
+		
+		   #navlinks ul li a{
+		    display:block;
+			width:190px;
+			padding:0;
+			margin:0;
+			height:41px;
+			text-indent:-9999px;
+		   }   
+		   #navlinks ul li#calendar a{background:url(images/nav_calendar.png) no-repeat;}
+		   #navlinks ul li#create a{background:url(images/nav_create.png) no-repeat;}
+		   #navlinks ul li#search a{background:url(images/nav_search.png) no-repeat;}
+		   #navlinks ul li#subscribe a{background:url(images/nav_subscribe.png) no-repeat;}
+		   #navlinks ul li#import a{background:url(images/nav_import.png) no-repeat;}
 		  
-		   #navigation ul li#calendar a:hover, #navigation ul li#create a:hover, 
-		   #navigation ul li#search a:hover, #navigation ul li#subscribe a:hover, 
-		   #navigation ul li#import a:hover, body#create #navigation ul li#create a, 
+		   #navlinks ul li#calendar a:hover, #navigation ul li#create a:hover, 
+		   #navlinks ul li#search a:hover, #navigation ul li#subscribe a:hover, 
+		   #navlinks ul li#import a:hover, body#create #navigation ul li#create a, 
 		   body#search #navigation ul li#search a, body#subscribe #navigation ul li#subscribe a, 
 		   body#import #navigation ul li#import a, body#normal #navigation ul li#calendar a
 		   {background-position:0 -41px;}
@@ -50,17 +73,14 @@
 form {
     margin: 0;
     padding: 0;
-    min-width: 500px;
-    max-width: 600px;
-    width: 560px;
-}
-form fieldset {
-    border: 1px solid black;
-    padding: 10px;
-    margin: 0;
+	width:auto;
 }
 form fieldset legend {
     font-weight: bold;
+	display:block;
+	border:1px solid #ccc;
+	padding:3px;
+	margin:0 0 25px 0;
 }
 form label {
     margin: 0 0 0 5px;
@@ -98,16 +118,19 @@ form div.error {
     border: 1px solid red;
     padding: 5px;
 }
-
-
-
 textarea {
   overflow: auto;
 }
-form fieldset{
+form fieldset, form fieldset fieldset{
+  border:none;
+  background:#fff;}
+  
+form fieldset fieldset fieldset{
   padding:10px 0;
   border:none;
   background:#e8f5fa;
+  border-top:1px solid #ccc;
+ 
 }
 
 /* my calendar event list */
@@ -192,7 +215,7 @@ body#login #maincontentarea{
 	left:42%;
   }
 body#login p#lost{
-	margin:-5em 0 0 12.5em;  
+	margin:-3em 0 0 12.5em;  
   }
 body#login a#forgot{
    background:url(images/lost_password.gif) no-repeat;
@@ -203,7 +226,7 @@ form#login{
 	width:431px;
 	height:186px;
 	background:#fff url(images/login-calendar_03.gif) no-repeat;
-	padding:75px 0 0 0;
+	padding:55px 0 0 0;
 	font-size:18px;
 	letter-spacing:-1px;
 	}
@@ -215,5 +238,6 @@ form#login input{
 	padding:3px;
 }
 form#login label{
-	margin-top:3px;
+	margin-top:8px;
 }
+form#login fieldset{background:none;}
