@@ -28,6 +28,7 @@ $pfm->setOptions(array(
 	'roles'=>array('php'=>'data'	),
 	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'	=> 'php',
 						'Manager.php'					=> 'php',
+						'Manager/Login.php'				=> 'php',
 						'Manager/Tableless.php'		=> 'php',
 						'Manager/FormBuilder.php'		=> 'php')
 ));

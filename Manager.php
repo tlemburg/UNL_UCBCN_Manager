@@ -15,6 +15,7 @@ require_once 'Auth.php';
 require_once 'UNL/UCBCN/EventListing.php';
 // Custom quickform renderer.
 require_once 'UNL/UCBCN/Manager/Tableless.php';
+require_once 'UNL/UCBCN/Manager/Login.php';
 
 class UNL_UCBCN_Manager extends UNL_UCBCN {
 
@@ -105,22 +106,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	}
 	
 	/**
-	 * Returns a HTML form for the user to authenticate with.
+	 * Returns login object which will be used for the user to authenticate with.
 	 * 
-	 * @return html form for authenticating the user.
+	 * @return object UNL_UCBCN_Manager_Login.
 	 */
 	function showLoginForm()
 	{
-		$intro = '<p>Welcome to the University Event Publishing System, please log in using your
-					Username and Password.</p>';		
-		$lostpassword = '<p id="lost"><a href="#" title="" id="forgot">Forgot your password?</a></p>';
-		$form = new HTML_QuickForm('login');
-		$form->addElement('text','username','User');
-		$form->addElement('password','password','Password');
-		$form->addElement('submit','submit','Submit');
-		$renderer =& new HTML_QuickForm_Renderer_Tableless();
-		$form->accept($renderer);
-		return $intro.$renderer->toHtml().$lostpassword;
+		return new UNL_UCBCN_Manager_Login();
 		
 	}
 	
