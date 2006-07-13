@@ -2,7 +2,8 @@
  * default.css
  * Everything goes in here.
  */
-  #maincontent a{background:none;text-decoration:underline;}
+  #maincontent a{background:none;}
+    #maincontent a:hover{text-decoration:underline;}
   /*--[navigation]--*/
 
 	  #navlinks ul{
@@ -22,24 +23,24 @@
 		
 		   #navlinks ul li a{
 		    display:block;
-			width:190px;
+			width:218px;
 			padding:0;
 			margin:0;
-			height:41px;
+			height:46px;
 			text-indent:-9999px;
 		   }   
-		   #navlinks ul li#calendar a{background:url(images/nav_calendar.png) no-repeat;}
-		   #navlinks ul li#create a{background:url(images/nav_create.png) no-repeat;}
-		   #navlinks ul li#search a{background:url(images/nav_search.png) no-repeat;}
-		   #navlinks ul li#subscribe a{background:url(images/nav_subscribe.png) no-repeat;}
-		   #navlinks ul li#import a{background:url(images/nav_import.png) no-repeat;}
+		   #navlinks ul li#calendar a{background:url(images/nav_calendar.gif) no-repeat;}
+		   #navlinks ul li#create a{background:url(images/nav_create.gif) no-repeat;}
+		   #navlinks ul li#search a{background:url(images/nav_search.gif) no-repeat;}
+		   #navlinks ul li#subscribe a{background:url(images/nav_subscribe.gif) no-repeat;}
+		   #navlinks ul li#import a{background:url(images/nav_import.gif) no-repeat;}
 		  
 		   #navlinks ul li#calendar a:hover, #navigation ul li#create a:hover, 
 		   #navlinks ul li#search a:hover, #navigation ul li#subscribe a:hover, 
 		   #navlinks ul li#import a:hover, body#create #navigation ul li#create a, 
 		   body#search #navigation ul li#search a, body#subscribe #navigation ul li#subscribe a, 
 		   body#import #navigation ul li#import a, body#normal #navigation ul li#calendar a
-		   {background-position:0 -41px;}
+		   {background-position:0 -47px;}
 
    #account_box{
   	margin:5px 0;
@@ -54,20 +55,20 @@
   	background:url(images/account_head.gif) no-repeat top left;
   }
  
-  body#normal div#maincontent #account_box ul, div#maincontent #account_box ul{
+ #account_box ul{
   	margin:-8px 0;
   	padding:10px 8px;
   	background:url(images/account_middle.gif) repeat-y;
 	list-style:none;
 	border:none;
   }
-  body#normal div#maincontent #account_box ul li, div#maincontent #account_box ul li{
+  #account_box ul li{
 	float:none;
 	margin:0;border:none;
 	background:url(images/arrow.gif) no-repeat right top;
-	padding:2px 0 2px 0;}
+	padding:1px 0 1px 0;}
 	
-	body#normal div#maincontent #account_box ul li:hover, div#maincontent #account_box ul li:hover{
+ #account_box ul li:hover{
 	background:url(images/arrowhover.gif) no-repeat right top;}
  
   p#date{
@@ -79,12 +80,12 @@
 /**
  * Form CSS Styles
  */
-form#unl_ucbcn_event {
+.two_col form {
     margin: 0;
     padding: 0;
 	width:auto;
 }
-form#unl_ucbcn_event fieldset legend {
+.two_col form fieldset legend {
     font-weight: bold;
 	display:block;
 	border:1px solid #ccc;
@@ -92,7 +93,7 @@ form#unl_ucbcn_event fieldset legend {
 	
 	margin:0 0 24px 0;
 }
-form#unl_ucbcn_event label.qflabel {
+.two_col form label.qflabel{
     display: block;
     float: left;
     width: 150px;
@@ -100,7 +101,7 @@ form#unl_ucbcn_event label.qflabel {
     margin:10px 0 0 0;
     text-align: right;
 }
-form#unl_ucbcn_event input, form#unl_ucbcn_event textarea, form#unl_ucbcn_event select{
+.two_col form input, .two_col form textarea, .two_col form select{
     width:260px;
 	background:#fff;
  	border:1px solid #ccc;
@@ -108,22 +109,22 @@ form#unl_ucbcn_event input, form#unl_ucbcn_event textarea, form#unl_ucbcn_event 
 	padding:2px;
 	margin:4px 0;
 }
-form#unl_ucbcn_event input#qf_5327de{display:none;}
-form#unl_ucbcn_event input:focus, form#unl_ucbcn_event textarea:focus, form#unl_ucbcn_event select:focus {
+.two_col .select input{width:auto;}
+.two_col form input:focus, .two_col form textarea:focus, .two_col form select:focus {
     background:#ffffcc;
 }
-form#unl_ucbcn_event input#__submit__{
+.two_col form input#__submit__{
 	background:#f0e6d7;
 	color:#333;
 	border:1px solid #ccc;
  	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
-form#unl_ucbcn_event select {font-size:0.8em;}
+.two_col form select {font-size:0.8em;}
 
-form#unl_ucbcn_event textarea {
+.two_col form textarea {
     overflow: auto;
 	height:80px;
 }
-form#unl_ucbcn_event br {
+.two_col form br {
     clear: left;
 }
 form div.qfgroup, form div.qfelement {
@@ -143,7 +144,7 @@ form div.error {
     padding: 5px;
 }
   
-form#unl_ucbcn_event fieldset{
+.two_col form fieldset{
   padding:10px 0;
   border:none;
   background:#e8f5fa url(images/fieldsetline.gif) no-repeat top left;
@@ -151,24 +152,24 @@ form#unl_ucbcn_event fieldset{
 }
 
 /* my calendar event list */
-body#normal div#maincontent ul{
+body#normal div#maincontent .two_col ul{
 	list-style:none;
 	line-height:1;
 	margin:10px 0 12px 0;
 	padding:6px 6px 2.3em 6px;
 	border-bottom:1px solid #bebcbc;
 }
-	body#normal div#maincontent ul li{
+	body#normal div#maincontent .two_col ul li{
 	float:left;
 	margin:2px;
 	padding:6px;
 	border:1px solid #bebcbc;
 	}
-		body#normal div#maincontent ul li a{
+		body#normal div#maincontent .two_col ul li a{
 		text-decoration:none;
 		display:block;
 		}
-			body#normal div#maincontent ul li a:hover{
+			body#normal div#maincontent two_col. ul li a:hover{
 			text-decoration:underline;
 			}
 body#normal div#maincontent table{
@@ -241,7 +242,7 @@ form#login{
 	width:431px;
 	height:186px;
 	background:#fff url(images/login-calendar_03.gif) no-repeat;
-	padding:55px 0 0 0;
+	padding:60px 0 0 0;
 	font-size:18px;
 	letter-spacing:-1px;
 	}
@@ -249,8 +250,13 @@ form#login{
 form#login input{
 	background:#deecfd;
 	border:1px solid #c2d4e2;
+	width:auto;
+	margin:0;
 	font-size:17px;
 	padding:3px;
+}
+form#login input:focus{
+	background:#ffffcc;
 }
 form#login label{
 	margin-top:8px;
