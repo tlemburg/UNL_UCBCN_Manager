@@ -29,6 +29,8 @@ $pfm->setOptions(array(
 	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'	=> 'php',
 						'Manager.php'					=> 'php',
 						'Manager/Login.php'				=> 'php',
+						'Manager/FormBuilder_Driver.php' => 'php',
+						'Manager/SubForm.php'			=> 'php',
 						'Manager/Tableless.php'		=> 'php',
 						'Manager/FormBuilder.php'		=> 'php')
 ));

@@ -16,6 +16,7 @@ require_once 'UNL/UCBCN/EventListing.php';
 // Custom quickform renderer.
 require_once 'UNL/UCBCN/Manager/Tableless.php';
 require_once 'UNL/UCBCN/Manager/Login.php';
+require_once 'UNL/UCBCN/Manager/FormBuilder_Driver.php';
 
 class UNL_UCBCN_Manager extends UNL_UCBCN {
 
@@ -130,9 +131,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				return new UNL_UCBCN_Error('Error, the event with that record was not found!');
 			}
 		}
-		$fb = UNL_UCBCN_Manager_FormBuilder::create($events,false,'QuickForm','UNL_UCBCN_Manager_FormBuilder');
+		$fb = UNL_UCBCN_Manager_FormBuilder::create($events,false,'UCBCN_QuickForm','UNL_UCBCN_Manager_FormBuilder');
 		$form = $fb->getForm($this->uri.'?action=createEvent');
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$renderer->addStopFieldsetElements(array(
+													'__reverseLink_event_has_eventtype_event_id',
+													));
 		$form->accept($renderer);
 		$form->setDefaults(array(
 					'datecreated'		=> date('Y-m-d H:i:s'),

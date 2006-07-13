@@ -12,7 +12,6 @@ class UNL_UCBCN_Manager_Login
 	public $user_field;
 	public $password_field;
 	
-	
 	function __construct()
 	{
 		$this->post_url = $_SERVER['SCRIPT_FILENAME'];

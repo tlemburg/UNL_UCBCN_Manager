@@ -16,7 +16,7 @@
   <active>yes</active>
  </lead>
  <date>2006-07-13</date>
- <time>08:34:58</time>
+ <time>11:46:02</time>
  <version>
   <release>0.0.1</release>
   <api>0.0.1</api>
@@ -35,7 +35,9 @@
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
     <file name="FormBuilder.php" role="php" />
+    <file name="FormBuilder_Driver.php" role="php" />
     <file name="Login.php" role="php" />
+    <file name="SubForm.php" role="php" />
     <file name="Tableless.php" role="php" />
    </dir> <!-- /Manager -->
    <dir name="templates">
