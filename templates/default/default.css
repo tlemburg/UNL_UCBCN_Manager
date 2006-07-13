@@ -79,36 +79,51 @@
 /**
  * Form CSS Styles
  */
-form {
+form#unl_ucbcn_event {
     margin: 0;
     padding: 0;
 	width:auto;
 }
-form fieldset legend {
+form#unl_ucbcn_event fieldset legend {
     font-weight: bold;
 	display:block;
 	border:1px solid #ccc;
-	padding:3px;
-	margin:0 0 25px 0;
+	padding:3px 5px;
+	
+	margin:0 0 24px 0;
 }
-form label {
-    margin: 0 0 0 5px;
-}
-form label.qflabel {
+form#unl_ucbcn_event label.qflabel {
     display: block;
     float: left;
     width: 150px;
     padding: 0;
-    margin: 5px 0 0 0;
+    margin:10px 0 0 0;
     text-align: right;
 }
-form input, form textarea, form select {
-    width: auto;
+form#unl_ucbcn_event input, form#unl_ucbcn_event textarea, form#unl_ucbcn_event select{
+    width:260px;
+	background:#fff;
+ 	border:1px solid #ccc;
+ 	border-color:#ccc #fff #fff #ccc;
+	padding:2px;
+	margin:4px 0;
 }
-form textarea {
+form#unl_ucbcn_event input#qf_5327de{display:none;}
+form#unl_ucbcn_event input:focus, form#unl_ucbcn_event textarea:focus, form#unl_ucbcn_event select:focus {
+    background:#ffffcc;
+}
+form#unl_ucbcn_event input#__submit__{
+	background:#f0e6d7;
+	color:#333;
+	border:1px solid #ccc;
+ 	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
+form#unl_ucbcn_event select {font-size:0.8em;}
+
+form#unl_ucbcn_event textarea {
     overflow: auto;
+	height:80px;
 }
-form br {
+form#unl_ucbcn_event br {
     clear: left;
 }
 form div.qfgroup, form div.qfelement {
@@ -127,19 +142,12 @@ form div.error {
     border: 1px solid red;
     padding: 5px;
 }
-textarea {
-  overflow: auto;
-}
-form fieldset, form fieldset fieldset{
-  border:none;
-  background:#fff;}
   
-form fieldset fieldset fieldset{
+form#unl_ucbcn_event fieldset{
   padding:10px 0;
   border:none;
-  background:#e8f5fa;
-  border-top:1px solid #ccc;
- 
+  background:#e8f5fa url(images/fieldsetline.gif) no-repeat top left;
+  margin-bottom:20px;
 }
 
 /* my calendar event list */
