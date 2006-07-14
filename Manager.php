@@ -135,7 +135,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$form = $fb->getForm($this->uri.'?action=createEvent');
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$renderer->addStopFieldsetElements(array(
-													'__reverseLink_event_has_eventtype_event_id',
+													'__submit__'
 													));
 		$form->accept($renderer);
 		$form->setDefaults(array(
