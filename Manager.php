@@ -318,9 +318,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				if (isset($_POST['event'][$event->id])) {
 					// This event date time combination was selected... find out what they chose.
 					if (isset($_POST['delete']) 
-						&& $this->userHasPermission($this->user,'Event Remove from Pending',$this->calendar)) {
+						&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {
 						// User has chosen to delete the event selected, and has permission to delete from pending.
 						$a_event->delete();
+						$eventdatetime->delete();
 					} elseif (isset($_POST['pending'])
 						&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
 						$a_event->status = 'pending';
