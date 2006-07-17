@@ -263,3 +263,20 @@ form#login label{
 }
 form#login fieldset{background:none;}
 
+/* action buttons */
+input#delete_event{
+width:48px;
+height:22px;
+background:url(images/button/delete.gif) no-repeat;
+text-indent:-9999em;
+border:none;}
+
+input#delete_event:hover{background-position:0 -22px;}
+
+input#moveto_pending{width:99px;
+height:22px;
+background:url(images/button/movetodraft.gif) no-repeat;
+text-indent:-9999em;
+border:none;}
+
+input#moveto_pending:hover{background-position:0 -22px;}
