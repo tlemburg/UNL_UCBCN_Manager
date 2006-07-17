@@ -36,6 +36,10 @@ foreach ($this->events as $e) {
 } ?>
 </tbody>
 </table>
-<input type="submit" name="delete" value="Delete" />
-<input type="submit" name="post" value="Add to Posted" />
+<input id="delete_event" type="submit" name="delete" value="Delete" />
+<?php if ($this->status=='posted') { ?>
+<input id="moveto_pending" type="submit" name="pending" value="Move to Pending" />
+<?php } elseif ($this->status=='pending') { ?>
+<input id="moveto_posted" type="submit" name="posted" value="Add to Posted" />
+<?php } ?>
 </form>

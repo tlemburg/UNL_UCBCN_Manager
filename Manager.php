@@ -315,11 +315,21 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$listing->status = $status;
 			while ($a_event->fetch()) {
 				$event = $a_event->getLink('event_id');
-				if (isset($_POST['event'][$event->id]) 
-					&& isset($_POST['delete']) 
-					&& $this->userHasPermission($this->user,'Event Remove from Pending',$this->calendar)) {
-					// User has chosen to delete the event selected, and has permission to delete from pending.
+				if (isset($_POST['event'][$event->id])) {
+					// This event date time combination was selected... find out what they chose.
+					if (isset($_POST['delete']) 
+						&& $this->userHasPermission($this->user,'Event Remove from Pending',$this->calendar)) {
+						// User has chosen to delete the event selected, and has permission to delete from pending.
 						$a_event->delete();
+					} elseif (isset($_POST['pending'])
+						&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
+						$a_event->status = 'pending';
+						$a_event->update();
+					} elseif (isset($_POST['posted'])
+						&& $this->userHasPermission($this->user,'Event Post',$this->calendar)) {
+						$a_event->status = 'posted';
+						$a_event->update();
+					}
 				} else {
 					$listing->events[] = $event;
 				}
