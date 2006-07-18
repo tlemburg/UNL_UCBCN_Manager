@@ -240,6 +240,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->output[] = $this->showCalendars();
 					$this->sectitle = 'Edit '.$this->account->name.' Info';
 				break;
+				case 'permissions':
+					$this->sectitle = 'Edit User Permissions for '.$this->calendar->name;
+					$this->output = $this->showPermissionsForm($_GET['uid'],$this->calendar);
+				break;
 				case 'calendar':
 					$this->output = array();
 					$this->output[] = $this->showCalendarForm();
@@ -280,6 +284,46 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$this->output = $this->showLoginForm();
 		}
 		$this->doctitle .= ' | '.$this->sectitle;
+	}
+	
+	/**
+	 * This function generates and returns a permissions form for the given user and calendar.
+	 * 
+	 * @param string|UNL_UCBCN_user 
+	 * @param UNL_UCBCN_Calendar
+	 */
+	function showPermissionsForm($uid,$calendar)
+	{
+		if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
+			if (!is_object($uid)) {
+				$user = $this->factory('user');
+				$user->uid = $uid;
+				if ($user->find() && $user->fetch()) {
+					//success	
+				} else {
+					return new UNL_UCBCN_Error('Sorry, no user with that uid could be found!');
+				}
+			} else {
+				$user = $uid;
+			}
+			$msg = '';
+			$fb = DB_DataObject_FormBuilder::create($user);
+			$fb->formHeaderText = $user->uid.' Permissions for '.$this->calendar->name;
+			$fb->crossLinks = array(array('table'=>'user_has_permission'));
+			$fb->fieldLabels = array('__crossLink_user_has_permission_user_uid_permission_id'=>'Permissions');
+			$form = $fb->getForm('?action=permissions&uid='.$user->uid);
+			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->accept($renderer);
+			if ($form->validate()) {
+				$form->process(array(&$fb, 'processForm'), false);
+				$form->freeze();
+				$form->removeElement('__submit__');
+				$msg = '<p>User permissions saved...</p>';
+			}
+			return $msg.$renderer->toHtml();
+		} else {
+			return new UNL_UCBCN_Error('You do not have permission to edit permissions for this calendar!');
+		}
 	}
 	
 	/**
@@ -432,7 +476,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$users->joinAdd($user_has_permission);
 		if ($users->find()) {
 			while ($users->fetch()) {
-				$permissions_list[] = '<li>'.$users->uid.'</li>';
+				if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
+					$user_li = '<li><a href="?action=permissions&amp;uid='.$users->uid.'">'.$users->uid.'</a></li>';
+				} else {
+					$user_li = '<li>'.$users->uid.'</li>';
+				}
+				$permissions_list[] = $user_li;
 			}
 		}
 		$permissions_list[] = '</ul>';
