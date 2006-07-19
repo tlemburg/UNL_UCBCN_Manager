@@ -18,7 +18,7 @@
 			padding:0;
 			margin:0;
 			}
-		h4#sec_nav{background:none;border-bottom:1px solid #ddd;color:#333;padding:0;}
+		h4#sec_nav{background:url(images/heading.gif) no-repeat 0 4px;border-bottom:1px solid #ddd;color:#333;padding:0 0 0 11px;}
 		#nav_end{display:none;}
 		
 		   #navlinks ul li a{
