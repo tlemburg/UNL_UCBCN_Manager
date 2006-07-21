@@ -105,7 +105,7 @@ class UNL_UCBCN_Manager_setup_postinstall
     						$answers['template']),
 					array(	$docroot.'index.php',
 							$templateroot.'main.css',
-							$templateroot.'Manager.php')
+							$templateroot.'Manager.tpl.php')
 							);
     }
     
