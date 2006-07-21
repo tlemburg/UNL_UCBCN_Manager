@@ -3,6 +3,7 @@
 /**
  * This file instantiates the Event manager interface.
  */
+ini_set('display_errors',true);
 require_once 'UNL/UCBCN/Manager.php';
 require_once 'Auth.php';
 

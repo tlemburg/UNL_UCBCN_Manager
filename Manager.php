@@ -80,9 +80,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		return	'<ul>'."\n".
 				'<li id="calendar"><a href="'.$this->uri.'?" title="My Calendar">Pending Events</a></li>'."\n".
 				'<li id="create"><a href="'.$this->uri.'?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
-				'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
-				'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
-				'<li id="import"><a href="'.$this->uri.'?action=import" title="Import/Export">Import/Export</a></li>'."\n".
+				//'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
+				//'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
+				//'<li id="import"><a href="'.$this->uri.'?action=import" title="Import/Export">Import/Export</a></li>'."\n".
 				'</ul>'."\n";
 	}
 	
@@ -242,7 +242,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				break;
 				case 'permissions':
 					$this->sectitle = 'Edit User Permissions for '.$this->calendar->name;
-					$this->output = $this->showPermissionsForm($_GET['uid'],$this->calendar);
+					if (isset($_GET['uid'])) {
+						$uid = $_GET['uid'];
+					} else {
+						$uid = NULL;
+					}
+					$this->output = $this->showPermissionsForm($uid,$this->calendar);
 				break;
 				case 'calendar':
 					$this->output = array();
@@ -295,31 +300,57 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showPermissionsForm($uid,$calendar)
 	{
 		if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
+			$msg = '';
 			if (!is_object($uid)) {
 				$user = $this->factory('user');
-				$user->uid = $uid;
-				if ($user->find() && $user->fetch()) {
-					//success	
+				if (isset($uid) && !empty($uid)) {
+					$user->uid = $uid;
+					if ($user->find() && $user->fetch()) {
+						//success	
+					} else {
+						return new UNL_UCBCN_Error('Sorry, no user with that uid could be found!');
+					}
+				} elseif($this->userHasPermission($this->user,'Calendar Add User',$this->calendar)) {
+					// uid is not set, must be creating a new user..?
+					$msg = 'Please select a new user to grant access to and choose the permissions you wish to grant.';
 				} else {
-					return new UNL_UCBCN_Error('Sorry, no user with that uid could be found!');
+					return new UNL_UCBCN_Error('You do not have permission to add new users to this calendar.');
 				}
 			} else {
 				$user = $uid;
 			}
-			$msg = '';
+			DB_DataObject::debugLevel(5);
 			$fb = DB_DataObject_FormBuilder::create($user);
+			if (!isset($user->uid)) {
+				$fb->enumFields = array('uid');
+				$uids = array();
+				foreach (array_values($this->a->listUsers()) as $key=>$val) {
+					$uids[$val['username']] = $val['username'];
+				}
+				$fb->enumOptions = array('uid'=>$uids);
+			}
 			$fb->formHeaderText = $user->uid.' Permissions for '.$this->calendar->name;
 			$fb->crossLinks = array(array('table'=>'user_has_permission'));
-			$fb->fieldLabels = array('__crossLink_user_has_permission_user_uid_permission_id'=>'Permissions');
+			$fb->fieldLabels = array(	'__crossLink_user_has_permission_user_uid_permission_id'=>'Permissions',
+										'uid'=>'User ID');
 			$form = $fb->getForm('?action=permissions&uid='.$user->uid);
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->setDefaults(array('account_id'=>$this->account->id));
 			$form->accept($renderer);
 			if ($form->validate()) {
+				echo 'IN HIZZA!';
+				//$this->createUser($this->account,$_POST['uid'],$this->user);
+				$e = $form->getElement('uid');
+				print_r($e->getValue());
+				$uid = $e->getValue();
+				$uid = $uid[0];
+				$user = $this->getUser($uid);
 				$form->process(array(&$fb, 'processForm'), false);
 				$form->freeze();
 				$form->removeElement('__submit__');
 				$msg = '<p>User permissions saved...</p>';
 			}
+			DB_DataObject::debugLevel(0);
 			return $msg.$renderer->toHtml();
 		} else {
 			return new UNL_UCBCN_Error('You do not have permission to edit permissions for this calendar!');
