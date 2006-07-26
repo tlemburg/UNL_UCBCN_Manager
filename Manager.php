@@ -457,7 +457,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 {
 	 	if (isset($this->calendar)) {
 	 		$fb = DB_DataObject_FormBuilder::create($this->calendar);
-			$form = $fb->getForm($this->uri.'?action=calendar');
+			$form = $fb->getForm($this->uri.'?action=calendar&id='.$this->calendar->id);
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
 			if ($form->validate()) {
