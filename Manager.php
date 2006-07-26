@@ -482,7 +482,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if ($calendars->find()) {
 			$l = array('<ul>');
 			while ($calendars->fetch()) {
-				$l[] = $calendars->name.'&nbsp;<a href="'.$this->uri.'?action=calendar&amp;id='.$calendars->id.'">Edit</a>';
+				$l[] = '<li>'.$calendars->name.'&nbsp;<a href="'.$this->uri.'?action=calendar&amp;id='.$calendars->id.'">Edit</a></li>';
 			}
 			$l[] = '</ul>';
 			return implode("\n",$l);
