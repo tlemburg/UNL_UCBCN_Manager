@@ -66,7 +66,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			// User has entered correct authentication details, now find get their user record.
 			$this->user			= $this->getUser($this->a->getUsername());
 			$this->account		= $this->getAccount($this->user);
-			$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+			if (isset($_GET['calendar_id'])) {
+				$this->calendar = $this->factory('calendar');
+				if (!$this->calendar->get($_GET['calendar_id'])) {
+					$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+				}
+			} else {
+				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+			}
 		}
 	}
 	
@@ -455,9 +462,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	 function showCalendarForm()
 	 {
-	 	if (isset($this->calendar)) {
+	 	if (isset($this->calendar) && $this->userHasPermission($this->user,'Calendar Edit',$this->calendar)) {
 	 		$fb = DB_DataObject_FormBuilder::create($this->calendar);
-			$form = $fb->getForm($this->uri.'?action=calendar&id='.$this->calendar->id);
+			$form = $fb->getForm($this->uri.'?action=calendar&calendar_id='.$this->calendar->id);
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
 			if ($form->validate()) {
@@ -468,7 +475,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			return $renderer->toHtml();
 	 	} else {
-	 		return $this->showChooseCalendar();
+	 		return array('<p>You do not have permission to edit the calendar info.</p>',$this->showChooseCalendar());
 	 	}
 	 }
 	
@@ -482,7 +489,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if ($calendars->find()) {
 			$l = array('<ul>');
 			while ($calendars->fetch()) {
-				$l[] = '<li>'.$calendars->name.'&nbsp;<a href="'.$this->uri.'?action=calendar&amp;id='.$calendars->id.'">Edit</a></li>';
+				$li = $calendars->name;
+				if ($this->userHasPermission($this->user,'Calendar Edit',$this->calendar)) {
+					$li .= '&nbsp;<a href="'.$this->uri.'?action=calendar&amp;calendar_id='.$calendars->id.'">Edit</a>';
+				}
+				$l[] = '<li>'.$li.'</li>';
 			}
 			$l[] = '</ul>';
 			return implode("\n",$l);
@@ -499,24 +510,28 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showCalendarUsers()
 	{
-		$permissions_list = array('<ul>');
-		$user_has_permission = $this->factory('user_has_permission');
-		$user_has_permission->calendar_id = $this->calendar->id;
-		$users = $this->factory('user');
-		$users->groupBy('uid');
-		$users->joinAdd($user_has_permission);
-		if ($users->find()) {
-			while ($users->fetch()) {
-				if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
-					$user_li = '<li><a href="?action=permissions&amp;uid='.$users->uid.'">'.$users->uid.'</a></li>';
-				} else {
-					$user_li = '<li>'.$users->uid.'</li>';
+		if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
+			$permissions_list = array('<ul>');
+			$user_has_permission = $this->factory('user_has_permission');
+			$user_has_permission->calendar_id = $this->calendar->id;
+			$users = $this->factory('user');
+			$users->groupBy('uid');
+			$users->joinAdd($user_has_permission);
+			if ($users->find()) {
+				while ($users->fetch()) {
+					if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
+						$user_li = '<li><a href="?action=permissions&amp;uid='.$users->uid.'">'.$users->uid.'</a></li>';
+					} else {
+						$user_li = '<li>'.$users->uid.'</li>';
+					}
+					$permissions_list[] = $user_li;
 				}
-				$permissions_list[] = $user_li;
 			}
+			$permissions_list[] = '</ul>';
+			return implode("\n",$permissions_list);
+		} else {
+			return new UNL_UCBCN_Error('You do not have permission to Change User Permissions for this calendar.');
 		}
-		$permissions_list[] = '</ul>';
-		return implode("\n",$permissions_list);
 	}
 
 	/**
@@ -529,6 +544,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$output = '<p>Please choose the calendar you wish to manage.</p>';
 		$user_has_permission = $this->factory('user_has_permission');
 		$user_has_permission->uid = $this->user->uid;
+		$p = $this->factory('permission');
+		$p->name = 'Calendar Edit';
+		$user_has_permission->joinAdd($p);
 		if ($user_has_permission->find()) {
 			$form = new HTML_QuickForm();
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
