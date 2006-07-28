@@ -11,12 +11,12 @@ require_once 'PEAR/Frontend.php';
  */
 PEAR::setErrorHandling(PEAR_ERROR_DIE);
 chdir(dirname(__FILE__));
-//$pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
-$pfm = new PEAR_PackageFileManager2();
-$pfm->setOptions(array(
+$pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
+//$pfm = new PEAR_PackageFileManager2();
+//$pfm->setOptions(array(
 	'packagedirectory' => dirname(__FILE__),
 	'baseinstalldir' => 'UNL/UCBCN',
-	'filelistgenerator' => 'file',
+	'filelistgenerator' => 'cvs',
 	'ignore' => array(	'package.xml',
 						'.project',
 						'*.tgz',
@@ -36,22 +36,25 @@ $pfm->setOptions(array(
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
 $pfm->setPackageType('php'); // this is a PEAR-style php script package
-$pfm->setSummary('This package provides a management frontend for events inside the UNL_UCBCN system.');
-$pfm->setDescription('This class extends the UNL UCBerkeley Calendar backend system to create
-			a management frontend. It handles authentication for the user and allows
-			insertion of event details into the calendar backend.');
+$pfm->setSummary('A Management frontend for publishing University events.');
+$pfm->setDescription('This package gives authenticated users access to publish events ' .
+		'into their own calendar for their Department/Unit within a University.
+		It uses PEAR Auth to connect with existing authentication sources (LDAP etc).
+		It handles authentication for the user and allows ' .
+				'insertion of event details into the calendar backend.');
 $pfm->setChannel('pear.unl.edu');
-$pfm->setAPIStability('alpha');
-$pfm->setReleaseStability('alpha');
-$pfm->setAPIVersion('0.0.1');
-$pfm->setReleaseVersion('0.0.1');
-$pfm->setNotes('Initial Release... this is really bare-bones.
-		* Integration with Auth
-		* Create Event form.
-		* Added Dependency on NET_URL
-		* Default template for the manager.');
+$pfm->setAPIStability('beta');
+$pfm->setReleaseStability('beta');
+$pfm->setAPIVersion('0.1.0');
+$pfm->setReleaseVersion('0.2.0');
+$pfm->setNotes('* Automatic account and calendar creation for authenticated users.
+		* Creation of events now is functional.
+		* Now uses Mark Weismann\'s HTML_QuickForm_Renderer_Tableless
+		* Many css styling improvements (Alvin Woon)
+		* Can now delete events.
+		* Basic permissions editing for users.');
 
-$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
+//$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
 $pfm->clearDeps();
 $pfm->setPhpDep('5.0.0');

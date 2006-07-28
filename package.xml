@@ -1,36 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.10RC1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-    http://pear.php.net/dtd/tasks-1.0.xsd
-    http://pear.php.net/dtd/package-2.0
-    http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.10" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
- <summary>This package provides a management frontend for events inside the UNL_UCBCN system.</summary>
- <description>This class extends the UNL UCBerkeley Calendar backend system to create
-			a management frontend. It handles authentication for the user and allows
-			insertion of event details into the calendar backend.</description>
+ <summary>A Management frontend for publishing University events.</summary>
+ <description>This package gives authenticated users access to publish events into their own calendar for their Department/Unit within a University.
+		It uses PEAR Auth to connect with existing authentication sources (LDAP etc).
+		It handles authentication for the user and allows insertion of event details into the calendar backend.</description>
  <lead>
   <name>Brett Bieber</name>
   <user>saltybeagle</user>
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-07-13</date>
- <time>11:46:02</time>
+ <date>2006-07-28</date>
+ <time>08:55:53</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.2.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>Initial Release... this is really bare-bones.
-		* Integration with Auth
-		* Create Event form.
-		* Added Dependency on NET_URL
-		* Default template for the manager.</notes>
+ <notes>* Automatic account and calendar creation for authenticated users.
+		* Creation of events now is functional.
+		* Now uses Mark Weismann&apos;s HTML_QuickForm_Renderer_Tableless
+		* Many css styling improvements (Alvin Woon)
+		* Can now delete events.
+		* Basic permissions editing for users.</notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
@@ -43,9 +41,15 @@
    <dir name="templates">
     <dir name="default">
      <dir name="images">
+      <dir name="button">
+       <file name="delete.gif" role="data" />
+       <file name="movetodraft.gif" role="data" />
+      </dir> <!-- /templates/default/images/button -->
       <file name="account_bottom.gif" role="data" />
       <file name="account_head.gif" role="data" />
       <file name="account_middle.gif" role="data" />
+      <file name="arrow.gif" role="data" />
+      <file name="arrowhover.gif" role="data" />
       <file name="date.gif" role="data" />
       <file name="dott.gif" role="data" />
       <file name="dott.png" role="data" />
@@ -54,23 +58,28 @@
       <file name="heading.gif" role="data" />
       <file name="login-calendar_03.gif" role="data" />
       <file name="lost_password.gif" role="data" />
+      <file name="nav_calendar.gif" role="data" />
       <file name="nav_calendar.png" role="data" />
+      <file name="nav_create.gif" role="data" />
       <file name="nav_create.png" role="data" />
+      <file name="nav_import.gif" role="data" />
       <file name="nav_import.png" role="data" />
+      <file name="nav_search.gif" role="data" />
       <file name="nav_search.png" role="data" />
+      <file name="nav_subscribe.gif" role="data" />
       <file name="nav_subscribe.png" role="data" />
       <file name="sort.gif" role="data" />
       <file name="submit.gif" role="data" />
       <file name="table_hover.gif" role="data" />
       <file name="title.gif" role="data" />
      </dir> <!-- /templates/default/images -->
-     <file name="default.css" role="data" />
-     <file name="Error.php" role="data" />
-     <file name="EventListing.php" role="data" />
-     <file name="ieonly.css" role="data" />
-     <file name="main.css" role="data" />
-     <file name="Manager.php" role="data" />
-     <file name="Manager_Login.php" role="data" />
+     <file name="Error.tpl.php" role="data" />
+     <file name="EventListing.tpl.php" role="data" />
+     <file name="Manager.tpl.php" role="data" />
+     <file name="manager_default.css" role="data" />
+     <file name="manager_ieonly.css" role="data" />
+     <file name="Manager_Login.tpl.php" role="data" />
+     <file name="manager_main.css" role="data" />
     </dir> <!-- /templates/default -->
    </dir> <!-- /templates -->
    <file name="index.php" role="data">
@@ -188,13 +197,31 @@
     <release>alpha</release>
     <api>alpha</api>
    </stability>
-   <date>2006-07-13</date>
+   <date>2006-07-26</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>Initial Release... this is really bare-bones.
 		* Integration with Auth
 		* Create Event form.
 		* Added Dependency on NET_URL
 		* Default template for the manager.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-07-28</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Automatic account and calendar creation for authenticated users.
+		* Creation of events now is functional.
+		* Now uses Mark Weismann&apos;s HTML_QuickForm_Renderer_Tableless
+		* Many css styling improvements (Alvin Woon)
+		* Can now delete events.
+		* Basic permissions editing for users.</notes>
   </release>
  </changelog>
 </package>

@@ -326,7 +326,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			} else {
 				$user = $uid;
 			}
-			DB_DataObject::debugLevel(5);
 			$fb = DB_DataObject_FormBuilder::create($user);
 			if (!isset($user->uid)) {
 				$fb->enumFields = array('uid');
@@ -345,7 +344,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$form->setDefaults(array('account_id'=>$this->account->id));
 			$form->accept($renderer);
 			if ($form->validate()) {
-				echo 'IN HIZZA!';
 				//$this->createUser($this->account,$_POST['uid'],$this->user);
 				$e = $form->getElement('uid');
 				print_r($e->getValue());
@@ -357,7 +355,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$form->removeElement('__submit__');
 				$msg = '<p>User permissions saved...</p>';
 			}
-			DB_DataObject::debugLevel(0);
 			return $msg.$renderer->toHtml();
 		} else {
 			return new UNL_UCBCN_Error('You do not have permission to edit permissions for this calendar!');
@@ -486,6 +483,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		$calendars = $this->factory('calendar');
 		$calendars->account_id = $this->account->id;
+		$calendars->orderBy('name');
 		if ($calendars->find()) {
 			$l = array('<ul>');
 			while ($calendars->fetch()) {
