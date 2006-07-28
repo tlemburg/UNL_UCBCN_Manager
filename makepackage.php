@@ -46,13 +46,8 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.1.0');
-$pfm->setReleaseVersion('0.2.0');
-$pfm->setNotes('* Automatic account and calendar creation for authenticated users.
-		* Creation of events now is functional.
-		* Now uses Mark Weismann\'s HTML_QuickForm_Renderer_Tableless
-		* Many css styling improvements (Alvin Woon)
-		* Can now delete events.
-		* Basic permissions editing for users.');
+$pfm->setReleaseVersion('0.2.5');
+$pfm->setNotes('* Fix');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
