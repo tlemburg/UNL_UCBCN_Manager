@@ -102,7 +102,7 @@
     text-align: right;
 }
 .two_col form input, .two_col form textarea, .two_col form select{
-    width:260px;
+    width:auto;
 	background:#fff;
  	border:1px solid #ccc;
  	border-color:#ccc #fff #fff #ccc;
@@ -120,7 +120,7 @@
 	border:1px solid #ccc;
  	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
 .two_col form select {font-size:0.8em;}
-
+.two_col form select#__reverseLink_eventdatetime_event_idlocation_id_1{width:260px;}
 .two_col form textarea {
     overflow: auto;
 	height:80px;
@@ -151,7 +151,10 @@ form div.error {
   background:#e8f5fa url(images/fieldsetline.gif) no-repeat top left;
   margin-bottom:20px;
 }
-
+.two_col form fieldset.hidden{
+ background:none;
+ margin:0;
+}
 /* my calendar event list */
 body#normal div#maincontent .two_col ul{
 	list-style:none;
