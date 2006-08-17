@@ -74,6 +74,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			} else {
 				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
 			}
+			UNL_UCBCN::archiveEvents($this->calendar);
 		}
 	}
 	
