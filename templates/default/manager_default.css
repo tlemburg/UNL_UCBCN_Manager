@@ -120,6 +120,7 @@
 	border:1px solid #ccc;
  	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
 .two_col form select {font-size:0.8em;}
+.two_col form option {padding:0 0.3em;}
 .two_col form select#__reverseLink_eventdatetime_event_idlocation_id_1{width:260px;}
 .two_col form textarea {
     overflow: auto;
