@@ -373,11 +373,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		$e = array();
 		$a_event = $this->factory('calendar_has_event');
-		$event = $this->factory('event');
-		$eventdatetime = $this->factory('eventdatetime');
-		$event->joinAdd($eventdatetime);
-		$a_event->joinAdd($event);
-		switch($orderby) {
+		/*switch($orderby) {
 			case 'starttime':
 				$a_event->orderBy('eventdatetime.starttime DESC');
 			break;
@@ -387,7 +383,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			default:
 				$a_event->orderBy('calendar_has_event.datecreated DESC');
 			break;
-		}
+		}*/
 		$a_event->status = $status;
 		$a_event->calendar_id = $this->calendar->id;
 		if ($a_event->find()) {
@@ -401,7 +397,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {
 						// User has chosen to delete the event selected, and has permission to delete from pending.
 						$a_event->delete();
-						$eventdatetime->delete();
 					} elseif (isset($_POST['pending'])
 						&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
 						$a_event->status = 'pending';
