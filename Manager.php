@@ -60,20 +60,28 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		}
 		if (isset($_GET['logout'])) {
 			$this->a->logout();
+			unset($_SESSION['calendar_id']);
 		}
 		$this->a->start();
 		if ($this->a->checkAuth()) {
 			// User has entered correct authentication details, now find get their user record.
 			$this->user			= $this->getUser($this->a->getUsername());
 			$this->account		= $this->getAccount($this->user);
-			if (isset($_GET['calendar_id'])) {
+			if (isset($_GET['calendar_id']) || isset($_SESSION['calendar_id'])) {
 				$this->calendar = $this->factory('calendar');
-				if (!$this->calendar->get($_GET['calendar_id'])) {
+				if (isset($_GET['calendar_id'])) {
+					$cid = $_GET['calendar_id'];
+				} else {
+					$cid = $_SESSION['calendar_id'];
+				}
+				if (!$this->calendar->get($cid)) {
+					// Could not get the calendar in the session or $_GET
 					$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
 				}
 			} else {
 				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
 			}
+			$_SESSION['calendar_id'] = $this->calendar->id;
 			UNL_UCBCN::archiveEvents($this->calendar);
 		}
 	}
@@ -101,7 +109,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showAccountRight()
 	{
-		return	'<p id="date">'.date("F jS, Y").'</p>'."\n".
+		$r =	'<p id="date">'.date("F jS, Y").'</p>'."\n".
 				'<div id="account_box">'."\n".
 				'<p>Welcome, '.$this->user->uid.'</p>'."\n".
 				'<ul>'."\n".
@@ -112,6 +120,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				'<li><a href="#">Help</a></li>'."\n".
 				'</ul>'."\n".
 				'</div>';
+		$r .= $this->showChooseCalendar();
+		return $r;
 	}
 	
 	/**
@@ -535,28 +545,28 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showChooseCalendar()
 	{
-		$output = '<p>Please choose the calendar you wish to manage.</p>';
-		$user_has_permission = $this->factory('user_has_permission');
-		$user_has_permission->uid = $this->user->uid;
-		$p = $this->factory('permission');
-		$p->name = 'Calendar Edit';
-		$user_has_permission->joinAdd($p);
-		if ($user_has_permission->find()) {
-			$form = new HTML_QuickForm();
-			$renderer =& new HTML_QuickForm_Renderer_Tableless();
-			$form->accept($renderer);
-			$form->addElement('header','calendarhead','Choose a Calendar:');
-			$cal_select = HTML_QuickForm::createElement('select','calendar_id','Calendar');
-			while ($user_has_permission->fetch()) {
-				$cal_select->addOption($user_has_permission->calendar_id);
-			}
-			$form->addElement($cal_select);
-			$form->addElement('submit','submit','Submit');
-			$output .= $renderer->toHtml();
-		} else {
-			// Error, user has no permission to anything!
-			$output = new UNL_UCBCN_Error('Sorry, you do not have permission to edit/access any calendars.');
+		$db = UNL_UCBCN::getDatabaseConnection();
+		$res =& $db->query('SELECT u.calendar_id, c.name FROM user_has_permission AS u, calendar AS c WHERE 
+					u.user_uid=\''.$this->user->uid.'\' AND 
+					u.calendar_id = c.id 
+					GROUP BY u.calendar_id ORDER BY c.name');
+		if (PEAR::isError($res)) {
+			return new UNL_UCBCN_Error($res->getMessage());
 		}
+		$output = '<p>Please choose the calendar you wish to manage.</p>';
+		$form = new HTML_QuickForm('cal_choose','get');
+		//$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		//$form->accept($renderer);
+		$cal_select = HTML_QuickForm::createElement('select','calendar_id','');
+		while ($row = $res->fetchRow()) {
+			$cal_select->addOption($row[1],$row[0]);
+		}
+		$form->addElement($cal_select);
+		$form->addElement('submit','submit','Go');
+		$form->setDefaults(array('calendar_id'=>$_SESSION['calendar_id']));
+		//$output .= $renderer->toHtml();
+		$output .= $form->toHtml();
+		
 		return $output;
 	}
 }
