@@ -553,20 +553,24 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if (PEAR::isError($res)) {
 			return new UNL_UCBCN_Error($res->getMessage());
 		}
-		$output = '<p>Please choose the calendar you wish to manage.</p>';
-		$form = new HTML_QuickForm('cal_choose','get');
-		//$renderer =& new HTML_QuickForm_Renderer_Tableless();
-		//$form->accept($renderer);
-		$cal_select = HTML_QuickForm::createElement('select','calendar_id','');
-		while ($row = $res->fetchRow()) {
-			$cal_select->addOption($row[1],$row[0]);
+		if ($res->numRows()>1) {
+			$output = '<p>Please choose the calendar you wish to manage.</p>';
+			$form = new HTML_QuickForm('cal_choose','get');
+			$cal_select = HTML_QuickForm::createElement('select','calendar_id','');
+			while ($row = $res->fetchRow()) {
+				$cal_select->addOption($row[1],$row[0]);
+			}
+			$form->addElement($cal_select);
+			$form->addElement('submit','submit','Go');
+			$form->setDefaults(array('calendar_id'=>$_SESSION['calendar_id']));
+			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->accept($renderer);
+			$output .= $renderer->toHtml();
+			//$output .= $form->toHtml();
+		} else {
+			// User has no other calendars to manage.
+			$output = '';
 		}
-		$form->addElement($cal_select);
-		$form->addElement('submit','submit','Go');
-		$form->setDefaults(array('calendar_id'=>$_SESSION['calendar_id']));
-		//$output .= $renderer->toHtml();
-		$output .= $form->toHtml();
-		
 		return $output;
 	}
 }

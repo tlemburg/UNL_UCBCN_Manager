@@ -266,6 +266,10 @@ form#login label{
 }
 form#login fieldset{background:none;}
 
+form#cal_choose fieldset{
+	border:none;
+}
+
 /* action buttons */
 input#delete_event{
 width:48px;
