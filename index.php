@@ -12,7 +12,7 @@ $a = new Auth('DB',array('dsn'=>'mysql://eventcal:eventcal@localhost/eventcal'),
 
 $frontend = new UNL_UCBCN_Manager(array(	'template'=>'default',
 											'dsn'=>'mysql://eventcal:eventcal@localhost/eventcal',
-											'default_calendar_id'=>1
+											'default_calendar_id'=>1,
 											'a'=>$a));
 $frontend->run();
 UNL_UCBCN::displayRegion($frontend);
