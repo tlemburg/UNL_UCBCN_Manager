@@ -47,7 +47,12 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.1.0');
 $pfm->setReleaseVersion('0.2.5');
-$pfm->setNotes('* Fix');
+$pfm->setNotes("* Fix Bug #12  	 change account_has_event status\n" .
+		"Add default calendar settings to allow users to 'recommend an event for the main calendar'. If a user is logged in" .
+		" they can check a box which will add a pending event for the main calendar's pending approval listing.\n" .
+		"Archive old events up successful authentication.\n" .
+		"Add the ability to choose the calendar they wish to manage out of all they have permission for.\n" .
+		"Change event list sorting until we get pagination working.\n");
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
