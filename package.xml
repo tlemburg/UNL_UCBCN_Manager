@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.10" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
  <summary>A Management frontend for publishing University events.</summary>
@@ -12,10 +12,10 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-07-28</date>
- <time>08:55:53</time>
+ <date>2006-08-22</date>
+ <time>13:03:29</time>
  <version>
-  <release>0.2.0</release>
+  <release>0.2.5</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -23,12 +23,12 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>* Automatic account and calendar creation for authenticated users.
-		* Creation of events now is functional.
-		* Now uses Mark Weismann&apos;s HTML_QuickForm_Renderer_Tableless
-		* Many css styling improvements (Alvin Woon)
-		* Can now delete events.
-		* Basic permissions editing for users.</notes>
+ <notes>* Fix Bug #12  	 change account_has_event status
+Add default calendar settings to allow users to &apos;recommend an event for the main calendar&apos;. If a user is logged in they can check a box which will add a pending event for the main calendar&apos;s pending approval listing.
+Archive old events up successful authentication.
+Add the ability to choose the calendar they wish to manage out of all they have permission for.
+Change event list sorting until we get pagination working.
+ </notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
@@ -182,7 +182,7 @@
    <package>
     <name>UNL_UCBCN</name>
     <channel>pear.unl.edu</channel>
-    <min>0.0.1</min>
+    <min>0.2.5</min>
    </package>
   </required>
  </dependencies>
@@ -222,6 +222,24 @@
 		* Many css styling improvements (Alvin Woon)
 		* Can now delete events.
 		* Basic permissions editing for users.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.2.5</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-08-22</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Fix Bug #12  	 change account_has_event status
+Add default calendar settings to allow users to &apos;recommend an event for the main calendar&apos;. If a user is logged in they can check a box which will add a pending event for the main calendar&apos;s pending approval listing.
+Archive old events up successful authentication.
+Add the ability to choose the calendar they wish to manage out of all they have permission for.
+Change event list sorting until we get pagination working.
+   </notes>
   </release>
  </changelog>
 </package>
