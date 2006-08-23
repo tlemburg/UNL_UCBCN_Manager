@@ -4,6 +4,8 @@
  */
   #maincontent a{background:none;}
     #maincontent a:hover{text-decoration:underline!important;}
+    #maincontent #title{padding:2px;}
+    
   /*--[navigation]--*/
 
 	  #navlinks ul{
