@@ -159,63 +159,63 @@ form div.error {
  margin:0;
 }
 /* my calendar event list */
-body#normal div#maincontent .two_col ul{
+body#normal div#maincontent .two_col ul.eventsbystatus{
 	list-style:none;
 	line-height:1;
 	margin:10px 0 12px 0;
 	padding:6px 6px 2.3em 6px;
 	border-bottom:1px solid #bebcbc;
 }
-	body#normal div#maincontent .two_col ul li{
+	body#normal div#maincontent .two_col ul.eventsbystatus li{
 	float:left;
 	margin:2px;
 	padding:6px;
 	border:1px solid #bebcbc;
 	}
-		body#normal div#maincontent .two_col ul li a{
+		body#normal div#maincontent .two_col ul.eventsbystatus li a{
 		text-decoration:none;
 		display:block;
 		}
 		
-body#normal div#maincontent table{
+table.eventlisting{
 	border-collapse:collapse;
 	clear:both;
 	margin:0 0 12px 0;
 	width:100%;
 }
-body#normal div#maincontent table thead th{
+table.eventlisting thead th{
 	background:#3e83c9;color:#fff;	
 	padding:7px;
 	text-align:left;
 }
-body#normal div#maincontent table thead th.date a, body#normal div#maincontent table thead th.title a{
+table.eventlisting thead th.date a, table.eventlisting thead th.title a{
 	color:#FFFFFF;
 	display:block;
 	background:url(images/sort.gif) no-repeat;
 	background-position:35px 5px;
 	text-decoration:none;
 	}
-body#normal div#maincontent table thead th.title a{
+table.eventlisting thead th.title a{
 	background-position:71px 5px;
 	}
-	body#normal div#maincontent table thead th a:hover{
+	table.eventlisting thead th a:hover{
 	text-decoration:underline;
 	}
-body#normal div#maincontent table tr:hover, body#normal div#maincontent table tr.alt:hover{
+table.eventlisting tr:hover, table.eventlisting tr.alt:hover {
 	background:#ffffcc;
 }
-body#normal div#maincontent table tr.alt{
+table.eventlisting tr.alt{
 	background:#e8f5fa;
 	border-top:1px solid #8ebcd6;
 	border-bottom:1px solid #8ebcd6;
 }
-body#normal div#maincontent table tr.updated {
+table.eventlisting tr.updated {
 	background:#ffffcc;
 }
-body#normal div#maincontent table tr td{
+table.eventlisting tr td{
 	padding:7px;
 }
-body#normal div#maincontent td.edit a{
+body#normal table.eventlisting td.edit a{
 	display:block;
 	padding:0;
 	text-indent:-9999px;
@@ -223,7 +223,7 @@ body#normal div#maincontent td.edit a{
 	width:33px;
 	height:21px;
 }
-body#normal div#maincontent td.edit a:hover{
+body#normal table.eventlisting td.edit a:hover{
 	background-position:0 -22px;
 }
 

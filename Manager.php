@@ -334,7 +334,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$q = (isset($_GET['q']))?$_GET['q']:NULL;
 		if (!empty($q)) {
 			$events = $this->factory('event');
-			$events->whereAdd('event.title LIKE \'%'.$q.'%\'');
+			$events->whereAdd('event.title LIKE \'%'.$q.'%\' AND event.approvedforcirculation=1');
 			$events->orderBy('event.title');
 			$num_results = $events->find();
 			if ($num_results) {
@@ -466,7 +466,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		} else {
 			$e[] = '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
 		}
-		array_unshift($e, '<ul>' .
+		array_unshift($e, '<ul class="eventsbystatus">' .
 							'<li><a href="'.$this->uri.'?list=pending">Pending ('.$this->getEventCount($this->calendar,'pending').')</a></li>' .
 							'<li><a href="'.$this->uri.'?list=posted">Posted ('.$this->getEventCount($this->calendar,'posted').')</a></li>' .
 							'<li><a href="'.$this->uri.'?list=archived">Archived ('.$this->getEventCount($this->calendar,'archived').')</a></li>' .

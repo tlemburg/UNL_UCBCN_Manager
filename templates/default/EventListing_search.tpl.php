@@ -1,4 +1,4 @@
-<table>
+<table class="eventlisting">
 <thead>
 <tr>
 <th scope="col" class="select">Select</th>
@@ -27,7 +27,7 @@ foreach ($this->events as $event) {
 					echo '<input type="checkbox" name="event['.$event['id'].']" />';
 				} ?>
 			</td>
-			<td><span class='title' style="float:left;"><?php echo $event['title']; ?></span>
+			<td class="title"><span class='title' style="float:left;"><?php echo $event['title']; ?></span>
 				<a style="float:right;" href="#" onclick="showHide('instances_<?php echo $event['id'];?>'); return false;"><?php echo $instances; ?> +</a>
 				<div id='instances_<?php echo $event['id'];?>' style="display:none;clear:both;">
 				<ul>
@@ -46,6 +46,8 @@ foreach ($this->events as $event) {
 				} ?>
 			</td>
 		</tr>
-	<? } ?>
+	<?
+	$oddrow = !$oddrow;
+	} ?>
 </tbody>
 </table>
