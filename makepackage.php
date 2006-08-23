@@ -47,7 +47,7 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.1.0');
 $pfm->setReleaseVersion('0.3.0');
-$pfm->setNotes("* Fix");
+$pfm->setNotes("* Add search capabilities to manager.");
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');

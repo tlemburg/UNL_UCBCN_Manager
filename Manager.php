@@ -96,7 +96,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		return	'<ul>'."\n".
 				'<li id="calendar"><a href="'.$this->uri.'?" title="My Calendar">Pending Events</a></li>'."\n".
 				'<li id="create"><a href="'.$this->uri.'?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
-				//'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
+				'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
 				//'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
 				//'<li id="import"><a href="'.$this->uri.'?action=import" title="Import/Export">Import/Export</a></li>'."\n".
 				'</ul>'."\n";
@@ -242,6 +242,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				case 'search':
 					$this->uniquebody = 'id="search"';
 					$this->sectitle = 'Event Search';
+					UNL_UCBCN::outputTemplate('UNL_UCBCN_EventListing','EventListing_search');
+					$this->output[] = $this->showSearchForm();
+					$this->output[] = $this->showSearchResults();
 				break;
 				case 'subscribe':
 					$this->uniquebody = 'id="subscribe"';
@@ -307,6 +310,45 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$this->output = $this->showLoginForm();
 		}
 		$this->doctitle .= ' | '.$this->sectitle;
+	}
+	
+	/**
+	 * Returns a search form for searching the events database.
+	 */
+	function showSearchForm()
+	{
+		$form = new HTML_QuickForm('event_search','get');
+		$form->addElement('hidden','action','search');
+		$form->addElement('text','q','');
+		$form->addElement('submit','s','Search');
+		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
+		return $renderer->toHtml();
+	}
+	
+	/**
+	 * Returns an event listing of search results.
+	 */
+	function showSearchResults()
+	{
+		$q = (isset($_GET['q']))?$_GET['q']:NULL;
+		if (!empty($q)) {
+			$events = $this->factory('event');
+			$events->whereAdd('event.title LIKE \'%'.$q.'%\'');
+			$events->orderBy('event.title');
+			$num_results = $events->find();
+			if ($num_results) {
+				$listing = new UNL_UCBCN_EventListing();
+				while ($events->fetch()) {
+					$listing->events[] = $events->toArray();
+				}
+				return array('<p class="num_results">'.$num_results.' Result(s)</p>',$listing);
+			} else {
+				return 'No results found.';
+			}
+		} else {
+			return 'Please enter a search string.';
+		}
 	}
 	
 	/**

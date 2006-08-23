@@ -14,6 +14,13 @@
 <?php require_once($GLOBALS['unl_template_dependents'].'/templatesharedcode/includes/metanfavico/metanfavico.html'); ?>
 <!-- InstanceBeginEditable name="head" -->
 <link rel="stylesheet" type="text/css" media="screen" href="templates/@TEMPLATE@/manager_main.css" />
+<script type="text/javascript">
+function showHide(e)
+{
+   document.getElementById(e).style.display=(document.getElementById(e).style.display=="block")?"none":"block";
+   return false;
+}
+</script>
 <!-- InstanceEndEditable -->
 </head>
 <body <?php echo $this->uniquebody; ?>>
