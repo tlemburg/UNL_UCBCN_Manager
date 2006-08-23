@@ -332,6 +332,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showSearchResults()
 	{
 		$q = (isset($_GET['q']))?$_GET['q']:NULL;
+		$mdb2 =& $this->getDatabaseConnection();
+		$q = $mdb2->escape($q);
 		if (!empty($q)) {
 			$events = $this->factory('event');
 			$events->whereAdd('event.title LIKE \'%'.$q.'%\' AND event.approvedforcirculation=1');
