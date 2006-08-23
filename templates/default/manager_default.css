@@ -188,7 +188,7 @@ table.eventlisting thead th{
 	padding:7px;
 	text-align:left;
 }
-table.eventlisting thead th.date a, table.eventlisting thead th.title a{
+#maincontent table.eventlisting thead th.date a, #maincontent table.eventlisting thead th.title a{
 	color:#FFFFFF;
 	display:block;
 	background:url(images/sort.gif) no-repeat;
