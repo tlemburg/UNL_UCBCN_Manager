@@ -53,7 +53,7 @@
   }
  
   #account_box p{
-  	padding:6px 8px 0 8px;margin:0;
+  	padding:6px 8px 6px 8px;margin:0;
   	background:url(images/account_head.gif) no-repeat top left;
   }
  
@@ -92,7 +92,6 @@
 	display:block;
 	border:1px solid #ccc;
 	padding:3px 5px;
-	
 	margin:0 0 24px 0;
 }
 .two_col form label.qflabel{
@@ -112,7 +111,7 @@
 	margin:4px 0;
 }
 .two_col form input#approvedforcirculation{width:auto;}
-.two_col .select input{width:auto;}
+.two_col .select input{border:none;background:none;width:auto;}
 .two_col form input:focus, .two_col form textarea:focus, .two_col form select:focus {
     background:#ffffcc;
 }
@@ -149,7 +148,7 @@ form div.error {
 }
   
 .two_col form fieldset{
-  padding:10px 0;
+  padding:0 0 10px 0;
   border:none;
   background:#e8f5fa url(images/fieldsetline.gif) no-repeat top left;
   margin-bottom:20px;
@@ -255,10 +254,21 @@ form#login{
 form#login input{
 	background:#deecfd;
 	border:1px solid #c2d4e2;
-	width:auto;
+	width:200px;
 	margin:0;
 	font-size:17px;
 	padding:3px;
+}
+form#login button#submit{
+	background:url(images/button/c_submit.gif) no-repeat;
+	width:48px;
+	height:21px;display:block;
+	text-indent:-9999px;
+	border:none;
+	margin-top:3px;
+}
+form#login button#submit:hover{
+	background-position:0 -22px;
 }
 form#login input:focus{
 	background:#ffffcc;
@@ -273,19 +283,20 @@ form#cal_choose fieldset{
 }
 
 /* action buttons */
-input#delete_event{
+button#delete_event{
 width:48px;
-height:22px;
+height:22px;float:left;margin:0 5px 0 0;
 background:url(images/button/delete.gif) no-repeat;
 text-indent:-9999em;
+display:block;
 border:none;}
 
-input#delete_event:hover{background-position:0 -22px;}
-
-input#moveto_pending{width:99px;
+button#delete_event:hover{background-position:0 -22px;}
+button#moveto_pending{width:99px;
 height:22px;
 background:url(images/button/movetodraft.gif) no-repeat;
 text-indent:-9999em;
+display:block;
 border:none;}
 
-input#moveto_pending:hover{background-position:0 -22px;}
+button#moveto_pending:hover{background-position:0 -22px;}

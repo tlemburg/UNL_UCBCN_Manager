@@ -3,7 +3,7 @@
 	$form = new HTML_QuickForm('login');
 	$form->addElement('text',$this->user_field,'User');
 	$form->addElement('password',$this->password_field,'Password');
-	$form->addElement('submit','submit','Submit');
+	$form->addElement('xbutton','submit','Submit','type="submit"');
 	$renderer =& new HTML_QuickForm_Renderer_Tableless();
 	$form->accept($renderer);
 	echo $renderer->toHtml();

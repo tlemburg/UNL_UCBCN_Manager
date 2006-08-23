@@ -46,7 +46,7 @@ foreach ($this->events as $event) {
 				} ?>
 			</td>
 		</tr>
-	<?
+	<?php
 	$oddrow = !$oddrow;
 	} ?>
 </tbody>
