@@ -162,18 +162,29 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					'uidlastupdated'	=> $this->user->uid));
 		if ($form->validate()) {
 			// Form has passed the client/server validation and can be inserted.
+			/* If this is an update, first check to see if the current user has permission to edit
+			 * events for the calendar the event was originally posted on.
+			 */
 			$result = $form->process(array(&$fb, 'processForm'), false);
 			if ($result) {
 				// EVENT Has been added... now check permissions and add to selected calendars.
-				switch (true) {
-					case $this->userHasPermission($this->user,'Event Post',$this->calendar):
-						$this->addCalendarHasEvent($this->calendar,$events,'posted',$this->user);
-					break;
-					case $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar):
-						$this->addCalendarHasEvent($this->calendar,$events,'pending',$this->user);
-					break;
-					default:
-						return new UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar "'.$this->calendar->name.'".');
+				$che =& UNL_UCBCN::calendarHasEvent($this->calendar,$events);
+				if ($che===false) {
+					// This calendar does not already have this event.
+					switch (true) {
+						case $this->userHasPermission($this->user,'Event Post',$this->calendar):
+							$this->addCalendarHasEvent($this->calendar,$events,'posted',$this->user);
+						break;
+						case $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar):
+							$this->addCalendarHasEvent($this->calendar,$events,'pending',$this->user);
+						break;
+						default:
+							return new UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar "'.$this->calendar->name.'".');
+					}
+				} else {
+					$che->uidlastupdated = $this->user->uid;
+					$che->datelastupdated = date('Y-m-d H:i:s');
+					$che->update();
 				}
 				$this->localRedirect($this->uri.'?list=posted&new_event_id='.$events->id);
 			}
@@ -318,8 +329,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	function showSearchForm()
 	{
 		$form = new HTML_QuickForm('event_search','get');
+		$form->addElement('header','searchheader','Search Events');
 		$form->addElement('hidden','action','search');
-		$form->addElement('text','q','');
+		$form->addElement('text','q','Search for events titled:');
 		$form->addElement('submit','s','Search');
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$form->accept($renderer);
@@ -346,10 +358,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				}
 				return array('<p class="num_results">'.$num_results.' Result(s)</p>',$listing);
 			} else {
-				return 'No results found.';
+				return '<p>No results found.</p>';
 			}
 		} else {
-			return 'Please enter a search string.';
+			return '';
 		}
 	}
 	
