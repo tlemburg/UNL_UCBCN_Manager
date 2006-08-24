@@ -100,7 +100,7 @@
 	background:#fff;
  	border:1px solid #ccc;
  	border-color:#ccc #fff #fff #ccc;
-	padding:2px;
+	padding:3px;
 	margin:4px 0;
 }
 .two_col form input#approvedforcirculation{width:auto;}
@@ -168,7 +168,7 @@ margin:0;padding:0;background:0;border:none;
 body#normal div#maincontent .two_col ul.eventsbystatus{
 	list-style:none;
 	line-height:1;
-	margin:10px 0 12px 0;
+	margin:10px 0 10px 0;
 	padding:6px 6px 2.3em 6px;
 	border-bottom:1px solid #bebcbc;
 }
@@ -182,7 +182,7 @@ body#normal div#maincontent .two_col ul.eventsbystatus{
 		text-decoration:none;
 		display:block;
 		}
-		
+body#normal div#maincontent .two_col form{padding:0;margin:0;}		
 table.eventlisting{
 	border-collapse:collapse;
 	clear:both;
@@ -250,11 +250,11 @@ body#login a#forgot{
    text-decoration:none;
    padding:1px 0 2px 25px;
   }
-form#login{
+body#login div#maincontent .two_col form#login{
 	width:431px;
 	height:186px;
 	background:#fff url(images/login-calendar_03.gif) no-repeat;
-	padding:50px 0 0 0;
+	padding:63px 0 0 0;
 	font-size:18px;
 	letter-spacing:-1px;
 	}
