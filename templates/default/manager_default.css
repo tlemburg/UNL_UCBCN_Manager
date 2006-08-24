@@ -83,18 +83,11 @@
  * Form CSS Styles
  */
 .two_col form {
-    margin: 0;
-    padding: 0;
-	width:auto;
+    margin:0;
+    padding:20px 0 0 0;
+
 }
-.two_col form fieldset legend {
-    font-weight: bold;
-	display:block;
-	border:1px solid #ccc;
-	padding:3px 5px;
-	margin:0 0 24px 0;
-}
-.two_col form label.qflabel{
+.two_col form label{
     display: block;
     float: left;
     width: 150px;
@@ -146,16 +139,30 @@ form div.error {
     border: 1px solid red;
     padding: 5px;
 }
+.two_col form fieldset legend {
+    font-weight: bold;
+    top: -11px;
+	border:1px solid #ccc;
+	padding:3px 6px;
+	margin:0 0 24px 0;
+	position:relative;
+	background:#fff;
+	}
+
   
 .two_col form fieldset{
   padding:0 0 10px 0;
+  display:block;
   border:none;
-  background:#e8f5fa url(images/fieldsetline.gif) no-repeat top left;
-  margin-bottom:20px;
+  border-bottom:1px solid #ddd;
+  position:relative;
+  margin:0 0 30px 0;
+  background:#e8f5fa url(images/fieldsetline.gif) no-repeat;
 }
+
+		
 .two_col form fieldset.hidden{
- background:none;
- margin:0;
+margin:0;padding:0;background:0;border:none;
 }
 /* my calendar event list */
 body#normal div#maincontent .two_col ul.eventsbystatus{
@@ -182,7 +189,7 @@ table.eventlisting{
 	margin:0 0 12px 0;
 	width:100%;
 }
-table.eventlisting thead th{
+#maincontent table.eventlisting thead th{
 	background:#3e83c9;color:#fff;	
 	padding:7px;
 	text-align:left;
@@ -194,9 +201,10 @@ table.eventlisting thead th{
 	background-position:35px 5px;
 	text-decoration:none;
 	}
-table.eventlisting thead th.title a{
+#maincontent table.eventlisting thead th.title a{
 	background-position:71px 5px;
 	}
+#maincontent table.eventlisting td ul{padding:0 0 0 13px;margin:0;}
 	table.eventlisting thead th a:hover{
 	text-decoration:underline;
 	}
@@ -246,7 +254,7 @@ form#login{
 	width:431px;
 	height:186px;
 	background:#fff url(images/login-calendar_03.gif) no-repeat;
-	padding:60px 0 0 0;
+	padding:50px 0 0 0;
 	font-size:18px;
 	letter-spacing:-1px;
 	}
