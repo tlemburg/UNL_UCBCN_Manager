@@ -176,12 +176,20 @@ body#normal div#maincontent .two_col ul.eventsbystatus{
 	float:left;
 	margin:2px;
 	padding:6px;
+	background:#eee;
 	border:1px solid #bebcbc;
 	}
 		body#normal div#maincontent .two_col ul.eventsbystatus li a{
 		text-decoration:none;
 		display:block;
 		}
+		
+	body#normal div#maincontent .two_col ul.eventsbystatus.archived li#archived_manager,
+	body#normal div#maincontent .two_col ul.eventsbystatus.pending li#pending_manager,
+	body#normal div#maincontent .two_col ul.eventsbystatus.posted li#posted_manager{
+		position:relative;background:#fff;border-bottom:1px solid #fff;
+		}
+	
 body#normal div#maincontent .two_col form{padding:0;margin:0;}		
 table.eventlisting{
 	border-collapse:collapse;
