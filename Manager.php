@@ -331,7 +331,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$form = new HTML_QuickForm('event_search','get');
 		$form->addElement('header','searchheader','Search Events');
 		$form->addElement('hidden','action','search');
-		$form->addElement('text','q','Search for events titled:');
+		$form->addElement('text','q','Search for events:');
 		$form->addElement('submit','s','Search');
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$form->accept($renderer);
@@ -345,18 +345,26 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		$q = (isset($_GET['q']))?$_GET['q']:NULL;
 		$mdb2 =& $this->getDatabaseConnection();
-		$q = $mdb2->escape($q);
 		if (!empty($q)) {
 			$events = $this->factory('event');
-			$events->whereAdd('event.title LIKE \'%'.$q.'%\' AND event.approvedforcirculation=1');
-			$events->orderBy('event.title');
-			$num_results = $events->find();
-			if ($num_results) {
-				$listing = new UNL_UCBCN_EventListing();
-				while ($events->fetch()) {
-					$listing->events[] = $events->toArray();
-				}
-				return array('<p class="num_results">'.$num_results.' Result(s)</p>',$listing);
+			if ($t = strtotime($q)) {
+				// This is a time...
+				$events->query('SELECT event.* FROM event, eventdatetime WHERE ' .
+						'eventdatetime.event_id = event.id AND eventdatetime.starttime LIKE \''.date('Y-m-d',$t).'%\'');
+				
+			} else {
+				// Do a textual search.
+				$q = $mdb2->escape($q);
+				$events->whereAdd('event.title LIKE \'%'.$q.'%\' AND event.approvedforcirculation=1');
+				$events->orderBy('event.title');
+				$events->find();
+			}
+			$listing = new UNL_UCBCN_EventListing();
+			while ($events->fetch()) {
+				$listing->events[] = $events->toArray();
+			}
+			if (count($listing->events)) {
+				return array('<p class="num_results">'.count($listing->events).' Result(s)</p>',$listing);
 			} else {
 				return '<p>No results found.</p>';
 			}
