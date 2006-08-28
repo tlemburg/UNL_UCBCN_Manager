@@ -255,13 +255,11 @@ body#login #main_left{
   	position:relative;
   }
 
-body#login p#lost{
-	margin:-3em 0 0 12.5em;  
-  }
 body#login a#forgot{
-   background:url(images/lost_password.gif) no-repeat;
+   position:absolute;
+   font-size:0.6em;letter-spacing:normal;
    text-decoration:none;
-   padding:1px 0 2px 25px;
+   margin:-24px 0 0 57px;
   }
 body#login div#maincontent .two_col form#login{
 	width:431px;
@@ -312,12 +310,20 @@ text-indent:-9999em;
 display:block;
 border:none;}
 
-button#delete_event:hover{background-position:0 -22px;}
-button#moveto_pending{width:99px;
+button#moveto_pending{
+width:99px;
 height:22px;
 background:url(images/button/movetodraft.gif) no-repeat;
 text-indent:-9999em;
 display:block;
 border:none;}
 
-button#moveto_pending:hover{background-position:0 -22px;}
+button#search{
+width:48px;
+height:22px;
+background:url(images/button/search.gif) no-repeat;
+text-indent:-9999em;
+display:block;
+border:none;}
+
+button#delete_event:hover, button#moveto_pending:hover, button#search:hover{background-position:0 -22px;}
