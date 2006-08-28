@@ -20,6 +20,31 @@ function showHide(e)
    document.getElementById(e).style.display=(document.getElementById(e).style.display=="block")?"none":"block";
    return false;
 }
+
+function checknegate(id){
+	checkevent(id);
+}
+
+function highlightLine(l,id) {
+	animation(l,id);	
+	checkevent(id);
+}
+
+function animation(l,id){
+	var TRrow = "row" + id;
+	if(!l.className){
+	Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffff',to:'#ffffcc',restoreColor:'#ffffcc',toggle: true});
+	}
+	else{
+	Spry.Effect.Highlight(TRrow,{duration:400,from:'#e8f5fa',to:'#ffffcc',restoreColor:'#ffffcc',toggle: true});
+	} 
+}
+
+function checkevent(id) {
+	 checkSet = eval("document.formlist.event" + id);
+	 checkSet.checked = !checkSet.checked
+}
+
 </script>
 <!-- InstanceEndEditable -->
 </head>

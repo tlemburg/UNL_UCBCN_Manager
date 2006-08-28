@@ -332,7 +332,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$form->addElement('header','searchheader','Search Events');
 		$form->addElement('hidden','action','search');
 		$form->addElement('text','q','Search for events:');
+		$form->addElement('static','','','<small style="color:#999;">"Tomorrow", "March 31st", "Earth Day"</small>');
 		$form->addElement('submit','s','Search');
+		
 		$renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$form->accept($renderer);
 		return $renderer->toHtml();

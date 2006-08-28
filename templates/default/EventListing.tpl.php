@@ -1,4 +1,4 @@
-<form action="?list=<?php echo $this->status; ?>" method="post">
+<form action="?list=<?php echo $this->status; ?>" name="formlist" method="post">
 <table class="eventlisting">
 <thead>
 <tr>
@@ -12,15 +12,15 @@
 <?php
 $oddrow = false;
 foreach ($this->events as $e) {
-	$row = '<tr';
+	$row = '<tr id="row'.$e->id.'"';
 	if (isset($_GET['new_event_id']) && $_GET['new_event_id']==$e->id) {
 		$row .= ' class="updated"';
 	} elseif ($oddrow) {
 		$row .= ' class="alt"';
 	}
-	$row .= '>';
+	$row .= ' onclick="highlightLine(this,'.$e->id.');">';
 	$oddrow = !$oddrow;
-	$row .=	'<td class="select"><input type="checkbox" name="event['.$e->id.']" />' .
+	$row .=	'<td class="select"><input type="checkbox" onclick="checknegate('.$e->id.')" name="event'.$e->id.'" />' .
 			'<td class="title">'.$e->title.'</td>' .
 			'<td class="date">';
 	$edt = UNL_UCBCN::factory('eventdatetime');
