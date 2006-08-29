@@ -173,10 +173,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					// This calendar does not already have this event.
 					switch (true) {
 						case $this->userHasPermission($this->user,'Event Post',$this->calendar):
-							$this->addCalendarHasEvent($this->calendar,$events,'posted',$this->user);
+							$this->addCalendarHasEvent($this->calendar,$events,'posted',$this->user,'create event form');
 						break;
 						case $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar):
-							$this->addCalendarHasEvent($this->calendar,$events,'pending',$this->user);
+							$this->addCalendarHasEvent($this->calendar,$events,'pending',$this->user,'create event form');
 						break;
 						default:
 							return new UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar "'.$this->calendar->name.'".');
@@ -362,7 +362,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			$listing = new UNL_UCBCN_EventListing();
 			while ($events->fetch()) {
-				$listing->events[] = $events->toArray();
+				$listing->events[] =  array_merge($events->toArray(),array('usercaneditevent'=>UNL_UCBCN::userCanEditEvent($this->user,$events)));
 			}
 			if (count($listing->events)) {
 				return array('<p class="num_results">'.count($listing->events).' Result(s)</p>',$listing);

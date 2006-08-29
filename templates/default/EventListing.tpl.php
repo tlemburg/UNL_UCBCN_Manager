@@ -37,8 +37,11 @@ foreach ($this->events as $e) {
             $row .= 'Unknown';
     }
 	$row .= '</td>' .
-			'<td class="edit"><a href="?action=createEvent&amp;id='.$e->id.'">Edit</a></td>' .
-			'</tr>';
+			'<td class="edit">';
+	if (UNL_UCBCN::userCanEditEvent($_SESSION['_authsession']['username'],$e)) {
+		$row .= '<a href="?action=createEvent&amp;id='.$e->id.'">Edit</a>';
+	}
+	$row .=		'</td></tr>';
 	echo $row;
 } ?>
 </tbody>

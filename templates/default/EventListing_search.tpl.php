@@ -41,7 +41,7 @@ foreach ($this->events as $event) {
 			</td>
 			<td class="edit">
 				<?php
-				if ($event['uidcreated']==$_SESSION['_authsession']['username']) {
+				if ($event['usercaneditevent']) {
 					echo '<a href="?action=createEvent&amp;id='.$event['id'].'">Edit</a></td>';
 				} ?>
 			</td>
