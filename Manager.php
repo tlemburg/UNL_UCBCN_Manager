@@ -59,31 +59,62 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$this->a = new Auth('File', array('file'=>'@DATA_DIR@/UNL_UCBCN_Manager/admins.txt'), 'loginFunction',false);
 		}
 		if (isset($_GET['logout'])) {
+			$this->endSession();
 			$this->a->logout();
-			unset($_SESSION['calendar_id']);
 		}
 		$this->a->start();
 		if ($this->a->checkAuth()) {
-			// User has entered correct authentication details, now find get their user record.
-			$this->user			= $this->getUser($this->a->getUsername());
-			$this->account		= $this->getAccount($this->user);
-			if (isset($_GET['calendar_id']) || isset($_SESSION['calendar_id'])) {
-				$this->calendar = $this->factory('calendar');
-				if (isset($_GET['calendar_id'])) {
-					$cid = $_GET['calendar_id'];
-				} else {
-					$cid = $_SESSION['calendar_id'];
-				}
-				if (!$this->calendar->get($cid)) {
-					// Could not get the calendar in the session or $_GET
-					$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
-				}
-			} else {
-				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
-			}
-			$_SESSION['calendar_id'] = $this->calendar->id;
+			$this->startSession();
 			UNL_UCBCN::archiveEvents($this->calendar);
 		}
+	}
+	
+	/**
+	 * Begins a calendar management session for this user.
+	 */
+	function startSession()
+	{
+		// User has entered correct authentication details, now find get their user record.
+		$this->user			= $this->getUser($this->a->getUsername());
+		$this->session		= UNL_UCBCN::factory('session');
+		$this->session->user_uid = $this->user->uid;
+		if (!$this->session->find()) {
+			$this->session->user_uid = $this->user->uid;
+			$this->session->lastaction = date('Y-m-d H:i:s');
+			$this->session->insert();
+		} else {
+			$this->session->fetch();
+		}
+		$this->account		= $this->getAccount($this->user);
+		if (isset($_GET['calendar_id']) ||
+			(isset($this->user->calendar_id) && ($this->user->calendar_id != 0))) {
+			$this->calendar = $this->factory('calendar');
+			if (isset($_GET['calendar_id'])) {
+				$cid = $_GET['calendar_id'];
+			} else {
+				$cid = $this->user->calendar_id;
+			}
+			if (!$this->calendar->get($cid)) {
+				// Could not get the calendar in the session or $_GET
+				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+			}
+		} else {
+			$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+		}
+		if ($this->user->calendar_id != $this->calendar->id) {
+			// Set the user's calendar_id to remember their default calendar.
+			$this->user->calendar_id = $this->calendar->id;
+			$this->user->update();
+		}
+		$_SESSION['calendar_id'] = $this->calendar->id;
+	}
+	
+	/**
+	 * Ends a calendar management session for the current user.
+	 */
+	function endSession()
+	{
+		unset($_SESSION['calendar_id']);
 	}
 	
 	/**
