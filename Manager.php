@@ -3,11 +3,11 @@
  * This class extends the UNL UCBerkeley Calendar backend system to create
  * a management frontend. It handles authentication for the user and allows
  * insertion of event details into the calendar backend.
+ * It allows authenticated users to submit new events into the system.
  * 
  * @package UNL_UCBCN_Manager
  * @author bbieber
  */
-
 
 require_once 'UNL/UCBCN.php';
 require_once 'UNL/UCBCN/Manager/FormBuilder.php';
