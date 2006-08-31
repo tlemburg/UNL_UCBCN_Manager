@@ -63,6 +63,15 @@
 			<!-- InstanceEndEditable -->
 			<!-- WDN: see glossary item 'sidebar links' -->
 			<div id="leftcollinks"> <!-- InstanceBeginEditable name="leftcollinks" -->
+				<?php
+				if (!empty($this->plugins)) {
+					echo '<h3>Plugins</h3><ul>';
+					foreach ($this->plugins as $plugin) {
+						echo '<li><a href="'.$plugin->uri.'">'.$plugin->name.'</a></li>';
+					}
+					echo '</ul>';
+				}
+				?>
 				<h3>Related Links</h3>
 				<ul>
 					<li><a href="<?php echo $this->frontenduri; ?>">Events</a></li>
