@@ -541,7 +541,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$listing->status = $status;
 			while ($a_event->fetch()) {
 				$event = $a_event->getLink('event_id');
-				if (isset($_POST['event'][$event->id])) {
+				if (isset($_POST['event'.$event->id])) {
 					// This event date time combination was selected... find out what they chose.
 					if (isset($_POST['delete']) 
 						&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {

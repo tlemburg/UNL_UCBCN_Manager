@@ -46,10 +46,10 @@ foreach ($this->events as $e) {
 } ?>
 </tbody>
 </table>
-<button id="delete_event" type="submit" name="delete">Delete</button>
+<button id="delete_event" type="submit" name="delete" value="delete">Delete</button>
 <?php if ($this->status=='posted') { ?>
-<button id="moveto_pending" type="submit" name="pending">Move to Pending</button>
+<button id="moveto_pending" type="submit" name="pending" value="pending">Move to Pending</button>
 <?php } elseif ($this->status=='pending') { ?>
-<button id="moveto_posted" type="submit" name="posted">Add to Posted</button>
+<button id="moveto_posted" type="submit" name="posted" value="posted">Add to Posted</button>
 <?php } ?>
 </form>
