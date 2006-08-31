@@ -30,7 +30,7 @@
 			<ul>
 				<li class="first"><a href="http://www.unl.edu/">UNL</a></li>
 				<li>Events</li>
-			</ul>
+			</ul><img src="templates/@TEMPLATE@/images/eventbeta.png" alt="Event publishing system is still in beta phase" id="badge" />
 			<!-- InstanceEndEditable --> </div>
 	</div>
 </div>
