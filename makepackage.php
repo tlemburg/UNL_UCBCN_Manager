@@ -16,14 +16,16 @@ $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
 //$pfm->setOptions(array(
 	'packagedirectory' => dirname(__FILE__),
 	'baseinstalldir' => 'UNL/UCBCN',
-	'filelistgenerator' => 'cvs',
+	'filelistgenerator' => 'file',
 	'ignore' => array(	'package.xml',
 						'.project',
 						'*.tgz',
 						'makepackage.php',
 						'*CVS/*',
 						'.cache',
-						'install.sh'),
+						'install.sh',
+						'InDesignExport.php',
+						'idexport_makepackage.php'),
 	'simpleoutput' => true,
 	'roles'=>array('php'=>'data'	),
 	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'	=> 'php',
@@ -32,7 +34,9 @@ $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
 						'Manager/FormBuilder_Driver.php' => 'php',
 						'Manager/SubForm.php'			=> 'php',
 						'Manager/Tableless.php'		=> 'php',
-						'Manager/FormBuilder.php'		=> 'php')
+						'Manager/FormBuilder.php'		=> 'php',
+						'Manager/Plugin.php'			=> 'php'
+						)
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
 $pfm->setPackageType('php'); // this is a PEAR-style php script package

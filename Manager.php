@@ -45,6 +45,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	public $doctitle;
 	/** Section Title */
 	public $sectitle;
+	/** Registered and running plugins. */
+	public $plugins = array();
 	
 	/**
 	 * Constructor for the UNL_UCBCN_Manager.
@@ -66,7 +68,40 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$this->a->start();
 		if ($this->a->checkAuth()) {
 			$this->startSession();
+			$this->startupPlugins();
 			UNL_UCBCN::archiveEvents($this->calendar);
+		}
+	}
+	
+	/**
+	 * This function initializes all plugins.
+	 * 
+	 */
+	function startupPlugins()
+	{
+		global $_UNL_UCBCN;
+		$ds = DIRECTORY_SEPARATOR;
+		$plugin_dir = '@PHP_DIR@'.$ds.'UNL'.$ds.'UCBCN'.$ds.'Manager'.$ds.'Plugins'; 
+		if ($handle = opendir($plugin_dir)) {
+			while (false !== ($file = readdir($handle))) {
+				if ($file != '.' && $file != '..') {
+					include_once $plugin_dir.$ds.$file;
+				}
+			}
+			closedir($handle);
+		}
+		if (isset($_UNL_UCBCN['plugins'])) {
+			foreach ($_UNL_UCBCN['plugins'] as $plug_class) {
+				if (class_exists($plug_class)) {
+					try {
+						$plugin = new $plug_class();
+						$plugin->startup($this,$this->uri.'?action=plugin&p='.$plug_class);
+						$this->plugins[$plug_class] = $plugin;
+					} catch(Exception $e) {
+						echo 'Caught trying to start plugin \''.$plug_class.'\': ',  $e->getMessage(), "\n";
+					}
+				}
+			}
 		}
 	}
 	
@@ -319,6 +354,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->output[] = '<h3>Users With Access to this Calendar:</h3>';
 					$this->output[] = $this->showCalendarUsers();
 					$this->sectitle = 'Edit '.$this->calendar->name.' Info';
+				break;
+				case 'plugin':
+					if (isset($_GET['p']) && isset($this->plugins[$_GET['p']])) {
+						$this->plugins[$_GET['p']]->run();
+						$this->output = $this->plugins[$_GET['p']]->output;
+					} else {
+						$this->output = new UNL_UCBCN_Error('That plugin does not exist.');
+					}
 				break;
 				default:
 					$this->uniquebody = 'id="normal"';
@@ -672,5 +715,18 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$output = '';
 		}
 		return $output;
+	}
+	
+	/**
+	 * Registers a plugin for use within the manager.
+	 */
+	function registerPlugin($class_name)
+	{
+		global $_UNL_UCBCN;
+		if (array_key_exists('plugins',$_UNL_UCBCN) && is_array($_UNL_UCBCN['plugins'])) {
+			$_UNL_UCBCN['plugins'][] = $class_name;
+		} else {
+			$_UNL_UCBCN['plugins'] = array($class_name);
+		}
 	}
 }
