@@ -144,7 +144,7 @@ form div.error {
     top: -11px;
 	border:1px solid #ccc;
 	padding:3px 6px;
-	margin:0 0 24px 0;
+	margin:0 0 23px 0;
 	position:relative;
 	background:#fff;
 	}
@@ -216,7 +216,7 @@ table.eventlisting{
 	table.eventlisting thead th a:hover{
 	text-decoration:underline;
 	}
-table.eventlisting tr:hover, table.eventlisting tr.alt:hover {
+table.eventlisting tr:hover, table.eventlisting tr.alt:hover{
 	color:red;
 }
 table.eventlisting tr{
@@ -227,9 +227,6 @@ table.eventlisting tr.alt{
 	background:#e8f5fa;
 	border-top:1px solid #8ebcd6;
 	border-bottom:1px solid #8ebcd6;
-}
-table.eventlisting tr.updated {
-	background:#ffffcc;
 }
 table.eventlisting tr td{
 	padding:7px;border-top:1px solid #8ebcd6;

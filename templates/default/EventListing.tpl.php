@@ -14,7 +14,11 @@ $oddrow = false;
 foreach ($this->events as $e) {
 	$row = '<tr id="row'.$e->id.'"';
 	if (isset($_GET['new_event_id']) && $_GET['new_event_id']==$e->id) {
-		$row .= ' class="updated"';
+		if ($oddrow){
+		$row .= ' class="updated alt"';
+		} else{
+		$row .= ' class="updated"';	
+		}
 	} elseif ($oddrow) {
 		$row .= ' class="alt"';
 	}

@@ -14,38 +14,8 @@
 <?php require_once($GLOBALS['unl_template_dependents'].'/templatesharedcode/includes/metanfavico/metanfavico.html'); ?>
 <!-- InstanceBeginEditable name="head" -->
 <link rel="stylesheet" type="text/css" media="screen" href="templates/@TEMPLATE@/manager_main.css" />
-<script type="text/javascript">
-function showHide(e)
-{
-   document.getElementById(e).style.display=(document.getElementById(e).style.display=="block")?"none":"block";
-   return false;
-}
+<script type="text/javascript" src="templates/@TEMPLATE@/manager.js"></script>
 
-function checknegate(id){
-	checkevent(id);
-}
-
-function highlightLine(l,id) {
-	animation(l,id);	
-	checkevent(id);
-}
-
-function animation(l,id){
-	var TRrow = "row" + id;
-	if(!l.className){
-	Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffff',to:'#ffffcc',restoreColor:'#ffffcc',toggle: true});
-	}
-	else{
-	Spry.Effect.Highlight(TRrow,{duration:400,from:'#e8f5fa',to:'#ffffcc',restoreColor:'#ffffcc',toggle: true});
-	} 
-}
-
-function checkevent(id) {
-	 checkSet = eval("document.formlist.event" + id);
-	 checkSet.checked = !checkSet.checked
-}
-
-</script>
 <!-- InstanceEndEditable -->
 </head>
 <body <?php echo $this->uniquebody; ?>>
@@ -93,15 +63,6 @@ function checkevent(id) {
 			<!-- InstanceEndEditable -->
 			<!-- WDN: see glossary item 'sidebar links' -->
 			<div id="leftcollinks"> <!-- InstanceBeginEditable name="leftcollinks" -->
-				<?php
-				if (!empty($this->plugins)) {
-					echo '<h3>Plugins</h3><ul>';
-					foreach ($this->plugins as $plugin) {
-						echo '<li><a href="'.$plugin->uri.'">'.$plugin->name.'</a></li>';
-					}
-					echo '</ul>';
-				}
-				?>
 				<h3>Related Links</h3>
 				<ul>
 					<li><a href="<?php echo $this->frontenduri; ?>">Events</a></li>
