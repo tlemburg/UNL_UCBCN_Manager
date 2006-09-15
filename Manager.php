@@ -377,10 +377,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					} else {
 						$list = 'pending';
 					}
+					$orderby = '';
 					if (isset($_GET['orderby'])) {
 						$orderby = $_GET['orderby'];
-					} else {
-						$orderby = NULL;
 					}
 					switch ($list) {
 						case 'pending':
@@ -526,45 +525,60 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 * 
 	 * @return array mixed, navigation list, events currently in the system.
 	 */
-	function showEventListing($status='pending',$orderby='starttime')
+	function showEventListing($status='pending',$orderby='eventdatetime.starttime')
 	{
+	    $mdb2 = $this->getDatabaseConnection();
+	    switch($orderby) {
+	        default:
+	        case 'eventdatetime.starttime':
+	        case 'starttime':
+	            $orderby = 'eventdatetime.starttime';
+	        break;
+	        case 'title':
+	        case 'event.title':
+	            $orderby = 'event.title';
+            break;
+	    }
+	    $sql = 'SELECT DISTINCT event.id FROM calendar_has_event, eventdatetime, event 
+					WHERE calendar_has_event.status = \''.$status.'\' 
+					AND calendar_has_event.event_id = event.id
+					AND eventdatetime.event_id = event.id
+					AND calendar_has_event.calendar_id = '.$this->calendar->id.' 
+					ORDER BY '.$orderby;
 		$e = array();
-		$a_event = $this->factory('calendar_has_event');
-		/*switch($orderby) {
-			case 'starttime':
-				$a_event->orderBy('eventdatetime.starttime DESC');
-			break;
-			case 'title':
-				$a_event->orderBy('event.title ASC');
-			break;
-			default:
-				$a_event->orderBy('calendar_has_event.datecreated DESC');
-			break;
-		}*/
-		$a_event->status = $status;
-		$a_event->calendar_id = $this->calendar->id;
-		if ($a_event->find()) {
+		$res = $mdb2->query($sql);
+		if (PEAR::isError($res)) {
+		    return new UNL_UCBCN_Error($res->getMessage());
+		}
+		if ($res->numRows()) {
 			$listing = new UNL_UCBCN_EventListing();
 			$listing->status = $status;
-			while ($a_event->fetch()) {
-				$event = $a_event->getLink('event_id');
-				if (isset($_POST['event'.$event->id])) {
-					// This event date time combination was selected... find out what they chose.
-					if (isset($_POST['delete']) 
-						&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {
-						// User has chosen to delete the event selected, and has permission to delete from pending.
-						$a_event->delete();
-					} elseif (isset($_POST['pending'])
-						&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
-						$a_event->status = 'pending';
-						$a_event->update();
-					} elseif (isset($_POST['posted'])
-						&& $this->userHasPermission($this->user,'Event Post',$this->calendar)) {
-						$a_event->status = 'posted';
-						$a_event->update();
+			while ($row = $res->fetchRow()) {
+				$event = $this->factory('event');
+				if ($event->get($row[0])) {
+					if (isset($_POST['event'.$event->id])) {
+					    $a_event = $this->factory('calendar_has_event');
+					    $a_event->calendar_id = $this->calendar->id;
+					    $a_event->event_id = $event->id;
+					    if ($a_event->find() && $a_event->fetch()) {
+							// This event date time combination was selected... find out what they chose.
+							if (isset($_POST['delete']) 
+								&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {
+								// User has chosen to delete the event selected, and has permission to delete from pending.
+								$a_event->delete();
+							} elseif (isset($_POST['pending'])
+								&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
+								$a_event->status = 'pending';
+								$a_event->update();
+							} elseif (isset($_POST['posted'])
+								&& $this->userHasPermission($this->user,'Event Post',$this->calendar)) {
+								$a_event->status = 'posted';
+								$a_event->update();
+							}
+					    }
+					} else {
+						$listing->events[] = $event;
 					}
-				} else {
-					$listing->events[] = $event;
 				}
 			}
 			$e[] = $listing;
