@@ -81,14 +81,16 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 		global $_UNL_UCBCN;
 		$ds = DIRECTORY_SEPARATOR;
-		$plugin_dir = '@PHP_DIR@'.$ds.'UNL'.$ds.'UCBCN'.$ds.'Manager'.$ds.'Plugins'; 
-		if ($handle = opendir($plugin_dir)) {
-			while (false !== ($file = readdir($handle))) {
-				if ($file != '.' && $file != '..') {
-					include_once $plugin_dir.$ds.$file;
+		$plugin_dir = '@PHP_DIR@'.$ds.'UNL'.$ds.'UCBCN'.$ds.'Manager'.$ds.'Plugins';
+		if (is_dir($plugin_dir)) { 
+			if ($handle = opendir($plugin_dir)) {
+				while (false !== ($file = readdir($handle))) {
+					if ($file != '.' && $file != '..') {
+						include_once $plugin_dir.$ds.$file;
+					}
 				}
+				closedir($handle);
 			}
-			closedir($handle);
 		}
 		if (isset($_UNL_UCBCN['plugins'])) {
 			foreach ($_UNL_UCBCN['plugins'] as $plug_class) {
