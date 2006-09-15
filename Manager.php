@@ -132,10 +132,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			if (!$this->calendar->get($cid)) {
 				// Could not get the calendar in the session or $_GET
-				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+				$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=calendar&new=true');
 			}
 		} else {
-			$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=account&new=true');
+			$this->calendar		= $this->getCalendar($this->user,$this->account,false,'?action=calendar&new=true');
 		}
 		if ($this->user->calendar_id != $this->calendar->id) {
 			// Set the user's calendar_id to remember their default calendar.
@@ -350,6 +350,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				break;
 				case 'calendar':
 					$this->output = array();
+					if (isset($_GET['new']) && $_GET['new']=='true') {
+						$this->output[] =	'<p>Welcome to the University Event publishing system!</p>'.
+											'<p>We\'ve created a calendar for you, simply enter in the additional details to begin publishing your events!</p>'.
+											'<p>Your calendar name is the title of your calendar, and will be displayed with all your events.</p>';
+					}
 					$this->output[] = $this->showCalendarForm();
 					$this->output[] = '<h3>Users With Access to this Calendar:</h3>';
 					$this->output[] = $this->showCalendarUsers();
