@@ -28,8 +28,7 @@ foreach ($this->events as $event) {
 				} ?>
 			</td>
 			<td class="title"><span class='title' style="float:left;"><?php echo $event['title']; ?></span>
-				<a style="float:right;" href="#" onclick="showHide('instances_<?php echo $event['id'];?>'); return false;"><?php echo $instances; ?> +</a>
-				<div id='instances_<?php echo $event['id'];?>' style="display:none;clear:both;">
+				<div id='instances_<?php echo $event['id']; ?>' class="instances">
 				<ul>
 				<?php
 					while ($edt->fetch()) {

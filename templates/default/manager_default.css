@@ -166,6 +166,11 @@ form div.error {
 #maincontent form fieldset.hidden{
 margin:0;padding:0;background:0;border:none;
 }
+
+.instances {
+	 float:right;
+}
+
 /* my calendar event list */
 body#normal div#maincontent ul.eventsbystatus{
 	list-style:none;
