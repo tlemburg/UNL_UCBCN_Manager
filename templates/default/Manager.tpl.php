@@ -64,6 +64,7 @@
 			<!-- WDN: see glossary item 'sidebar links' -->
 			<div id="leftcollinks"> <!-- InstanceBeginEditable name="leftcollinks" -->
 				<?php
+				UNL_UCBCN::displayRegion($this->accountright);
 				if (!empty($this->plugins)) {
 					echo '<h3>Plugins</h3><ul>';
 					foreach ($this->plugins as $plugin) {
@@ -84,10 +85,8 @@
 			<!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
 			
 			<div id="maincontent"> <!-- InstanceBeginEditable name="maincontent" -->
-				<div class="two_col left"><?php UNL_UCBCN::displayRegion($this->output); ?></div>
-				<div class="col right">
-					<?php UNL_UCBCN::displayRegion($this->accountright); ?>
-				</div>
+				<p id="date"><?php echo date("F jS, Y"); ?></p>
+				<?php UNL_UCBCN::displayRegion($this->output); ?>
 				<!-- InstanceEndEditable --> </div>
 			 </div>
 		<!-- close main right -->

@@ -74,7 +74,9 @@
 	background:url(images/arrowhover.gif) no-repeat right top;}
  
   p#date{
-  	margin:10px 0 0 0;
+    position:absolute;
+    right:10px;
+  	margin:0;
   	padding:0 0 0 20px;
   	background:url(images/date.gif) no-repeat;
   }
@@ -82,12 +84,12 @@
 /**
  * Form CSS Styles
  */
-.two_col form {
+#maincontent form {
     margin:0;
     padding:20px 0 0 0;
 
 }
-.two_col form label.qflabel{
+#maincontent form label.qflabel{
     display: block;
     float: left;
     width: 150px;
@@ -95,7 +97,7 @@
     margin:10px 0 0 0;
     text-align: right;
 }
-.two_col form input, .two_col form textarea, .two_col form select{
+#maincontent form input, #maincontent form textarea, #maincontent form select{
     width:auto;
 	background:#fff;
  	border:1px solid #ccc;
@@ -103,24 +105,24 @@
 	padding:3px;
 	margin:4px 0;
 }
-.two_col form input#approvedforcirculation{width:auto;}
-.two_col .select input{border:none;background:none;width:auto;}
-.two_col form input:focus, .two_col form textarea:focus, .two_col form select:focus {
+#maincontent form input#approvedforcirculation{width:auto;}
+#maincontent .select input{border:none;background:none;width:auto;}
+#maincontent form input:focus, #maincontent form textarea:focus, #maincontent form select:focus {
     background:#ffffcc;
 }
-.two_col form input#__submit__{
+#maincontent form input#__submit__{
 	background:#f0e6d7;
 	color:#333;
 	border:1px solid #ccc;
  	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
-.two_col form select {font-size:0.8em;}
-.two_col form option {padding:0 0.3em;}
-.two_col form select#__reverseLink_eventdatetime_event_idlocation_id_1{width:260px;}
-.two_col form textarea {
+#maincontent form select {font-size:0.8em;}
+#maincontent form option {padding:0 0.3em;}
+#maincontent form select#__reverseLink_eventdatetime_event_idlocation_id_1{width:260px;}
+#maincontent form textarea {
     overflow: auto;
 	height:80px;
 }
-.two_col form br {
+#maincontent form br {
     clear: left;
 }
 form div.qfgroup, form div.qfelement {
@@ -139,7 +141,7 @@ form div.error {
     border: 1px solid red;
     padding: 5px;
 }
-.two_col form fieldset legend {
+#maincontent form fieldset legend {
     font-weight: bold;
     top: -11px;
 	border:1px solid #ccc;
@@ -150,7 +152,7 @@ form div.error {
 	}
 
   
-.two_col form fieldset{
+#maincontent form fieldset{
   padding:0 0 10px 0;
   display:block;
   border:none;
@@ -161,36 +163,36 @@ form div.error {
 }
 
 		
-.two_col form fieldset.hidden{
+#maincontent form fieldset.hidden{
 margin:0;padding:0;background:0;border:none;
 }
 /* my calendar event list */
-body#normal div#maincontent .two_col ul.eventsbystatus{
+body#normal div#maincontent ul.eventsbystatus{
 	list-style:none;
 	line-height:1;
 	margin:10px 0 10px 0;
 	padding:6px 6px 2.3em 6px;
 	border-bottom:1px solid #bebcbc;
 }
-	body#normal div#maincontent .two_col ul.eventsbystatus li{
+	body#normal div#maincontent ul.eventsbystatus li{
 	float:left;
 	margin:2px;
 	padding:6px;
 	background:#eee;
 	border:1px solid #bebcbc;
 	}
-		body#normal div#maincontent .two_col ul.eventsbystatus li a{
+		body#normal div#maincontent ul.eventsbystatus li a{
 		text-decoration:none;
 		display:block;
 		}
 		
-	body#normal div#maincontent .two_col ul.eventsbystatus.archived li#archived_manager,
-	body#normal div#maincontent .two_col ul.eventsbystatus.pending li#pending_manager,
-	body#normal div#maincontent .two_col ul.eventsbystatus.posted li#posted_manager{
+	body#normal div#maincontent ul.eventsbystatus.archived li#archived_manager,
+	body#normal div#maincontent ul.eventsbystatus.pending li#pending_manager,
+	body#normal div#maincontent ul.eventsbystatus.posted li#posted_manager{
 		position:relative;background:#fff;border-bottom:1px solid #fff;
 		}
 	
-body#normal div#maincontent .two_col form{padding:0;margin:0;}		
+body#normal div#maincontent form{padding:0;margin:0;}		
 table.eventlisting{
 	border-collapse:collapse;
 	clear:both;
@@ -258,7 +260,7 @@ body#login a#forgot{
    text-decoration:none;
    margin:-24px 0 0 57px;
   }
-body#login div#maincontent .two_col form#login{
+body#login div#maincontent form#login{
 	width:431px;
 	height:186px;
 	background:#fff url(images/login-calendar_03.gif) no-repeat;
