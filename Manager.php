@@ -692,8 +692,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						        && isset($_GET['uid']) 
 						        && ($_GET['uid']==$users->uid)) {
 						            // The user has clicked the remove user.
-							        $this->calendar->removeUser($users);
-							        $user_li = '<li>'.$users->uid.' (DELETED)';
+						            if ($users->uid != $this->user->uid) {
+								        $this->calendar->removeUser($users);
+								        $user_li = '<li>'.$users->uid.' (DELETED)';
+						            } else {
+						                $li .= 'ERROR, you cannot delete yourself!';
+						            }
 						    } else {
 								$user_li .= '&nbsp;<a href="?action=calendar&amp;uid='.$users->uid.'&amp;remove=true">Remove User</a>';
 						    }
