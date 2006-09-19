@@ -360,6 +360,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->output[] = $this->showCalendarForm();
 					$this->output[] = '<h3>Users With Access to this Calendar:</h3>';
 					$this->output[] = $this->showCalendarUsers();
+					if ($this->userHasPermission($this->user,'Calendar Add User',$this->calendar)) {
+					    $this->output[] = $this->showAddUserForm();
+					}
 					$this->sectitle = 'Edit '.$this->calendar->name.' Info';
 				break;
 				case 'plugin':
@@ -469,10 +472,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$user = $this->factory('user');
 				if (isset($uid) && !empty($uid)) {
 					$user->uid = $uid;
-					if ($user->find() && $user->fetch()) {
-						//success	
+					if ($user->find()) {
+					    $user->fetch();
 					} else {
-						return new UNL_UCBCN_Error('Sorry, no user with that uid could be found!');
+					    $user = $this->createUser($this->account,$uid,$this->user);
 					}
 				} elseif($this->userHasPermission($this->user,'Calendar Add User',$this->calendar)) {
 					// uid is not set, must be creating a new user..?
@@ -497,16 +500,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$fb->fieldLabels = array(	'__crossLink_user_has_permission_user_uid_permission_id'=>'Permissions',
 										'uid'=>'User ID');
 			$form = $fb->getForm('?action=permissions&uid='.$user->uid);
+			$form->setDefaults(array('calendar_id'=>$calendar->id,'account_id'=>$this->account->id));
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
-			$form->setDefaults(array('account_id'=>$this->account->id));
 			$form->accept($renderer);
 			if ($form->validate()) {
-				//$this->createUser($this->account,$_POST['uid'],$this->user);
-				$e = $form->getElement('uid');
-				print_r($e->getValue());
-				$uid = $e->getValue();
-				$uid = $uid[0];
-				$user = $this->getUser($uid);
 				$form->process(array(&$fb, 'processForm'), false);
 				$form->freeze();
 				$form->removeElement('__submit__');
@@ -688,7 +685,20 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			if ($users->find()) {
 				while ($users->fetch()) {
 					if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
-						$user_li = '<li><a href="?action=permissions&amp;uid='.$users->uid.'">'.$users->uid.'</a></li>';
+				        $user_li = '<li>'.$users->uid.'&nbsp;<a href="?action=permissions&amp;uid='.$users->uid.'">Edit Permissions</a>';
+				        if ($this->userHasPermission($this->user,'Calendar Delete User',$this->calendar)) {
+				            // This user can delete calendar users.
+				            if (isset($_GET['remove']) 
+						        && isset($_GET['uid']) 
+						        && ($_GET['uid']==$users->uid)) {
+						            // The user has clicked the remove user.
+							        $this->calendar->removeUser($users);
+							        $user_li = '<li>'.$users->uid.' (DELETED)';
+						    } else {
+								$user_li .= '&nbsp;<a href="?action=calendar&amp;uid='.$users->uid.'&amp;remove=true">Remove User</a>';
+						    }
+						}
+						$user_li .= '</li>';
 					} else {
 						$user_li = '<li>'.$users->uid.'</li>';
 					}
@@ -700,6 +710,18 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		} else {
 			return new UNL_UCBCN_Error('You do not have permission to Change User Permissions for this calendar.');
 		}
+	}
+	
+	function showAddUserForm()
+	{
+	    unset($_GET['action']);
+	    $form = new HTML_QuickForm('add_user','get');
+	    //$form->addElement('text','name','User Name');
+	    //$form->addElement('hidden','uid');
+	    $form->addElement('text','uid','User Id (like jdoe2):');
+	    $form->addElement('submit','submit','Add User');
+	    $form->addElement('hidden','action','permissions');
+	    return $form->toHtml();
 	}
 
 	/**
