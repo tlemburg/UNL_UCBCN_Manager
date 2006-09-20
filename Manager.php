@@ -178,8 +178,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showAccountRight()
 	{
-		$r =	'<p id="date">'.date("F jS, Y").'</p>'."\n".
-				'<div id="account_box">'."\n".
+		$r =	'<div id="account_box">'."\n".
 				'<p>Welcome, '.$this->user->uid.'</p>'."\n".
 				'<ul>'."\n".
 				'<li><a href="'.$this->frontenduri.'?calendar_id='.$this->calendar->id.'">Live Calendar</a></li>'."\n".
@@ -189,7 +188,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				'<li><a href="#">Help</a></li>'."\n".
 				'</ul>'."\n".
 				'</div>';
-		$r .= $this->showChooseCalendar();
 		return $r;
 	}
 	
@@ -293,8 +291,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if (isset($this->user)) {
 			// User is authenticated, and an account has been chosen.
 			$this->navigation = $this->showNavigation();
-			$this->accountright = $this->showAccountRight();
-			
+			$this->accountright[] = $this->showAccountRight();
+			$this->accountright[] = $this->showChooseCalendar();
 			if (empty($action) && isset($_GET['action'])) {
 				$action = $_GET['action'];
 			}
@@ -309,13 +307,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						} else {
 							$id = NULL;
 						}
-						$this->output = $this->showEventSubmitForm($id);
+						$this->output[] = $this->showEventSubmitForm($id);
 					} else {
-						$this->output = new UNL_UCBCN_Error('Sorry, you do not have permission to create events. Are the event permissions in the database?');
+						$this->output= new UNL_UCBCN_Error('Sorry, you do not have permission to create events. Are the event permissions in the database?');
 					}
 				break;
 				case 'import':
-					$this->output = $this->showImportForm();
+					$this->output[] = $this->showImportForm();
 					$this->uniquebody = 'id="import"';
 					$this->sectitle = 'Import .ics or .xml Event';
 				break;
@@ -368,7 +366,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				case 'plugin':
 					if (isset($_GET['p']) && isset($this->plugins[$_GET['p']])) {
 						$this->plugins[$_GET['p']]->run();
-						$this->output = $this->plugins[$_GET['p']]->output;
+						$this->output[] = $this->plugins[$_GET['p']]->output;
 					} else {
 						$this->output = new UNL_UCBCN_Error('That plugin does not exist.');
 					}
@@ -744,7 +742,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			return new UNL_UCBCN_Error($res->getMessage());
 		}
 		if ($res->numRows()>1) {
-			$output = '<p>Please choose the calendar you wish to manage.</p>';
+			$output = '<p>Calendar you are currently managing:</p>';
 			$form = new HTML_QuickForm('cal_choose','get');
 			$cal_select = HTML_QuickForm::createElement('select','calendar_id','');
 			while ($row = $res->fetchRow()) {
@@ -756,7 +754,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
 			$output .= $renderer->toHtml();
-			//$output .= $form->toHtml();
 		} else {
 			// User has no other calendars to manage.
 			$output = '';
