@@ -92,7 +92,7 @@ div.cal_widget ul li.nobullet{background:none;padding:0;}
 }
 
 #maincontent form input, #maincontent form textarea, #maincontent form select{
-    width:400px;
+    width:auto;
 	background:#fff;
  	border:1px solid #ccc;
  	border-color:#ccc #fff #fff #ccc;
@@ -149,8 +149,7 @@ form div.error {
 
   
 #maincontent form fieldset{
-  padding:0 0 10px 0;   
-  width:700px;
+  padding:0 0 10px 0;
   display:block;
   border:none;
   border-bottom:1px solid #ddd;
