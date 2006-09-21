@@ -178,9 +178,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showAccountRight()
 	{
-		$r =	'<div id="account_box">'."\n".
-				'<p>Welcome, '.$this->user->uid.'</p>'."\n".
+		$r =	'<div class="cal_widget">'."\n".
+				'<h3><span>'.date("F jS, Y").'</span></h3>'."\n".
 				'<ul>'."\n".
+				'<li class="nobullet">Welcome, '.$this->user->uid.'</li>'."\n".
 				'<li><a href="'.$this->frontenduri.'?calendar_id='.$this->calendar->id.'">Live Calendar</a></li>'."\n".
 				'<li><a href="'.$this->uri.'?action=account">Account Info</a></li>'."\n".
 				'<li><a href="'.$this->uri.'?action=calendar">Calendar Info</a></li>'."\n".

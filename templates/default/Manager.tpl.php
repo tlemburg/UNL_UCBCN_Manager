@@ -85,7 +85,7 @@
 			<!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
 			
 			<div id="maincontent"> <!-- InstanceBeginEditable name="maincontent" -->
-				<p id="date"><?php echo date("F jS, Y"); ?></p>
+			
 				<?php UNL_UCBCN::displayRegion($this->output); ?>
 				<!-- InstanceEndEditable --> </div>
 			 </div>

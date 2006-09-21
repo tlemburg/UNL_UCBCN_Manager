@@ -43,50 +43,43 @@
 		   body#search #navigation ul li#search a, body#subscribe #navigation ul li#subscribe a, 
 		   body#import #navigation ul li#import a, body#normal #navigation ul li#calendar a
 		   {background-position:0 -47px;}
+		   
+#container div.clear #navigation #leftcollinks{margin:0;padding:0;}
 
-   #account_box{
-  	margin:5px 0;
-	padding:0 0 28px 0;
-	width:178px;
-	background:url(images/account_bottom.gif) no-repeat bottom right;
-	
-  }
- 
-  #account_box p{
-  	padding:6px 8px 6px 8px;margin:0;
-  	background:url(images/account_head.gif) no-repeat top left;
-  }
- 
- #account_box ul{
-  	margin:-8px 0;
-  	padding:10px 8px;
-  	background:url(images/account_middle.gif) repeat-y;
+div.cal_widget{
+	background:url(images/recent_bot.gif) no-repeat left bottom;
+	width:222px;
+	padding:0 0 10px 0;
+	margin:0 0 10px 0;
+}
+div.cal_widget h3{
+	position:relative;
+	font-size:12px!important;clear:both;
+	margin:10px 0 0 0;
+	padding:8px 0 5px 12px;
+	background:url(images/recent.gif) no-repeat left top;
+	width:222px;
+	height:15px;
+}
+div.cal_widget h3 span{padding:0 0 0 19px;background:url(images/date.gif) no-repeat left top;}
+div.cal_widget h3 img{float:right;}
+div.cal_widget ul{
 	list-style:none;
-	border:none;
-  }
-  #account_box ul li{
-	float:none;
-	margin:0;border:none;
-	background:url(images/arrow.gif) no-repeat right top;
-	padding:1px 0 1px 0;}
-	
- #account_box ul li:hover{
-	background:url(images/arrowhover.gif) no-repeat right top;}
- 
-  p#date{
-    position:absolute;
-    right:10px;
-  	margin:0;
-  	padding:0 0 0 20px;
-  	background:url(images/date.gif) no-repeat;
-  }
-  
+	padding:21px 0 10px 14px;
+	margin:-14px 0 0 0;
+	background:url(images/recent_mid.gif) repeat-y right top;
+}
+div.cal_widget ul li#login_list{background:none;padding:0;}
+div.cal_widget ul li{background:url(images/widget_list.gif) no-repeat 0 5px;padding:0 0 0 15px;height:1%;margin-right:7px;position:relative;}
+div.cal_widget ul li:hover{background:url(images/widget_list_hover.gif) no-repeat 0 5px;}
+div.cal_widget ul li.nobullet{background:none;padding:0;}
+
 /**
  * Form CSS Styles
  */
 #maincontent form {
     margin:0;
-    padding:20px 0 0 0;
+    padding:11px 0 0 0;
 
 }
 #maincontent form label.qflabel{
@@ -97,14 +90,16 @@
     margin:10px 0 0 0;
     text-align: right;
 }
+
 #maincontent form input, #maincontent form textarea, #maincontent form select{
-    width:auto;
+    width:400px;
 	background:#fff;
  	border:1px solid #ccc;
  	border-color:#ccc #fff #fff #ccc;
 	padding:3px;
 	margin:4px 0;
 }
+#maincontent form fieldset#__header__ input{width:auto;}
 #maincontent form input#approvedforcirculation{width:auto;}
 #maincontent .select input{border:none;background:none;width:auto;}
 #maincontent form input:focus, #maincontent form textarea:focus, #maincontent form select:focus {
@@ -113,14 +108,15 @@
 #maincontent form input#__submit__{
 	background:#f0e6d7;
 	color:#333;
+	width:200px;
 	border:1px solid #ccc;
  	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
 #maincontent form select {font-size:0.8em;}
 #maincontent form option {padding:0 0.3em;}
-#maincontent form select#__reverseLink_eventdatetime_event_idlocation_id_1{width:260px;}
+
 #maincontent form textarea {
     overflow: auto;
-	height:80px;
+	height:100px;
 }
 #maincontent form br {
     clear: left;
@@ -153,7 +149,8 @@ form div.error {
 
   
 #maincontent form fieldset{
-  padding:0 0 10px 0;
+  padding:0 0 10px 0;   
+  width:700px;
   display:block;
   border:none;
   border-bottom:1px solid #ddd;
@@ -175,7 +172,7 @@ margin:0;padding:0;background:0;border:none;
 body#normal div#maincontent ul.eventsbystatus{
 	list-style:none;
 	line-height:1;
-	margin:10px 0 10px 0;
+	margin:0 0 10px 0;
 	padding:6px 6px 2.3em 6px;
 	border-bottom:1px solid #bebcbc;
 }
@@ -310,24 +307,28 @@ button#delete_event{
 width:48px;
 height:22px;float:left;margin:0 5px 0 0;
 background:url(images/button/delete.gif) no-repeat;
-text-indent:-9999em;
-display:block;
-border:none;}
+}
 
 button#moveto_pending{
 width:99px;
 height:22px;
 background:url(images/button/movetodraft.gif) no-repeat;
-text-indent:-9999em;
-display:block;
-border:none;}
+}
 
 button#search{
 width:48px;
 height:22px;
 background:url(images/button/search.gif) no-repeat;
-text-indent:-9999em;
-display:block;
-border:none;}
+}
 
-button#delete_event:hover, button#moveto_pending:hover, button#search:hover{background-position:0 -22px;}
+button#moveto_posted{
+width:89px;float:left;
+height:21px;
+background:url(images/button/addtoposted.gif) no-repeat;
+}
+
+button#moveto_posted, button#delete_event, button#moveto_pending, button#search{text-indent:-9999em;
+display:block;
+border:none;
+cursor:pointer;}
+button#moveto_posted:hover, button#delete_event:hover, button#moveto_pending:hover, button#search:hover{background-position:0 -22px;}

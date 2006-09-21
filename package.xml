@@ -12,10 +12,10 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-08-22</date>
- <time>13:03:29</time>
+ <date>2006-09-21</date>
+ <time>14:29:11</time>
  <version>
-  <release>0.2.5</release>
+  <release>0.3.0</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -23,18 +23,14 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>* Fix Bug #12  	 change account_has_event status
-Add default calendar settings to allow users to &apos;recommend an event for the main calendar&apos;. If a user is logged in they can check a box which will add a pending event for the main calendar&apos;s pending approval listing.
-Archive old events up successful authentication.
-Add the ability to choose the calendar they wish to manage out of all they have permission for.
-Change event list sorting until we get pagination working.
- </notes>
+ <notes>* Add search capabilities to manager.</notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
     <file name="FormBuilder.php" role="php" />
     <file name="FormBuilder_Driver.php" role="php" />
     <file name="Login.php" role="php" />
+    <file name="Plugin.php" role="php" />
     <file name="SubForm.php" role="php" />
     <file name="Tableless.php" role="php" />
    </dir> <!-- /Manager -->
@@ -42,8 +38,13 @@ Change event list sorting until we get pagination working.
     <dir name="default">
      <dir name="images">
       <dir name="button">
+       <file name="addtoposted.gif" role="data" />
+       <file name="calendar_submit.gif" role="data" />
+       <file name="c_submit.gif" role="data" />
+       <file name="c_submit.png" role="data" />
        <file name="delete.gif" role="data" />
        <file name="movetodraft.gif" role="data" />
+       <file name="search.gif" role="data" />
       </dir> <!-- /templates/default/images/button -->
       <file name="account_bottom.gif" role="data" />
       <file name="account_head.gif" role="data" />
@@ -54,6 +55,8 @@ Change event list sorting until we get pagination working.
       <file name="dott.gif" role="data" />
       <file name="dott.png" role="data" />
       <file name="edit.gif" role="data" />
+      <file name="eventbeta.png" role="data" />
+      <file name="fieldsetline.gif" role="data" />
       <file name="head.gif" role="data" />
       <file name="heading.gif" role="data" />
       <file name="login-calendar_03.gif" role="data" />
@@ -68,13 +71,22 @@ Change event list sorting until we get pagination working.
       <file name="nav_search.png" role="data" />
       <file name="nav_subscribe.gif" role="data" />
       <file name="nav_subscribe.png" role="data" />
+      <file name="recent.gif" role="data" />
+      <file name="recently.gif" role="data" />
+      <file name="recent_bot.gif" role="data" />
+      <file name="recent_mid.gif" role="data" />
       <file name="sort.gif" role="data" />
       <file name="submit.gif" role="data" />
       <file name="table_hover.gif" role="data" />
       <file name="title.gif" role="data" />
+      <file name="widget_list.gif" role="data" />
+      <file name="widget_list1.gif" role="data" />
+      <file name="widget_list_hover.gif" role="data" />
      </dir> <!-- /templates/default/images -->
      <file name="Error.tpl.php" role="data" />
      <file name="EventListing.tpl.php" role="data" />
+     <file name="EventListing_search.tpl.php" role="data" />
+     <file name="manager.js" role="data" />
      <file name="Manager.tpl.php" role="data" />
      <file name="manager_default.css" role="data" />
      <file name="manager_ieonly.css" role="data" />
@@ -238,8 +250,20 @@ Change event list sorting until we get pagination working.
 Add default calendar settings to allow users to &apos;recommend an event for the main calendar&apos;. If a user is logged in they can check a box which will add a pending event for the main calendar&apos;s pending approval listing.
 Archive old events up successful authentication.
 Add the ability to choose the calendar they wish to manage out of all they have permission for.
-Change event list sorting until we get pagination working.
-   </notes>
+Change event list sorting until we get pagination working.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-09-21</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Add search capabilities to manager.</notes>
   </release>
  </changelog>
 </package>

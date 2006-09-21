@@ -8,9 +8,9 @@
   }
  * html #navlinks ul{
 		width:200px;}
- * html .two_col form fieldset legend {
+ * html #maincontent form fieldset legend {
 	margin:-13px 0 0 -7px;
 	}
-* html .two_col form fieldset{
+* html #maincontent form fieldset{
  margin:20px 0 50px 0;
 }
