@@ -1,9 +1,11 @@
+<form action="<?php echo $_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q']; ?>" method="post">
 <table class="eventlisting">
 <thead>
 <tr>
 <th scope="col" class="select">Select</th>
 <th scope="col" class="title">Event Title</th>
 <th scope="col" class="edit">Edit</th>
+<th scope="col" class="delete">Delete</th>
 </tr>
 </thead>
 <tbody>
@@ -18,13 +20,10 @@ foreach ($this->events as $event) {
 		<tr<?php if ($oddrow) echo ' class="alt"'; ?>>
 			<td class="select">
 				<?php
-				$che = UNL_UCBCN::factory('calendar_has_event');
-				$che->event_id = $event['id'];
-				if ($che->find()) {
-					$che->fetch();
-					echo $che->status;
-				} else  {
-					echo '<input type="checkbox" name="event['.$event['id'].']" />';
+				if ($event['calendarhasevent']===false) {
+					echo '<input type="checkbox" name="event'.$event['id'].'" />';
+				} else {
+				    echo $event['calendarhasevent'];
 				} ?>
 			</td>
 			<td class="title"><span class='title' style="float:left;"><?php echo $event['title']; ?></span>
@@ -44,9 +43,18 @@ foreach ($this->events as $event) {
 					echo '<a href="?action=createEvent&amp;id='.$event['id'].'">Edit</a></td>';
 				} ?>
 			</td>
+			<td class="delete">
+				<?php
+				if ($event['usercandeleteevent']) {
+					echo '<a onclick="return confirm(\'Are you sure you wish to delete '.htmlentities($event['title']).'?\');" href="'.$_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q'].'&amp;delete='.$event['id'].'">Delete</a></td>';
+				} ?>
+			</td>
 		</tr>
 	<?php
 	$oddrow = !$oddrow;
 	} ?>
 </tbody>
 </table>
+<button id="moveto_pending" type="submit" name="pending" value="pending">Add to Pending</button>
+<button id="moveto_posted" type="submit" name="posted" value="posted">Add to Posted</button>
+</form>

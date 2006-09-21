@@ -2953,6 +2953,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                         }
                     } else {
                         unset($do);
+                        
                         $do = DB_DataObject::factory($reverseLink['table']);
                         if ($this->isCallableAndExists($this->prepareLinkedDataObjectCallback)) {
                             call_user_func_array($this->prepareLinkedDataObjectCallback, array(&$do, $key));

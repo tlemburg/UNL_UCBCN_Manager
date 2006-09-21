@@ -427,6 +427,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showSearchResults()
 	{
+	    require_once 'UNL/UCBCN/Calendar_has_event.php';
 		$q = (isset($_GET['q']))?$_GET['q']:NULL;
 		$mdb2 =& $this->getDatabaseConnection();
 		if (!empty($q)) {
@@ -445,7 +446,25 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			$listing = new UNL_UCBCN_EventListing();
 			while ($events->fetch()) {
-				$listing->events[] =  array_merge($events->toArray(),array('usercaneditevent'=>UNL_UCBCN::userCanEditEvent($this->user,$events)));
+			    if (isset($_GET['delete']) 
+			        && ($_GET['delete']==$events->id)
+			        && UNL_UCBCN::userHasPermission($this->user,'Event Delete',$this->calendar)) {
+			        $this->calendar->removeEvent($events);
+			        if ($events->isOrphan()) {
+			            $events->delete();
+			        }
+			    } else {
+			        $this->processPostStatusChange($events);
+			        if (UNL_UCBCN::userHasPermission($this->user,'Event Delete',$this->calendar)
+			            && UNL_UCBCN_Calendar_has_event::calendarHasEvent($this->calendar,$events)) {
+			            $candelete = true;
+			        } else {
+			            $candelete = false;
+			        }
+			        $listing->events[] =  array_merge($events->toArray(),array('usercaneditevent'=>UNL_UCBCN::userCanEditEvent($this->user,$events),
+			                                                                    'usercandeleteevent'=>$candelete,
+			                                                                    'calendarhasevent'=>UNL_UCBCN_Calendar_has_event::calendarHasEvent($this->calendar,$events)));
+			    }
 			}
 			if (count($listing->events)) {
 				return array('<p class="num_results">'.count($listing->events).' Result(s)</p>',$listing);
@@ -454,6 +473,43 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 		} else {
 			return '';
+		}
+	}
+	
+	function processPostStatusChange($event,$source='search')
+	{
+	    if (isset($_POST['event'.$event->id])) {
+		    $a_event = $this->factory('calendar_has_event');
+		    $a_event->calendar_id = $this->calendar->id;
+		    $a_event->event_id = $event->id;
+		    if ($a_event->find() && $a_event->fetch()) {
+				// This event date time combination was selected... find out what they chose.
+				if (isset($_POST['delete']) 
+					&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {
+					// User has chosen to delete the event selected, and has permission to delete from pending.
+					$a_event->delete();
+				} elseif (isset($_POST['pending'])
+					&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
+					$a_event->status = 'pending';
+					$a_event->update();
+				} elseif (isset($_POST['posted'])
+					&& $this->userHasPermission($this->user,'Event Post',$this->calendar)) {
+					$a_event->status = 'posted';
+					$a_event->update();
+				}
+		    } else {
+		        if (isset($_POST['pending'])
+					&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
+					$a_event->status = 'pending';
+					$a_event->source = $source;
+					$a_event->insert();
+				} elseif (isset($_POST['posted'])
+					&& $this->userHasPermission($this->user,'Event Post',$this->calendar)) {
+					$a_event->status = 'posted';
+					$a_event->source = $source;
+					$a_event->insert();
+				}
+		    }
 		}
 	}
 	
@@ -553,25 +609,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$event = $this->factory('event');
 				if ($event->get($row[0])) {
 					if (isset($_POST['event'.$event->id])) {
-					    $a_event = $this->factory('calendar_has_event');
-					    $a_event->calendar_id = $this->calendar->id;
-					    $a_event->event_id = $event->id;
-					    if ($a_event->find() && $a_event->fetch()) {
-							// This event date time combination was selected... find out what they chose.
-							if (isset($_POST['delete']) 
-								&& $this->userHasPermission($this->user,'Event Delete',$this->calendar)) {
-								// User has chosen to delete the event selected, and has permission to delete from pending.
-								$a_event->delete();
-							} elseif (isset($_POST['pending'])
-								&& $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar)) {
-								$a_event->status = 'pending';
-								$a_event->update();
-							} elseif (isset($_POST['posted'])
-								&& $this->userHasPermission($this->user,'Event Post',$this->calendar)) {
-								$a_event->status = 'posted';
-								$a_event->update();
-							}
-					    }
+					    $this->processPostStatusChange($event);
 					} else {
 						$listing->events[] = $event;
 					}
