@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.5.0a1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
  <summary>A Management frontend for publishing University events.</summary>
@@ -12,18 +12,22 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-09-21</date>
- <time>14:29:11</time>
+ <date>2006-09-29</date>
+ <time>15:43:08</time>
  <version>
   <release>0.3.0</release>
-  <api>0.1.0</api>
+  <api>0.3.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>* Add search capabilities to manager.</notes>
+ <notes>* Add search capabilities to manager.
+				 * Fix Bug #18 need ability to search for events
+				 * Fix Bug #10 interface to view/assign permissions
+				Implement Subscriptions which will allow calendars to aggregate information automatically.
+				Slight re-organization to allow better viewing: all navigation is on the left hand side.</notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
@@ -255,15 +259,19 @@ Change event list sorting until we get pagination working.</notes>
   <release>
    <version>
     <release>0.3.0</release>
-    <api>0.1.0</api>
+    <api>0.3.0</api>
    </version>
    <stability>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2006-09-21</date>
+   <date>2006-09-29</date>
    <license uri="http://www.php.net/license">PHP License</license>
-   <notes>* Add search capabilities to manager.</notes>
+   <notes>* Add search capabilities to manager.
+				 * Fix Bug #18 need ability to search for events
+				 * Fix Bug #10 interface to view/assign permissions
+				Implement Subscriptions which will allow calendars to aggregate information automatically.
+				Slight re-organization to allow better viewing: all navigation is on the left hand side.</notes>
   </release>
  </changelog>
 </package>

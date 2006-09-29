@@ -49,11 +49,13 @@ $pfm->setDescription('This package gives authenticated users access to publish e
 $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
-$pfm->setAPIVersion('0.1.0');
+$pfm->setAPIVersion('0.3.0');
 $pfm->setReleaseVersion('0.3.0');
 $pfm->setNotes('* Add search capabilities to manager.
 				 * Fix Bug #18 need ability to search for events
-				 * Fix Bug #10 interface to view/assign permissions');
+				 * Fix Bug #10 interface to view/assign permissions
+				Implement Subscriptions which will allow calendars to aggregate information automatically.
+				Slight re-organization to allow better viewing: all navigation is on the left hand side.');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
