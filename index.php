@@ -3,6 +3,7 @@
 /**
  * This file instantiates the Event manager interface.
  */
+ini_set('display_errors',false);
 require_once 'UNL/UCBCN/Manager.php';
 require_once 'Auth.php';
 $GLOBALS['unl_template_dependents'] = $_SERVER['DOCUMENT_ROOT'].'/ucomm/templatedependents';

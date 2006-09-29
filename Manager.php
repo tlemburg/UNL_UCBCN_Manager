@@ -166,7 +166,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				'<li id="calendar"><a href="'.$this->uri.'?" title="My Calendar">Pending Events</a></li>'."\n".
 				'<li id="create"><a href="'.$this->uri.'?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
 				'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
-				//'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
+				'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
 				//'<li id="import"><a href="'.$this->uri.'?action=import" title="Import/Export">Import/Export</a></li>'."\n".
 				'</ul>'."\n";
 	}
@@ -328,6 +328,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				case 'subscribe':
 					$this->uniquebody = 'id="subscribe"';
 					$this->sectitle = 'Subscribe to Events';
+					$this->output[] = '<p>Subscriptions allow you to automatically add events to your calendar which match a given set of criteria.
+										This feature allows the College of Engineering\'s Calendar to automatically add all events posted to the Electrical Engineering calendar.</p>';
+					$this->output[] = $this->showSubscriptions();
+					$this->output[] = $this->showSubscribeForm();
 				break;
 				case 'account':
 					$this->output = array();
@@ -404,6 +408,77 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$this->output = $this->showLoginForm();
 		}
 		$this->doctitle .= ' | '.$this->sectitle;
+	}
+	
+	function showSubscribeForm()
+	{
+	    $subscription =& $this->factory('subscription');
+	    if (isset($_GET['id'])) {
+	        $subscription->get($_GET['id']);
+	    }
+	    $fb =& DB_DataObject_FormBuilder::create($subscription);
+	    $form =& $fb->getForm($this->uri.'?action=subscribe');
+	    if (isset($subscription->searchcriteria)) {
+	        $form->setDefaults(array('calendar_id'=>$this->calendar->id,
+	                                 'searchcriteria'=>$subscription->getCalendars($subscription->searchcriteria)));
+	    } else {
+	        $form->setDefaults(array('calendar_id'=>$this->calendar->id));
+	    }
+	    $renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
+	    if ($form->validate()) {
+	        if ((isset($subscription->id) && UNL_UCBCN::userHasPermission($this->user,'Calendar Edit Subscription',$this->calendar))
+	                || UNL_UCBCN::userHasPermission($this->user,'Calendar Add Subscription',$this->calendar)) {
+		        $form->process(array(&$fb, 'processForm'), false);
+				$form->freeze();
+				$form->removeElement('__submit__');
+		        // Add new subscription.
+		        return '<p>Your subscription has been added.</p>';
+	        } else {
+	            return new UNL_UCBCN_Error('You do not have permission to add/edit subscriptions!');
+	        }
+	    } else {
+	        return $renderer->toHtml();
+	    }
+	}
+	
+	/**
+	 * Returns a listing of the subscriptions for the current calendar.
+	 * 
+	 * @return string html list of subscriptions.
+	 */
+	function showSubscriptions()
+	{ 
+	    $subscriptions = $this->factory('subscription');
+	    $subscriptions->calendar_id = $this->calendar->id;
+	    if ($subscriptions->find()) {
+	        $list = array('<ul>');
+	        while ($subscriptions->fetch()) {
+	            $li = '<li>'.$subscriptions->name;
+	            // Provide Edit link if the user has permission.
+	            if (UNL_UCBCN::userHasPermission($this->user,'Calendar Edit Subscription',$this->calendar)) {
+	                $li .= ' <a href="'.$this->uri.'?action=subscribe&amp;id='.$subscriptions->id.'">Edit</a>';
+	            }
+	            // Show Delete link if the user has permission to delete.
+	            if (UNL_UCBCN::userHasPermission($this->user,'Calendar Delete Subscription',$this->calendar)) {
+         	        if (isset($_GET['delete']) && $_GET['delete']==$subscriptions->id) {
+         	            if ($subscriptions->delete()) {
+         	                $li = '<li>'.$subscriptions->name.' (Deleted)';
+         	            } else {
+         	                // error deleting the subscription?
+         	                 $li = '<li>'.$subscriptions->name.' Error, cannot delete.';
+         	            }
+         	        } else {
+         	            $li .= ' <a href="'.$this->uri.'?action=subscribe&amp;delete='.$subscriptions->id.'">Delete</a>';
+         	        }
+	            }
+	            $list[] = $li.'</li>';
+	        }
+	        $list[]  = '</ul>';
+	        return implode("\n",$list);
+	    } else {
+	        return 'This calendar currently has no subscriptions.';
+	    }
 	}
 	
 	/**
