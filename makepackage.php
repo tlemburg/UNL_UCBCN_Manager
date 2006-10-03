@@ -50,12 +50,8 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.3.0');
-$pfm->setReleaseVersion('0.3.0');
-$pfm->setNotes('* Add search capabilities to manager.
-				 * Fix Bug #18 need ability to search for events
-				 * Fix Bug #10 interface to view/assign permissions
-				Implement Subscriptions which will allow calendars to aggregate information automatically.
-				Slight re-organization to allow better viewing: all navigation is on the left hand side.');
+$pfm->setReleaseVersion('0.3.1');
+$pfm->setNotes('* Fixes');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
@@ -64,7 +60,7 @@ $pfm->setPhpDep('5.0.0');
 $pfm->setPearinstallerDep('1.4.3');
 $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.php.net', '0.18.1');
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
-$pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.2.5');
+$pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.3.0');
 foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
 	$pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
 	$pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
