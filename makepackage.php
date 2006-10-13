@@ -51,10 +51,10 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.3.0');
 $pfm->setReleaseVersion('0.3.1');
-$pfm->setNotes('* Fixes');
+$pfm->setNotes('* Move some html presentation to the templates ($avigation, and $accountright)');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
-$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
+//$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
 $pfm->clearDeps();
 $pfm->setPhpDep('5.0.0');

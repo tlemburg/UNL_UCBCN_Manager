@@ -55,7 +55,17 @@
 			<h4 id="sec_nav">Navigation</h4>
 			<!-- InstanceBeginEditable name="navcontent" -->
 			<div id="navlinks">
-				<?php echo $this->navigation; ?>
+				<?php
+				if (isset($this->user)) { ?>
+					<ul>
+					<li id="calendar"><a href="<?php echo $this->uri; ?>?" title="My Calendar">Pending Events</a></li>
+					<li id="create"><a href="<?php echo $this->uri; ?>?action=createEvent" title="Create Event">Create Event</a></li>
+					<li id="search"><a href="<?php echo $this->uri; ?>?action=search" title="Search">Search</a></li>
+					<li id="subscribe"><a href="<?php echo $this->uri; ?>?action=subscribe" title="Subscribe">Subscribe</a></li>
+					<!--  <li id="import"><a href="<?php echo $this->uri; ?>?action=import" title="Import/Export">Import/Export</a></li> -->
+					</ul>
+				<?php 
+				} ?>
 			</div>
 			<!-- InstanceEndEditable -->
 			<div id="nav_end"></div>
@@ -63,8 +73,21 @@
 			<!-- InstanceEndEditable -->
 			<!-- WDN: see glossary item 'sidebar links' -->
 			<div id="leftcollinks"> <!-- InstanceBeginEditable name="leftcollinks" -->
+				<?php if (isset($this->user)) { ?>
+				<div class="cal_widget">
+					<h3><span><?php echo date("F jS, Y"); ?></span></h3>
+					<ul>
+					<li class="nobullet">Welcome, <?php echo $this->user->uid; ?></li>
+					<li><a href="<?php echo $this->frontenduri.'?calendar_id='.$this->calendar->id; ?>">Live Calendar</a></li>
+					<li><a href="<?php echo $this->uri; ?>?action=account">Account Info</a></li>
+					<li><a href="<?php echo $this->uri; ?>?action=calendar">Calendar Info</a></li>
+					<li><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></li>
+					<li><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
+					</ul>
+				</div>
 				<?php
-				UNL_UCBCN::displayRegion($this->accountright);
+				}
+				UNL_UCBCN::displayRegion($this->calendarselect);
 				if (!empty($this->plugins)) {
 					echo '<h3>Plugins</h3><ul>';
 					foreach ($this->plugins as $plugin) {

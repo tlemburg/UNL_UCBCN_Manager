@@ -12,10 +12,16 @@
   <email>brett.bieber@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2006-09-29</date>
- <time>15:43:08</time>
+ <developer>
+  <name>Alvin Woon</name>
+  <user>alvinwoon</user>
+  <email>alvinwoon@gmail.com</email>
+  <active>yes</active>
+ </developer>
+ <date>2006-10-13</date>
+ <time>09:28:53</time>
  <version>
-  <release>0.3.0</release>
+  <release>0.3.1</release>
   <api>0.3.0</api>
  </version>
  <stability>
@@ -23,11 +29,7 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.php.net/license">PHP License</license>
- <notes>* Add search capabilities to manager.
-				 * Fix Bug #18 need ability to search for events
-				 * Fix Bug #10 interface to view/assign permissions
-				Implement Subscriptions which will allow calendars to aggregate information automatically.
-				Slight re-organization to allow better viewing: all navigation is on the left hand side.</notes>
+ <notes>* Move some html presentation to the templates ($avigation, and $accountright)</notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
@@ -198,7 +200,7 @@
    <package>
     <name>UNL_UCBCN</name>
     <channel>pear.unl.edu</channel>
-    <min>0.2.5</min>
+    <min>0.3.0</min>
    </package>
   </required>
  </dependencies>
@@ -272,6 +274,19 @@ Change event list sorting until we get pagination working.</notes>
 				 * Fix Bug #10 interface to view/assign permissions
 				Implement Subscriptions which will allow calendars to aggregate information automatically.
 				Slight re-organization to allow better viewing: all navigation is on the left hand side.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.1</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-10-13</date>
+   <license uri="http://www.php.net/license">PHP License</license>
+   <notes>* Move some html presentation to the templates ($avigation, and $accountright)</notes>
   </release>
  </changelog>
 </package>

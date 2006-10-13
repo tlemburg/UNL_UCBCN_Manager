@@ -35,8 +35,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	public $frontenduri = '';
 	/** Navigation */
 	public $navigation;
-	/** Account on right column */
-	public $accountright;
+	/** Indicates which calendars you have access to. */
+	public $calendarselect;
 	/** Unique body ID */
 	public $uniquebody;
 	/** Main content of the page sent to the client. */
@@ -156,43 +156,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	}
 	
 	/**
-	 * Returns a html snippet for the navigation.
-	 * 
-	 * @return html unordered list.
-	 */
-	function showNavigation()
-	{
-		return	'<ul>'."\n".
-				'<li id="calendar"><a href="'.$this->uri.'?" title="My Calendar">Pending Events</a></li>'."\n".
-				'<li id="create"><a href="'.$this->uri.'?action=createEvent" title="Create Event">Create Event</a></li>'."\n".
-				'<li id="search"><a href="'.$this->uri.'?action=search" title="Search">Search</a></li>'."\n".
-				'<li id="subscribe"><a href="'.$this->uri.'?action=subscribe" title="Subscribe">Subscribe</a></li>'."\n".
-				//'<li id="import"><a href="'.$this->uri.'?action=import" title="Import/Export">Import/Export</a></li>'."\n".
-				'</ul>'."\n";
-	}
-	
-	/**
-	 * Returns a html snippet for the account section.
-	 * 
-	 * @return html unordered list.
-	 */
-	function showAccountRight()
-	{
-		$r =	'<div class="cal_widget">'."\n".
-				'<h3><span>'.date("F jS, Y").'</span></h3>'."\n".
-				'<ul>'."\n".
-				'<li class="nobullet">Welcome, '.$this->user->uid.'</li>'."\n".
-				'<li><a href="'.$this->frontenduri.'?calendar_id='.$this->calendar->id.'">Live Calendar</a></li>'."\n".
-				'<li><a href="'.$this->uri.'?action=account">Account Info</a></li>'."\n".
-				'<li><a href="'.$this->uri.'?action=calendar">Calendar Info</a></li>'."\n".
-				'<li><a href="'.$this->uri.'?logout=true">LogOut</a></li>'."\n".
-				'<li><a href="#">Help</a></li>'."\n".
-				'</ul>'."\n".
-				'</div>';
-		return $r;
-	}
-	
-	/**
 	 * Returns login object which will be used for the user to authenticate with.
 	 * 
 	 * @return object UNL_UCBCN_Manager_Login.
@@ -291,9 +254,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		$this->doctitle = 'UNL Event Publishing System';
 		if (isset($this->user)) {
 			// User is authenticated, and an account has been chosen.
-			$this->navigation = $this->showNavigation();
-			$this->accountright[] = $this->showAccountRight();
-			$this->accountright[] = $this->showChooseCalendar();
+			$this->calendarselect[] = $this->showChooseCalendar();
 			if (empty($action) && isset($_GET['action'])) {
 				$action = $_GET['action'];
 			}
