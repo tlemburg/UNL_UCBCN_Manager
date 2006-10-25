@@ -4,7 +4,7 @@
  */
   #maincontent a{background:none;}
     #maincontent a:hover{text-decoration:underline!important;}
-    #maincontent #title{padding:2px;}
+    #maincontent #title{padding:2px;display:inline;}
     
   /*--[navigation]--*/
 
@@ -69,11 +69,20 @@ div.cal_widget ul{
 	margin:-14px 0 0 0;
 	background:url(images/recent_mid.gif) repeat-y right top;
 }
+div.cal_widget fieldset{
+	border:none;
+	padding:0 0 10px 0;
+	margin:-14px 0 0 1px;
+	background:#eff6f9;
+	background:url(images/recent_mid.gif) repeat-y right top;
+	}
 div.cal_widget ul li#login_list{background:none;padding:0;}
 div.cal_widget ul li{background:url(images/widget_list.gif) no-repeat 0 5px;padding:0 0 0 15px;height:1%;margin-right:7px;position:relative;}
 div.cal_widget ul li:hover{background:url(images/widget_list_hover.gif) no-repeat 0 5px;}
 div.cal_widget ul li.nobullet{background:none;padding:0;}
 
+
+div.cal_widget fieldset legend{display:none;}
 /**
  * Form CSS Styles
  */
@@ -82,26 +91,24 @@ div.cal_widget ul li.nobullet{background:none;padding:0;}
     padding:11px 0 0 0;
 
 }
-#maincontent form label.qflabel{
+
+#maincontent form label.element{
     display: block;
     float: left;
     width: 150px;
-    padding: 0;
+    padding:0;
     margin:10px 0 0 0;
     text-align: right;
 }
-
+#maincontent form .row{width:700px;}
 #maincontent form input, #maincontent form textarea, #maincontent form select{
     width:auto;
-	background:#fff;
+
  	border:1px solid #ccc;
  	border-color:#ccc #fff #fff #ccc;
 	padding:3px;
 	margin:4px 0;
 }
-#maincontent form fieldset#__header__ input{width:auto;}
-#maincontent form input#approvedforcirculation{width:auto;}
-#maincontent .select input{border:none;background:none;width:auto;}
 #maincontent form input:focus, #maincontent form textarea:focus, #maincontent form select:focus {
     background:#ffffcc;
 }
@@ -112,6 +119,8 @@ div.cal_widget ul li.nobullet{background:none;padding:0;}
 	border:1px solid #ccc;
  	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
 #maincontent form select {font-size:0.8em;}
+form#cal_choose select{font-size:1em;}
+form#cal_choose br{line-height:0.8}
 #maincontent form option {padding:0 0.3em;}
 
 #maincontent form textarea {
@@ -119,16 +128,17 @@ div.cal_widget ul li.nobullet{background:none;padding:0;}
 	height:100px;
 }
 #maincontent form br {
-    clear: left;
+    clear: left;margin:0;padding:0;line-height:0.5;
 }
-form div.qfgroup, form div.qfelement {
+
+form div.qfgroup, form div.element {
     display: inline;
     float: left;
     margin: 5px 0 0 10px;
     padding: 0;
 }
 form div.qfelement div.qfgroup {
-    margin: 0 0 0 0;
+    margin: 0 0 0 0;margin:0!important;line-height:0.5!important;
 }
 form span.error {
     color: red;
@@ -146,19 +156,32 @@ form div.error {
 	position:relative;
 	background:#fff;
 	}
+#maincontent form fieldset.deventtypeheader_class select{float:left;};
+#maincontent form fieldset.ddetailsheader_class .reqnote{color:#ff0000;display:inline}
+#maincontent form fieldset.deventtypeheader_class .reqnote, #maincontent form fieldset.deventlocationheader_class .reqnote{display:none;}
+#maincontent form fieldset span, .required{color:#ff0000;}
+#lastfieldset.reqnote{background:#f8e6e9;padding:3px;margin:0 0 30px 10px;bottom:0;left:0;position:absolute;}
 
-  
+#maincontent form#unl_ucbcn_event fieldset.d__header___class input{border:none;}
 #maincontent form fieldset{
   padding:0 0 10px 0;
   display:block;
   border:none;
-  border-bottom:1px solid #ddd;
+  width:700px;
+  border-bottom:1px solid #dfdfdf;
   position:relative;
-  margin:0 0 30px 0;
-  background:#e8f5fa url(images/fieldsetline.gif) no-repeat;
+  margin:0 0 20px 0;
+  background:#ecf4f8 url(images/fieldsetline.gif) no-repeat;
 }
 
-		
+#maincontent a#formShow{padding:2px;border:1px solid #266cb3;border-color:#77a9dc #1a5898 #1a5898 #77a9dc;display:block;background:#3e83c9;color:#fff;margin:0 0 0 10px;}
+#maincontent a#formShow:focus{color:#fff!important;text-decoration:underline;}
+
+#maincontent form div.newlocation{background:#eee;width:500px;margin:4px 0 2px 0 0;border:1px solid #ccc;overflow-x:hidden!important;}
+#maincontent form div.newlocation fieldset{margin:0;padding:0;border:none;background:#eee;width:500px;overflow-x:hidden!important;}
+
+#maincontent form div.newlocation legend{display:none;}
+
 #maincontent form fieldset.hidden{
 margin:0;padding:0;background:0;border:none;
 }
@@ -172,19 +195,21 @@ body#normal div#maincontent ul.eventsbystatus{
 	list-style:none;
 	line-height:1;
 	margin:0 0 10px 0;
-	padding:6px 6px 2.3em 6px;
+	width:678px;
+	padding:6px 6px 2.2em 6px;
 	border-bottom:1px solid #bebcbc;
 }
 	body#normal div#maincontent ul.eventsbystatus li{
+	display:block;
 	float:left;
-	margin:2px;
+	margin:2px 2px -1px 2px;
 	padding:6px;
 	background:#eee;
 	border:1px solid #bebcbc;
 	}
 		body#normal div#maincontent ul.eventsbystatus li a{
 		text-decoration:none;
-		display:block;
+		
 		}
 		
 	body#normal div#maincontent ul.eventsbystatus.archived li#archived_manager,

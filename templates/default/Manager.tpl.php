@@ -96,10 +96,12 @@
 					echo '</ul>';
 				}
 				?>
+				<div class="cal_widget">
 				<h3>Related Links</h3>
 				<ul>
 					<li><a href="<?php echo $this->frontenduri; ?>">Events</a></li>
 				</ul>
+				</div>
 				<!-- InstanceEndEditable --> </div>
 		</div>
 		<!-- close navigation -->

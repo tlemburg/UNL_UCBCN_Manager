@@ -5,12 +5,24 @@
  
  * html #right_area{
 	height:200px;
-  }
+ }
  * html #navlinks ul{
-		width:200px;}
+		width:200px;
+ }
  * html #maincontent form fieldset legend {
 	margin:-13px 0 0 -7px;
-	}
-* html #maincontent form fieldset{
- margin:20px 0 50px 0;
-}
+ }
+	
+ * html #maincontent form input, * html #maincontent form textarea, #maincontent form select{
+	margin:0;
+ }
+ 
+ * html #maincontent form fieldset{
+ margin:20px 0 40px 0;
+ }
+ 
+ * html #lastfieldset.reqnote{margin:0 0 50px 10px;}
+
+* html body#normal div#maincontent ul.eventsbystatus{padding:6px 6px 0 6px;}
+
+* html div.cal_widget{margin:0 0 0 0;}

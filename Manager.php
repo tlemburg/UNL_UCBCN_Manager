@@ -817,7 +817,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			return new UNL_UCBCN_Error($res->getMessage());
 		}
 		if ($res->numRows()>1) {
-			$output = '<p>Calendar you are currently managing:</p>';
+			$output = '<div class="cal_widget"><h3>Calendar you are currently managing:</h3>';
 			$form = new HTML_QuickForm('cal_choose','get');
 			$cal_select = HTML_QuickForm::createElement('select','calendar_id','');
 			while ($row = $res->fetchRow()) {
@@ -828,7 +828,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$form->setDefaults(array('calendar_id'=>$_SESSION['calendar_id']));
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
+			$output .= '<fieldset><legend>Choose your calendar</legend>';
 			$output .= $renderer->toHtml();
+			$output .= '</fieldset>';
+			$output .= '</div>';
 		} else {
 			// User has no other calendars to manage.
 			$output = '';

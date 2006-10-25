@@ -1,15 +1,17 @@
 <?php
 /**
- * A renderer for HTML_QuickForm that only uses XHTML and CSS but no
- * table tags
+ * Replacement for the default renderer of HTML_QuickForm that uses only XHTML
+ * and CSS but no table tags, and generates fully valid XHTML output
  *
  * PHP versions 4 and 5
  *
- * LICENSE: This source file is subject to version 3.01 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_01.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
+ * LICENSE: This source file is subject to the new BSD license that is bundled
+ * with this package in the file LICENSE.
+ * It is also available through the world-wide-web at this URL:
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to wiesemann@php.net so we can send you a copy immediately.
  *
  * @category   HTML
  * @package    HTML_QuickForm_Renderer_Tableless
@@ -18,16 +20,16 @@
  * @author     Bertrand Mansion <bmansion@mamasam.com>
  * @author     Mark Wiesemann <wiesemann@php.net>
  * @copyright  2005-2006 The PHP Group
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    CVS: $Id $
- * @link       http://pear.php.net/package/[...]
+ * @license    http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @version    CVS: $Id: Tableless.php,v 1.16 2006/10/22 11:39:47 wiesemann Exp $
+ * @link       http://pear.php.net/package/HTML_QuickForm_Renderer_Tableless
  */
 
 require_once 'HTML/QuickForm/Renderer/Default.php';
 
 /**
- * A renderer for HTML_QuickForm that only uses XHTML and CSS but no
- * table tags
+ * Replacement for the default renderer of HTML_QuickForm that uses only XHTML
+ * and CSS but no table tags, and generates fully valid XHTML output
  * 
  * You need to specify a stylesheet like the one that you find in
  * data/stylesheet.css to make this work.
@@ -38,9 +40,9 @@ require_once 'HTML/QuickForm/Renderer/Default.php';
  * @author     Adam Daniel <adaniel1@eesus.jnj.com>
  * @author     Bertrand Mansion <bmansion@mamasam.com>
  * @author     Mark Wiesemann <wiesemann@php.net>
- * @license    http://www.php.net/license/3_01.txt  PHP License 3.01
- * @version    Release: 0.3.1
- * @link       http://pear.php.net/package/[...]
+ * @license    http://www.opensource.org/licenses/bsd-license.php New BSD License
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/HTML_QuickForm_Renderer_Tableless
  */
 class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
 {
@@ -50,7 +52,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     * @access   private
     */
     var $_headerTemplate = 
-        "\n\t\t<legend>{header}</legend>";
+        "\n\t\t<legend>{header}</legend><div class=\"formcontent\">";
 
    /**
     * Element template string
@@ -58,7 +60,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     * @access   private
     */
     var $_elementTemplate = 
-        "\n\t\t<div class=\"qfrow\"><label class=\"qflabel\"><!-- BEGIN required --><span style=\"color: #ff0000\">*</span><!-- END required -->{label}</label><div class=\"qfelement<!-- BEGIN error --> error<!-- END error -->\"><!-- BEGIN error --><span class=\"error\">{error}</span><br /><!-- END error -->{element}</div></div><br />";
+        "\n\t\t<div class=\"row\"><label class=\"element\"><!-- BEGIN required --><span class=\"required\">*</span><!-- END required -->{label}</label><div class=\"element<!-- BEGIN error --> error<!-- END error -->\"><!-- BEGIN error --><span class=\"error\">{error}</span><br /><!-- END error -->{element}</div></div><br />";
 
    /**
     * Form template string
@@ -66,7 +68,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     * @access   private
     */
     var $_formTemplate = 
-        "\n<form{attributes}>\n\t<div style=\"display: none;\">{hidden}</div>\n{content}\n</form>";
+        "\n<form{attributes}>\n\t<div style=\"display: none;\">{hidden}\t</div>\n{content}\n</form>";
 
    /**
     * Template used when opening a fieldset
@@ -88,7 +90,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     * @var      string
     * @access   private
     */
-    var $_closeFieldsetTemplate = "\n\t</fieldset>";
+    var $_closeFieldsetTemplate = "\n\t</div></fieldset>";
 
    /**
     * Required Note template string
@@ -96,14 +98,14 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     * @access   private
     */
     var $_requiredNoteTemplate = 
-        "\n\t\t{requiredNote}";
+        "\n\t\t<div class=\"reqnote\">{requiredNote}</div>";
 
    /**
-    * Whether a fieldset tag is open or not
-    * @var      bool
+    * How many fieldsets are open
+    * @var      integer
     * @access   private
     */
-   var $_fieldsetIsOpen = false;
+   var $_fieldsetsOpen = 0;
 
    /**
     * Array of element names that indicate the end of a fieldset
@@ -133,7 +135,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     function renderHeader(&$header)
     {
         $name = $header->getName();
-        $id = empty($name) ? '' : ' id="' . $name . '"';
+        $id = empty($name) ? '' : ' id="' . $name . '" class="d' . $name . '_class"';
         if (is_null($header->_text)) {
             $header_html = '';
         }
@@ -142,12 +144,13 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
         } else {
             $header_html = str_replace('{header}', $header->toHtml(), $this->_headerTemplate);
         }
-        if ($this->_fieldsetIsOpen) {
+        if ($this->_fieldsetsOpen > 0) {
             $this->_html .= $this->_closeFieldsetTemplate;
+            $this->_fieldsetsOpen--;
         }
         $openFieldsetTemplate = str_replace('{id}', $id, $this->_openFieldsetTemplate);
         $this->_html .= $openFieldsetTemplate . $header_html;
-        $this->_fieldsetIsOpen = true;
+        $this->_fieldsetsOpen++;
     } // end func renderHeader
 
    /**
@@ -164,17 +167,14 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     {
         // if the element name indicates the end of a fieldset, close the fieldset
         if (   in_array($element->getName(), $this->_stopFieldsetElements)
-            && $this->_fieldsetIsOpen
+            && $this->_fieldsetsOpen > 0
            ) {
             $this->_html .= $this->_closeFieldsetTemplate;
-            $this->_fieldsetIsOpen = false;
+            $this->_fieldsetsOpen--;
         }
         // if no fieldset was opened, we need to open a hidden one here to get
         // XHTML validity
-        if (!$this->_fieldsetIsOpen) {
-            $this->_html .= $this->_openHiddenFieldsetTemplate;
-            $this->_fieldsetIsOpen = true;
-        }
+      
         if (!$this->_inGroup) {
             $html = $this->_prepareTemplate($element->getName(), $element->getLabel(), $required, $error);
             // the following lines (until the "elseif") were changed / added
@@ -185,12 +185,14 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
             } else {
                 $id = $element->getName();
             }
-            $html = str_replace('<label', '<label for="' . $id . '"', $html);
-            $element_html = str_replace('name="' . $id . '"',
-                                        'id="' . $id . '" name="' . $id . '"',
-                                        $element_html);
+            if (!empty($id)) {
+                $html = str_replace('<label', '<label for="' . $id . '"', $html);
+                $element_html = preg_replace('#name="' . $id . '#',
+                                             'id="' . $id . '" name="' . $id . '',
+                                             $element_html,
+                                             1);
+            }
             $this->_html .= str_replace('{element}', $element_html, $html);
-
         } elseif (!empty($this->_groupElementTemplate)) {
             $html = str_replace('{label}', $element->getLabel(), $this->_groupElementTemplate);
             if ($required) {
@@ -207,6 +209,48 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     } // end func renderElement
 
    /**
+    * Called when visiting a group, after processing all group elements
+    *
+    * @param    object      An HTML_QuickForm_group object being visited
+    * @access   public
+    * @return   void
+    */
+    function finishGroup(&$group)
+    {
+        $separator = $group->_separator;
+        if (is_array($separator)) {
+            $count = count($separator);
+            $html  = '';
+            for ($i = 0; $i < count($this->_groupElements); $i++) {
+                $html .= (0 == $i? '': $separator[($i - 1) % $count]) . $this->_groupElements[$i];
+            }
+        } else {
+            if (is_null($separator)) {
+                $separator = '&nbsp;';
+            }
+            $html = implode((string)$separator, $this->_groupElements);
+        }
+        if (!empty($this->_groupWrap)) {
+            $html = str_replace('{content}', $html, $this->_groupWrap);
+        }
+        if (!is_null($group->getAttribute('id'))) {
+            $id = $group->getAttribute('id');
+        } else {
+            $id = $group->getName();
+        }
+        $groupTemplate = $this->_groupTemplate;
+        if (!empty($id)) {
+            $groupTemplate = str_replace('<label', '<label for="' . $id . '"', $groupTemplate);
+            $html = preg_replace('#name="' . $id . '#',
+                                 'id="' . $id . '" name="' . $id . '',
+                                 $html,
+                                 1);
+        }
+        $this->_html   .= str_replace('{element}', $html, $groupTemplate);
+        $this->_inGroup = false;
+    } // end func finishGroup
+
+    /**
     * Called when visiting a form, before processing any form elements
     *
     * @param    object      An HTML_QuickForm object being visited
@@ -215,7 +259,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     */
     function startForm(&$form)
     {
-        $this->_fieldsetIsOpen = false;
+        $this->_fieldsetsOpen = 0;
         parent::startForm($form);
     } // end func startForm
 
@@ -231,11 +275,17 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     {
         // add a required note, if one is needed
         if (!empty($form->_required) && !$form->_freezeAll) {
-            $this->_html .= str_replace('{requiredNote}', $form->getRequiredNote(), $this->_requiredNoteTemplate);
+            $requiredNote = $form->getRequiredNote();
+            // replace default required note by DOM/XHTML optimized note
+            if ($requiredNote == '<span style="font-size:80%; color:#ff0000;">*</span><span style="font-size:80%;"> denotes required field</span>') {
+                $requiredNote = '<span class="required">*</span> denotes required field';
+            }
+            $this->_html .= str_replace('{requiredNote}', $requiredNote, $this->_requiredNoteTemplate);
         }
         // close the open fieldset
-        if ($this->_fieldsetIsOpen) {
+        if ($this->_fieldsetsOpen > 0) {
             $this->_html .= $this->_closeFieldsetTemplate;
+            $this->_fieldsetsOpen--;
         }
         // add form attributes and content
         $html = str_replace('{attributes}', $form->getAttributes(true), $this->_formTemplate);
@@ -246,6 +296,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
         }
         $this->_hiddenHtml = '';
         $this->_html = str_replace('{content}', $this->_html, $html);
+        $this->_html = str_replace('></label>', '>&nbsp;</label>', $this->_html);
         // add a validation script
         if ('' != ($script = $form->getValidationScript())) {
             $this->_html = $script . "\n" . $this->_html;
