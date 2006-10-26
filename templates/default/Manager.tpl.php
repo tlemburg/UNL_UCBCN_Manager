@@ -89,11 +89,11 @@
 				}
 				UNL_UCBCN::displayRegion($this->calendarselect);
 				if (!empty($this->plugins)) {
-					echo '<h3>Plugins</h3><ul>';
+					echo '	<div class="cal_widget"><h3>Plugins</h3><ul>';
 					foreach ($this->plugins as $plugin) {
 						echo '<li><a href="'.$plugin->uri.'">'.$plugin->name.'</a></li>';
 					}
-					echo '</ul>';
+					echo '</ul></div>';
 				}
 				?>
 				<div class="cal_widget">
