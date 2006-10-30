@@ -85,22 +85,23 @@ function updateRow(){
 function requiredField(){
 	var fieldset = document.getElementsByTagName('fieldset');
 	var lastrequired = getElementsByClassName(document, "span", "required");
-	
-	//alert(lastrequired.length);
-	lastrequired[lastrequired.length - 1].id = 'lastfieldset';
-	
-	for(i=0; i<fieldset.length; i++){
-		//var divrequired = getElementsByClassName(fieldset[i], "div", "reqnote");
-		var spanrequired = getElementsByClassName(fieldset[i], "span", "required");
-		if (spanrequired.length > 0){
-			spanrequired[0].parentNode.nextSibling.childNodes[0].style.background = '#f8e6e9';
-		}	
-	}	
+	try {
+		//alert(lastrequired.length);
+		lastrequired[lastrequired.length - 1].id = 'lastfieldset';
+		
+		for(i=0; i<fieldset.length; i++){
+			//var divrequired = getElementsByClassName(fieldset[i], "div", "reqnote");
+			var spanrequired = getElementsByClassName(fieldset[i], "span", "required");
+			if (spanrequired.length > 0){
+				spanrequired[0].parentNode.nextSibling.childNodes[0].style.background = '#f8e6e9';
+			}	
+		}
+	} catch(e) {}
 }
 
 function hideField(){
 	var id = document.getElementById('optionaldetailsheader');
-	var formContainer = getElementsByClassName(id, "div", "formcontent");
+	var formContainer = id.getElementsByTagName('ol');
 	createButton('Click to add additional details', id, formHide, 'formShow')
 	formContainer[0].style.display='none';
   	
@@ -115,7 +116,7 @@ function hideField(){
 
 function formHide(){
 	var id = document.getElementById('optionaldetailsheader');
-	var formContainer = getElementsByClassName(id, "div", "formcontent");
+	var formContainer = id.getElementsByTagName('ol');
 	formContainer[0].style.display=(formContainer[0].style.display=="block")?"none":"block";
 	var linkId = document.getElementById('formShow');
 	linkId.childNodes[0].nodeValue = (linkId.childNodes[0].nodeValue=="Hide Form")?"Click to add additional details":"Hide Form";
