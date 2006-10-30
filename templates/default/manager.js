@@ -84,7 +84,7 @@ function updateRow(){
 
 function requiredField(){
 	var fieldset = document.getElementsByTagName('fieldset');
-	var lastrequired = getElementsByClassName(document, "div", "reqnote");
+	var lastrequired = getElementsByClassName(document, "span", "required");
 	
 	//alert(lastrequired.length);
 	lastrequired[lastrequired.length - 1].id = 'lastfieldset';

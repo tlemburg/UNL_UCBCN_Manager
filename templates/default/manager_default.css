@@ -92,6 +92,16 @@ div.cal_widget fieldset legend{display:none;}
 
 }
 
+#maincontent form fieldset ol {
+	margin: 0;
+	padding: 0;
+}
+#maincontent form fieldset li {
+	list-style: none;
+	margin: 0;
+	clear: both;
+}
+
 #maincontent form label.element{
     display: block;
     float: left;
