@@ -1,6 +1,17 @@
 <?php
+/**
+ * PEAR postinstall script for the management portion of the calendar system.
+ * 
+ * @package UNL_UCBCN_Manager
+ */
 require_once 'UNL/UCBCN.php';
 
+/**
+ * This class can handle all the post installation tasks for the manager.
+ * 
+ * @package UNL_UCBCN_Manager
+ *
+ */
 class UNL_UCBCN_Manager_setup_postinstall
 {
 	var $createFiles;

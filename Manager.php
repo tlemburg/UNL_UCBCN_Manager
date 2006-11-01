@@ -19,33 +19,93 @@ require_once 'UNL/UCBCN/Manager/Tableless.php';
 require_once 'UNL/UCBCN/Manager/Login.php';
 require_once 'UNL/UCBCN/Manager/FormBuilder_Driver.php';
 
+/**
+ * Class which handles all event creation and authentication. This class acts as the basis for the
+ * management portion of a university event publisher, through which users will log in and create and manage
+ * their calendars.
+ * 
+ * @package UNL_UCBCN_Manager
+ */
 class UNL_UCBCN_Manager extends UNL_UCBCN {
 
-	/** Auth object */
+	/**
+	 * Auth object 
+	 * 
+	 * @var object
+	 */
 	var $a;
-	/** Account */
+	
+	/**
+	 * UNL_UCBCN_Account
+	 * 
+	 * @var object
+	 */
 	var $account;
-	/** Calendar */
+	
+	/**
+	 * UNL_UCBCN_Calendar this user is managing.
+	 * 
+	 * @var object
+	 */
 	var $calendar;
-	/** User object */
+	
+	/**
+	 * UNL_UCBCN_User object for the user who is logged in and managing a calendar.
+	 * 
+	 * @var UNL_UCBCN_User
+	 */
 	var $user;
-	/** URI to the management frontend */
+	
+	/**
+	 * URI to the management frontend
+	 * 
+	 * @var string
+	 */
 	public $uri = '';
-	/** URI to the public frontend UNL_UCBCN_Frontend */
+	
+	/**
+	 * URI to the public frontend UNL_UCBCN_Frontend
+	 * 
+	 * @var string
+	 */
 	public $frontenduri = '';
-	/** Navigation */
-	public $navigation;
-	/** Indicates which calendars you have access to. */
+
+	/**
+	 * Indicates which calendars you have access to.
+	 * 
+	 * @var array|string
+	 */
 	public $calendarselect;
-	/** Unique body ID */
+	
+	/**
+	 * Unique body ID
+	 * @var string
+	 */
 	public $uniquebody;
-	/** Main content of the page sent to the client. */
+	
+	/**
+	 * Main content of the page sent to the client.
+	 * @var mixed
+	 */
 	public $output;
-	/** Page Title */
+	
+	/**
+	 * Title for the page.
+	 * @var string
+	 */
 	public $doctitle;
-	/** Section Title */
+	
+	/**
+	 * Section Title
+	 * @var string
+	 */
 	public $sectitle;
-	/** Registered and running plugins. */
+
+	/**
+	 * Registered and running plugins.
+	 * 
+	 * @var array
+	 */
 	public $plugins = array();
 	
 	/**
