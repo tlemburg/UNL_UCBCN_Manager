@@ -96,12 +96,6 @@
 					echo '</ul></div>';
 				}
 				?>
-				<div class="cal_widget">
-				<h3>Related Links</h3>
-				<ul>
-					<li><a href="<?php echo $this->frontenduri; ?>">Events</a></li>
-				</ul>
-				</div>
 				<!-- InstanceEndEditable --> </div>
 		</div>
 		<!-- close navigation -->
@@ -110,7 +104,6 @@
 			<!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
 			
 			<div id="maincontent"> <!-- InstanceBeginEditable name="maincontent" -->
-			
 				<?php UNL_UCBCN::displayRegion($this->output); ?>
 				<!-- InstanceEndEditable --> </div>
 			 </div>
