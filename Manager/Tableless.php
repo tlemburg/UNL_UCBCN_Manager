@@ -134,7 +134,7 @@ class HTML_QuickForm_Renderer_Tableless extends HTML_QuickForm_Renderer_Default
     function renderHeader(&$header)
     {
         $name = $header->getName();
-        $id = empty($name) ? '' : ' id="' . $name . '"';
+        $id = empty($name) ? '' : ' id="' . $name . '" class="d' . $name . '_class"';
         if (is_null($header->_text)) {
             $header_html = '';
         }

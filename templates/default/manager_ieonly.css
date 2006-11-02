@@ -18,7 +18,8 @@
  }
  
  * html #maincontent form fieldset{
- margin:20px 0 40px 0;
+ margin:20px 0 14px 0;
+ padding:0 0 10px 0;
  }
  
  * html #lastfieldset.reqnote{margin:0 0 50px 10px;}

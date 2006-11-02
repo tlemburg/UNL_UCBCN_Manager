@@ -71,11 +71,14 @@ div.cal_widget ul{
 }
 div.cal_widget fieldset{
 	border:none;
+	clear:both;
 	padding:0 0 10px 0;
 	margin:-14px 0 0 1px;
+	_margin:-5px 0 0 1px;
 	background:#eff6f9;
 	background:url(images/recent_mid.gif) repeat-y right top;
 	}
+	div.cal_widget fieldset ol li {display:block;height:1px;}
 div.cal_widget ul li#login_list{background:none;padding:0;}
 div.cal_widget ul li{background:url(images/widget_list.gif) no-repeat 0 5px;padding:0 0 0 15px;height:1%;margin-right:7px;position:relative;}
 div.cal_widget ul li:hover{background:url(images/widget_list_hover.gif) no-repeat 0 5px;}
@@ -95,11 +98,22 @@ div.cal_widget fieldset legend{display:none;}
 #maincontent form fieldset ol {
 	margin: 0;
 	padding: 0;
+	clear:left;
 }
+	
+#maincontent form fieldset ol:after {
+				content: ".";
+				display: block;
+				clear: both;
+				visibility: hidden;
+				}
+				
 #maincontent form fieldset li {
 	list-style: none;
 	margin: 0;
 	clear: both;
+	display:block;
+	height:1px;
 }
 
 #maincontent form label.element{
@@ -175,7 +189,8 @@ form div.error {
 #maincontent form#unl_ucbcn_event fieldset.d__header___class input{border:none;}
 #maincontent form fieldset{
   clear:both;
-  padding:0 0 10px 0;
+  float:left;
+  padding:0;
   display:block;
   border:none;
   width:700px;
@@ -184,8 +199,10 @@ form div.error {
   margin:0 0 20px 0;
   background:#ecf4f8 url(images/fieldsetline.gif) no-repeat;
 }
-
-#maincontent a#formShow{padding:2px;border:1px solid #266cb3;border-color:#77a9dc #1a5898 #1a5898 #77a9dc;display:block;background:#3e83c9;color:#fff;margin:0 0 0 10px;}
+#maincontent form fieldset.doptionaldetailsheader_class{
+	padding:0 0 10px 0;	
+}
+#maincontent a#formShow{clear:both;padding:2px;border:1px solid #266cb3;border-color:#77a9dc #1a5898 #1a5898 #77a9dc;display:block;background:#3e83c9;color:#fff;margin:-10px 0 0 10px;}
 #maincontent a#formShow:focus{color:#fff!important;text-decoration:underline;}
 
 #maincontent form div.newlocation{background:#eee;width:500px;margin:4px 0 2px 0 0;border:1px solid #ccc;overflow-x:hidden!important;}
