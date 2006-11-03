@@ -31,13 +31,12 @@
 			height:46px;
 			text-indent:-9999px;
 		   }   
-		   #navlinks ul li#calendar a{background:url(images/nav_calendar.gif) no-repeat;}
+		   #navlinks ul li#mycalendar a{background:url(images/nav_calendar.gif) no-repeat;}
 		   #navlinks ul li#create a{background:url(images/nav_create.gif) no-repeat;}
-		   #navlinks ul li#search a{background:url(images/nav_search.gif) no-repeat;}
 		   #navlinks ul li#subscribe a{background:url(images/nav_subscribe.gif) no-repeat;}
 		   #navlinks ul li#import a{background:url(images/nav_import.gif) no-repeat;}
 		  
-		   #navlinks ul li#calendar a:hover, #navigation ul li#create a:hover, 
+		   #navlinks ul li#mycalendar a:hover, #navigation ul li#create a:hover, 
 		   #navlinks ul li#search a:hover, #navigation ul li#subscribe a:hover, 
 		   #navlinks ul li#import a:hover, body#create #navigation ul li#create a, 
 		   body#search #navigation ul li#search a, body#subscribe #navigation ul li#subscribe a, 
@@ -217,6 +216,16 @@ margin:0;padding:0;background:0;border:none;
 .instances {
 	 float:right;
 }
+
+
+/*search view*/
+form#event_search {
+	float:right;
+	margin:-27px 0 0 0;
+	position:relative;
+	}
+form#event_search input#searchinput{background:#eee; border:1px solid #ccc;
+ 	  border-color:#ccc #fff #fff #ccc;padding:2px}
 
 /* my calendar event list */
 body#normal div#maincontent ul.eventsbystatus{

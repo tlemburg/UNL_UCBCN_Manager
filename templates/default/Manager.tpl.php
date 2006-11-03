@@ -40,7 +40,13 @@
 
 <div id="container">
 	<div class="clear">
-		<div id="title"> <!-- InstanceBeginEditable name="collegenavigationlist" --> <!-- InstanceEndEditable -->
+		<div id="title"> <!-- InstanceBeginEditable name="collegenavigationlist" -->
+			<?php if (isset($this->user)) { ?>
+			<ul>
+				<li><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></li>
+			</ul>
+			<?php } //End if user ?>
+			<!-- InstanceEndEditable -->
 			<div id="titlegraphic">
 				<!-- WDN: see glossary item 'title graphics' -->
 				<!-- InstanceBeginEditable name="titlegraphic" -->
@@ -58,9 +64,8 @@
 				<?php
 				if (isset($this->user)) { ?>
 					<ul>
-					<li id="calendar"><a href="<?php echo $this->uri; ?>?" title="My Calendar">Pending Events</a></li>
+					<li id="mycalendar"><a href="<?php echo $this->uri; ?>?" title="My Calendar">Pending Events</a></li>
 					<li id="create"><a href="<?php echo $this->uri; ?>?action=createEvent" title="Create Event">Create Event</a></li>
-					<li id="search"><a href="<?php echo $this->uri; ?>?action=search" title="Search">Search</a></li>
 					<li id="subscribe"><a href="<?php echo $this->uri; ?>?action=subscribe" title="Subscribe">Subscribe</a></li>
 					<!--  <li id="import"><a href="<?php echo $this->uri; ?>?action=import" title="Import/Export">Import/Export</a></li> -->
 					</ul>
@@ -81,7 +86,6 @@
 					<li><a href="<?php echo $this->frontenduri.'?calendar_id='.$this->calendar->id; ?>">Live Calendar</a></li>
 					<li><a href="<?php echo $this->uri; ?>?action=account">Account Info</a></li>
 					<li><a href="<?php echo $this->uri; ?>?action=calendar">Calendar Info</a></li>
-					<li><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></li>
 					<li><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
 					</ul>
 				</div>
@@ -104,7 +108,17 @@
 			<!--THIS IS THE MAIN CONTENT AREA; WDN: see glossary item 'main content area' -->
 			
 			<div id="maincontent"> <!-- InstanceBeginEditable name="maincontent" -->
-				<?php UNL_UCBCN::displayRegion($this->output); ?>
+				
+				<?php
+				if (isset($this->user)) { ?>
+					<form id="event_search" name="event_search" method="get" action="<?php echo $this->uri; ?>">
+						<input type='text' name='q' id='searchinput' value="<?php if (isset($_GET['q'])) { echo htmlentities($_GET['q']); } ?>" />
+						<input type='submit' name='submit' value="Search" />
+						<input type='hidden' name='action' value='search' />
+					</form>
+				<? }
+				UNL_UCBCN::displayRegion($this->output);
+				?>
 				<!-- InstanceEndEditable --> </div>
 			 </div>
 		<!-- close main right -->

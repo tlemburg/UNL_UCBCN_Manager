@@ -157,7 +157,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				if (class_exists($plug_class)) {
 					try {
 						$plugin = new $plug_class();
-						$plugin->startup($this,$this->uri.'?action=plugin&p='.$plug_class);
+						$plugin->startup($this,$this->uri.'?action=plugin&amp;p='.$plug_class);
 						$this->plugins[$plug_class] = $plugin;
 					} catch(Exception $e) {
 						echo 'Caught trying to start plugin \''.$plug_class.'\': ',  $e->getMessage(), "\n";
@@ -343,7 +343,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					$this->uniquebody = 'id="search"';
 					$this->sectitle = 'Event Search';
 					UNL_UCBCN::outputTemplate('UNL_UCBCN_EventListing','EventListing_search');
-					$this->output[] = $this->showSearchForm();
 					$this->output[] = $this->showSearchResults();
 				break;
 				case 'subscribe':
@@ -500,22 +499,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	    } else {
 	        return 'This calendar currently has no subscriptions.';
 	    }
-	}
-	
-	/**
-	 * Returns a search form for searching the events database.
-	 */
-	function showSearchForm()
-	{
-		$form = new HTML_QuickForm('event_search','get');
-		$form->addElement('header','searchheader','Search Events');
-		$form->addElement('hidden','action','search');
-		$form->addElement('text','q','Search for events:');
-		$form->addElement('static','','','<small style="color:#999;">"Tomorrow", "March 31st", "Earth Day"</small>');
-		$form->addElement('xbutton','search','Submit','type="submit"');
-		$renderer =& new HTML_QuickForm_Renderer_Tableless();
-		$form->accept($renderer);
-		return $renderer->toHtml();
 	}
 	
 	/**
