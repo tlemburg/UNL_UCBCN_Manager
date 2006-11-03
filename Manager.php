@@ -549,7 +549,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			    }
 			}
 			if (count($listing->events)) {
-				return array('<p class="num_results">'.count($listing->events).' Result(s)</p>',$listing);
+				return array('<h1 class="num_results">'.count($listing->events).' Result(s)</h1>',$listing);
 			} else {
 				return '<p>No results found.</p>';
 			}
@@ -864,21 +864,17 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			return new UNL_UCBCN_Error($res->getMessage());
 		}
 		if ($res->numRows()>1) {
-			$output = '<div class="cal_widget"><h3>Calendar you are currently managing:</h3>';
 			$form = new HTML_QuickForm('cal_choose','get');
 			$cal_select = HTML_QuickForm::createElement('select','calendar_id','');
+			$cal_select->addOption('Choose your calendar',$_SESSION['calendar_id']);
 			while ($row = $res->fetchRow()) {
 				$cal_select->addOption($row[1],$row[0]);
 			}
 			$form->addElement($cal_select);
 			$form->addElement('submit','submit','Go');
-			$form->setDefaults(array('calendar_id'=>$_SESSION['calendar_id']));
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
-			$output .= '<fieldset><legend>Choose your calendar</legend>';
 			$output .= $renderer->toHtml();
-			$output .= '</fieldset>';
-			$output .= '</div>';
 		} else {
 			// User has no other calendars to manage.
 			$output = '';

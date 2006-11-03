@@ -40,13 +40,17 @@
 
 <div id="container">
 	<div class="clear">
-		<div id="title"> <!-- InstanceBeginEditable name="collegenavigationlist" -->
+		<div id="title" class="rightnav"> <!-- InstanceBeginEditable name="collegenavigationlist" -->
 			<?php if (isset($this->user)) { ?>
 			<ul>
 				<li><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
 				<li><strong><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></strong></li>
 			</ul>
-			<?php } //End if user ?>
+				
+			<?php 
+			UNL_UCBCN::displayRegion($this->calendarselect);
+			} //End if user 
+			?>
 			<!-- InstanceEndEditable -->
 			<div id="titlegraphic">
 				<!-- WDN: see glossary item 'title graphics' -->
@@ -98,7 +102,7 @@
 				</div>
 				<?php
 				}
-				UNL_UCBCN::displayRegion($this->calendarselect);
+			
 				if (!empty($this->plugins)) {
 					echo '	<div class="cal_widget"><h3>Plugins</h3><ul>';
 					foreach ($this->plugins as $plugin) {
@@ -120,10 +124,10 @@
 				if (isset($this->user)) { ?>
 					<form id="event_search" name="event_search" method="get" action="<?php echo $this->uri; ?>">
 						<input type='text' name='q' id='searchinput' value="<?php if (isset($_GET['q'])) { echo htmlentities($_GET['q']); } ?>" />
-						<input type='submit' name='submit' value="Search" />
+						<input type='submit' class="search_submit" name='submit' value="Search" />
 						<input type='hidden' name='action' value='search' />
 					</form>
-				<? }
+				<?php }
 				UNL_UCBCN::displayRegion($this->output);
 				?>
 				<!-- InstanceEndEditable --> </div>
