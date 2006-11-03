@@ -50,7 +50,13 @@
 			<div id="titlegraphic">
 				<!-- WDN: see glossary item 'title graphics' -->
 				<!-- InstanceBeginEditable name="titlegraphic" -->
-				<h1>UNL's Event Publishing System</h1>
+				<h1><?php
+				if (isset($this->calendar)) { 
+				    echo $this->calendar->name;
+				} else {
+				    echo 'UNL\'s Event Publishing System';
+				}
+				?></h1>
 				<h2>Plan. Publish. Share.</h2>
 				<!-- InstanceEndEditable --></div>
 			<!-- maintitle -->
