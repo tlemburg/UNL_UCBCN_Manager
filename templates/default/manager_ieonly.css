@@ -18,12 +18,12 @@
  }
  
  * html #maincontent form fieldset{
- margin:20px 0 14px 0;
+ margin:20px 0;
  padding:0 0 10px 0;
  }
- 
+  * html #maincontent form#unl_ucbcn_event fieldset.d__header___class{margin-top:4px;}
  * html #lastfieldset.reqnote{margin:0 0 50px 10px;}
 
-* html body#normal div#maincontent ul.eventsbystatus{padding:6px 6px 0 6px;}
+* html body#normal div#maincontent ul.eventsbystatus{margin:-27px 0 10px 0;padding:6px 6px 0 6px;}
 
 * html div.cal_widget{margin:0 0 0 0;}

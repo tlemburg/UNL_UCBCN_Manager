@@ -4,8 +4,9 @@
  */
   #maincontent a{background:none;}
     #maincontent a:hover{text-decoration:underline!important;}
-    #maincontent #title{padding:2px;display:inline;}
-    
+    #maincontent #title{padding:2px;display:inline;font-style:none!important;}
+    #maincontent .title{font-style:normal;}
+   
   /*--[navigation]--*/
 
 	  #navlinks ul{
@@ -88,9 +89,10 @@ div.cal_widget fieldset legend{display:none;}
 /**
  * Form CSS Styles
  */
+
 #maincontent form {
     margin:0;
-    padding:11px 0 0 0;
+    padding:0 0 0 0;
 
 }
 
@@ -186,6 +188,7 @@ form div.error {
 #lastfieldset.reqnote{background:#f8e6e9;padding:3px;margin:0 0 30px 10px;bottom:0;left:0;position:absolute;}
 
 #maincontent form#unl_ucbcn_event fieldset.d__header___class input{border:none;}
+#maincontent form#unl_ucbcn_event fieldset.d__header___class{margin-top:-23px;}
 #maincontent form fieldset{
   clear:both;
   float:left;
@@ -213,6 +216,16 @@ form div.error {
 margin:0;padding:0;background:0;border:none;
 }
 
+.rightnav ul{
+text-align:right;
+padding:0 20px 0 0;
+}
+.rightnav fieldset{position:absolute;right:0;z-index:10;top:0;margin:85px 25px 0 0}
+.rightnav legend{display:none}
+.rightnav label{float:left;}
+.rightnav ol{list-style:none}
+.rightnav ol li{float:left;margin:0;}
+.rightnav fieldset input#submit{margin:-1px;}
 .instances {
 	 float:right;
 }
@@ -221,18 +234,22 @@ margin:0;padding:0;background:0;border:none;
 /*search view*/
 form#event_search {
 	float:right;
-	margin:-27px 0 0 0;
-	position:relative;
+	margin:0;
+	padding:0;
 	}
 form#event_search input#searchinput{background:#eee; border:1px solid #ccc;
  	  border-color:#ccc #fff #fff #ccc;padding:2px}
+form#event_search input.search_submit{border:none;border-right:2px solid #999;border-bottom:2px solid #999;padding:1px;}
+
+
+
 
 /* my calendar event list */
 body#normal div#maincontent ul.eventsbystatus{
 	list-style:none;
 	line-height:1;
 	margin:0 0 10px 0;
-	width:678px;
+	width:687px;
 	padding:6px 6px 2.2em 6px;
 	border-bottom:1px solid #bebcbc;
 }
@@ -262,6 +279,7 @@ table.eventlisting{
 	margin:0 0 12px 0;
 	width:100%;
 }
+#maincontent table.eventlisting input{border:none;}
 #maincontent table.eventlisting thead th{
 	background:#3e83c9;color:#fff;	
 	padding:7px;
@@ -293,8 +311,9 @@ table.eventlisting tr.alt{
 	border-top:1px solid #8ebcd6;
 	border-bottom:1px solid #8ebcd6;
 }
-table.eventlisting tr td{
-	padding:7px;border-top:1px solid #8ebcd6;
+#maincontent table.eventlisting tr td{
+	padding:7px;
+	border-top:1px solid #8ebcd6;
 	border-bottom:1px solid #8ebcd6;
 }
 body#normal table.eventlisting td.edit a{
@@ -366,12 +385,12 @@ form#cal_choose fieldset{
 /* action buttons */
 button#delete_event{
 width:48px;
-height:22px;float:left;margin:0 5px 0 0;
+height:22px;float:left;
 background:url(images/button/delete.gif) no-repeat;
 }
-
+button{margin: 0 5px 0 0;}
 button#moveto_pending{
-width:99px;
+width:99px;float:left;
 height:22px;
 background:url(images/button/movetodraft.gif) no-repeat;
 }

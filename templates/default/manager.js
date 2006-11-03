@@ -18,6 +18,7 @@ addLoadEvent(function() {
 	if(document.getElementById('unl_ucbcn_event')){
 	requiredField();
 	hideField();
+   
 	}
 });
 
