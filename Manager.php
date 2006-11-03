@@ -373,6 +373,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					}
 					$this->output = $this->showPermissionsForm($uid,$this->calendar);
 				break;
+				case 'users':
+				    $this->output[] = '<h3>Users With Access to this Calendar:</h3>';
+					$this->output[] = $this->showCalendarUsers();
+					if ($this->userHasPermission($this->user,'Calendar Add User',$this->calendar)) {
+					    $this->output[] = $this->showAddUserForm();
+					}
+			    break;
 				case 'calendar':
 					$this->output = array();
 					if (isset($_GET['new']) && $_GET['new']=='true') {
@@ -381,11 +388,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 											'<p>Your calendar name is the title of your calendar, and will be displayed with all your events.</p>';
 					}
 					$this->output[] = $this->showCalendarForm();
-					$this->output[] = '<h3>Users With Access to this Calendar:</h3>';
-					$this->output[] = $this->showCalendarUsers();
-					if ($this->userHasPermission($this->user,'Calendar Add User',$this->calendar)) {
-					    $this->output[] = $this->showAddUserForm();
-					}
+					$this->output[] = '<p class="clr"><a href="'.$this->uri.'?action=users">Users &amp; Permissions</a></p>';
 					$this->sectitle = 'Edit '.$this->calendar->name.' Info';
 				break;
 				case 'plugin':
@@ -836,6 +839,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 	    unset($_GET['action']);
 	    $form = new HTML_QuickForm('add_user','get');
+	    $form->addElement('header','addhead','Add New User');
 	    //$form->addElement('text','name','User Name');
 	    //$form->addElement('hidden','uid');
 	    $form->addElement('text','uid','User Id (like jdoe2):');
