@@ -43,7 +43,8 @@
 		<div id="title"> <!-- InstanceBeginEditable name="collegenavigationlist" -->
 			<?php if (isset($this->user)) { ?>
 			<ul>
-				<li><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></li>
+				<li><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
+				<li><strong><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></strong></li>
 			</ul>
 			<?php } //End if user ?>
 			<!-- InstanceEndEditable -->
@@ -92,8 +93,7 @@
 					<li><a href="<?php echo $this->frontenduri.'?calendar_id='.$this->calendar->id; ?>">Live Calendar</a></li>
 					<li><a href="<?php echo $this->uri; ?>?action=account">Account Info</a></li>
 					<li><a href="<?php echo $this->uri; ?>?action=calendar">Calendar Info</a></li>
-					<li><a href="<?php echo $this->uri; ?>?action=users">Users & Permissions</a></li>
-					<li><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
+					<li><a href="<?php echo $this->uri; ?>?action=users">Users &amp; Permissions</a></li>
 					</ul>
 				</div>
 				<?php
