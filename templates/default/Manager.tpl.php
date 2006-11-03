@@ -43,7 +43,7 @@
 		<div id="title" class="rightnav"> <!-- InstanceBeginEditable name="collegenavigationlist" -->
 			<?php if (isset($this->user)) { ?>
 			<ul>
-				<li><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
+				<li class="first"><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
 				<li><strong><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></strong></li>
 			</ul>
 				
