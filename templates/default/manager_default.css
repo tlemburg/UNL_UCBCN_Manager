@@ -114,7 +114,6 @@ div.cal_widget fieldset legend{display:none;}
 	margin: 0;
 	clear: both;
 	display:block;
-	height:1px;
 }
 
 #maincontent form label.element{
@@ -188,7 +187,7 @@ form div.error {
 #lastfieldset.reqnote{background:#f8e6e9;padding:3px;margin:0 0 30px 10px;bottom:0;left:0;position:absolute;}
 
 #maincontent form#unl_ucbcn_event fieldset.d__header___class input{border:none;}
-#maincontent form#unl_ucbcn_event fieldset.d__header___class{margin-top:-23px;}
+#maincontent form fieldset.d__header___class{margin-top:-23px;}
 #maincontent form fieldset{
   clear:both;
   float:left;
@@ -215,6 +214,7 @@ form div.error {
 #maincontent form fieldset.hidden{
 margin:0;padding:0;background:0;border:none;
 }
+#maincontent h3{clear:left;}
 
 .rightnav ul{
 text-align:right;
@@ -236,6 +236,8 @@ form#event_search {
 	float:right;
 	margin:0;
 	padding:0;
+	position:relative;
+	z-index:1000;
 	}
 form#event_search input#searchinput{background:#eee; border:1px solid #ccc;
  	  border-color:#ccc #fff #fff #ccc;padding:2px}
@@ -281,9 +283,11 @@ table.eventlisting{
 }
 #maincontent table.eventlisting input{border:none;}
 #maincontent table.eventlisting thead th{
-	background:#3e83c9;color:#fff;	
-	padding:7px;
+		background:#3e83c9;
+	color:#fff;	
 	text-align:left;
+	border-bottom:3px solid #BFD6F5;
+	padding:7px;
 }
 #maincontent table.eventlisting thead th.date a, #maincontent table.eventlisting thead th.title a{
 	color:#FFFFFF;
@@ -316,7 +320,7 @@ table.eventlisting tr.alt{
 	border-top:1px solid #8ebcd6;
 	border-bottom:1px solid #8ebcd6;
 }
-body#normal table.eventlisting td.edit a{
+body#normal table.eventlisting td.edit a, #maincontent table.eventlisting td a.user_perm_edit{
 	display:block;
 	padding:0;
 	text-indent:-9999px;
@@ -324,7 +328,15 @@ body#normal table.eventlisting td.edit a{
 	width:33px;
 	height:21px;
 }
-body#normal table.eventlisting td.edit a:hover{
+#maincontent table.eventlisting td a.user_perm_remove{
+	display:block;
+	padding:0;
+	text-indent:-9999px;
+	background:url(images/button/remove_user.gif) no-repeat;
+	width:89px;
+	height:21px;
+}
+body#normal table.eventlisting td.edit a:hover, #maincontent table.eventlisting td a.user_perm_remove:hover, #maincontent table.eventlisting td a.user_perm_edit:hover{
 	background-position:0 -22px;
 }
 

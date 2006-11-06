@@ -793,9 +793,18 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 * @return string html list of users.
 	 */
 	function showCalendarUsers()
-	{
+	{	
+		$oddrow = false;		
 		if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
-			$permissions_list = array('<ul>');
+			$permissions_list = array('<table class="eventlisting no_onclick">
+										<thead>
+										<tr>
+										<th scope="col" class="user">User</th>
+										<th scope="col" class="permission">Permission</th>
+										<th scope="col" class="action">Action</th>
+										</tr>
+										</thead>
+										<tbody>');
 			$user_has_permission = $this->factory('user_has_permission');
 			$user_has_permission->calendar_id = $this->calendar->id;
 			$users = $this->factory('user');
@@ -804,7 +813,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			if ($users->find()) {
 				while ($users->fetch()) {
 					if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
-				        $user_li = '<li>'.$users->uid.'&nbsp;<a href="?action=permissions&amp;uid='.$users->uid.'">Edit Permissions</a>';
+				        $user_li = '<tr';
+				       		if ($oddrow){
+								$user_li .= ' class="alt">';
+							} else{
+								$user_li .= '>';	
+							}
+						$oddrow = !$oddrow;
+				        $user_li .= '<td>'.$users->uid.'</td><td><a class="user_perm_edit" href="?action=permissions&amp;uid='.$users->uid.'">Edit</a></td>';
 				        if ($this->userHasPermission($this->user,'Calendar Delete User',$this->calendar)) {
 				            // This user can delete calendar users.
 				            if (isset($_GET['remove']) 
@@ -818,17 +834,17 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						                $li .= 'ERROR, you cannot delete yourself!';
 						            }
 						    } else {
-								$user_li .= '&nbsp;<a href="?action=calendar&amp;uid='.$users->uid.'&amp;remove=true">Remove User</a>';
+								$user_li .= '<td><a class="user_perm_remove" href="?action=calendar&amp;uid='.$users->uid.'&amp;remove=true">Remove User</a></td>';
 						    }
 						}
-						$user_li .= '</li>';
+						$user_li .= '</tr>';
 					} else {
-						$user_li = '<li>'.$users->uid.'</li>';
+						$user_li = '<tr><td>'.$users->uid.'</td></tr>';
 					}
 					$permissions_list[] = $user_li;
 				}
 			}
-			$permissions_list[] = '</ul>';
+			$permissions_list[] = '</tbody></table>';
 			return implode("\n",$permissions_list);
 		} else {
 			return new UNL_UCBCN_Error('You do not have permission to Change User Permissions for this calendar.');
@@ -845,7 +861,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	    $form->addElement('text','uid','User Id (like jdoe2):');
 	    $form->addElement('submit','submit','Add User');
 	    $form->addElement('hidden','action','permissions');
-	    return $form->toHtml();
+	    $renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
+	    return $renderer->toHtml();	    
 	}
 
 	/**
