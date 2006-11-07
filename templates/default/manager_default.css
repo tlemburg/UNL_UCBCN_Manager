@@ -1,426 +1,696 @@
-/**
- * default.css
- * Everything goes in here.
- */
-  #maincontent a{background:none;}
-    #maincontent a:hover{text-decoration:underline!important;}
-    #maincontent #title{padding:2px;display:inline;font-style:none!important;}
-    #maincontent .title{font-style:normal;}
-   
-  /*--[navigation]--*/
-
-	  #navlinks ul{
-		width:auto;
-		border-bottom:3px double #ddd;
-		margin:3px 0;
-		padding:5px 0 7px 0;
-		background:none;
-		list-style:none;
-	  }
-	   #navlinks ul li{
-			padding:0;
-			margin:0;
-			}
-		h4#sec_nav{background:url(images/heading.gif) no-repeat 0 4px;border-bottom:1px solid #ddd;color:#333;padding:0 0 0 11px;}
-		#nav_end{display:none;}
-		
-		   #navlinks ul li a{
-		    display:block;
-			width:218px;
-			padding:0;
-			margin:0;
-			height:46px;
-			text-indent:-9999px;
-		   }   
-		   #navlinks ul li#mycalendar a{background:url(images/nav_calendar.gif) no-repeat;}
-		   #navlinks ul li#create a{background:url(images/nav_create.gif) no-repeat;}
-		   #navlinks ul li#subscribe a{background:url(images/nav_subscribe.gif) no-repeat;}
-		   #navlinks ul li#import a{background:url(images/nav_import.gif) no-repeat;}
-		  
-		   #navlinks ul li#mycalendar a:hover, #navigation ul li#create a:hover, 
-		   #navlinks ul li#search a:hover, #navigation ul li#subscribe a:hover, 
-		   #navlinks ul li#import a:hover, body#create #navigation ul li#create a, 
-		   body#search #navigation ul li#search a, body#subscribe #navigation ul li#subscribe a, 
-		   body#import #navigation ul li#import a, body#normal #navigation ul li#calendar a
-		   {background-position:0 -47px;}
-		   
-#container div.clear #navigation #leftcollinks{margin:0;padding:0;}
-
-div.cal_widget{
-	background:url(images/recent_bot.gif) no-repeat left bottom;
-	width:222px;
-	padding:0 0 10px 0;
-	margin:0 0 10px 0;
+/*	-------------------------------------------------------------
+	University of Nebraska-Lincoln Calendar
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+	Description:	Main styles
+	Filename:	default.css
+	Date:		November 06, 2006
+	-------------------------------------------------------------	*/
+	/*	-------------------------------------------------------------
+	Base Body Styles
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+#maincontent a {
+	background: none;
 }
-div.cal_widget h3{
-	position:relative;
-	font-size:12px!important;clear:both;
-	margin:10px 0 0 0;
-	padding:8px 0 5px 12px;
-	background:url(images/recent.gif) no-repeat left top;
-	width:222px;
-	height:15px;
+
+#maincontent a:hover {
+	text-decoration: underline !important;
 }
-div.cal_widget h3 span{padding:0 0 0 19px;background:url(images/date.gif) no-repeat left top;}
-div.cal_widget h3 img{float:right;}
-div.cal_widget ul{
-	list-style:none;
-	padding:21px 0 10px 14px;
-	margin:-14px 0 0 0;
-	background:url(images/recent_mid.gif) repeat-y right top;
+
+#maincontent #title {
+	padding: 2px;;
+	display: inline;;
+	font-style: none !important;
 }
-div.cal_widget fieldset{
-	border:none;
-	clear:both;
-	padding:0 0 10px 0;
-	margin:-14px 0 0 1px;
-	_margin:-5px 0 0 1px;
-	background:#eff6f9;
-	background:url(images/recent_mid.gif) repeat-y right top;
-	}
-	div.cal_widget fieldset ol li {display:block;height:1px;}
-div.cal_widget ul li#login_list{background:none;padding:0;}
-div.cal_widget ul li{background:url(images/widget_list.gif) no-repeat 0 5px;padding:0 0 0 15px;height:1%;margin-right:7px;position:relative;}
-div.cal_widget ul li:hover{background:url(images/widget_list_hover.gif) no-repeat 0 5px;}
-div.cal_widget ul li.nobullet{background:none;padding:0;}
 
+#maincontent .title {
+	font-style: normal;
+}
 
-div.cal_widget fieldset legend{display:none;}
-/**
- * Form CSS Styles
- */
+/*	-------------------------------------------------------------
+	Navigation Styles
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+#navlinks ul {
+	width: auto;
+	border-bottom: 3px double #ddd;
+	margin: 3px 0;
+	padding: 5px 0 7px 0;
+	background: none;
+	list-style: none;
+}
 
+#navlinks ul li {
+	padding: 0;
+	margin: 0;
+}
+
+h4#sec_nav {
+	background: url(images/heading.gif) no-repeat 0 4px;;
+	border-bottom: 1px solid #ddd;;
+	color: #333;;
+	padding: 0 0 0 11px;
+}
+
+#nav_end {
+	display: none;
+}
+
+#navlinks ul li a {
+	display: block;
+	width: 218px;
+	padding: 0;
+	margin: 0;
+	height: 46px;
+	text-indent: -9999px;
+}
+
+#navlinks ul li#mycalendar a {
+	background: url(images/nav_calendar.gif) no-repeat;
+}
+
+#navlinks ul li#create a {
+	background: url(images/nav_create.gif) no-repeat;
+}
+
+#navlinks ul li#subscribe a {
+	background: url(images/nav_subscribe.gif) no-repeat;
+}
+
+#navlinks ul li#import a {
+	background: url(images/nav_import.gif) no-repeat;
+}
+
+#navlinks ul li#mycalendar a:hover,#navigation ul li#create a:hover,#navlinks ul li#search a:hover,#navigation ul li#subscribe a:hover,#navlinks ul li#import a:hover,body#create #navigation ul li#create a,body#search #navigation ul li#search a,body#subscribe #navigation ul li#subscribe a,body#import #navigation ul li#import a,body#normal #navigation ul li#calendar a
+	{
+	background-position: 0 -47px;
+}
+
+#container div.clear #navigation #leftcollinks {
+	margin: 0;;
+	padding: 0;
+}
+
+/*	-------------------------------------------------------------
+	Right hand column widget
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+div.cal_widget {
+	background: url(images/recent_bot.gif) no-repeat left bottom;
+	width: 222px;
+	padding: 0 0 10px 0;
+	margin: 0 0 10px 0;
+}
+
+div.cal_widget h3 {
+	position: relative;
+	font-size: 12px !important;;
+	clear: both;
+	margin: 10px 0 0 0;
+	padding: 8px 0 5px 12px;
+	background: url(images/recent.gif) no-repeat left top;
+	width: 222px;
+	height: 15px;
+}
+
+div.cal_widget h3 span {
+	padding: 0 0 0 19px;;
+	background: url(images/date.gif) no-repeat left top;
+}
+
+div.cal_widget h3 img {
+	float: right;
+}
+
+div.cal_widget ul {
+	list-style: none;
+	padding: 21px 0 10px 14px;
+	margin: -14px 0 0 0;
+	background: url(images/recent_mid.gif) repeat-y right top;
+}
+
+div.cal_widget fieldset {
+	border: none;
+	clear: both;
+	padding: 0 0 10px 0;
+	margin: -14px 0 0 1px;
+	_margin: -5px 0 0 1px;
+	background: #eff6f9;
+	background: url(images/recent_mid.gif) repeat-y right top;
+}
+
+div.cal_widget fieldset ol li {
+	display: block;;
+	height: 1px;
+}
+
+div.cal_widget ul li#login_list {
+	background: none;;
+	padding: 0;
+}
+
+div.cal_widget ul li {
+	background: url(images/widget_list.gif) no-repeat 0 5px;;
+	padding: 0 0 0 15px;;
+	height: 1%;;
+	margin-right: 7px;;
+	position: relative;
+}
+
+div.cal_widget ul li:hover {
+	background: url(images/widget_list_hover.gif) no-repeat 0 5px;
+}
+
+div.cal_widget ul li.nobullet {
+	background: none;;
+	padding: 0;
+}
+
+div.cal_widget fieldset legend {
+	display: none;
+}
+
+/*	-------------------------------------------------------------
+	Form elements
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
 #maincontent form {
-    margin:0;
-    padding:0 0 0 0;
+	margin: 0;
+	padding: 0 0 0 0;
+}
 
+#maincontent form fieldset {
+	clear: both;
+	float: left;
+	padding: 0;
+	display: block;
+	border: none;
+	width: 700px;
+	border-bottom: 1px solid #dfdfdf;
+	position: relative;
+	margin: 0 0 20px 0;
+	background: #ecf4f8 url(images/fieldsetline.gif) no-repeat;
 }
 
 #maincontent form fieldset ol {
 	margin: 0;
 	padding: 0;
-	clear:left;
+	clear: left;
 }
-	
+
 #maincontent form fieldset ol:after {
-				content: ".";
-				display: block;
-				clear: both;
-				visibility: hidden;
-				}
-				
+	content: ".";
+	display: block;
+	clear: both;
+	visibility: hidden;
+}
+
 #maincontent form fieldset li {
 	list-style: none;
 	margin: 0;
 	clear: both;
-	display:block;
+	display: block;
 }
 
-#maincontent form label.element{
-    display: block;
-    float: left;
-    width: 150px;
-    padding:0;
-    margin:10px 0 0 0;
-    text-align: right;
+#maincontent form label.element {
+	display: block;
+	float: left;
+	width: 150px;
+	padding: 0;
+	margin: 10px 0 0 0;
+	text-align: right;
 }
-#maincontent form .row{width:700px;}
-#maincontent form input, #maincontent form textarea, #maincontent form select{
-    width:auto;
 
- 	border:1px solid #ccc;
- 	border-color:#ccc #fff #fff #ccc;
-	padding:3px;
-	margin:4px 0;
+#maincontent form .row {
+	width: 700px;
 }
-#maincontent form input:focus, #maincontent form textarea:focus, #maincontent form select:focus {
-    background:#ffffcc;
+
+#maincontent form input,#maincontent form textarea,#maincontent form select
+	{
+	width: auto;
+	border: 1px solid #ccc;
+	border-color: #ccc #fff #fff #ccc;
+	padding: 3px;
+	margin: 4px 0;
 }
-#maincontent form input#__submit__{
-	background:#f0e6d7;
-	color:#333;
-	width:200px;
-	border:1px solid #ccc;
- 	border-color:#e8f5fa #ccc #ccc #e8f5fa;}
-#maincontent form select {font-size:0.8em;}
-form#cal_choose select{font-size:1em;}
-form#cal_choose br{line-height:0.8}
-#maincontent form option {padding:0 0.3em;}
+
+#maincontent form input:focus,#maincontent form textarea:focus,#maincontent form select:focus
+	{
+	background: #ffffcc;
+}
+
+#maincontent form input#__submit__ {
+	background: #f0e6d7;
+	color: #333;
+	width: 200px;
+	border: 1px solid #ccc;
+	border-color: #e8f5fa #ccc #ccc #e8f5fa;
+}
+
+#maincontent form select {
+	font-size: 0.8em;
+}
+
+#maincontent form option {
+	padding: 0 0.3em;
+}
 
 #maincontent form textarea {
-    overflow: auto;
-	height:100px;
+	overflow: auto;
+	height: 100px;
 }
+
 #maincontent form br {
-    clear: left;margin:0;padding:0;line-height:0.5;
+	clear: left;;
+	margin: 0;;
+	padding: 0;;
+	line-height: 0.5;
 }
 
-form div.qfgroup, form div.element {
-    display: inline;
-    float: left;
-    margin: 5px 0 0 10px;
-    padding: 0;
+form div.qfgroup,form div.element {
+	display: inline;
+	float: left;
+	margin: 5px 0 0 10px;
+	padding: 0;
 }
+
 form div.qfelement div.qfgroup {
-    margin: 0 0 0 0;margin:0!important;line-height:0.5!important;
+	margin: 0 0 0 0;;
+	margin: 0 !important;;
+	line-height: 0.5 !important;
 }
+
 form span.error {
-    color: red;
+	color: red;
 }
+
 form div.error {
-    border: 1px solid red;
-    padding: 5px;
+	border: 1px solid red;
+	padding: 5px;
 }
+
 #maincontent form fieldset legend {
-    font-weight: bold;
-    top: -11px;
-	border:1px solid #ccc;
-	padding:3px 6px;
-	margin:0 0 23px 0;
-	position:relative;
-	background:#fff;
-	}
-#maincontent form fieldset.deventtypeheader_class select{float:left;};
-#maincontent form fieldset.ddetailsheader_class .reqnote{color:#ff0000;display:inline}
-#maincontent form fieldset.deventtypeheader_class .reqnote, #maincontent form fieldset.deventlocationheader_class .reqnote{display:none;}
-#maincontent form fieldset span, .required{color:#ff0000;}
-#lastfieldset.reqnote{background:#f8e6e9;padding:3px;margin:0 0 30px 10px;bottom:0;left:0;position:absolute;}
-
-#maincontent form#unl_ucbcn_event fieldset.d__header___class input{border:none;}
-#maincontent form fieldset.d__header___class{margin-top:-23px;}
-#maincontent form fieldset{
-  clear:both;
-  float:left;
-  padding:0;
-  display:block;
-  border:none;
-  width:700px;
-  border-bottom:1px solid #dfdfdf;
-  position:relative;
-  margin:0 0 20px 0;
-  background:#ecf4f8 url(images/fieldsetline.gif) no-repeat;
+	font-weight: bold;
+	top: -11px;
+	border: 1px solid #ccc;
+	padding: 3px 6px;
+	margin: 0 0 23px 0;
+	position: relative;
+	background: #fff;
 }
-#maincontent form fieldset.doptionaldetailsheader_class{
-	padding:0 0 10px 0;	
+
+#maincontent form fieldset span,.required {
+	color: #ff0000;
 }
-#maincontent a#formShow{clear:both;padding:2px;border:1px solid #266cb3;border-color:#77a9dc #1a5898 #1a5898 #77a9dc;display:block;background:#3e83c9;color:#fff;margin:-10px 0 0 10px;}
-#maincontent a#formShow:focus{color:#fff!important;text-decoration:underline;}
 
-#maincontent form div.newlocation{background:#eee;width:500px;margin:4px 0 2px 0 0;border:1px solid #ccc;overflow-x:hidden!important;}
-#maincontent form div.newlocation fieldset{margin:0;padding:0;border:none;background:#eee;width:500px;overflow-x:hidden!important;}
-
-#maincontent form div.newlocation legend{display:none;}
-
-#maincontent form fieldset.hidden{
-margin:0;padding:0;background:0;border:none;
+#lastfieldset .reqnote {
+	background: #f8e6e9;;
+	padding: 3px;;
+	margin: 0 0 30px 10px;;
+	bottom: 0;;
+	left: 0;;
+	position: absolute;
 }
-#maincontent h3{clear:left;}
 
-.rightnav ul{
-text-align:right;
-padding:0 20px 0 0;
+#maincontent form fieldset.hidden {
+	margin: 0;;
+	padding: 0;;
+	background: 0;;
+	border: none;
 }
-.rightnav fieldset{position:absolute;right:0;z-index:10;top:0;margin:85px 25px 0 0}
-.rightnav legend{display:none}
-.rightnav label{float:left;}
-.rightnav ol{list-style:none}
-.rightnav ol li{float:left;margin:0;}
-.rightnav fieldset input#submit{margin:-1px;}
+
+#maincontent h3 {
+	clear: left;
+}
+/*	-------------------------------------------------------------
+	Special/individual form elements
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+#maincontent form fieldset.doptionaldetailsheader_class {
+	padding: 0 0 10px 0;
+}
+
+#maincontent a#formShow {
+	clear: both;;
+	padding: 2px;;
+	border: 1px solid #266cb3;;
+	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;;
+	display: block;;
+	background: #3e83c9;;
+	color: #fff;;
+	margin: -10px 0 0 10px;
+}
+
+#maincontent a#formShow :focus {
+	color: #fff !important;;
+	text-decoration: underline;
+}
+
+form#cal_choose select {
+	font-size: 1em;
+}
+
+form#cal_choose br {
+	line-height: 0.8
+}
+
+#maincontent form fieldset.deventtypeheader_class select {
+	float: left;
+}
+
+;
+#maincontent form fieldset.ddetailsheader_class .reqnote {
+	color: #ff0000;;
+	display: inline
+}
+
+#maincontent form fieldset.deventtypeheader_class .reqnote,#maincontent form fieldset.deventlocationheader_class .reqnote
+	{
+	display: none;
+}
+#maincontent form#unl_ucbcn_event fieldset.d__header___class input {
+	border: none;
+}
+
+#maincontent form fieldset.d__header___class {
+	margin-top: -23px;
+}
+
+#maincontent form div.newlocation {
+	background: #eee;;
+	width: 500px;;
+	margin: 4px 0 2px 0 0;;
+	border: 1px solid #ccc;;
+	overflow-x: hidden !important;
+}
+
+#maincontent form div.newlocation fieldset {
+	margin: 0;;
+	padding: 0;;
+	border: none;;
+	background: #eee;;
+	width: 500px;;
+	overflow-x: hidden !important;
+}
+
+#maincontent form div.newlocation legend {
+	display: none;
+}
+
+/*	-------------------------------------------------------------
+	Top right/college nav form elements
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+.rightnav ul {
+	text-align: right;
+	padding: 0 20px 0 0;
+}
+
+.rightnav fieldset {
+	position: absolute;;
+	right: 0;;
+	z-index: 10;;
+	top: 0;;
+	margin: 85px 25px 0 0
+}
+
+.rightnav legend {
+	display: none
+}
+
+.rightnav label {
+	float: left;
+}
+
+.rightnav ol {
+	list-style: none
+}
+
+.rightnav ol li {
+	float: left;;
+	margin: 0;
+}
+
+.rightnav fieldset input#submit {
+	margin: -1px;
+}
+
 .instances {
-	 float:right;
+	float: right;
 }
 
-
-/*search view*/
+/*	-------------------------------------------------------------
+	Search form elements
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
 form#event_search {
-	float:right;
-	margin:0;
-	padding:0;
-	position:relative;
-	z-index:1000;
-	}
-form#event_search input#searchinput{background:#eee; border:1px solid #ccc;
- 	  border-color:#ccc #fff #fff #ccc;padding:2px}
-form#event_search input.search_submit{border:none;border-right:2px solid #999;border-bottom:2px solid #999;padding:1px;}
-
-
-
-
-/* my calendar event list */
-body#normal div#maincontent ul.eventsbystatus{
-	list-style:none;
-	line-height:1;
-	margin:0 0 10px 0;
-	width:687px;
-	padding:6px 6px 2.2em 6px;
-	border-bottom:1px solid #bebcbc;
-}
-	body#normal div#maincontent ul.eventsbystatus li{
-	display:block;
-	float:left;
-	margin:2px 2px -1px 2px;
-	padding:6px;
-	background:#eee;
-	border:1px solid #bebcbc;
-	}
-		body#normal div#maincontent ul.eventsbystatus li a{
-		text-decoration:none;
-		
-		}
-		
-	body#normal div#maincontent ul.eventsbystatus.archived li#archived_manager,
-	body#normal div#maincontent ul.eventsbystatus.pending li#pending_manager,
-	body#normal div#maincontent ul.eventsbystatus.posted li#posted_manager{
-		position:relative;background:#fff;border-bottom:1px solid #fff;
-		}
-	
-body#normal div#maincontent form{padding:0;margin:0;}		
-table.eventlisting{
-	border-collapse:collapse;
-	clear:both;
-	margin:0 0 12px 0;
-	width:100%;
-}
-#maincontent table.eventlisting input{border:none;}
-#maincontent table.eventlisting thead th{
-		background:#3e83c9;
-	color:#fff;	
-	text-align:left;
-	border-bottom:3px solid #BFD6F5;
-	padding:7px;
-}
-#maincontent table.eventlisting thead th.date a, #maincontent table.eventlisting thead th.title a{
-	color:#FFFFFF;
-	display:block;
-	background:url(images/sort.gif) no-repeat;
-	background-position:35px 5px;
-	text-decoration:none;
-	}
-#maincontent table.eventlisting thead th.title a{
-	background-position:71px 5px;
-	}
-#maincontent table.eventlisting td ul{padding:0 0 0 13px;margin:0;}
-	table.eventlisting thead th a:hover{
-	text-decoration:underline;
-	}
-table.eventlisting tr:hover, table.eventlisting tr.alt:hover{
-	color:red;
-}
-table.eventlisting tr{
-	cursor:pointer;
+	float: right;
+	margin: 0;
+	padding: 0;
+	position: relative;
+	z-index: 1000;
 }
 
-table.eventlisting tr.alt{
-	background:#e8f5fa;
-	border-top:1px solid #8ebcd6;
-	border-bottom:1px solid #8ebcd6;
-}
-#maincontent table.eventlisting tr td{
-	padding:7px;
-	border-top:1px solid #8ebcd6;
-	border-bottom:1px solid #8ebcd6;
-}
-body#normal table.eventlisting td.edit a, #maincontent table.eventlisting td a.user_perm_edit{
-	display:block;
-	padding:0;
-	text-indent:-9999px;
-	background:url(images/edit.gif) no-repeat;
-	width:33px;
-	height:21px;
-}
-#maincontent table.eventlisting td a.user_perm_remove{
-	display:block;
-	padding:0;
-	text-indent:-9999px;
-	background:url(images/button/remove_user.gif) no-repeat;
-	width:89px;
-	height:21px;
-}
-body#normal table.eventlisting td.edit a:hover, #maincontent table.eventlisting td a.user_perm_remove:hover, #maincontent table.eventlisting td a.user_perm_edit:hover{
-	background-position:0 -22px;
+form#event_search input#searchinput {
+	background: #eee;
+	border: 1px solid #ccc;
+	border-color: #ccc #fff #fff #ccc;;
+	padding: 2px
 }
 
-/* login form */
-body#login #right_area, body#login #navigation{
-  	display:none;
-  }
-body#login #main_left{
-  	position:relative;
-  }
-
-body#login a#forgot{
-   position:absolute;
-   font-size:0.6em;letter-spacing:normal;
-   text-decoration:none;
-   margin:-24px 0 0 57px;
-  }
-body#login div#maincontent form#login{
-	width:431px;
-	height:186px;
-	background:#fff url(images/login-calendar_03.gif) no-repeat;
-	padding:63px 0 0 0;
-	font-size:18px;
-	letter-spacing:-1px;
-	}
-	
-form#login input{
-	background:#deecfd;
-	border:1px solid #c2d4e2;
-	width:200px;
-	margin:0;
-	font-size:17px;
-	padding:3px;
-}
-form#login button#submit{
-	background:url(images/button/c_submit.gif) no-repeat;
-	width:48px;
-	height:21px;display:block;
-	text-indent:-9999px;
-	border:none;
-	margin-top:3px;
-}
-form#login button#submit:hover{
-	background-position:0 -22px;
-}
-form#login input:focus{
-	background:#ffffcc;
-}
-form#login label{
-	margin-top:8px;
-}
-form#login fieldset{background:none;}
-
-form#cal_choose fieldset{
-	border:none;
+form#event_search input.search_submit {
+	border: none;;
+	border-right: 2px solid #999;;
+	border-bottom: 2px solid #999;;
+	padding: 1px;
 }
 
-/* action buttons */
-button#delete_event{
-width:48px;
-height:22px;float:left;
-background:url(images/button/delete.gif) no-repeat;
-}
-button{margin: 0 5px 0 0;}
-button#moveto_pending{
-width:99px;float:left;
-height:22px;
-background:url(images/button/movetodraft.gif) no-repeat;
+/*	-------------------------------------------------------------
+	Login Form
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+body#login #right_area,body#login #navigation {
+	display: none;
 }
 
-button#search{
-width:48px;
-height:22px;
-background:url(images/button/search.gif) no-repeat;
+body#login #main_left {
+	position: relative;
 }
 
-button#moveto_posted{
-width:89px;float:left;
-height:21px;
-background:url(images/button/addtoposted.gif) no-repeat;
+body#login a#forgot {
+	position: absolute;
+	font-size: 0.6em;;
+	letter-spacing: normal;
+	text-decoration: none;
+	margin: -24px 0 0 57px;
 }
 
-button#moveto_posted, button#delete_event, button#moveto_pending, button#search{text-indent:-9999em;
-display:block;
-border:none;
-cursor:pointer;}
-button#moveto_posted:hover, button#delete_event:hover, button#moveto_pending:hover, button#search:hover{background-position:0 -22px;}
+body#login div#maincontent form#login {
+	width: 431px;
+	height: 186px;
+	background: #fff url(images/login-calendar_03.gif) no-repeat;
+	padding: 63px 0 0 0;
+	font-size: 18px;
+	letter-spacing: -1px;
+}
+
+form#login input {
+	background: #deecfd;
+	border: 1px solid #c2d4e2;
+	width: 200px;
+	margin: 0;
+	font-size: 17px;
+	padding: 3px;
+}
+
+form#login button#submit {
+	background: url(images/button/c_submit.gif) no-repeat;
+	width: 48px;
+	height: 21px;;
+	display: block;
+	text-indent: -9999px;
+	border: none;
+	margin-top: 3px;
+}
+
+form#login button#submit :hover {
+	background-position: 0 -22px;
+}
+
+form#login input:focus {
+	background: #ffffcc;
+}
+
+form#login label {
+	margin-top: 8px;
+}
+
+form#login fieldset {
+	background: none;
+}
+
+form#cal_choose fieldset {
+	border: none;
+}
+
+/*	-------------------------------------------------------------
+	Table elements
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+body#normal div#maincontent ul.eventsbystatus {
+	list-style: none;
+	line-height: 1;
+	margin: 0 0 10px 0;
+	width: 687px;
+	padding: 6px 6px 2.2em 6px;
+	border-bottom: 1px solid #bebcbc;
+}
+
+body#normal div#maincontent ul.eventsbystatus li {
+	display: block;
+	float: left;
+	margin: 2px 2px -1px 2px;
+	padding: 6px;
+	background: #eee;
+	border: 1px solid #bebcbc;
+}
+
+body#normal div#maincontent ul.eventsbystatus li a {
+	text-decoration: none;
+}
+
+body#normal div#maincontent ul.eventsbystatus .archived li#archived_manager,body#normal div#maincontent ul.eventsbystatus
+	.pending li#pending_manager,body#normal div#maincontent ul.eventsbystatus
+	.posted li#posted_manager {
+	position: relative;;
+	background: #fff;;
+	border-bottom: 1px solid #fff;
+}
+
+body#normal div#maincontent form {
+	padding: 0;;
+	margin: 0;
+}
+
+table.eventlisting {
+	border-collapse: collapse;
+	clear: both;
+	margin: 0 0 12px 0;
+	width: 100%;
+}
+
+#maincontent table.eventlisting input {
+	border: none;
+}
+
+#maincontent table.eventlisting thead th {
+	background: #3e83c9;
+	color: #fff;
+	text-align: left;
+	border-bottom: 3px solid #BFD6F5;
+	padding: 7px;
+}
+
+#maincontent table.eventlisting thead th.date a,#maincontent table.eventlisting thead th.title a
+	{
+	color: #FFFFFF;
+	display: block;
+	background: url(images/sort.gif) no-repeat;
+	background-position: 35px 5px;
+	text-decoration: none;
+}
+
+#maincontent table.eventlisting thead th.title a {
+	background-position: 71px 5px;
+}
+
+#maincontent table.eventlisting td ul {
+	padding: 0 0 0 13px;;
+	margin: 0;
+}
+
+table.eventlisting thead th a:hover {
+	text-decoration: underline;
+}
+
+table.eventlisting tr:hover,table.eventlisting tr.alt:hover {
+	color: red;
+}
+
+table.eventlisting tr {
+	cursor: pointer;
+}
+
+table.eventlisting tr.alt {
+	background: #e8f5fa;
+	border-top: 1px solid #8ebcd6;
+	border-bottom: 1px solid #8ebcd6;
+}
+
+#maincontent table.eventlisting tr td {
+	padding: 7px;
+	border-top: 1px solid #8ebcd6;
+	border-bottom: 1px solid #8ebcd6;
+}
+
+/*	-------------------------------------------------------------
+	Buttons
+	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+body#normal table.eventlisting td.edit a,#maincontent table.eventlisting td a.user_perm_edit
+	{
+	display: block;
+	padding: 0;
+	text-indent: -9999px;
+	background: url(images/edit.gif) no-repeat;
+	width: 33px;
+	height: 21px;
+}
+
+#maincontent table.eventlisting td a.user_perm_remove {
+	display: block;
+	padding: 0;
+	text-indent: -9999px;
+	background: url(images/button/remove_user.gif) no-repeat;
+	width: 89px;
+	height: 21px;
+}
+
+body#normal table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
+	{
+	background-position: 0 -22px;
+}
+
+button#delete_event {
+	width: 48px;
+	height: 22px;;
+	float: left;
+	background: url(images/button/delete.gif) no-repeat;
+}
+
+button {
+	margin: 0 5px 0 0;
+}
+
+button#moveto_pending {
+	width: 99px;;
+	float: left;
+	height: 22px;
+	background: url(images/button/movetodraft.gif) no-repeat;
+}
+
+button#search {
+	width: 48px;
+	height: 22px;
+	background: url(images/button/search.gif) no-repeat;
+}
+
+button#moveto_posted {
+	width: 89px;;
+	float: left;
+	height: 21px;
+	background: url(images/button/addtoposted.gif) no-repeat;
+}
+
+button#moveto_posted,button#delete_event,button#moveto_pending,button#search
+	{
+	text-indent: -9999em;
+	display: block;
+	border: none;
+	cursor: pointer;
+}
+
+button#moveto_posted :hover,button#delete_event :hover,button#moveto_pending
+	:hover,button#search :hover {
+	background-position: 0 -22px;
+}
