@@ -892,7 +892,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			$form->addElement('submit','submit','Go');
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
-			$output .= $renderer->toHtml();
+			$output = $renderer->toHtml();
 		} else {
 			// User has no other calendars to manage.
 			$output = '';
