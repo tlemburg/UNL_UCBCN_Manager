@@ -29,65 +29,51 @@
 /*	-------------------------------------------------------------
 	Navigation Styles
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
-#navlinks ul {
-	width: auto;
-	border-bottom: 3px double #ddd;
-	margin: 3px 0;
-	padding: 5px 0 7px 0;
-	background: none;
-	list-style: none;
+	h4#sec_nav {
+	display:none;
 }
-
-#navlinks ul li {
-	padding: 0;
-	margin: 0;
+div#navlinks{
+text-align:left;
+display:block;
+margin:8px 0 0 0;
 }
-
-h4#sec_nav {
-	background: url(images/heading.gif) no-repeat 0 4px;;
-	border-bottom: 1px solid #ddd;;
-	color: #333;;
-	padding: 0 0 0 11px;
+#navigation div#nav_end{
+height:7px;
+margin:-1px 0 0 0;	
+width:219px;
+position:relative;
+background:url(images/wapp_nav_bottom.gif) no-repeat left bottom;
 }
-
-#nav_end {
-	display: none;
+#navlinks ul{
+list-style:none;
+width:219px;
+background:url(images/wapp_nav_top.gif) no-repeat left top;
+margin:0 0 0 0;
+padding:7px 0 0 0;
 }
-
-#navlinks ul li a {
-	display: block;
-	width: 218px;
-	padding: 0;
-	margin: 0;
-	height: 46px;
-	text-indent: -9999px;
+#navlinks ul li{
+text-indent:-9999px;
+background:none;
+padding:0;
 }
-
-#navlinks ul li#mycalendar a {
-	background: url(images/nav_calendar.gif) no-repeat;
+#navlinks ul li a{
+display:block;
+padding:0;
+margin:0;
+height:46px;
+width:219px;
 }
-
-#navlinks ul li#create a {
-	background: url(images/nav_create.gif) no-repeat;
+#navlinks ul li#mycalendar a{
+background:url(images/wapp_mycalendar.gif) no-repeat left top;
 }
-
-#navlinks ul li#subscribe a {
-	background: url(images/nav_subscribe.gif) no-repeat;
+#navlinks ul li#create a{
+background:url(images/wapp_createevent.gif) no-repeat left top;
 }
-
-#navlinks ul li#import a {
-	background: url(images/nav_import.gif) no-repeat;
+#navlinks ul li#subscribe a{
+background:url(images/wapp_subscribe.gif) no-repeat left top;
 }
-
-#navlinks ul li#mycalendar a:hover,#navigation ul li#create a:hover,#navlinks ul li#search a:hover,#navigation ul li#subscribe a:hover,#navlinks ul li#import a:hover,body#create #navigation ul li#create a,body#search #navigation ul li#search a,body#subscribe #navigation ul li#subscribe a,body#import #navigation ul li#import a,body#normal #navigation ul li#calendar a
-	{
-	background-position: 0 -47px;
-}
-
-#container div.clear #navigation #leftcollinks {
-	margin: 0;;
-	padding: 0;
-}
+#navlinks ul li#mycalendar a:hover,#navigation ul li#create a:hover,#navigation ul li#subscribe a:hover,#navlinks ul li#import a:hover,body#normal #navigation ul li#mycalendar a,body#create #navigation ul li#create a, body#subscribe #navigation ul li#subscribe a,body#import #navigation ul li#import a,body#normal #navigation ul li#calendar a
+{background-position:0 -46px;}
 
 /*	-------------------------------------------------------------
 	Right hand column widget
@@ -103,7 +89,7 @@ div.cal_widget h3 {
 	position: relative;
 	font-size: 12px !important;;
 	clear: both;
-	margin: 10px 0 0 0;
+	margin: 0;
 	padding: 8px 0 5px 12px;
 	background: url(images/recent.gif) no-repeat left top;
 	width: 222px;

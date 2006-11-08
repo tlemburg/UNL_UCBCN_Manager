@@ -5,14 +5,16 @@
 	height: 200px;
 }
 
-* html #navlinks ul {
-	width: 200px;
-}
-
 * html #maincontent form fieldset legend {
 	margin: -13px 0 0 -7px;
 }
-
+* html #navigation div#nav_end{
+height:7px;
+margin:-1px 0 0 0;top:-6px;
+width:219px;
+position:relative;
+background:url(images/wapp_nav_bottom.gif) no-repeat left bottom;
+}
 * html #maincontent form fieldset li {
 	height: 1px;
 }

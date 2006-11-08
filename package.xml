@@ -18,8 +18,8 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2006-11-02</date>
- <time>11:12:21</time>
+ <date>2006-11-08</date>
+ <time>13:03:22</time>
  <version>
   <release>0.3.1</release>
   <api>0.3.0</api>
@@ -50,6 +50,7 @@
        <file name="c_submit.png" role="data" />
        <file name="delete.gif" role="data" />
        <file name="movetodraft.gif" role="data" />
+       <file name="remove_user.gif" role="data" />
        <file name="search.gif" role="data" />
       </dir> <!-- /templates/default/images/button -->
       <file name="account_bottom.gif" role="data" />
@@ -74,7 +75,6 @@
       <file name="nav_import.gif" role="data" />
       <file name="nav_import.png" role="data" />
       <file name="nav_search.gif" role="data" />
-      <file name="nav_search.png" role="data" />
       <file name="nav_subscribe.gif" role="data" />
       <file name="nav_subscribe.png" role="data" />
       <file name="recent.gif" role="data" />
@@ -85,6 +85,11 @@
       <file name="submit.gif" role="data" />
       <file name="table_hover.gif" role="data" />
       <file name="title.gif" role="data" />
+      <file name="wapp_createevent.gif" role="data" />
+      <file name="wapp_mycalendar.gif" role="data" />
+      <file name="wapp_nav_bottom.gif" role="data" />
+      <file name="wapp_nav_top.gif" role="data" />
+      <file name="wapp_subscribe.gif" role="data" />
       <file name="widget_list.gif" role="data" />
       <file name="widget_list1.gif" role="data" />
       <file name="widget_list_hover.gif" role="data" />
@@ -284,7 +289,7 @@ Change event list sorting until we get pagination working.</notes>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2006-11-02</date>
+   <date>2006-11-08</date>
    <license uri="http://www.php.net/license">PHP License</license>
    <notes>* Move some html presentation to the templates ($avigation, and $accountright)</notes>
   </release>
