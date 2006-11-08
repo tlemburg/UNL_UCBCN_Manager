@@ -248,7 +248,6 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 													));
 		$form->accept($renderer);
 		$form->setDefaults(array(
-					'datecreated'		=> date('Y-m-d H:i:s'),
 					'uidcreated'		=> $this->user->uid,
 					'uidlastupdated'	=> $this->user->uid));
 		if ($form->validate()) {
