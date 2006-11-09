@@ -33,8 +33,8 @@ background:url(images/wapp_nav_bottom.gif) no-repeat left bottom;
 	margin-top: 4px;
 }
 
-* html #lastfieldset .reqnote {
-	margin: 0 0 50px 10px;
+* html #maincontent form fieldset li.reqnote {
+	margin: 0 0 20px 0;
 }
 
 * html body#normal div#maincontent ul.eventsbystatus {
@@ -42,9 +42,6 @@ background:url(images/wapp_nav_bottom.gif) no-repeat left bottom;
 	padding: 6px 6px 0 6px;
 }
 
-* html div.cal_widget {
-	margin: 0;
-}
 
 /*	-------------------------------------------------------------
 	IE 7

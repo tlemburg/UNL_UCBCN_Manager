@@ -113,6 +113,10 @@ function hideField(){
   	eventLoc.getElementsByTagName('label')[0].style.display = 'none';
   	var eventNewLoc = document.getElementById('__reverseLink_eventdatetime_event_idlocation_id_1__subForm__div');
   	eventNewLoc.className = 'newlocation';
+  	var eventBr = document.getElementById('__header__');
+  	eventBr.getElementsByTagName('br')[1].style.display = 'none';
+  	var eventLi = eventBr.getElementsByTagName('li')[1];
+  	eventLi.className='consider';
 }
 
 function formHide(){

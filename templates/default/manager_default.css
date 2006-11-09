@@ -17,8 +17,8 @@
 }
 
 #maincontent #title {
-	padding: 2px;;
-	display: inline;;
+	padding: 2px;
+	display: inline;
 	font-style: none !important;
 }
 
@@ -87,7 +87,7 @@ div.cal_widget {
 
 div.cal_widget h3 {
 	position: relative;
-	font-size: 12px !important;;
+	font-size: 12px !important;
 	clear: both;
 	margin: 0;
 	padding: 8px 0 5px 12px;
@@ -97,7 +97,7 @@ div.cal_widget h3 {
 }
 
 div.cal_widget h3 span {
-	padding: 0 0 0 19px;;
+	padding: 0 0 0 19px;
 	background: url(images/date.gif) no-repeat left top;
 }
 
@@ -123,20 +123,20 @@ div.cal_widget fieldset {
 }
 
 div.cal_widget fieldset ol li {
-	display: block;;
+	display: block;
 	height: 1px;
 }
 
 div.cal_widget ul li#login_list {
-	background: none;;
+	background: none;
 	padding: 0;
 }
 
 div.cal_widget ul li {
-	background: url(images/widget_list.gif) no-repeat 0 5px;;
-	padding: 0 0 0 15px;;
-	height: 1%;;
-	margin-right: 7px;;
+	background: url(images/widget_list.gif) no-repeat 0 5px;
+	padding: 0 0 0 15px;
+	height: 1%;
+	margin-right: 7px;
 	position: relative;
 }
 
@@ -145,7 +145,7 @@ div.cal_widget ul li:hover {
 }
 
 div.cal_widget ul li.nobullet {
-	background: none;;
+	background: none;
 	padding: 0;
 }
 
@@ -243,9 +243,9 @@ div.cal_widget fieldset legend {
 }
 
 #maincontent form br {
-	clear: left;;
-	margin: 0;;
-	padding: 0;;
+	clear: left;
+	margin: 0;
+	padding: 0;
 	line-height: 0.5;
 }
 
@@ -257,8 +257,8 @@ form div.qfgroup,form div.element {
 }
 
 form div.qfelement div.qfgroup {
-	margin: 0 0 0 0;;
-	margin: 0 !important;;
+	margin: 0 0 0 0;
+	margin: 0 !important;
 	line-height: 0.5 !important;
 }
 
@@ -285,19 +285,21 @@ form div.error {
 	color: #ff0000;
 }
 
-#lastfieldset .reqnote {
-	background: #f8e6e9;;
-	padding: 3px;;
-	margin: 0 0 30px 10px;;
-	bottom: 0;;
-	left: 0;;
+#maincontent form fieldset li.reqnote {
+	background: #f8e6e9;
+	padding:2px;
+	margin: 0 0 25px 0;
+	bottom: 0;
+	width:140px;
+	font-size:0.9em;
+	left: 0;
 	position: absolute;
 }
-
+#maincontent form fieldset li.reqnote label{display:none}
 #maincontent form fieldset.hidden {
-	margin: 0;;
-	padding: 0;;
-	background: 0;;
+	margin: 0;
+	padding: 0;
+	background: 0;
 	border: none;
 }
 
@@ -312,18 +314,22 @@ form div.error {
 }
 
 #maincontent a#formShow {
-	clear: both;;
-	padding: 2px;;
-	border: 1px solid #266cb3;;
-	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;;
-	display: block;;
-	background: #3e83c9;;
-	color: #fff;;
+	clear: both;
+	padding: 2px;
+	border: 1px solid #266cb3;
+	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;
+	display: block;
+	background: #3e83c9;
+	color: #fff;
 	margin: -10px 0 0 10px;
 }
+#maincontent form fieldset li.consider div.element{
 
+	background:#dde6ec;
+	padding:0 5px 2px 5px; 
+}
 #maincontent a#formShow :focus {
-	color: #fff !important;;
+	color: #fff !important;
 	text-decoration: underline;
 }
 
@@ -341,7 +347,7 @@ form#cal_choose br {
 
 ;
 #maincontent form fieldset.ddetailsheader_class .reqnote {
-	color: #ff0000;;
+	color: #ff0000;
 	display: inline
 }
 
@@ -358,19 +364,19 @@ form#cal_choose br {
 }
 
 #maincontent form div.newlocation {
-	background: #eee;;
-	width: 500px;;
-	margin: 4px 0 2px 0 0;;
-	border: 1px solid #ccc;;
+	background: #eee;
+	width: 500px;
+	margin: 4px 0 2px 0 0;
+	border: 1px solid #ccc;
 	overflow-x: hidden !important;
 }
 
 #maincontent form div.newlocation fieldset {
-	margin: 0;;
-	padding: 0;;
-	border: none;;
-	background: #eee;;
-	width: 500px;;
+	margin: 0;
+	padding: 0;
+	border: none;
+	background: #eee;
+	width: 500px;
 	overflow-x: hidden !important;
 }
 
@@ -387,10 +393,10 @@ form#cal_choose br {
 }
 
 .rightnav fieldset {
-	position: absolute;;
-	right: 0;;
-	z-index: 10;;
-	top: 0;;
+	position: absolute;
+	right: 0;
+	z-index: 10;
+	top: 0;
 	margin: 85px 25px 0 0
 }
 
@@ -407,7 +413,7 @@ form#cal_choose br {
 }
 
 .rightnav ol li {
-	float: left;;
+	float: left;
 	margin: 0;
 }
 
@@ -433,14 +439,14 @@ form#event_search {
 form#event_search input#searchinput {
 	background: #eee;
 	border: 1px solid #ccc;
-	border-color: #ccc #fff #fff #ccc;;
+	border-color: #ccc #fff #fff #ccc;
 	padding: 2px
 }
 
 form#event_search input.search_submit {
-	border: none;;
-	border-right: 2px solid #999;;
-	border-bottom: 2px solid #999;;
+	border: none;
+	border-right: 2px solid #999;
+	border-bottom: 2px solid #999;
 	padding: 1px;
 }
 
@@ -457,7 +463,7 @@ body#login #main_left {
 
 body#login a#forgot {
 	position: absolute;
-	font-size: 0.6em;;
+	font-size: 0.6em;
 	letter-spacing: normal;
 	text-decoration: none;
 	margin: -24px 0 0 57px;
@@ -484,7 +490,7 @@ form#login input {
 form#login button#submit {
 	background: url(images/button/c_submit.gif) no-repeat;
 	width: 48px;
-	height: 21px;;
+	height: 21px;
 	display: block;
 	text-indent: -9999px;
 	border: none;
@@ -536,16 +542,14 @@ body#normal div#maincontent ul.eventsbystatus li a {
 	text-decoration: none;
 }
 
-body#normal div#maincontent ul.eventsbystatus .archived li#archived_manager,body#normal div#maincontent ul.eventsbystatus
-	.pending li#pending_manager,body#normal div#maincontent ul.eventsbystatus
-	.posted li#posted_manager {
-	position: relative;;
-	background: #fff;;
+body#normal div#maincontent ul.eventsbystatus.archived li#archived_manager,body#normal div#maincontent ul.eventsbystatus.pending li#pending_manager,body#normal div#maincontent ul.eventsbystatus.posted li#posted_manager {
+	position: relative;
+	background: #fff;
 	border-bottom: 1px solid #fff;
 }
 
 body#normal div#maincontent form {
-	padding: 0;;
+	padding: 0;
 	margin: 0;
 }
 
@@ -582,7 +586,7 @@ table.eventlisting {
 }
 
 #maincontent table.eventlisting td ul {
-	padding: 0 0 0 13px;;
+	padding: 0 0 0 13px;
 	margin: 0;
 }
 
@@ -639,7 +643,7 @@ body#normal table.eventlisting td.edit a:hover,#maincontent table.eventlisting t
 
 button#delete_event {
 	width: 48px;
-	height: 22px;;
+	height: 22px;
 	float: left;
 	background: url(images/button/delete.gif) no-repeat;
 }
@@ -649,7 +653,7 @@ button {
 }
 
 button#moveto_pending {
-	width: 99px;;
+	width: 99px;
 	float: left;
 	height: 22px;
 	background: url(images/button/movetodraft.gif) no-repeat;
@@ -662,7 +666,7 @@ button#search {
 }
 
 button#moveto_posted {
-	width: 89px;;
+	width: 89px;
 	float: left;
 	height: 21px;
 	background: url(images/button/addtoposted.gif) no-repeat;
