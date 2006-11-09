@@ -50,17 +50,8 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.3.0');
-$pfm->setReleaseVersion('0.3.1');
-$pfm->setNotes('* Move some html presentation to the templates ($navigation, and $accountright)
-CSS fixes for IE 7
-Tableless renderer updates from Mark Weisemann
-Re-arrange the management screens:
-* Search now on every page.
-* Simplified navigation.
-* Better organized sections of information.
-Fix PHP Notice:  Undefined variable: output in UNL/UCBCN/Manager.php on line 895
-Added lots of API documentation now available at http://pear.unl.edu/docs/UNL_UCBCN_Manager/
-');
+$pfm->setReleaseVersion('0.3.2');
+$pfm->setNotes('Fixes');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
