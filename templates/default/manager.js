@@ -100,6 +100,22 @@ function requiredField(){
 	} catch(e) {}
 }
 
+/*safari fixes*/
+function showIsAppleWebKit() {
+			
+			// String found if this is a AppleWebKit based product
+			var kitName = "applewebkit/";
+			var tempStr = navigator.userAgent.toLowerCase();
+			var pos = tempStr.indexOf(kitName);
+			var isAppleWebkit = (pos != -1);
+		
+			if (isAppleWebkit) {
+			var fieldObj = getElementsByClassName(document, "fieldset", "d__header___class"); 
+			fieldObj[0].style.marginTop = '-10px';	
+		
+			} else {}
+}
+
 function hideField(){
 	var id = document.getElementById('optionaldetailsheader');
 	var formContainer = id.getElementsByTagName('ol');
@@ -117,6 +133,7 @@ function hideField(){
   	eventBr.getElementsByTagName('br')[1].style.display = 'none';
   	var eventLi = eventBr.getElementsByTagName('li')[1];
   	eventLi.className='consider';
+  	showIsAppleWebKit();
 }
 
 function formHide(){

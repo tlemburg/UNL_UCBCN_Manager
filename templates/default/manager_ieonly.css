@@ -17,6 +17,7 @@ background:url(images/wapp_nav_bottom.gif) no-repeat left bottom;
 }
 * html #maincontent form fieldset li {
 	height: 1px;
+	float:none;
 }
 
 * html #maincontent form input,* html #maincontent form textarea,#maincontent form select
@@ -62,4 +63,7 @@ background:url(images/wapp_nav_bottom.gif) no-repeat left bottom;
 *+html #maincontent form fieldset {
 	margin: 20px 0;
 	padding: 0 0 10px 0;
+}
+*+html #maincontent form fieldset li {
+	float:none;
 }

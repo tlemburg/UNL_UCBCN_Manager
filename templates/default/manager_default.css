@@ -112,21 +112,6 @@ div.cal_widget ul {
 	background: url(images/recent_mid.gif) repeat-y right top;
 }
 
-div.cal_widget fieldset {
-	border: none;
-	clear: both;
-	padding: 0 0 10px 0;
-	margin: -14px 0 0 1px;
-	_margin: -5px 0 0 1px;
-	background: #eff6f9;
-	background: url(images/recent_mid.gif) repeat-y right top;
-}
-
-div.cal_widget fieldset ol li {
-	display: block;
-	height: 1px;
-}
-
 div.cal_widget ul li#login_list {
 	background: none;
 	padding: 0;
@@ -157,7 +142,7 @@ div.cal_widget fieldset legend {
 	Form elements
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
 #maincontent form {
-	margin: 0;
+	margin: 0 0 0 0;
 	padding: 0 0 0 0;
 }
 
@@ -192,6 +177,7 @@ div.cal_widget fieldset legend {
 	margin: 0;
 	clear: both;
 	display: block;
+	float:left;
 }
 
 #maincontent form label.element {
@@ -362,6 +348,7 @@ form#cal_choose br {
 #maincontent form fieldset.d__header___class {
 	margin-top: -23px;
 }
+body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
 
 #maincontent form div.newlocation {
 	background: #eee;
