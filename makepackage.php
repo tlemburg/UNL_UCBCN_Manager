@@ -53,11 +53,14 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.3.0');
 $pfm->setReleaseVersion('0.3.2');
-$pfm->setNotes('Fixes');
+$pfm->setNotes('Fix major css bug for Firefox 1.5.
+Revert navigation back to original.
+Minor CSS fixes.
+Switch to BSD License.');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
-$pfm->setLicense('PHP License', 'http://www.php.net/license');
+$pfm->setLicense('BSD License', 'http://www.opensource.org/licenses/bsd-license.php');
 $pfm->clearDeps();
 $pfm->setPhpDep('5.0.0');
 $pfm->setPearinstallerDep('1.4.3');

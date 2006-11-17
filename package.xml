@@ -18,27 +18,21 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2006-11-09</date>
- <time>16:43:35</time>
+ <date>2006-11-17</date>
+ <time>16:46:38</time>
  <version>
-  <release>0.3.1</release>
+  <release>0.3.2</release>
   <api>0.3.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license uri="http://www.php.net/license">PHP License</license>
- <notes>* Move some html presentation to the templates ($navigation, and $accountright)
-CSS fixes for IE 7
-Tableless renderer updates from Mark Weisemann
-Re-arrange the management screens:
-* Search now on every page.
-* Simplified navigation.
-* Better organized sections of information.
-Fix PHP Notice:  Undefined variable: output in UNL/UCBCN/Manager.php on line 895
-Added lots of API documentation now available at http://pear.unl.edu/docs/UNL_UCBCN_Manager/
- </notes>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+ <notes>Fix major css bug for Firefox 1.5.
+Revert navigation back to original.
+Minor CSS fixes.
+Switch to BSD License.</notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
@@ -308,8 +302,23 @@ Re-arrange the management screens:
 * Simplified navigation.
 * Better organized sections of information.
 Fix PHP Notice:  Undefined variable: output in UNL/UCBCN/Manager.php on line 895
-Added lots of API documentation now available at http://pear.unl.edu/docs/UNL_UCBCN_Manager/
-   </notes>
+Added lots of API documentation now available at http://pear.unl.edu/docs/UNL_UCBCN_Manager/</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.2</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2006-11-17</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>Fix major css bug for Firefox 1.5.
+Revert navigation back to original.
+Minor CSS fixes.
+Switch to BSD License.</notes>
   </release>
  </changelog>
 </package>
