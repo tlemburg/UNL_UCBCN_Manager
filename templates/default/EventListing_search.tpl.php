@@ -1,4 +1,4 @@
-<form action="<?php echo $_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q']; ?>" method="post">
+<form action="<?php echo $_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q']; ?>" id="searchlist" method="post">
 <table class="eventlisting">
 <thead>
 <tr>
@@ -55,6 +55,8 @@ foreach ($this->events as $event) {
 	} ?>
 </tbody>
 </table>
+<a href="#" class="checkall" onclick="setCheckboxes('searchlist',true); return false">Check All</a>
+<a href="#" class="uncheckall" onclick="setCheckboxes('searchlist',false); return false">Uncheck All</a>
 <button id="moveto_pending" type="submit" name="pending" value="pending">Add to Pending</button>
 <button id="moveto_posted" type="submit" name="posted" value="posted">Add to Posted</button>
 </form>
