@@ -52,7 +52,7 @@ foreach ($this->events as $e) {
 </table>
 <a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
 <a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
-<button id="delete_event" type="submit" name="delete" value="delete">Delete</button>
+<button id="delete_event" type="submit" name="delete" onclick="return confirm('Are you sure?');" value="delete">Delete</button>
 <?php if ($this->status=='posted') { ?>
 <button id="moveto_pending" type="submit" name="pending" value="pending">Move to Pending</button>
 <?php } elseif ($this->status=='pending') { ?>
