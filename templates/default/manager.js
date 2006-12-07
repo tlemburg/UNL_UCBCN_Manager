@@ -37,6 +37,9 @@ function getElementsByClassName(oElm, strTagName, strClassName){
     return (arrReturnElements);
 }
 
+/**
+ * Will show or hide an element with the given ID.
+ */
 function showHide(e)
 {
    document.getElementById(e).style.display=(document.getElementById(e).style.display=="block")?"none":"block";
@@ -69,7 +72,7 @@ function checkevent(id) {
 
 function updateRow(){
 	var rowT = document.getElementsByTagName('tr');
-	for (i=0; i< rowT.length; i++)
+	for (var i=0; i< rowT.length; i++)
 		{
 			if(rowT[i].className == 'updated'){
 				if(rowT[i].className == 'alt'){
@@ -117,23 +120,25 @@ function showIsAppleWebKit() {
 }
 
 function hideField(){
-	var id = document.getElementById('optionaldetailsheader');
-	var formContainer = id.getElementsByTagName('ol');
-	createButton('Click to add additional details', id, formHide, 'formShow')
-	formContainer[0].style.display='none';
-  	
-  	//fix some layout problem at the same time
-  	var eventType = document.getElementById('eventtypeheader');
-  	eventType.getElementsByTagName('label')[0].style.display = 'none';
-  	var eventLoc = document.getElementById('eventlocationheader');
-  	eventLoc.getElementsByTagName('label')[0].style.display = 'none';
-  	var eventNewLoc = document.getElementById('__reverseLink_eventdatetime_event_idlocation_id_1__subForm__div');
-  	eventNewLoc.className = 'newlocation';
-  	var eventBr = document.getElementById('__header__');
-  	eventBr.getElementsByTagName('br')[1].style.display = 'none';
-  	var eventLi = eventBr.getElementsByTagName('li')[1];
-  	eventLi.className='consider';
-  	showIsAppleWebKit();
+	try {
+		var id = document.getElementById('optionaldetailsheader');
+		var formContainer = id.getElementsByTagName('ol');
+		createButton('Click to add additional details', id, formHide, 'formShow')
+		formContainer[0].style.display='none';
+	  	
+	  	//fix some layout problem at the same time
+	  	var eventType = document.getElementById('eventtypeheader');
+	  	eventType.getElementsByTagName('label')[0].style.display = 'none';
+	  	var eventLoc = document.getElementById('eventlocationheader');
+	  	eventLoc.getElementsByTagName('label')[0].style.display = 'none';
+	  	var eventNewLoc = document.getElementById('__reverseLink_eventdatetime_event_idlocation_id_1__subForm__div');
+	  	eventNewLoc.className = 'newlocation';
+	  	var eventBr = document.getElementById('__header__');
+	  	eventBr.getElementsByTagName('br')[1].style.display = 'none';
+	  	var eventLi = eventBr.getElementsByTagName('li')[1];
+	  	eventLi.className='consider';
+	  	showIsAppleWebKit();
+	} catch(e) {}
 }
 
 function formHide(){
