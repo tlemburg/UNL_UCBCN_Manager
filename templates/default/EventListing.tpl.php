@@ -1,4 +1,4 @@
-<form action="?list=<?php echo $this->status; ?>" name="formlist" method="post">
+<form action="?list=<?php echo $this->status; ?>" id="formlist" name="formlist" method="post">
 <table class="eventlisting">
 <thead>
 <tr>
@@ -50,6 +50,8 @@ foreach ($this->events as $e) {
 } ?>
 </tbody>
 </table>
+<a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
+<a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
 <button id="delete_event" type="submit" name="delete" value="delete">Delete</button>
 <?php if ($this->status=='posted') { ?>
 <button id="moveto_pending" type="submit" name="pending" value="pending">Move to Pending</button>
