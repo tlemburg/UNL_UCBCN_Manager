@@ -605,7 +605,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if ($this->userHasPermission($this->user,'Calendar Change User Permissions',$this->calendar)) {
 			$msg = '';
 			if (!is_object($uid)) {
-				$user = $this->factory('user');
+				$user =& $this->factory('user');
 				if (isset($uid) && !empty($uid)) {
 					$user->uid = $uid;
 					if ($user->find()) {
@@ -622,7 +622,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			} else {
 				$user = $uid;
 			}
-			$fb = DB_DataObject_FormBuilder::create($user);
+			$fb =& DB_DataObject_FormBuilder::create($user);
 			if (!isset($user->uid)) {
 				$fb->enumFields = array('uid');
 				$uids = array();
@@ -633,10 +633,16 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 			}
 			$fb->formHeaderText = $user->uid.' Permissions for '.$this->calendar->name;
 			$fb->crossLinks = array(array('table'=>'user_has_permission'));
-			$fb->fieldLabels = array(	'__crossLink_user_has_permission_user_uid_permission_id'=>'Permissions',
-										'uid'=>'User ID');
 			$form = $fb->getForm('?action=permissions&uid='.$user->uid);
+			$el =& $form->getElement('__crossLink_user_has_permission_user_uid_permission_id');
+			$el->setLabel('Permissions');
+			$el =& $form->getElement('uid');
+			$el->setLabel('User ID');
 			$form->setDefaults(array('calendar_id'=>$calendar->id,'account_id'=>$this->account->id));
+			$checkall = HTML_QuickForm::createElement('static', 'checkall', null, '<a href="#" class="checkall" onclick="setCheckboxes(\'unl_ucbcn_user\',true); return false">Check All</a>');
+			$form->insertElementBefore($checkall,'__crossLink_user_has_permission_user_uid_permission_id');
+			$uncheckall = HTML_QuickForm::createElement('static', 'uncheckall', null, '<a href="#" class="uncheckall" onclick="setCheckboxes(\'unl_ucbcn_user\',false); return false">Uncheck All</a>');
+			$form->insertElementBefore($uncheckall,'__crossLink_user_has_permission_user_uid_permission_id');
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
 			$form->accept($renderer);
 			if ($form->validate()) {

@@ -155,3 +155,22 @@ function createButton(linktext, attachE, actionFunc, idN){
 	morelink.appendChild(text);
 	attachE.appendChild(morelink);
 }
+
+/**
+ * Will set all checkboxes under the element with the given ID
+ * to the value passed in val.
+ */
+function setCheckboxes(formid,val)
+{
+	try {
+		var f = document.getElementById(formid);
+		var checks = f.getElementsByTagName('input');
+		for (var i=0;i<checks.length;i++) {
+			if (val) {
+				checks[i].checked = true;
+			} else {
+				checks[i].checked = false;
+			}
+		}
+	} catch(e) {}
+}
