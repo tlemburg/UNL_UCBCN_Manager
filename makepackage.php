@@ -53,7 +53,7 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.3.0');
 $pfm->setReleaseVersion('0.3.3');
-$pfm->setNotes('Fixes');
+$pfm->setNotes('Implement Request #25  	 Add a \'Select All\' option for sections with many checkboxes.');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
