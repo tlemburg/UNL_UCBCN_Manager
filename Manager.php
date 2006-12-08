@@ -746,7 +746,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 		if (isset($_GET['event_id']) && !isset($edt->id)) {
 		    $form->setDefaults(array('event_id'=>$_GET['event_id']));
 		    $event = $this->factory('event');
-		    if ($events->get($_GET['id'])) {
+		    if ($event->get($_GET['event_id'])) {
 		        $msg = 'New Event Date &amp; Time for '.$event->title;
 		    }
 		} else {
