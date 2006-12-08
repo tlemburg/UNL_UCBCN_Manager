@@ -34,7 +34,7 @@ foreach ($this->events as $e) {
 	if ($instances) {
 		$row .= '<ul>';
 			while ($edt->fetch()) {
-            	$row .= '<li>'.$edt->starttime.'</li>';
+            	$row .= '<li>'.date('M jS g:ia',strtotime($edt->starttime)).'</li>';
 			}
 		$row .= '</ul>';
     } else {

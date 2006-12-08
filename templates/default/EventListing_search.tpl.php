@@ -31,7 +31,7 @@ foreach ($this->events as $event) {
 				<ul>
 				<?php
 					while ($edt->fetch()) {
-						echo '<li>'.$edt->starttime.'</li>';
+						echo '<li>'.date('M jS g:ia',strtotime($edt->starttime)).'</li>';
 					}
 				?>
 				</ul>
