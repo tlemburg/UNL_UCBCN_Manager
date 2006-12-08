@@ -37,7 +37,8 @@ $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
 						'Manager/SubForm.php'			=> 'php',
 						'Manager/Tableless.php'		=> 'php',
 						'Manager/FormBuilder.php'		=> 'php',
-						'Manager/Plugin.php'			=> 'php'
+						'Manager/Plugin.php'			=> 'php',
+						'Manager/EventForm.php'        => 'php'
 						)
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');

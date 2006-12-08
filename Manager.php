@@ -234,54 +234,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showEventSubmitForm($id = NULL)
 	{
-		$events = $this->factory('event');
-		if (isset($id)) {
-			if (!$events->get($id)) {
-				return new UNL_UCBCN_Error('Error, the event with that record was not found!');
-			}
-		}
-		$fb = UNL_UCBCN_Manager_FormBuilder::create($events,false,'UCBCN_QuickForm','UNL_UCBCN_Manager_FormBuilder');
-		$form = $fb->getForm($this->uri.'?action=createEvent');
-		$renderer =& new HTML_QuickForm_Renderer_Tableless();
-		$renderer->addStopFieldsetElements(array(
-													'__submit__'
-													));
-		$form->accept($renderer);
-		$form->setDefaults(array(
-					'uidcreated'		=> $this->user->uid,
-					'uidlastupdated'	=> $this->user->uid));
-		if ($form->validate()) {
-			// Form has passed the client/server validation and can be inserted.
-			/* If this is an update, first check to see if the current user has permission to edit
-			 * events for the calendar the event was originally posted on.
-			 */
-			$result = $form->process(array(&$fb, 'processForm'), false);
-			if ($result) {
-				// EVENT Has been added... now check permissions and add to selected calendars.
-				$che =& UNL_UCBCN::calendarHasEvent($this->calendar,$events);
-				if ($che===false) {
-					// This calendar does not already have this event.
-					switch (true) {
-						case $this->userHasPermission($this->user,'Event Post',$this->calendar):
-							$this->addCalendarHasEvent($this->calendar,$events,'posted',$this->user,'create event form');
-						break;
-						case $this->userHasPermission($this->user,'Event Send Event to Pending Queue',$this->calendar):
-							$this->addCalendarHasEvent($this->calendar,$events,'pending',$this->user,'create event form');
-						break;
-						default:
-							return new UNL_UCBCN_Error('Sorry, you do not have permission to post an event, or send an event to the Calendar "'.$this->calendar->name.'".');
-					}
-				} else {
-					$che->uidlastupdated = $this->user->uid;
-					$che->datelastupdated = date('Y-m-d H:i:s');
-					$che->update();
-				}
-				$this->localRedirect($this->uri.'?list=posted&new_event_id='.$events->id);
-			}
-			$form->freeze();
-			$form->removeElement('__submit__');
-		}
-		return $renderer->toHtml();
+	    require_once 'UNL/UCBCN/Manager/EventForm.php';
+	    $form = new UNL_UCBCN_Manager_EventForm($this);
+		return $form->toHtml($id);
 	}
 	
 	/**
@@ -330,9 +285,16 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 						}
 						$this->output[] = $this->showEventSubmitForm($id);
 					} else {
-						$this->output= new UNL_UCBCN_Error('Sorry, you do not have permission to create events. Are the event permissions in the database?');
+						$this->output= new UNL_UCBCN_Error('Sorry, you do not have permission to create events.');
 					}
 				break;
+				case 'eventdatetime':
+				    if ($this->userHasPermission($this->user,'Event Create',$this->calendar)) {
+				        $this->output[] = $this->showEventDateTimeForm();
+				    } else {
+						$this->output= new UNL_UCBCN_Error('Sorry, you do not have permission to create events.');
+					}
+				    break;
 				case 'import':
 					$this->output[] = $this->showImportForm();
 					$this->uniquebody = 'id="import"';
@@ -751,6 +713,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 function showCalendarForm()
 	 {
 	 	if (isset($this->calendar) && $this->userHasPermission($this->user,'Calendar Edit',$this->calendar)) {
+	 	    $msg = '';
 	 		$fb = DB_DataObject_FormBuilder::create($this->calendar);
 			$form = $fb->getForm($this->uri.'?action=calendar&calendar_id='.$this->calendar->id);
 			$renderer =& new HTML_QuickForm_Renderer_Tableless();
@@ -761,11 +724,47 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$form->removeElement('__submit__');
 				$msg = '<p>Calendar info saved...</p>';
 			}
-			return $renderer->toHtml();
+			return $msg.$renderer->toHtml();
 	 	} else {
 	 		return array('<p>You do not have permission to edit the calendar info.</p>',$this->showChooseCalendar());
 	 	}
 	 }
+	 
+	/**
+	 * Returns a form for editing an event date & time instance.
+	 */
+	function showEventDateTimeForm()
+	{
+	    $msg = '';
+	    $edt = $this->factory('eventdatetime');
+	    if (isset($_GET['id'])) {
+	        $edt->get($_GET['id']);
+	    }
+	    $fb = DB_DataObject_FormBuilder::create($edt);
+		$form = $fb->getForm($this->uri.'?action=eventdatetime');
+		
+		if (isset($_GET['event_id']) && !isset($edt->id)) {
+		    $form->setDefaults(array('event_id'=>$_GET['event_id']));
+		    $event = $this->factory('event');
+		    if ($events->get($_GET['id'])) {
+		        $msg = 'New Event Date &amp; Time for '.$event->title;
+		    }
+		} else {
+		    $event = $edt->getLink('event_id');
+	        $msg = 'Editing Event Date &amp; Time for '.$event->title;
+		}
+		$form->insertElementBefore(HTML_QuickForm::createElement('header','eventlocationheader',$msg),
+		    'location_id');
+		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$form->accept($renderer);
+		if ($form->validate()) {
+			if ($form->process(array(&$fb, 'processForm'), false)) {
+			    $this->localRedirect($this->uri.'?list=posted&new_event_id='.$edt->event_id);
+			    exit(0);
+			}
+		}
+	    return $renderer->toHtml();
+	}
 	
 	/**
 	 * This function returns a list of calendars for the current account.
