@@ -311,14 +311,17 @@ form div.error {
 	padding: 0 0 10px 0;
 }
 
-#maincontent a#formShow {
-	clear: both;
+#maincontent .subsectionlink, #maincontent a#formShow {
 	padding: 2px;
 	border: 1px solid #266cb3;
 	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;
-	display: block;
 	background: #3e83c9;
 	color: #fff;
+	}
+
+#maincontent a#formShow {
+	clear: both;
+	display: block;
 	margin: -10px 0 0 10px;
 }
 #maincontent form fieldset li.consider div.element{
@@ -616,7 +619,7 @@ table.eventlisting tr.alt {
 /*	-------------------------------------------------------------
 	Buttons
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
-body#normal table.eventlisting td.edit a,#maincontent table.eventlisting td a.user_perm_edit
+#maincontent table.eventlisting td.edit a,#maincontent table.eventlisting td a.user_perm_edit
 	{
 	display: block;
 	padding: 0;
@@ -635,7 +638,7 @@ body#normal table.eventlisting td.edit a,#maincontent table.eventlisting td a.us
 	height: 21px;
 }
 
-body#normal table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
+#mainconten table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
 	{
 	background-position: 0 -22px;
 }

@@ -93,12 +93,13 @@ class UNL_UCBCN_Manager_EventForm
     function getRelatedLocationDateAndTimes($event)
     {
 		$edt = UNL_UCBCN::factory('eventdatetime');
+		$edt->selectAdd('UNIX_TIMESTAMP(starttime) AS starttimeu, UNIX_TIMESTAMP(endtime) AS endtimeu');
 		$edt->event_id = $event->id;
 		$edt->orderBy('starttime DESC');
 		$instances = $edt->find();
 		if ($instances) {
 		    require_once 'HTML/Table.php';
-	        $table = new HTML_Table();
+	        $table = new HTML_Table(array('class'=>'eventlisting'));
 	        $table->addRow(array('Start Time','End Time','Location','Edit'),null,'TH');
 		    while ($edt->fetch()) {
 		        if (isset($edt->location_id)) {
@@ -107,9 +108,13 @@ class UNL_UCBCN_Manager_EventForm
 		        } else {
 		            $location = 'Unknown';
 		        }
-			    $table->addRow(array($edt->starttime,$edt->endtime,$location,'<a href="'.$this->manager->uri.'?action=eventdatetime&id='.$edt->id.'">Edit</a>'));
+			    $table->addRow(array(date('M jS g:ia',$edt->starttimeu),
+			                        date('M jS g:ia',$edt->endtimeu),
+			                        $location,
+			                        '<a href="'.$this->manager->uri.'?action=eventdatetime&id='.$edt->id.'">Edit</a>'));
 			}
-			$table->addRow(array('<a href="'.$this->manager->uri.'?action=eventdatetime&event_id='.$event->id.'">Add additional location, date and time.</a>'));
+			$table->addRow(array('<a class="subsectionlink" href="'.$this->manager->uri.'?action=eventdatetime&event_id='.$event->id.'">Add additional location, date and time.</a>'));
+			$table->setColAttributes(3,'class="edit"');
 			return $table->toHtml();
 		} else {
 		    return 'Could not find any related event date and times.';
