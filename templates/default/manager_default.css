@@ -329,7 +329,7 @@ form div.error {
 	background:#dde6ec;
 	padding:0 5px 2px 5px; 
 }
-#maincontent a#formShow :focus {
+#maincontent a#formShow:focus, #maincontent a#formShow:active {
 	color: #fff !important;
 	text-decoration: underline;
 }
