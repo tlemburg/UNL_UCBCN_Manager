@@ -737,33 +737,48 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	{
 	    $msg = '';
 	    $edt = $this->factory('eventdatetime');
-	    if (isset($_GET['id'])) {
-	        $edt->get($_GET['id']);
-	    }
-	    $fb = DB_DataObject_FormBuilder::create($edt);
-		$form = $fb->getForm($this->uri.'?action=eventdatetime');
-		
-		if (isset($_GET['event_id']) && !isset($edt->id)) {
-		    $form->setDefaults(array('event_id'=>$_GET['event_id']));
-		    $event = $this->factory('event');
-		    if ($event->get($_GET['event_id'])) {
-		        $msg = 'New Event Date &amp; Time for '.$event->title;
+	    if (isset($_GET['delete'])) {
+	        if (UNL_UCBCN::userHasPermission($this->user,'Event Delete',$this->calendar) && $edt->get($_GET['delete'])) {
+	            $event_id = $edt->event_id;
+	            $res = $edt->delete();
+	            if ($res) {
+	                // Successfully deleted. Return user to edit form.
+	                $this->localRedirect($this->uri.'?action=createEvent&id='.$event_id);
+	            } else {
+	                return $res;
+	            }
+	        } else {
+	            return new UNL_UCBCN_Error('You do not have permission to delete events.');
+	        }
+	    } else {
+		    if (isset($_GET['id'])) {
+		        $edt->get($_GET['id']);
 		    }
-		} else {
-		    $event = $edt->getLink('event_id');
-	        $msg = 'Editing Event Date &amp; Time for '.$event->title;
-		}
-		$form->insertElementBefore(HTML_QuickForm::createElement('header','eventlocationheader',$msg),
-		    'location_id');
-		$renderer =& new HTML_QuickForm_Renderer_Tableless();
-		$form->accept($renderer);
-		if ($form->validate()) {
-			if ($form->process(array(&$fb, 'processForm'), false)) {
-			    $this->localRedirect($this->uri.'?list=posted&new_event_id='.$edt->event_id);
-			    exit(0);
+		    $fb = DB_DataObject_FormBuilder::create($edt);
+			$form = $fb->getForm($this->uri.'?action=eventdatetime');
+			
+			if (isset($_GET['event_id']) && !isset($edt->id)) {
+			    $form->setDefaults(array('event_id'=>$_GET['event_id']));
+			    $event = $this->factory('event');
+			    if ($event->get($_GET['event_id'])) {
+			        $msg = 'New Event Date &amp; Time for '.$event->title;
+			    }
+			} else {
+			    $event = $edt->getLink('event_id');
+		        $msg = 'Editing Event Date &amp; Time for '.$event->title;
 			}
-		}
-	    return $renderer->toHtml();
+			$form->insertElementBefore(HTML_QuickForm::createElement('header','eventlocationheader',$msg),
+			    'location_id');
+			$renderer =& new HTML_QuickForm_Renderer_Tableless();
+			$form->accept($renderer);
+			if ($form->validate()) {
+				if ($form->process(array(&$fb, 'processForm'), false)) {
+				    $this->localRedirect($this->uri.'?list=posted&new_event_id='.$edt->event_id);
+				    exit(0);
+				}
+			}
+		    return $renderer->toHtml();
+	    }
 	}
 	
 	/**

@@ -629,6 +629,15 @@ table.eventlisting tr.alt {
 	height: 21px;
 }
 
+#maincontent table.eventlisting td.delete a, button#delete_event {
+	display: block;
+	padding: 0;
+	text-indent: -9999px;
+	width: 48px;
+	height: 22px;
+	background: url(images/button/delete.gif) no-repeat;
+	}
+
 #maincontent table.eventlisting td a.user_perm_remove {
 	display: block;
 	padding: 0;
@@ -644,10 +653,7 @@ table.eventlisting tr.alt {
 }
 
 button#delete_event {
-	width: 48px;
-	height: 22px;
 	float: left;
-	background: url(images/button/delete.gif) no-repeat;
 }
 
 button {

@@ -100,7 +100,8 @@ class UNL_UCBCN_Manager_EventForm
 		if ($instances) {
 		    require_once 'HTML/Table.php';
 	        $table = new HTML_Table(array('class'=>'eventlisting'));
-	        $table->addRow(array('Start Time','End Time','Location','Edit'),null,'TH');
+	        $table->addRow(array('Start Time','End Time','Location','Edit','Delete'),null,'TH');
+	        $instances = 0;
 		    while ($edt->fetch()) {
 		        if (isset($edt->location_id)) {
 		            $l = $edt->getLink('location_id');
@@ -108,13 +109,20 @@ class UNL_UCBCN_Manager_EventForm
 		        } else {
 		            $location = 'Unknown';
 		        }
-			    $table->addRow(array(date('M jS g:ia',$edt->starttimeu),
+		        if ($instances) {
+		            $delete = '<a onclick="return confirm(\'Are you sure?\');" href="'.$this->manager->uri.'?action=eventdatetime&delete='.$edt->id.'">Delete</a>';
+		        } else {
+		            $delete = '';
+		        }
+			    $instances = $table->addRow(array(date('M jS g:ia',$edt->starttimeu),
 			                        date('M jS g:ia',$edt->endtimeu),
 			                        $location,
-			                        '<a href="'.$this->manager->uri.'?action=eventdatetime&id='.$edt->id.'">Edit</a>'));
+			                        '<a href="'.$this->manager->uri.'?action=eventdatetime&id='.$edt->id.'">Edit</a>',
+			                        $delete));
 			}
 			$table->addRow(array('<a class="subsectionlink" href="'.$this->manager->uri.'?action=eventdatetime&event_id='.$event->id.'">Add additional location, date and time.</a>'));
 			$table->setColAttributes(3,'class="edit"');
+			$table->setColAttributes(4,'class="delete"');
 			return $table->toHtml();
 		} else {
 		    return 'Could not find any related event date and times.';
