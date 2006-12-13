@@ -16,10 +16,12 @@ function addLoadEvent(func) {
 addLoadEvent(function() {
 	updateRow();
 	if(document.getElementById('unl_ucbcn_event')){
-	requiredField();
-	hideField();
-   
-	}
+		requiredField();
+		hideField();
+   	}
+   	
+   	var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+    inputUncheck[0].style.display = 'none';
 });
 
 function getElementsByClassName(oElm, strTagName, strClassName){
@@ -53,16 +55,31 @@ function checknegate(id){
 function highlightLine(l,id) {
 	animation(l,id);	
 	checkevent(id);
+	checkInput();
 }
 
 function animation(l,id){
 	var TRrow = "row" + id;
-	if(!l.className){
-	Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffff',to:'#ffffcc',restoreColor:'#ffffcc',toggle: true});
+	var input = l.childNodes[0].childNodes[0];	
+	if (input.checked == true){
+		if(!l.className){
+			Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffcc',to:'#ffffff',restoreColor: '#ffffff',toggle: false});
+		}
+		else{
+			Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffcc',to:'#e8f5fa',restoreColor: '#e8f5fa',toggle: false});
+		} 
 	}
 	else{
-	Spry.Effect.Highlight(TRrow,{duration:400,from:'#e8f5fa',to:'#ffffcc',restoreColor:'#ffffcc',toggle: true});
-	} 
+		if(!l.className){
+			Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffff',to:'#ffffcc',restoreColor: '#ffffcc',toggle: false});
+		}
+		else{
+			Spry.Effect.Highlight(TRrow,{duration:400,from:'#e8f5fa',to:'#ffffcc',restoreColor: '#ffffcc',toggle: false});
+		} 
+		//bring back uncheck all button
+		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+		inputUncheck[0].style.display = 'inline';
+	}
 }
 
 function checkevent(id) {
@@ -71,15 +88,16 @@ function checkevent(id) {
 }
 
 function updateRow(){
+
 	var rowT = document.getElementsByTagName('tr');
 	for (var i=0; i< rowT.length; i++)
 		{
-			if(rowT[i].className == 'updated'){
-				if(rowT[i].className == 'alt'){
-				Spry.Effect.Highlight(rowT[i],{duration:2000,from:'#FAFAB7',to:'#e8f5fa',toggle: false});
+			if(rowT[i].className.indexOf('updated') >= 0){
+				if(rowT[i].className.indexOf('alt') >= 0){
+				Spry.Effect.Highlight(rowT[i],{duration:2000,from:'#FAFAB7',to:'#e8f5fa',restoreColor: '#e8f5fa',toggle: false});
 				}
 				else{
-				Spry.Effect.Highlight(rowT[i],{duration:2000,from:'#FAFAB7',to:'#ffffff',toggle: false});					
+				Spry.Effect.Highlight(rowT[i],{duration:2000,from:'#FAFAB7',to:'#ffffff',restoreColor: '#ffffff',toggle: false});					
 				}
 			}
 		}	
@@ -168,14 +186,50 @@ function createButton(linktext, attachE, actionFunc, idN){
 function setCheckboxes(formid,val)
 {
 	try {
-		var f = document.getElementById(formid);
+		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+		var inputCheck = getElementsByClassName(document, "a", "checkall");
+    	var f = document.getElementById(formid);
 		var checks = f.getElementsByTagName('input');
 		for (var i=0;i<checks.length;i++) {
+			var TDcell = checks[i].parentNode.parentNode;
 			if (val) {
 				checks[i].checked = true;
+				Spry.Effect.Highlight(TDcell,{duration:400,from:'#FFFFFF',to:'#ffffcc',restoreColor:'#ffffcc',toggle: false});
+				inputCheck[0].style.display = 'none';
+				inputUncheck[0].style.display = 'inline';
 			} else {
 				checks[i].checked = false;
+				if(TDcell.className.indexOf('alt') >= 0){
+					Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#e8f5fa',restoreColor:'#e8f5fa',toggle: false});
+				}
+				else{
+					Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#ffffff',restoreColor:'#ffffff',toggle: false});					
+				}
+				inputCheck[0].style.display = 'inline';
+				inputUncheck[0].style.display = 'none';
 			}
 		}
+	
 	} catch(e) {}
+}
+
+//we need to constantly check whether any of the inputs are selected
+function checkInput(){
+	var flag = 0;
+	var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+	var inputCheck = getElementsByClassName(document, "a", "checkall");
+	var f = document.getElementById('formlist');
+	var checks = f.getElementsByTagName('input');
+	
+	for(k=0;k<checks.length;k++){
+		if(checks[k].checked == true){
+			flag = 1;
+		}
+	}
+	if (flag == 0){
+		inputUncheck[0].style.display = 'none';
+	}
+	else{
+		inputCheck[0].style.display = 'inline';
+	}
 }

@@ -311,14 +311,14 @@ form div.error {
 	padding: 0 0 10px 0;
 }
 
-#maincontent .subsectionlink, #maincontent a#formShow {
+#maincontent .subsectionlink, #maincontent a#formShow, #maincontent a.checkall, #maincontent a.uncheckall {
 	padding: 2px;
 	border: 1px solid #266cb3;
 	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;
 	background: #3e83c9;
 	color: #fff;
 	}
-
+#maincontent a.checkall, #maincontent a.uncheckall{}
 #maincontent a#formShow {
 	clear: both;
 	display: block;
@@ -657,7 +657,7 @@ button#delete_event {
 }
 
 button {
-	margin: 0 5px 0 0;
+	margin: 10px 5px 0 0;
 }
 
 button#moveto_pending {
