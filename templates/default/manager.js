@@ -19,9 +19,10 @@ addLoadEvent(function() {
 		requiredField();
 		hideField();
    	}
-   	
-   	var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
-    inputUncheck[0].style.display = 'none';
+   	if(document.getElementById('formlist')){
+   		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+    	inputUncheck[0].style.display = 'none';
+    }
 });
 
 function getElementsByClassName(oElm, strTagName, strClassName){
