@@ -455,68 +455,50 @@ form#event_search input.search_submit {
 /*	-------------------------------------------------------------
 	Login Form
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
-body#login #right_area,body#login #navigation {
+body#login #navigation {
 	display: none;
 }
 
-body#login #main_left {
-	position: relative;
-}
 
-body#login a#forgot {
-	position: absolute;
-	font-size: 0.6em;
-	letter-spacing: normal;
-	text-decoration: none;
-	margin: -24px 0 0 57px;
-}
-
-body#login div#maincontent form#login {
-	width: 431px;
-	height: 186px;
-	background: #fff url(images/login-calendar_03.gif) no-repeat;
-	padding: 63px 0 0 0;
-	font-size: 18px;
-	letter-spacing: -1px;
-}
-
-form#login input {
-	background: #deecfd;
-	border: 1px solid #c2d4e2;
-	width: 200px;
-	margin: 0;
-	font-size: 17px;
-	padding: 3px;
-}
-
-form#login button#submit {
-	background: url(images/button/c_submit.gif) no-repeat;
+form#event_login button#submit {
+	background: url(images/button/c_submit.gif) no-repeat 0 0;
 	width: 48px;
 	height: 21px;
 	display: block;
 	text-indent: -9999px;
 	border: none;
 	margin-top: 3px;
+	cursor:pointer;
 }
 
-form#login button#submit :hover {
+form#event_login button#submit:hover {
 	background-position: 0 -22px;
 }
+body#login #maincontent{padding-top:50px!important;}
+.login-left span{color:#900;clear:both;display:block;}
+.login-left{background:url(images/cal-logo.gif) no-repeat right bottom;margin-right:10px;padding:2px 0 60px;width:250px;float:left;text-align:right;font-size:1.5em;line-height:20px;}
+.login-right{float:right;width:415px;padding:5px 0 0 15px;border-left:1px solid #ddd;}
 
-form#login input:focus {
-	background: #ffffcc;
-}
+body#login #maincontent input{background:#eee;margin:2px 0;_margin:0;width:200px;}
+body#login #maincontent input:focus{background:#ffffcc}
+body#login #maincontent form label.element {width: 65px;}
 
-form#login label {
-	margin-top: 8px;
-}
+body#login #maincontent form fieldset{width:415px;}
 
-form#login fieldset {
-	background: none;
-}
-
+body#login div#container #main_right{position:absolute;margin:0 0 0 130px}
+body#login {background:#eee;}
+body#login #footer{background:#eee;border:none;}
+body#login	#footer #footer_floater {
+			border-top: 3px solid #AF0909; 
+			border-bottom: 1px solid #666;
+			padding:5px 11px 10px 11px;
+			background: #414241;}
+body#login #container div.clear {
+			min-height:500px;	
+			height:500px;	
+			padding:0 14px 0 14px;}
 form#cal_choose fieldset {
-	border: none;
+			border: none;
 }
 
 /*	-------------------------------------------------------------
