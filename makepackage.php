@@ -38,7 +38,8 @@ $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
 						'Manager/Tableless.php'		=> 'php',
 						'Manager/FormBuilder.php'		=> 'php',
 						'Manager/Plugin.php'			=> 'php',
-						'Manager/EventForm.php'        => 'php'
+						'Manager/EventForm.php'        => 'php',
+						'Manager/jscalendar.php'        => 'php'
 						)
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
@@ -53,10 +54,8 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.3.0');
-$pfm->setReleaseVersion('0.3.3');
-$pfm->setNotes('Implement Request #25  	 Add a \'Select All\' option for sections with many checkboxes.
-Fix Bug #32 Editing event adds second location info section
-Implement Request #34	Add a way to duplicate events');
+$pfm->setReleaseVersion('0.3.4');
+$pfm->setNotes('Changes to login screen, fixes validation (Alvin Woon).');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');

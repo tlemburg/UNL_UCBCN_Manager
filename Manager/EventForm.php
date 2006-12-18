@@ -1,5 +1,7 @@
 <?php
 
+require_once 'UNL/UCBCN/Manager/jscalendar.php';
+
 class UNL_UCBCN_Manager_EventForm
 {
     

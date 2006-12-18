@@ -112,7 +112,7 @@ function requiredField(){
 		//alert(lastrequired.length);
 		lastrequired[lastrequired.length - 1].id = 'lastfieldset';
 		
-		for(i=0; i<fieldset.length; i++){
+		for(var i=0; i<fieldset.length; i++){
 			//var divrequired = getElementsByClassName(fieldset[i], "div", "reqnote");
 			var spanrequired = getElementsByClassName(fieldset[i], "span", "required");
 			if (spanrequired.length > 0){
