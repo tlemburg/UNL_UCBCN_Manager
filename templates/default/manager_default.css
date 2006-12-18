@@ -310,7 +310,7 @@ form div.error {
 #maincontent form fieldset.doptionaldetailsheader_class {
 	padding: 0 0 10px 0;
 }
-
+#maincontent .subsectionlink{width:20em;margin-top:10px;text-align:left;}
 #maincontent .subsectionlink, #maincontent a#formShow, #maincontent a.checkall, #maincontent a.uncheckall {
 	padding: 2px;
 	border: 1px solid #266cb3;
@@ -318,18 +318,16 @@ form div.error {
 	background: #3e83c9;
 	color: #fff;
 	}
-#maincontent a.checkall, #maincontent a.uncheckall{}
-#maincontent a#formShow {
+#maincontent a#formShow, #maincontent .subsectionlink{
 	clear: both;
 	display: block;
-	margin: -10px 0 0 10px;
+	margin-left:10px;
 }
 #maincontent form fieldset li.consider div.element{
-
 	background:#dde6ec;
 	padding:0 5px 2px 5px; 
 }
-#maincontent a#formShow:focus, #maincontent a#formShow:active {
+#maincontent a#formShow:focus, #maincontent a#formShow:active, #maincontent .subsectionlink:focus, #maincontent .subsectionlink:active {
 	color: #fff !important;
 	text-decoration: underline;
 }
@@ -544,6 +542,9 @@ table.eventlisting {
 	width: 100%;
 }
 
+#maincontent form fieldset li table.eventlisting{background:#fff;width:680px;margin:0 0 0 10px}
+#maincontent form fieldset li table.eventlisting th{text-align:left;padding:4px;background:#666;color:#fff;}
+#maincontent form fieldset li table.eventlisting td{border:none;text-align:left;}
 #maincontent table.eventlisting input {
 	border: none;
 }
@@ -629,7 +630,7 @@ table.eventlisting tr.alt {
 	height: 21px;
 }
 
-#mainconten table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
+#maincontent table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
 	{
 	background-position: 0 -22px;
 }
@@ -670,7 +671,6 @@ button#moveto_posted,button#delete_event,button#moveto_pending,button#search
 	cursor: pointer;
 }
 
-button#moveto_posted :hover,button#delete_event :hover,button#moveto_pending
-	:hover,button#search :hover {
+button#moveto_posted:hover,button#delete_event:hover,button#moveto_pending:hover,button#search:hover {
 	background-position: 0 -22px;
 }
