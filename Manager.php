@@ -18,6 +18,7 @@ require_once 'UNL/UCBCN/EventListing.php';
 require_once 'UNL/UCBCN/Manager/Tableless.php';
 require_once 'UNL/UCBCN/Manager/Login.php';
 require_once 'UNL/UCBCN/Manager/FormBuilder_Driver.php';
+require_once 'HTML/QuickForm/group.php';
 
 /**
  * Class which handles all event creation and authentication. This class acts as the basis for the
@@ -735,6 +736,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 */
 	function showEventDateTimeForm()
 	{
+	    require_once 'UNL/UCBCN/Manager/jscalendar.php';
 	    $msg = '';
 	    $edt = $this->factory('eventdatetime');
 	    if (isset($_GET['delete'])) {
