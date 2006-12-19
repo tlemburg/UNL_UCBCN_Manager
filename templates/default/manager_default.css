@@ -630,7 +630,7 @@ table.eventlisting tr.alt {
 	height: 21px;
 }
 
-#maincontent table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
+#maincontent table.eventlisting td.delete a:hover, #maincontent table.eventlisting td.edit a:hover,#maincontent table.eventlisting td a.user_perm_remove:hover,#maincontent table.eventlisting td a.user_perm_edit:hover
 	{
 	background-position: 0 -22px;
 }
