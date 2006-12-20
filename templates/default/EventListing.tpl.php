@@ -34,7 +34,11 @@ foreach ($this->events as $e) {
 	if ($instances) {
 		$row .= '<ul>';
 			while ($edt->fetch()) {
-            	$row .= '<li>'.date('M jS g:ia',strtotime($edt->starttime)).'</li>';
+			    if (substr($edt->starttime,11) != '00:00:00') {
+			        $row .= '<li>'.date('M jS g:ia',strtotime($edt->starttime)).'</li>';
+			    } else {
+			        $row .= '<li>'.date('M jS',strtotime($edt->starttime)).'</li>';
+			    }
 			}
 		$row .= '</ul>';
     } else {
