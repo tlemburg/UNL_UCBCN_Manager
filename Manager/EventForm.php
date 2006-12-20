@@ -116,8 +116,18 @@ class UNL_UCBCN_Manager_EventForm
 		        } else {
 		            $delete = '';
 		        }
-			    $instances = $table->addRow(array(date('M jS g:ia',$edt->starttimeu),
-			                        date('M jS g:ia',$edt->endtimeu),
+		        if (substr($edt->starttime,11) != '00:00:00') {
+			        $stime .= '<li>'.date('M jS g:ia', $edt->starttimeu).'</li>';
+			    } else {
+			        $stime .= '<li>'.date('M jS', $edt->starttimeu).'</li>';
+			    }
+			    if (substr($edt->endtime,11) != '00:00:00') {
+			        $etime .= '<li>'.date('M jS g:ia', $edt->endtimeu).'</li>';
+			    } else {
+			        $etime .= '<li>'.date('M jS', $edt->endtimeu).'</li>';
+			    }
+			    $instances = $table->addRow(array($stime,
+			                        $etime,
 			                        $location,
 			                        '<a href="'.$this->manager->uri.'?action=eventdatetime&id='.$edt->id.'">Edit</a>',
 			                        $delete));
