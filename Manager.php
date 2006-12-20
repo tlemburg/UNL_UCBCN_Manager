@@ -281,6 +281,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 					if ($this->userHasPermission($this->user,'Event Create',$this->calendar)) {
 						if (isset($_GET['id'])) {
 							$id = (int)$_GET['id'];
+						} elseif (isset($_POST['id'])) {
+						    $id = (int)$_POST['id'];
 						} else {
 							$id = NULL;
 						}
