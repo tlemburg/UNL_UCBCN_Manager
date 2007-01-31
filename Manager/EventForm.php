@@ -1,7 +1,17 @@
 <?php
-
+/**
+ * Basic functions related to the event submission form.
+ * 
+ * @package UNL_UCBCN_Manager
+ * @author bbieber
+ */
 require_once 'UNL/UCBCN/Manager/jscalendar.php';
 
+/**
+ * This class generates a form for an Event.
+ *
+ * @package UNL_UCBCN_Manager
+ */
 class UNL_UCBCN_Manager_EventForm
 {
     
@@ -63,6 +73,12 @@ class UNL_UCBCN_Manager_EventForm
 		return $renderer->toHtml();
     }
     
+    /**
+     * Adds an event to the calendar currently in the manager member variable calendar.
+     *
+     * @param object UNL_UCBCN_Event $event
+     * @return bool
+     */
     function addToCalendar($event)
     {
         $che =& UNL_UCBCN::calendarHasEvent($this->manager->calendar,$event);
