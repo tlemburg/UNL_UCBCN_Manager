@@ -66,6 +66,7 @@ class UNL_UCBCN_Manager_InDesignExport extends UNL_UCBCN_Manager_Plugin
 	{
 		$mdb2 = $this->manager->getDatabaseConnection();
 		$res = $mdb2->query('SELECT event.title as title, ' .
+		                    'event.subtitle as subtitle, ' .
 							'event.description as description, ' .
 							'UNIX_TIMESTAMP( eventdatetime.starttime ) AS epoch, ' .
 							'location.name as location,' .
@@ -84,6 +85,9 @@ class UNL_UCBCN_Manager_InDesignExport extends UNL_UCBCN_Manager_Plugin
 			echo "<ASCII-MAC>\r<vsn:3.000000><fset:InDesign-Roman><ctable:=<Black:COLOR:CMYK:Process:0.000000,0.000000,0.000000,1.000000>>";
 			while ($row = $res->fetchRow(MDB2_FETCHMODE_ASSOC)) {
 				echo "\r".date('M\. j\, ',$row['epoch']).str_replace(array('<i>','</i>'),array('<ct:Italic>','<ct:>'),$row['title']);
+				if (isset($row['subtitle'])) {
+					echo ' - '.$row['subtitle'];
+				}
 				if (isset($row['description'])) {
 					echo ' - '.$row['description'];
 				}

@@ -37,9 +37,9 @@ $pfm->setDescription('This package is a small plugin for the UNL_UCBCN_Manager w
 $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('alpha');
 $pfm->setReleaseStability('alpha');
-$pfm->setAPIVersion('0.0.1');
-$pfm->setReleaseVersion('0.0.1');
-$pfm->setNotes("* First release.");
+$pfm->setAPIVersion('0.0.2');
+$pfm->setReleaseVersion('0.0.2');
+$pfm->setNotes("* Add subtitle");
 
 $pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 $pfm->setLicense('PHP License', 'http://www.php.net/license');
