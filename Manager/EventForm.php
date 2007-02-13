@@ -34,8 +34,10 @@ class UNL_UCBCN_Manager_EventForm
 				return new UNL_UCBCN_Error('Error, the event with that record was not found!');
 			}
 		}
-		$fb = UNL_UCBCN_Manager_FormBuilder::create($events,false,'UCBCN_QuickForm','UNL_UCBCN_Manager_FormBuilder');
-		$form = $fb->getForm($this->manager->uri.'?action=createEvent');
+		$form = new HTML_QuickForm('unl_ucbcn_event','post',$this->manager->uri.'?action=createEvent');
+		$fb =& UNL_UCBCN_Manager_FormBuilder::create($events,false,'UCBCN_QuickForm','UNL_UCBCN_Manager_FormBuilder');
+		$fb->useForm($form);
+		$form =& $fb->getForm($this->manager->uri.'?action=createEvent');
 		
 		if (isset($events->id)) {
 		    $form->insertElementBefore(HTML_QuickForm::createElement('header','eventlocationheader','Event Location, Date and Time'),'optionaldetailsheader');
@@ -47,10 +49,10 @@ class UNL_UCBCN_Manager_EventForm
 		$renderer->addStopFieldsetElements(array(
 													'__submit__'
 													));
-		$form->accept($renderer);
 		$form->setDefaults(array(
 					'uidcreated'		=> $this->manager->user->uid,
 					'uidlastupdated'	=> $this->manager->user->uid));
+		$form->accept($renderer);
 		if ($form->validate()) {
 			// Form has passed the client/server validation and can be inserted.
 			/* If this is an update, first check to see if the current user has permission to edit
@@ -121,6 +123,8 @@ class UNL_UCBCN_Manager_EventForm
 	        $table->addRow(array('Start Time','End Time','Location','Edit','Delete'),null,'TH');
 	        $instances = 0;
 		    while ($edt->fetch()) {
+		        $etime = '';
+		        $stime = '';
 		        if (isset($edt->location_id)) {
 		            $l = $edt->getLink('location_id');
 		            $location = $l->name;
@@ -139,7 +143,7 @@ class UNL_UCBCN_Manager_EventForm
 			    }
 			    if (substr($edt->endtime,11) != '00:00:00') {
 			        $etime .= '<li>'.date('M jS g:ia', $edt->endtimeu).'</li>';
-			    } else {
+			    } elseif ($edt->endtime != '0000-00-00 00:00:00') {
 			        $etime .= '<li>'.date('M jS', $edt->endtimeu).'</li>';
 			    }
 			    $instances = $table->addRow(array($stime,
