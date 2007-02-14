@@ -57,6 +57,6 @@ foreach ($this->events as $event) {
 </table>
 <a href="#" class="checkall" onclick="setCheckboxes('searchlist',true); return false">Check All</a>
 <a href="#" class="uncheckall" onclick="setCheckboxes('searchlist',false); return false">Uncheck All</a>
-<button id="moveto_pending" type="submit" name="pending" value="pending">Add to Pending</button>
-<button id="moveto_posted" type="submit" name="posted" value="posted">Add to Posted</button>
+<input class="btnsubmit" id="moveto_pending" type="submit" name="pending" value="Add to Pending" />
+<input class="btnsubmit" id="moveto_posted" type="submit" name="posted" value="Add to Posted" />
 </form>
