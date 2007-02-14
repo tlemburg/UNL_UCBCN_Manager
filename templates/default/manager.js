@@ -23,6 +23,7 @@ addLoadEvent(function() {
    		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
     	inputUncheck[0].style.display = 'none';
     }
+    document.getElementById('__submit__').className = 'submitButton';
 });
 
 function getElementsByClassName(oElm, strTagName, strClassName){
@@ -145,6 +146,7 @@ function hideField(){
 		createButton('Click to add additional details', id, formHide, 'formShow')
 		formContainer[0].style.display='none';
 	  	
+	  
 	  	//fix some layout problem at the same time
 	  	var eventType = document.getElementById('eventtypeheader');
 	  	eventType.getElementsByTagName('label')[0].style.display = 'none';

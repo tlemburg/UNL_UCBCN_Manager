@@ -219,13 +219,7 @@ div.cal_widget fieldset legend {
 	background: #ffffcc;
 }
 
-#maincontent form input#__submit__ {
-	background: #f0e6d7;
-	color: #333;
-	width: 200px;
-	border: 1px solid #ccc;
-	border-color: #e8f5fa #ccc #ccc #e8f5fa;
-}
+
 
 #maincontent form select {
 	font-size: 0.8em;
@@ -604,12 +598,12 @@ table.eventlisting tr.alt {
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
 #maincontent table.eventlisting td.edit a,#maincontent table.eventlisting td a.user_perm_edit
 	{
-	display: block;
-	padding: 0;
-	text-indent: -9999px;
-	background: url(images/edit.gif) no-repeat;
-	width: 33px;
-	height: 21px;
+	font-size:11px;
+	padding: 2px 4px;
+	border: 1px solid #266cb3;
+	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;
+	background: #3e83c9;
+	color: #fff;
 }
 
 #maincontent table.eventlisting td.delete a, button#delete_event {
@@ -642,12 +636,21 @@ button#delete_event {
 button {
 	margin: 10px 5px 0 0;
 }
-
-.btnsubmit {
+.btnsubmit, #maincontent form input.submitButton  {
 	display:block;
+	margin:10px 0 0!important;
 	cursor: pointer;
+	border:1px solid #ccc!important;
+	background:#ddd!important;
+	border-color:#d6d6d6 #909090 #909090 #d6d6d6!important;
 }
-
+.btnsubmit#delete_event{
+	float:left;
+	color:#fff!important;
+	margin:10px 5px 0 0!important;
+	background:#990000!important;
+	border-color:#d52828 #620404 #620404 #d52828!important;
+}
 button#moveto_pending {
 	width: 99px;
 	float: left;
