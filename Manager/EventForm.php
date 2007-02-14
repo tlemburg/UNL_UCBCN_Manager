@@ -45,15 +45,10 @@ class UNL_UCBCN_Manager_EventForm
 		        'optionaldetailsheader');
 		}
 		
-		$renderer =& new HTML_QuickForm_Renderer_Tableless();
-		$renderer->addStopFieldsetElements(array(
-													'__submit__'
-													));
 		$form->setDefaults(array(
 					'uidcreated'		=> $this->manager->user->uid,
 					'uidlastupdated'	=> $this->manager->user->uid));
-		$form->accept($renderer);
-		if ($form->validate()) {
+		if ($form->isSubmitted() && $form->validate()) {
 			// Form has passed the client/server validation and can be inserted.
 			/* If this is an update, first check to see if the current user has permission to edit
 			 * events for the calendar the event was originally posted on.
@@ -72,6 +67,11 @@ class UNL_UCBCN_Manager_EventForm
 			$form->freeze();
 			$form->removeElement('__submit__');
 		}
+		$renderer =& new HTML_QuickForm_Renderer_Tableless();
+		$renderer->addStopFieldsetElements(array(
+													'__submit__'
+													));
+		$form->accept($renderer);
 		return $renderer->toHtml();
     }
     
