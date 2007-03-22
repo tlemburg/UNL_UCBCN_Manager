@@ -53,9 +53,12 @@ $pfm->setDescription('This package gives authenticated users access to publish e
 $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
-$pfm->setAPIVersion('0.3.0');
-$pfm->setReleaseVersion('0.3.4');
-$pfm->setNotes('Changes to login screen, fixes validation (Alvin Woon).');
+$pfm->setAPIVersion('0.5.0');
+$pfm->setReleaseVersion('0.5.0');
+$pfm->setNotes('Changes to login screen, fixes validation (Alvin Woon).
+Many fixes for display, error messages etc.
+<button> actions did not work in IE 6 for Add to Posted etc.
+');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
@@ -65,7 +68,7 @@ $pfm->setPhpDep('5.0.0');
 $pfm->setPearinstallerDep('1.4.3');
 $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.php.net', '0.18.1');
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
-$pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.3.0');
+$pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.5.0');
 foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
 	$pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
 	$pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');

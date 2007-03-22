@@ -18,26 +18,28 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2006-12-14</date>
- <time>16:10:57</time>
+ <date>2007-03-22</date>
+ <time>16:25:18</time>
  <version>
-  <release>0.3.3</release>
-  <api>0.3.0</api>
+  <release>0.5.0</release>
+  <api>0.5.0</api>
  </version>
  <stability>
   <release>beta</release>
   <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
- <notes>Implement Request #25  	 Add a &apos;Select All&apos; option for sections with many checkboxes.
-Fix Bug #32 Editing event adds second location info section
-Implement Request #34	Add a way to duplicate events</notes>
+ <notes>Changes to login screen, fixes validation (Alvin Woon).
+Many fixes for display, error messages etc.
+&lt;button&gt; actions did not work in IE 6 for Add to Posted etc.
+ </notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
     <file name="EventForm.php" role="php" />
     <file name="FormBuilder.php" role="php" />
     <file name="FormBuilder_Driver.php" role="php" />
+    <file name="jscalendar.php" role="php" />
     <file name="Login.php" role="php" />
     <file name="Plugin.php" role="php" />
     <file name="SubForm.php" role="php" />
@@ -61,6 +63,7 @@ Implement Request #34	Add a way to duplicate events</notes>
       <file name="account_middle.gif" role="data" />
       <file name="arrow.gif" role="data" />
       <file name="arrowhover.gif" role="data" />
+      <file name="cal-logo.gif" role="data" />
       <file name="date.gif" role="data" />
       <file name="dott.gif" role="data" />
       <file name="dott.png" role="data" />
@@ -97,6 +100,17 @@ Implement Request #34	Add a way to duplicate events</notes>
       <file name="widget_list1.gif" role="data" />
       <file name="widget_list_hover.gif" role="data" />
      </dir> <!-- /templates/default/images -->
+     <dir name="jscalendar">
+      <dir name="lang">
+       <file name="calendar-en.js" role="data" />
+       <file name="cn_utf8.js" role="data" />
+      </dir> <!-- /templates/default/jscalendar/lang -->
+      <file name="cal.gif" role="data" />
+      <file name="calendar-setup.js" role="data" />
+      <file name="calendar.css" role="data" />
+      <file name="calendar.js" role="data" />
+      <file name="menuarrow.gif" role="data" />
+     </dir> <!-- /templates/default/jscalendar -->
      <file name="Error.tpl.php" role="data" />
      <file name="EventListing.tpl.php" role="data" />
      <file name="EventListing_search.tpl.php" role="data" />
@@ -208,7 +222,7 @@ Implement Request #34	Add a way to duplicate events</notes>
    <package>
     <name>UNL_UCBCN</name>
     <channel>pear.unl.edu</channel>
-    <min>0.3.0</min>
+    <min>0.5.0</min>
    </package>
   </required>
  </dependencies>
@@ -329,11 +343,40 @@ Switch to BSD License.</notes>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2006-12-14</date>
+   <date>2006-12-15</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
    <notes>Implement Request #25  	 Add a &apos;Select All&apos; option for sections with many checkboxes.
 Fix Bug #32 Editing event adds second location info section
 Implement Request #34	Add a way to duplicate events</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.3.4</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-02-14</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>Changes to login screen, fixes validation (Alvin Woon).</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-03-22</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>Changes to login screen, fixes validation (Alvin Woon).
+Many fixes for display, error messages etc.
+&lt;button&gt; actions did not work in IE 6 for Add to Posted etc.
+   </notes>
   </release>
  </changelog>
 </package>
