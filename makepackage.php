@@ -55,7 +55,8 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.5.0');
 $pfm->setReleaseVersion('0.5.1');
-$pfm->setNotes('Fix  Bug #43  	 Post install script fails if directory does not exist');
+$pfm->setNotes('Fix  Bug #43  	 Post install script fails if directory does not exist
+Fix  Bug #38  	 Check All button doesn\'t work for permission form ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');

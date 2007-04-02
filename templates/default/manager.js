@@ -197,17 +197,21 @@ function setCheckboxes(formid,val)
 			var TDcell = checks[i].parentNode.parentNode;
 			if (val) {
 				checks[i].checked = true;
-				Spry.Effect.Highlight(TDcell,{duration:400,from:'#FFFFFF',to:'#ffffcc',restoreColor:'#ffffcc',toggle: false});
+				if (formid != 'unl_ucbcn_user') {
+    				Spry.Effect.Highlight(TDcell,{duration:400,from:'#FFFFFF',to:'#ffffcc',restoreColor:'#ffffcc',toggle: false});
+                }
 				inputCheck[0].style.display = 'none';
 				inputUncheck[0].style.display = 'inline';
 			} else {
 				checks[i].checked = false;
-				if(TDcell.className.indexOf('alt') >= 0){
-					Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#e8f5fa',restoreColor:'#e8f5fa',toggle: false});
-				}
-				else{
-					Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#ffffff',restoreColor:'#ffffff',toggle: false});					
-				}
+				if (formid != 'unl_ucbcn_user'){
+                    if(TDcell.className.indexOf('alt') >= 0){
+                        Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#e8f5fa',restoreColor:'#e8f5fa',toggle: false});
+                    }
+                    else{
+                        Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#ffffff',restoreColor:'#ffffff',toggle: false});					
+                    }
+                }
 				inputCheck[0].style.display = 'inline';
 				inputUncheck[0].style.display = 'none';
 			}
