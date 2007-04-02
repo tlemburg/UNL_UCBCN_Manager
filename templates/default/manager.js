@@ -23,7 +23,9 @@ addLoadEvent(function() {
    		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
     	inputUncheck[0].style.display = 'none';
     }
-    document.getElementById('__submit__').className = 'submitButton';
+    try {
+	    document.getElementById('__submit__').className = 'submitButton';
+	} catch (e) {}
 });
 
 function getElementsByClassName(oElm, strTagName, strClassName){
