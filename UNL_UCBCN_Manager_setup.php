@@ -103,6 +103,9 @@ class UNL_UCBCN_Manager_setup_postinstall
 		$templateroot = $docroot.'templates'.DIRECTORY_SEPARATOR.$answers['template'].DIRECTORY_SEPARATOR;
 		$datadir = '@DATA_DIR@'. DIRECTORY_SEPARATOR . 'UNL_UCBCN_Manager' . DIRECTORY_SEPARATOR;
 		if ($this->createIndex) {
+			if (!is_dir($answers['docroot'].DIRECTORY_SEPARATOR)) {
+	    	    mkdir($answers['docroot'].DIRECTORY_SEPARATOR);
+	    	}
 			copy($datadir.'index.php', $docroot.'index.php');
 		}
 		

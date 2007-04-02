@@ -54,11 +54,8 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.5.0');
-$pfm->setReleaseVersion('0.5.0');
-$pfm->setNotes('Changes to login screen, fixes validation (Alvin Woon).
-Many fixes for display, error messages etc.
-<button> actions did not work in IE 6 for Add to Posted etc.
-');
+$pfm->setReleaseVersion('0.5.1');
+$pfm->setNotes('Fix  Bug #43  	 Post install script fails if directory does not exist');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
