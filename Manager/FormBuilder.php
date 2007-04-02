@@ -77,19 +77,13 @@
  *
  * PHP versions 4 and 5
  *
- * LICENSE: This source file is subject to version 3.0 of the PHP license
- * that is available through the world-wide-web at the following URI:
- * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
- * the PHP License and are unable to obtain it through the web, please
- * send a note to license@php.net so we can mail you a copy immediately.
- *
  * @category   DB
  * @package    DB_DataObject_FormBuilder
  * @author     Markus Wolff <mw21st@php.net>
  * @author     Justin Patrin <papercrane@reversefold.com>
- * @copyright  1997-2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    $Id: FormBuilder.php,v 1.228 2006/06/07 15:38:58 justinpatrin Exp $
+ * @copyright  1997-2006 The PHP Group
+ * @license    http://www.gnu.org/licenses/lgpl.txt LGPL 2.1
+ * @version    $Id: FormBuilder.php,v 1.237 2006/12/19 19:13:11 justinpatrin Exp $
  * @link       http://pear.php.net/package/DB_DataObject_FormBuilder
  * @see        DB_DataObject, HTML_QuickForm
  */
@@ -241,7 +235,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * A format string that represents the display settings for QuickForm date elements.
      * Example: "d-m-Y". See QuickForm documentation for details on format strings.
      * Legal letters to use in the format string that work with FormBuilder are:
-     * d,m,Y,H,i,s
+     * d,m,M,y,Y
      */
     var $dateElementFormat = 'd-m-Y';
 
@@ -249,7 +243,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * A format string that represents the display settings for QuickForm time elements.
      * Example: "H:i:s". See QuickForm documentation for details on format strings.
      * Legal letters to use in the format string that work with FormBuilder are:
-     * d,m,Y,H,i,s
+     * H,i,s
      */
     var $timeElementFormat = 'H:i:s';
 
@@ -257,7 +251,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * A format string that represents the display settings for QuickForm datetime elements.
      * Example: "d-m-Y H:i:s". See QuickForm documentation for details on format strings.
      * Legal letters to use in the format string that work with FormBuilder are:
-     * d,m,Y,H,i,s
+     * d,m,M,y,Y,H,i,s
      */
     var $dateTimeElementFormat = 'd-m-Y H:i:s';
 
@@ -477,9 +471,14 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
     var $selectAddEmpty = array();
 
     /**
-     * An string to put in the "empty option" added to select fields
+     * A string to put in the "empty option" added to select fields
      */
     var $selectAddEmptyLabel = '';
+
+    /**
+     * A string to put in the "empty option" added to radio fields
+     */
+    var $radioAddEmptyLabel = '';
 
     /**
      * By default, hidden fields are generated for the primary key of a
@@ -701,7 +700,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * Justin Patrin - currently linked to - Male
      * 
      * If the link field is set as NOT NULL then FormBuilder will not process
-     * and unchecked checkbox unless you specify a default value to set the link
+     * an unchecked checkbox unless you specify a default value to set the link
      * to. If null is allowed, the link will be set to NULL. To specify a default
      * value:
      * <code>
@@ -829,7 +828,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                                 'select'    => 'select',
                                 'multiselect'    => 'select',
                                 'popupSelect' => 'popupSelect',
-                                'elementTable' => 'elementTable');
+                                'elementGrid' => 'elementGrid');
 
     /**
      * Array of attributes for each element type. See the keys of elementTypeMap
@@ -849,7 +848,27 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
     var $fieldAttributes = array();
 
     /**
-     * Set to true to use set methods for accessing field values, if they exist.
+     * Set to true to use accessor methods (getters) for accessing field values, if they exist.
+     *
+     * If this is set to true and a method exists of the name getFieldName where
+     * FieldName is the name of the field then it will be called to get the value
+     * of the field.
+     *
+     * Note: The following field names will not work with getters due to function collisions
+     * in DB_DataObject. Do not use fields with these names in conjunction with useAccessors.
+     * * Link
+     * * Links
+     * * LinkArray
+     * * DatabaseConnection
+     * * DatabaseResult
+     *
+     * Note: Accessors may not be used to get link field values. Link field values are
+     * internal to a database and are assumed not to need accessors.
+     */
+    var $useAccessors = false;
+
+    /**
+     * Set to true to use mutator methods (setters) for setting field values, if they exist.
      *
      * If this is set to true and a method exists of the name setFieldName where
      * FieldName is the name of the field then it will be called to set the value
@@ -858,17 +877,10 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * Note: Do not use a field named From if you use this option. DB_DataObject
      * has a default method setFrom which will cause problems.
      *
-     * This option should also turn on using get methods, but it does not currently.
-     *
-     * The following field names will not work with getters due to function collisions
-     * in DB_DataObject:
-     * * Link
-     * * Links
-     * * LinkArray
-     * * DatabaseConnection
-     * * DatabaseResult
+     * Note: Mutators may not be used to set link fields. Link field values are internal
+     * to a database and are assumed not to need mutators.
      */
-    var $useAccessors = false;
+    var $useMutators = false;
 
     /**
      * DB_DataObject_FormBuilder::create()
@@ -1177,8 +1189,12 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     $element =& $this->preDefElements[$key];
                 } elseif (isset($links[$key])) {
                     // If this field links to another table, display selectbox or radiobuttons
-                    $opt = $this->getSelectOptions($key, false, !($type & DB_DATAOBJECT_NOTNULL));
-                    if (isset($this->linkElementTypes[$key]) && $this->linkElementTypes[$key] == 'radio') {
+                    $isRadio = isset($this->linkElementTypes[$key]) && $this->linkElementTypes[$key] == 'radio';
+                    $opt = $this->getSelectOptions($key,
+                                                   false,
+                                                   !($type & DB_DATAOBJECT_NOTNULL),
+                                                   $isRadio ? $this->radioAddEmptyLabel : $this->selectAddEmptyLabel);
+                    if ($isRadio) {
                         $element =& $this->_form->_createRadioButtons($key, $opt);
                     } else {
                         $element =& $this->_form->_createSelectBox($key, $opt);
@@ -1193,7 +1209,12 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                 // Auto-detect field types depending on field's database type
                 switch (true) {
                 case ($type & DB_DATAOBJECT_BOOL):
-                    $formValues[$key] = $this->_do->$key;
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $formValues[$key] = $this->_do->{'get'.$key}();
+                    } else {
+                        $formValues[$key] = $this->_do->$key;
+                    }
                     if ($formValues[$key] === 'f') {
                         $formValues[$key] = 0;
                     }
@@ -1202,7 +1223,12 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     }
                     break;
                 case ($type & DB_DATAOBJECT_INT):
-                    $formValues[$key] = $this->_do->$key;
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $formValues[$key] = $this->_do->{'get'.$key}();
+                    } else {
+                        $formValues[$key] = $this->_do->$key;
+                    }
                     if (!isset($element)) {
                         $element =& $this->_form->_createIntegerField($key);
                         $elValidator = 'numeric';
@@ -1210,11 +1236,17 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     break;
                 case (($type & DB_DATAOBJECT_DATE) && ($type & DB_DATAOBJECT_TIME)):
                     $this->debug('DATE & TIME CONVERSION using callback for element '.$key.' ('.$this->_do->$key.')!', 'FormBuilder');
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $fieldValue = $this->_do->{'get'.$key}();
+                    } else {
+                        $fieldValue = $this->_do->$key;
+                    }
                     if ($this->isCallableAndExists($this->dateFromDatabaseCallback)) {
-                        $formValues[$key] = call_user_func($this->dateFromDatabaseCallback, $this->_do->$key);
+                        $formValues[$key] = call_user_func($this->dateFromDatabaseCallback, $fieldValue);
                     } else {
                         $this->debug('WARNING: dateFromDatabaseCallback callback not callable', 'FormBuilder');
-                        $formValues[$key] = $this->_do->$key;
+                        $formValues[$key] = $fieldValue;
                     }
                     if (!isset($element)) {
                         $element =& $this->_form->_createDateTimeElement($key);  
@@ -1222,11 +1254,17 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     break;  
                 case ($type & DB_DATAOBJECT_DATE):
                     $this->debug('DATE CONVERSION using callback for element '.$key.' ('.$this->_do->$key.')!', 'FormBuilder');
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $fieldValue = $this->_do->{'get'.$key}();
+                    } else {
+                        $fieldValue = $this->_do->$key;
+                    }
                     if ($this->isCallableAndExists($this->dateFromDatabaseCallback)) {
-                        $formValues[$key] = call_user_func($this->dateFromDatabaseCallback, $this->_do->$key);
+                        $formValues[$key] = call_user_func($this->dateFromDatabaseCallback, $fieldValue);
                     } else {
                         $this->debug('WARNING: dateFromDatabaseCallback callback not callable', 'FormBuilder');
-                        $formValues[$key] = $this->_do->$key;
+                        $formValues[$key] = $fieldValue;
                     }
                     if (!isset($element)) {
                         $element =& $this->_form->_createDateElement($key);
@@ -1234,24 +1272,40 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     break;
                 case ($type & DB_DATAOBJECT_TIME):
                     $this->debug('TIME CONVERSION using callback for element '.$key.' ('.$this->_do->$key.')!', 'FormBuilder');
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $fieldValue = $this->_do->{'get'.$key}();
+                    } else {
+                        $fieldValue = $this->_do->$key;
+                    }
                     if ($this->isCallableAndExists($this->dateFromDatabaseCallback)) {
-                        $formValues[$key] = call_user_func($this->dateFromDatabaseCallback, $this->_do->$key);
+                        $formValues[$key] = call_user_func($this->dateFromDatabaseCallback, $fieldValue);
                     } else {
                         $this->debug('WARNING: dateFromDatabaseCallback callback not callable', 'FormBuilder');
-                        $formValues[$key] = $this->_do->$key;
+                        $formValues[$key] = $fieldValue;
                     }
                     if (!isset($element)) {
                         $element =& $this->_form->_createTimeElement($key);
                     }
                     break;
                 case ($type & DB_DATAOBJECT_TXT || $type & DB_DATAOBJECT_BLOB):
-                    $formValues[$key] = $this->_do->$key;
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $formValues[$key] = $this->_do->{'get'.$key}();
+                    } else {
+                        $formValues[$key] = $this->_do->$key;
+                    }
                     if (!isset($element)) {
                         $element =& $this->_form->_createTextArea($key);
                     }
                     break;
                 case ($type & DB_DATAOBJECT_STR):
-                    $formValues[$key] = $this->_do->$key;
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $formValues[$key] = $this->_do->{'get'.$key}();
+                    } else {
+                        $formValues[$key] = $this->_do->$key;
+                    }
                     if (!isset($element)) {
                         // If field content contains linebreaks, make textarea - otherwise, standard textbox
                         if (isset($this->_do->$key) && strlen($this->_do->$key) && strstr($this->_do->$key, "\n")) {
@@ -1371,7 +1425,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                             unset($crossLinkElement);
                         }
                         if (isset($crossLinkDo->fb_crossLinkExtraFields) || $crossLink['collapse']) {
-                            $this->_form->_addElementTable($groupName, array_values($colNames), $rowNames, $element);
+                            $this->_form->_addElementGrid($groupName, array_values($colNames), $rowNames, $element);
                         } else {
                             $this->_form->_addElementGroup($element, $groupName, $this->crossLinkSeparator);
                         }
@@ -1457,12 +1511,19 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                         $rows[] =& $row;
                         unset($row);
                     }
-                    $this->_form->_addElementTable($elName, $columnNames, $rowNames, $rows);
+                    $this->_form->_addElementGrid($elName, $columnNames, $rowNames, $rows);
                     unset($columnNames, $rowNames, $rows);
                     break;
                 case ($type & DB_DATAOBJECT_FORMBUILDER_ENUM):
-                    $formValues[$key] = $this->_do->$key;
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $formValues[$key] = $this->_do->{'get'.$key}();
+                    } else {
+                        $formValues[$key] = $this->_do->$key;
+                    }
                     if (!isset($element)) {
+                        $isRadio = isset($this->linkElementTypes[$key])
+                            && $this->linkElementTypes[$key] == 'radio';
                         if (isset($this->enumOptions[$key])) {
                             $options = $this->enumOptions[$key];
                         } else {
@@ -1484,13 +1545,16 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                         }*/
                         if (in_array($key, $this->selectAddEmpty)
                             || !($type & DB_DATAOBJECT_NOTNULL)) {
-                            $options = array('' => $this->selectAddEmptyLabel) + $options;
+                            $options = array('' => ($isRadio
+                                                    ? $this->radioAddEmptyLabel
+                                                    : $this->selectAddEmptyLabel))
+                                + $options;
                         }
                         if (!$options) {
                             return PEAR::raiseError('There are no options defined for the enum field "'.$key.'". You may need to set the options in the enumOptions option or use your own enumOptionsCallback.');
                         }
                         $element = array();
-                        if (isset($this->linkElementTypes[$key]) && $this->linkElementTypes[$key] == 'radio') {
+                        if ($isRadio) {
                             $element =& $this->_form->_createRadioButtons($key, $options);
                         } else {
                             $element =& $this->_form->_createSelectBox($key, $options);
@@ -1589,7 +1653,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                         }
                     }
                     if ($this->reverseLinks[$key]['collapse']) {
-                        $this->_form->_addElementTable($elName, array(), $rowNames, $table);
+                        $this->_form->_addElementGrid($elName, array(), $rowNames, $table);
                         $this->_form->_collapseRecordList($elName);
                     } else {
                         $this->_form->_addElementGroup($element, $elName, $this->crossLinkSeparator);
@@ -1601,7 +1665,12 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     $element =& $this->_form->_createHiddenField($key.'__placeholder');
                     break;
                 default:
-                    $formValues[$key] = $this->_do->$key;
+                    if ($this->useAccessors
+                        && method_exists($this->_do, 'get' . $key)) {
+                        $formValues[$key] = $this->_do->{'get'.$key}();
+                    } else {
+                        $formValues[$key] = $this->_do->$key;
+                    }
                     if (!isset($element)) {
                         $element =& $this->_form->_createTextField($key);
                     }
@@ -1678,7 +1747,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
             while (list($grp, $elements) = each($groups)) {
                 if (count($elements) == 1) {  
                     $this->_form->_addElement($elements[0]);
-                    $this->_form->_moveElementBefore($this->_getElementName($elements[0]), $grp.'__placeholder');
+                    $this->_form->_moveElementBefore($this->_form->_getElementName($elements[0]), $grp.'__placeholder');
                 } elseif (count($elements) > 1) {
                     $this->_form->_addElementGroup($elements, $grp, '&nbsp;');
                     $this->_form->_moveElementBefore($grp, $grp.'__placeholder');
@@ -1972,10 +2041,12 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * @param string $displayFields  (Optional) The name of the field used for the display text of the options
      * @param bool   $selectAddEmpty (Optional) If true, an empty option will be added to the list of options
      *                                          If false, the selectAddEmpty member var will be checked
+     * @param string $emptyLabel     (Optional) Label to use for empty options (defaults to $this->selectAddEmptyLabel)
+     *
      * @return array strings representing all of the records in the table $field links to.
      * @access public
      */
-    function getSelectOptions($field, $displayFields = false, $selectAddEmpty = false)
+    function getSelectOptions($field, $displayFields = false, $selectAddEmpty = false, $emptyLabel = false)
     {
         if (empty($this->_do->_database)) {
             // TEMPORARY WORKAROUND !!! Guarantees that DataObject config has
@@ -1991,29 +2062,31 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                                         $displayFields,
                                         $selectAddEmpty || in_array($field, $this->selectAddEmpty),
                                         $field,
-                                        $link[1]);
+                                        $link[1],
+                                        $emptyLabel);
 
-        if ($res !== false) {
-            return $res;
-        }
-
-        $this->debug('Error: '.get_class($opts).' does not inherit from DB_DataObject');
-        return array();
+        return $res;
     }
 
     /**
-     * Internal function to get the select potions for a table.
+     * Internal function to get the select options for a table.
      *
      * @param string The table to get the select display strings for.
      * @param array  array of diaply fields to use. Will default to the FB or DO options.
      * @param bool   If set to true, there will be an empty option in the returned array.
      * @param string the field in the current table which we're getting options for
      * @param string the field to use for the value of the options. Defaults to the PK of the $table
+     * @param string label to use for an empty option (defaults to $this->selectAddEmptyLabel)
      *
      * @return array strings representing all of the records in $table.
      * @access protected
      */
-    function _getSelectOptions($table, $displayFields = false, $selectAddEmpty = false, $field = false, $valueField = false) {
+    function _getSelectOptions($table,
+                               $displayFields = false,
+                               $selectAddEmpty = false,
+                               $field = false,
+                               $valueField = false,
+                               $emptyLabel = false) {
         $opts = DB_DataObject::factory($table);
         if (is_a($opts, 'db_dataobject')) {
             if ($this->isCallableAndExists($this->prepareLinkedDataObjectCallback)) {
@@ -2057,7 +2130,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                 
                 // FIXME!
                 if ($selectAddEmpty) {
-                    $list[''] = $this->selectAddEmptyLabel;
+                    $list[''] = $emptyLabel !== false ? $emptyLabel : $this->selectAddEmptyLabel;
                 }
                 // FINALLY, let's see if there are any results
                 if ($opts->find() > 0) {
@@ -2125,25 +2198,26 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                 }
             }
             unset($this->crossLinks[$key]);
-            $groupName  = '__crossLink_'.$crossLink['table'].
-                '_'.$fromField.
-                '_'.$toField;
+            $groupName  = $this->_sanitizeFieldName('__crossLink_'.$crossLink['table'].
+                                                    '_'.$fromField.
+                                                    '_'.$toField);
             $this->crossLinks[$groupName] = array_merge($crossLink,
                                                         array('fromField' => $fromField,
                                                               'toField' => $toField));
             foreach (array('preDefOrder', 'fieldsToRender', 'userEditableFields') as $arrName) {
                 foreach ($this->{$arrName} as $key => $value) {
-                    if ($value == '__crossLink_'.$crossLink['table']) {
+                    if ($this->_sanitizeFieldName($value)
+                        == $this->_sanitizeFieldName('__crossLink_'.$crossLink['table'])) {
                         $this->{$arrName}[$key] = $groupName;
                     }
                 }
             }
             foreach (array('preDefElements', 'fieldLabels', 'fieldAttributes') as $arrName) {
-                if (isset($this->{$arrName}['__crossLink_'.$crossLink['table']])) {
+                if (isset($this->{$arrName}[$this->_sanitizeFieldName('__crossLink_'.$crossLink['table'])])) {
                     if (!isset($this->{$arrName}[$groupName])) {
                         $this->{$arrName}[$groupName] =& $this->{$arrName}['__crossLink_'.$crossLink['table']];
                     }
-                    unset($this->{$arrName}['__crossLink_'.$crossLink['table']]);
+                    unset($this->{$arrName}[$this->_sanitizeFieldName('__crossLink_'.$crossLink['table'])]);
                 }
             }
         }
@@ -2186,27 +2260,28 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                 }
             }
             unset($this->tripleLinks[$key]);
-            $elName  = '__tripleLink_' . $tripleLink['table'].
-                '_'.$fromField.
-                '_'.$toField1.
-                '_'.$toField2;
+            $elName  = $this->_sanitizeFieldName('__tripleLink_' . $tripleLink['table'].
+                                                 '_'.$fromField.
+                                                 '_'.$toField1.
+                                                 '_'.$toField2);
             $this->tripleLinks[$elName] = array_merge($tripleLink,
                                                       array('fromField' => $fromField,
                                                             'toField1' => $toField1,
                                                             'toField2' => $toField2));
             foreach (array('preDefOrder', 'fieldsToRender', 'userEditableFields') as $arrName) {
                 foreach ($this->{$arrName} as $key => $value) {
-                    if ($value == '__tripleLink_'.$tripleLink['table']) {
+                    if ($this->_sanitizeFieldName($value)
+                        == $this->_sanitizeFieldName('__tripleLink_'.$tripleLink['table'])) {
                         $this->{$arrName}[$key] = $elName;
                     }
                 }
             }
             foreach (array('preDefElements', 'fieldLabels', 'fieldAttributes') as $arrName) {
-                if (isset($this->{$arrName}['__tripleLink_'.$tripleLink['table']])) {
+                if (isset($this->{$arrName}[$this->_sanitizeFieldName('__tripleLink_'.$tripleLink['table'])])) {
                     if (!isset($this->{$arrName}[$elName])) {
-                        $this->{$arrName}[$elName] =& $this->{$arrName}['__tripleLink_'.$tripleLink['table']];
+                        $this->{$arrName}[$elName] =& $this->{$arrName}[$this->_sanitizeFieldName('__tripleLink_'.$tripleLink['table'])];
                     }
-                    unset($this->{$arrName}['__tripleLink_'.$tripleLink['table']]);
+                    unset($this->{$arrName}[$this->_sanitizeFieldName('__tripleLink_'.$tripleLink['table'])]);
                 }
             }
         }
@@ -2225,8 +2300,8 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     }
                 }
             }
-            $elName  = '__reverseLink_'.$reverseLink['table'].
-                '_'.$reverseLink['field'];
+            $elName  = $this->_sanitizeFieldName('__reverseLink_'.$reverseLink['table'].
+                                                 '_'.$reverseLink['field']);
             if (!isset($reverseLink['linkText'])) {
                 $reverseLink['linkText'] = ' - currently linked to - ';
             }
@@ -2237,17 +2312,18 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
             $this->reverseLinks[$elName] = $reverseLink;
             foreach (array('preDefOrder', 'fieldsToRender', 'userEditableFields') as $arrName) {
                 foreach ($this->{$arrName} as $key => $value) {
-                    if ($value == '__reverseLink_'.$reverseLink['table']) {
+                    if ($this->_sanitizeFieldName($value)
+                        == $this->_sanitizeFieldName('__reverseLink_'.$reverseLink['table'])) {
                         $this->{$arrName}[$key] = $elName;
                     }
                 }
             }
             foreach (array('preDefElements', 'fieldLabels', 'fieldAttributes', 'reverseLinkNewValue') as $arrName) {
-                if (isset($this->{$arrName}['__reverseLink_'.$reverseLink['table']])) {
+                if (isset($this->{$arrName}[$this->_sanitizeFieldName('__reverseLink_'.$reverseLink['table'])])) {
                     if (!isset($this->{$arrName}[$elName])) {
-                        $this->{$arrName}[$elName] =& $this->{$arrName}['__reverseLink_'.$reverseLink['table']];
+                        $this->{$arrName}[$elName] =& $this->{$arrName}[$this->_sanitizeFieldName('__reverseLink_'.$reverseLink['table'])];
                     }
-                    unset($this->{$arrName}['__reverseLink_'.$reverseLink['table']]);
+                    unset($this->{$arrName}[$this->_sanitizeFieldName('__reverseLink_'.$reverseLink['table'])]);
                 }
             }
         }
@@ -2381,6 +2457,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
             if ($da['h'] == 0) {
                 $da['h'] = 12;
             }
+            $da['g'] = $da['h'];
             $da['i'] = $dObj->getMinute();
             $da['s'] = $dObj->getSecond();
             if ($da['H'] >= 12) {
@@ -2402,6 +2479,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
             $da['m'] = $da['M'] = $da['F'] = date('m', $time);
             $da['Y'] = $da['y'] = date('Y', $time);
             $da['H'] = date('H', $time);
+            $da['g'] = date('g', $time);
             $da['h'] = date('h', $time);
             $da['i'] = date('i', $time);
             $da['s'] = date('s', $time);
@@ -2446,8 +2524,12 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
         }
         if (isset($dateInput['H'])) {
             $hour = $dateInput['H'];
-        } elseif (isset($dateInput['h'])) {
-            $hour = $dateInput['h'];
+        } elseif (isset($dateInput['h']) || isset($dateInput['g'])) {
+            if (isset($dateInput['h'])) {
+                $hour = $dateInput['h'];
+            } elseif (isset($dateInput['g'])) {
+                $hour = $dateInput['g'];
+            }
             if (isset($dateInput['a'])) {
                 $ampm = $dateInput['a'];
             } elseif (isset($dateInput['A'])) {
@@ -2602,7 +2684,6 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
      * been done. Use this for filtering data, notifying users of changes etc.pp. ...
      *
      * @param array $values   The values of the submitted form
-     * @param string $queryType If the standard query behaviour ain't good enough for you, you can force a certain type of query
      * @return mixed        TRUE if database operations were performed, FALSE if not, PEAR_Error on error
      * @access public
      */
@@ -2667,7 +2748,7 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                     $this->debug('is substituted with "'.print_r($value, true).'".<br/>');
 
                     // See if a setter method exists in the DataObject - if so, use that one
-                    if ($this->useAccessors
+                    if ($this->useMutators
                         && method_exists($this->_do, 'set' . $field)) {
                         $this->_do->{'set'.$field}($value);
                     } else {
@@ -2684,14 +2765,24 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
         foreach ($this->booleanFields as $boolField) {
             if (in_array($boolField, $editableFields)
                 && !isset($values[$boolField])) {
-                $this->_do->$boolField = 0;
+                if ($this->useMutators
+                    && method_exists($this->_do, 'set' . $boolField)) {
+                    $this->_do->{'set'.$boolField}(0);
+                } else {
+                    $this->_do->$boolField = 0;
+                }
             }
         }
         foreach ($tableFields as $field => $type) {
             if (($type & DB_DATAOBJECT_BOOL)
                 && in_array($field, $editableFields)
                 && !isset($values[$field])) {
-                $this->_do->$field = 0;
+                if ($this->useMutators
+                    && method_exists($this->_do, 'set' . $field)) {
+                    $this->_do->{'set'.$field}(0);
+                } else {
+                    $this->_do->$field = 0;
+                }
             }
         }
 
@@ -2948,12 +3039,17 @@ class UNL_UCBCN_Manager_FormBuilder extends DB_DataObject_FormBuilder
                         foreach($reverseLink['SFs'] as $sfkey => $subform) {
                             // Process each subform that was rendered.
                             if ($subform->validate()) {
-                                $subform->process(array(&$reverseLink['FBs'][$sfkey], 'processForm'), false);
+                                $ret = $subform->process(array(&$reverseLink['FBs'][$sfkey], 'processForm'), false);
+                                if (PEAR::isError($ret)) {
+                                    $this->debug('Failed to process subForm for reverseLink '.serialize($reverseLink['FBs'][$sfkey]->_do));
+                                    return PEAR::raiseError('Failed to process extraFields crossLink - Error from processForm: '
+                                                            .$ret->getMessage()
+                                                            , null, null, null, $reverseLink['FBs'][$sfkey]->_do);
+                                }
                             }
                         }
                     } else {
                         unset($do);
-                        
                         $do = DB_DataObject::factory($reverseLink['table']);
                         if ($this->isCallableAndExists($this->prepareLinkedDataObjectCallback)) {
                             call_user_func_array($this->prepareLinkedDataObjectCallback, array(&$do, $key));
