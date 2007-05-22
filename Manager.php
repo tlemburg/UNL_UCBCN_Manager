@@ -34,28 +34,28 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	 * 
 	 * @var object
 	 */
-	var $a;
+	public $a;
 	
 	/**
 	 * UNL_UCBCN_Account
 	 * 
 	 * @var object
 	 */
-	var $account;
+	public $account;
 	
 	/**
 	 * UNL_UCBCN_Calendar this user is managing.
 	 * 
 	 * @var object
 	 */
-	var $calendar;
+	public $calendar;
 	
 	/**
 	 * UNL_UCBCN_User object for the user who is logged in and managing a calendar.
 	 * 
 	 * @var UNL_UCBCN_User
 	 */
-	var $user;
+	public $user;
 	
 	/**
 	 * URI to the management frontend
