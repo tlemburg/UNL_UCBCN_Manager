@@ -12,7 +12,12 @@
  * Read the entire license text here: http://www.gnu.org/licenses/lgpl.html
  */
 
-// $Id: calendar.js,v 1.51 2005/03/07 16:44:31 mishoo Exp $
+
+//CHANGELOG
+// line 95 - add ie6 only browser check
+// line 1395 - apply positioning only in ie6 (ie 7 works fine)
+
+// $Id$
 
 /** The Calendar object constructor. */
 var Calendar = function (firstDayOfWeek, dateStr, onSelected, onClose) {
@@ -86,6 +91,9 @@ Calendar._C = null;
 /// detect a special case of "web browser"
 Calendar.is_ie = ( /msie/i.test(navigator.userAgent) &&
 		   !/opera/i.test(navigator.userAgent) );
+
+///only ie 6
+Calendar.is_ie6 = ( Calendar.is_ie_gen && /msie 6\.0/i.test(navigator.userAgent) );
 
 Calendar.is_ie5 = ( Calendar.is_ie && /msie 5\.0/i.test(navigator.userAgent) );
 
@@ -1389,7 +1397,7 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		document.body.appendChild(cp);
 		var br = Calendar.getAbsolutePos(cp);
 		document.body.removeChild(cp);
-		if (Calendar.is_ie) {
+		if (Calendar.is_ie6) {
 			br.y += document.body.scrollTop;
 			br.x += document.body.scrollLeft;
 		} else {
