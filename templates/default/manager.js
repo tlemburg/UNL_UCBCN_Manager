@@ -118,7 +118,7 @@ function requiredField(){
 		for(var i=0; i<fieldset.length; i++){
 			//var divrequired = getElementsByClassName(fieldset[i], "div", "reqnote");
 			var spanrequired = getElementsByClassName(fieldset[i], "span", "required");
-			if (spanrequired.length > 0){
+			if (spanrequired.length > 0 && spanrequired[0].parentNode.nextSibling.childNodes.length > 0){
 				spanrequired[0].parentNode.nextSibling.childNodes[0].style.background = '#f8e6e9';
 			}	
 		}

@@ -614,6 +614,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 				$form->process(array(&$fb, 'processForm'), false);
 				$form->freeze();
 				$form->removeElement('__submit__');
+				$this->localRedirect($this->uri.'?action=users&new_uid='.$user->uid);
 				$msg = '<p>User permissions saved...</p>';
 			}
 			return $msg.$renderer->toHtml();
@@ -886,7 +887,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN {
 	    $form->addElement('hidden','action','permissions');
 	    $renderer =& new HTML_QuickForm_Renderer_Tableless();
 		$form->accept($renderer);
-	    return $renderer->toHtml();	    
+	    return $renderer->toHtml();
 	}
 
 	/**

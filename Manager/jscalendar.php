@@ -68,6 +68,9 @@ class HTML_QuickForm_jscalendar extends HTML_QuickForm_element
         if ($this->_flagFrozen) {
             return '';
         }
+        
+        $html = '';
+        
         if (!defined('HTML_QUICKFORM_JSCALENDAR_LOADED')) {
             $html = sprintf(
                 '<style type="text/css">@import url(%s);</style>' .

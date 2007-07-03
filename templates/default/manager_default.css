@@ -19,7 +19,7 @@
 #maincontent #title {
 	padding: 2px;
 	display: inline;
-	font-style: none !important;
+	font-style: normal;
 }
 
 #maincontent .title {
@@ -44,9 +44,9 @@
 }
 
 h4#sec_nav {
-	background: url(images/heading.gif) no-repeat 0 4px;;
-	border-bottom: 1px solid #ddd;;
-	color: #333;;
+	background: url(images/heading.gif) no-repeat 0 4px;
+	border-bottom: 1px solid #ddd;
+	color: #333;
 	padding: 0 0 0 11px;
 }
 
@@ -338,7 +338,6 @@ form#cal_choose br {
 	float: left;
 }
 
-;
 #maincontent form fieldset.ddetailsheader_class .reqnote {
 	color: #ff0000;
 	display: inline
@@ -360,14 +359,14 @@ body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
 #maincontent form div.newlocation {
 	background: #eee;
 	width: 500px;
-	margin: 4px 0 2px 0 0;
+	margin: 4px 0 2px 0;
 	border: 1px solid #ccc;
 	overflow-x: hidden !important;
 }
 
 #maincontent form div.newlocation fieldset {
-	margin: 0;
-	padding: 0;
+	margin: 0px;
+	padding: 0px;
 	border: none;
 	background: #eee;
 	width: 500px;
@@ -388,10 +387,10 @@ body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
 
 .rightnav fieldset {
 	position: absolute;
-	right: 0;
+	right: 0px;
 	z-index: 10;
-	top: 0;
-	margin: 85px 25px 0 0
+	top: 0px;
+	margin: 85px 25px 0px 0px;
 }
 
 .rightnav legend {

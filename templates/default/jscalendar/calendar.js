@@ -286,6 +286,7 @@ Calendar.showMonthsCombo = function () {
 		s.left = (cd.offsetLeft + cd.offsetWidth - mcw) + "px";
 	}
 	s.top = (cd.offsetTop + cd.offsetHeight) + "px";
+	return false;
 };
 
 Calendar.showYearsCombo = function (fwd) {
@@ -332,6 +333,7 @@ Calendar.showYearsCombo = function (fwd) {
 		}
 		s.top = (cd.offsetTop + cd.offsetHeight) + "px";
 	}
+	return false;
 };
 
 // event handlers
@@ -389,122 +391,127 @@ Calendar.tableMouseUp = function(ev) {
 Calendar.tableMouseOver = function (ev) {
 	var cal = Calendar._C;
 	if (!cal) {
-		return;
-	}
-	var el = cal.activeDiv;
-	var target = Calendar.getTargetElement(ev);
-	if (target == el || target.parentNode == el) {
-		Calendar.addClass(el, "hilite active");
-		Calendar.addClass(el.parentNode, "rowhilite");
+		return false;
 	} else {
-		if (typeof el.navtype == "undefined" || (el.navtype != 50 && (el.navtype == 0 || Math.abs(el.navtype) > 2)))
-			Calendar.removeClass(el, "active");
-		Calendar.removeClass(el, "hilite");
-		Calendar.removeClass(el.parentNode, "rowhilite");
-	}
-	ev || (ev = window.event);
-	if (el.navtype == 50 && target != el) {
-		var pos = Calendar.getAbsolutePos(el);
-		var w = el.offsetWidth;
-		var x = ev.clientX;
-		var dx;
-		var decrease = true;
-		if (x > pos.x + w) {
-			dx = x - pos.x - w;
-			decrease = false;
-		} else
-			dx = pos.x - x;
-
-		if (dx < 0) dx = 0;
-		var range = el._range;
-		var current = el._current;
-		var count = Math.floor(dx / 10) % range.length;
-		for (var i = range.length; --i >= 0;)
-			if (range[i] == current)
-				break;
-		while (count-- > 0)
-			if (decrease) {
-				if (--i < 0)
-					i = range.length - 1;
-			} else if ( ++i >= range.length )
-				i = 0;
-		var newval = range[i];
-		el.innerHTML = newval;
-
-		cal.onUpdateTime();
-	}
-	var mon = Calendar.findMonth(target);
-	if (mon) {
-		if (mon.month != cal.date.getMonth()) {
-			if (cal.hilitedMonth) {
-				Calendar.removeClass(cal.hilitedMonth, "hilite");
-			}
-			Calendar.addClass(mon, "hilite");
-			cal.hilitedMonth = mon;
-		} else if (cal.hilitedMonth) {
-			Calendar.removeClass(cal.hilitedMonth, "hilite");
-		}
-	} else {
-		if (cal.hilitedMonth) {
-			Calendar.removeClass(cal.hilitedMonth, "hilite");
-		}
-		var year = Calendar.findYear(target);
-		if (year) {
-			if (year.year != cal.date.getFullYear()) {
-				if (cal.hilitedYear) {
-					Calendar.removeClass(cal.hilitedYear, "hilite");
-				}
-				Calendar.addClass(year, "hilite");
-				cal.hilitedYear = year;
-			} else if (cal.hilitedYear) {
-				Calendar.removeClass(cal.hilitedYear, "hilite");
-			}
-		} else if (cal.hilitedYear) {
-			Calendar.removeClass(cal.hilitedYear, "hilite");
-		}
-	}
-	return Calendar.stopEvent(ev);
+        var el = cal.activeDiv;
+        var target = Calendar.getTargetElement(ev);
+        if (target == el || target.parentNode == el) {
+            Calendar.addClass(el, "hilite active");
+            Calendar.addClass(el.parentNode, "rowhilite");
+        } else {
+            if (typeof el.navtype == "undefined" || (el.navtype != 50 && (el.navtype == 0 || Math.abs(el.navtype) > 2)))
+                Calendar.removeClass(el, "active");
+            Calendar.removeClass(el, "hilite");
+            Calendar.removeClass(el.parentNode, "rowhilite");
+        }
+        ev || (ev = window.event);
+        if (el.navtype == 50 && target != el) {
+            var pos = Calendar.getAbsolutePos(el);
+            var w = el.offsetWidth;
+            var x = ev.clientX;
+            var dx;
+            var decrease = true;
+            if (x > pos.x + w) {
+                dx = x - pos.x - w;
+                decrease = false;
+            } else
+                dx = pos.x - x;
+    
+            if (dx < 0) dx = 0;
+            var range = el._range;
+            var current = el._current;
+            var count = Math.floor(dx / 10) % range.length;
+            for (var i = range.length; --i >= 0;)
+                if (range[i] == current)
+                    break;
+            while (count-- > 0)
+                if (decrease) {
+                    if (--i < 0)
+                        i = range.length - 1;
+                } else if ( ++i >= range.length )
+                    i = 0;
+            var newval = range[i];
+            el.innerHTML = newval;
+    
+            cal.onUpdateTime();
+        }
+        var mon = Calendar.findMonth(target);
+        if (mon) {
+            if (mon.month != cal.date.getMonth()) {
+                if (cal.hilitedMonth) {
+                    Calendar.removeClass(cal.hilitedMonth, "hilite");
+                }
+                Calendar.addClass(mon, "hilite");
+                cal.hilitedMonth = mon;
+            } else if (cal.hilitedMonth) {
+                Calendar.removeClass(cal.hilitedMonth, "hilite");
+            }
+        } else {
+            if (cal.hilitedMonth) {
+                Calendar.removeClass(cal.hilitedMonth, "hilite");
+            }
+            var year = Calendar.findYear(target);
+            if (year) {
+                if (year.year != cal.date.getFullYear()) {
+                    if (cal.hilitedYear) {
+                        Calendar.removeClass(cal.hilitedYear, "hilite");
+                    }
+                    Calendar.addClass(year, "hilite");
+                    cal.hilitedYear = year;
+                } else if (cal.hilitedYear) {
+                    Calendar.removeClass(cal.hilitedYear, "hilite");
+                }
+            } else if (cal.hilitedYear) {
+                Calendar.removeClass(cal.hilitedYear, "hilite");
+            }
+        }
+        return Calendar.stopEvent(ev);
+    }
 };
 
 Calendar.tableMouseDown = function (ev) {
 	if (Calendar.getTargetElement(ev) == Calendar.getElement(ev)) {
 		return Calendar.stopEvent(ev);
 	}
+	return false;
 };
 
 Calendar.calDragIt = function (ev) {
 	var cal = Calendar._C;
 	if (!(cal && cal.dragging)) {
 		return false;
-	}
-	var posX;
-	var posY;
-	if (Calendar.is_ie) {
-		posY = window.event.clientY + document.body.scrollTop;
-		posX = window.event.clientX + document.body.scrollLeft;
 	} else {
-		posX = ev.pageX;
-		posY = ev.pageY;
-	}
-	cal.hideShowCovered();
-	var st = cal.element.style;
-	st.left = (posX - cal.xOffs) + "px";
-	st.top = (posY - cal.yOffs) + "px";
-	return Calendar.stopEvent(ev);
+        var posX;
+        var posY;
+        if (Calendar.is_ie) {
+            posY = window.event.clientY + document.body.scrollTop;
+            posX = window.event.clientX + document.body.scrollLeft;
+        } else {
+            posX = ev.pageX;
+            posY = ev.pageY;
+        }
+        cal.hideShowCovered();
+        var st = cal.element.style;
+        st.left = (posX - cal.xOffs) + "px";
+        st.top = (posY - cal.yOffs) + "px";
+        return Calendar.stopEvent(ev);
+    }
 };
 
 Calendar.calDragEnd = function (ev) {
 	var cal = Calendar._C;
 	if (!cal) {
 		return false;
-	}
-	cal.dragging = false;
-	with (Calendar) {
-		removeEvent(document, "mousemove", calDragIt);
-		removeEvent(document, "mouseup", calDragEnd);
-		tableMouseUp(ev);
-	}
-	cal.hideShowCovered();
+	} else {
+        cal.dragging = false;
+        with (Calendar) {
+            removeEvent(document, "mousemove", calDragIt);
+            removeEvent(document, "mouseup", calDragEnd);
+            tableMouseUp(ev);
+        }
+        cal.hideShowCovered();
+        return true;
+    }
 };
 
 Calendar.dayMouseDown = function(ev) {
@@ -526,15 +533,17 @@ Calendar.dayMouseDown = function(ev) {
 	} else if (cal.isPopup) {
 		cal._dragStart(ev);
 	}
-	if (el.navtype == -1 || el.navtype == 1) {
-		if (cal.timeout) clearTimeout(cal.timeout);
-		cal.timeout = setTimeout("Calendar.showMonthsCombo()", 250);
-	} else if (el.navtype == -2 || el.navtype == 2) {
-		if (cal.timeout) clearTimeout(cal.timeout);
-		cal.timeout = setTimeout((el.navtype > 0) ? "Calendar.showYearsCombo(true)" : "Calendar.showYearsCombo(false)", 250);
-	} else {
-		cal.timeout = null;
-	}
+	try {
+        if (el.navtype == -1 || el.navtype == 1) {
+            if (cal.timeout) clearTimeout(cal.timeout);
+            cal.timeout = setTimeout("Calendar.showMonthsCombo()", 250);
+        } else if (el.navtype == -2 || el.navtype == 2) {
+            if (cal.timeout) clearTimeout(cal.timeout);
+            cal.timeout = setTimeout((el.navtype > 0) ? "Calendar.showYearsCombo(true)" : "Calendar.showYearsCombo(false)", 250);
+        } else {
+            cal.timeout = null;
+        }
+	} catch(e) {}
 	return Calendar.stopEvent(ev);
 };
 
@@ -611,7 +620,7 @@ Calendar.cellClick = function(el, ev) {
 		if (el.navtype == 200) {
 			Calendar.removeClass(el, "hilite");
 			cal.callCloseHandler();
-			return;
+			return true;
 		}
 		date = new Date(cal.date);
 		if (el.navtype == 0)
@@ -633,72 +642,74 @@ Calendar.cellClick = function(el, ev) {
 		};
 		switch (el.navtype) {
 		    case 400:
-			Calendar.removeClass(el, "hilite");
-			var text = Calendar._TT["ABOUT"];
-			if (typeof text != "undefined") {
-				text += cal.showsTime ? Calendar._TT["ABOUT_TIME"] : "";
-			} else {
-				// FIXME: this should be removed as soon as lang files get updated!
-				text = "Help and about box text is not translated into this language.\n" +
-					"If you know this language and you feel generous please update\n" +
-					"the corresponding file in \"lang\" subdir to match calendar-en.js\n" +
-					"and send it back to <mihai_bazon@yahoo.com> to get it into the distribution  ;-)\n\n" +
-					"Thank you!\n" +
-					"http://dynarch.com/mishoo/calendar.epl\n";
-			}
-			alert(text);
-			return;
+                Calendar.removeClass(el, "hilite");
+                var text = Calendar._TT["ABOUT"];
+                if (typeof text != "undefined") {
+                    text += cal.showsTime ? Calendar._TT["ABOUT_TIME"] : "";
+                } else {
+                    // FIXME: this should be removed as soon as lang files get updated!
+                    text = "Help and about box text is not translated into this language.\n" +
+                        "If you know this language and you feel generous please update\n" +
+                        "the corresponding file in \"lang\" subdir to match calendar-en.js\n" +
+                        "and send it back to <mihai_bazon@yahoo.com> to get it into the distribution  ;-)\n\n" +
+                        "Thank you!\n" +
+                        "http://dynarch.com/mishoo/calendar.epl\n";
+                }
+                alert(text);
+                return true;
 		    case -2:
-			if (year > cal.minYear) {
-				date.setFullYear(year - 1);
-			}
-			break;
+                if (year > cal.minYear) {
+                    date.setFullYear(year - 1);
+                }
+                break;
 		    case -1:
-			if (mon > 0) {
-				setMonth(mon - 1);
-			} else if (year-- > cal.minYear) {
-				date.setFullYear(year);
-				setMonth(11);
-			}
-			break;
+                if (mon > 0) {
+                    setMonth(mon - 1);
+                } else if (year-- > cal.minYear) {
+                    date.setFullYear(year);
+                    setMonth(11);
+                }
+                break;
 		    case 1:
-			if (mon < 11) {
-				setMonth(mon + 1);
-			} else if (year < cal.maxYear) {
-				date.setFullYear(year + 1);
-				setMonth(0);
-			}
-			break;
+                if (mon < 11) {
+                    setMonth(mon + 1);
+                } else if (year < cal.maxYear) {
+                    date.setFullYear(year + 1);
+                    setMonth(0);
+                }
+                break;
 		    case 2:
-			if (year < cal.maxYear) {
-				date.setFullYear(year + 1);
-			}
-			break;
+                if (year < cal.maxYear) {
+                    date.setFullYear(year + 1);
+                }
+                break;
 		    case 100:
-			cal.setFirstDayOfWeek(el.fdow);
-			return;
+                cal.setFirstDayOfWeek(el.fdow);
+                return true;
 		    case 50:
-			var range = el._range;
-			var current = el.innerHTML;
-			for (var i = range.length; --i >= 0;)
-				if (range[i] == current)
-					break;
-			if (ev && ev.shiftKey) {
-				if (--i < 0)
-					i = range.length - 1;
-			} else if ( ++i >= range.length )
-				i = 0;
-			var newval = range[i];
-			el.innerHTML = newval;
-			cal.onUpdateTime();
-			return;
+                var range = el._range;
+                var current = el.innerHTML;
+                for (var i = range.length; --i >= 0;)
+                    if (range[i] == current)
+                        break;
+                if (ev && ev.shiftKey) {
+                    if (--i < 0)
+                        i = range.length - 1;
+                } else if ( ++i >= range.length )
+                    i = 0;
+                var newval = range[i];
+                el.innerHTML = newval;
+                cal.onUpdateTime();
+                return true;
 		    case 0:
-			// TODAY will bring us here
-			if ((typeof cal.getDateStatus == "function") &&
-			    cal.getDateStatus(date, date.getFullYear(), date.getMonth(), date.getDate())) {
-				return false;
-			}
-			break;
+                // TODAY will bring us here
+                if ((typeof cal.getDateStatus == "function") &&
+                    cal.getDateStatus(date, date.getFullYear(), date.getMonth(), date.getDate())) {
+                    return false;
+                } else {
+                    return true;
+                }
+                break;
 		}
 		if (!date.equalsTo(cal.date)) {
 			cal.setDate(date);
@@ -713,6 +724,7 @@ Calendar.cellClick = function(el, ev) {
 		Calendar.removeClass(el, "hilite");
 		ev && cal.callCloseHandler();
 	}
+	return false;
 };
 
 // END: CALENDAR STATIC FUNCTIONS
@@ -1324,6 +1336,7 @@ Calendar._checkCalendar = function(ev) {
 		window._dynarch_popupCalendar.callCloseHandler();
 		return Calendar.stopEvent(ev);
 	}
+	return false;
 };
 
 /** Shows the calendar. */
@@ -1445,6 +1458,7 @@ Calendar.prototype.showAtElement = function (el, opts) {
 		setTimeout("Calendar.continuation_for_the_fucking_khtml_browser()", 10);
 	else
 		Calendar.continuation_for_the_fucking_khtml_browser();
+    return true;
 };
 
 /** Customizes the date format. */
@@ -1469,7 +1483,7 @@ Calendar.prototype.parseDate = function(str, fmt) {
 
 Calendar.prototype.hideShowCovered = function () {
 	if (!Calendar.is_ie && !Calendar.is_opera)
-		return;
+		return false;
 	function getVisib(obj){
 		var value = obj.style.visibility;
 		if (!value) {
@@ -1522,6 +1536,7 @@ Calendar.prototype.hideShowCovered = function () {
 			}
 		}
 	}
+	return true;
 };
 
 /** Internal function; it displays the bar with the names of the weekday. */
@@ -1556,25 +1571,27 @@ Calendar.prototype._hideCombos = function () {
 /** Internal function.  Starts dragging the element. */
 Calendar.prototype._dragStart = function (ev) {
 	if (this.dragging) {
-		return;
-	}
-	this.dragging = true;
-	var posX;
-	var posY;
-	if (Calendar.is_ie) {
-		posY = window.event.clientY + document.body.scrollTop;
-		posX = window.event.clientX + document.body.scrollLeft;
+		return false;
 	} else {
-		posY = ev.clientY + window.scrollY;
-		posX = ev.clientX + window.scrollX;
-	}
-	var st = this.element.style;
-	this.xOffs = posX - parseInt(st.left);
-	this.yOffs = posY - parseInt(st.top);
-	with (Calendar) {
-		addEvent(document, "mousemove", calDragIt);
-		addEvent(document, "mouseup", calDragEnd);
-	}
+        this.dragging = true;
+        var posX;
+        var posY;
+        if (Calendar.is_ie) {
+            posY = window.event.clientY + document.body.scrollTop;
+            posX = window.event.clientX + document.body.scrollLeft;
+        } else {
+            posY = ev.clientY + window.scrollY;
+            posX = ev.clientX + window.scrollX;
+        }
+        var st = this.element.style;
+        this.xOffs = posX - parseInt(st.left);
+        this.yOffs = posY - parseInt(st.top);
+        with (Calendar) {
+            addEvent(document, "mousemove", calDragIt);
+            addEvent(document, "mouseup", calDragEnd);
+        }
+        return true;
+    }
 };
 
 // BEGIN: DATE OBJECT PATCHES
