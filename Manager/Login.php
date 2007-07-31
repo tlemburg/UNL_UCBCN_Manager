@@ -2,14 +2,25 @@
 /**
  * This class is for the login form.
  * 
- * @package UNL_UCBCN_Manager
- * @author Brett Bieber
+ * PHP version 5
+ * 
+ * @category  Events 
+ * @package   UNL_UCBCN_Manager
+ * @author    Brett Bieber <brett.bieber@gmail.com>
+ * @copyright 2007 Regents of the University of Nebraska
+ * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
+ * @link      http://pear.unl.edu/
  */
  
 /**
  * Simple object which will be used to display a login.
  * 
- * @package UNL_UCBCN_Manager
+ * @category  Events 
+ * @package   UNL_UCBCN_Manager
+ * @author    Brett Bieber <brett.bieber@gmail.com>
+ * @copyright 2007 Regents of the University of Nebraska
+ * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
+ * @link      http://pear.unl.edu/
  */
 class UNL_UCBCN_Manager_Login
 {
@@ -18,27 +29,30 @@ class UNL_UCBCN_Manager_Login
      *
      * @var string
      */
-	public $post_url;
-	
-	/**
-	 * Name of the form field for the user.
-	 *
-	 * @var string
-	 */
-	public $user_field;
-	
-	/**
-	 * Name of the form field for the password
-	 *
-	 * @var string
-	 */
-	public $password_field;
-	
-	function __construct()
-	{
-		$this->post_url = $_SERVER['SCRIPT_FILENAME'];
-		$this->user_field = 'username';
-		$this->password_field = 'password';
-	}
+    public $post_url;
+    
+    /**
+     * Name of the form field for the user.
+     *
+     * @var string
+     */
+    public $user_field;
+    
+    /**
+     * Name of the form field for the password
+     *
+     * @var string
+     */
+    public $password_field;
+    
+    /**
+     * Constructs the login screen.
+     */
+    function __construct()
+    {
+        $this->post_url       = $_SERVER['SCRIPT_FILENAME'];
+        $this->user_field     = 'username';
+        $this->password_field = 'password';
+    }
 }
 ?>

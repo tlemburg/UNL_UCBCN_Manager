@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.5.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
  <summary>A Management frontend for publishing University events.</summary>
@@ -18,10 +18,10 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2007-04-02</date>
- <time>14:15:59</time>
+ <date>2007-07-31</date>
+ <time>13:53:32</time>
  <version>
-  <release>0.5.1</release>
+  <release>0.5.2</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -29,8 +29,9 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
- <notes>Fix  Bug #43  	 Post install script fails if directory does not exist
-Fix  Bug #38  	 Check All button doesn&apos;t work for permission form </notes>
+ <notes>Redirect to users list when adding or saving permissions.
+Minor CSS, and javascript fixes which remove some warnings and errors.
+ </notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
    <dir name="Manager">
@@ -132,6 +133,7 @@ Fix  Bug #38  	 Check All button doesn&apos;t work for permission form </notes>
     <tasks:replace from="@DATA_DIR@" to="data_dir" type="pear-config" />
     <tasks:replace from="@DOC_DIR@" to="doc_dir" type="pear-config" />
    </file>
+   <file name="UNL_UCBCN_Manager.kpf" role="data" />
    <file name="UNL_UCBCN_Manager_setup.php" role="php">
     <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
     <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
@@ -384,10 +386,26 @@ Many fixes for display, error messages etc.
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2007-04-02</date>
+   <date>2007-07-02</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
    <notes>Fix  Bug #43  	 Post install script fails if directory does not exist
-Fix  Bug #38  	 Check All button doesn&apos;t work for permission form </notes>
+Fix  Bug #38  	 Check All button doesn&apos;t work for permission form.
+Upgrade FormBuilder code to latest release.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-07-31</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>Redirect to users list when adding or saving permissions.
+Minor CSS, and javascript fixes which remove some warnings and errors.
+   </notes>
   </release>
  </changelog>
 </package>

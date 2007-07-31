@@ -2,25 +2,73 @@
 /**
  * This is a base class manager plugins must extend and implement.
  * 
- * @package UNL_UCBCN_Manager
+ * PHP version 5
+ * 
+ * @category  Events 
+ * @package   UNL_UCBCN_Manager
+ * @author    Brett Bieber <brett.bieber@gmail.com>
+ * @copyright 2007 Regents of the University of Nebraska
+ * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
+ * @link      http://pear.unl.edu/
  */
 
 require_once 'UNL/UCBCN/Manager.php';
 
 /**
  * Abstract class plugins must extend and implement.
- *
- * @package UNL_UCBCN_Manager
+ * 
+ * @category  Events 
+ * @package   UNL_UCBCN_Manager
+ * @author    Brett Bieber <brett.bieber@gmail.com>
+ * @copyright 2007 Regents of the University of Nebraska
+ * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
+ * @link      http://pear.unl.edu/
  */
 abstract class UNL_UCBCN_Manager_Plugin
 {
-	var $name;
-	var $version;
-	var $author;
-	
-	var $manager;
-	var $uri;
-	
-	abstract function startup(&$manager,$uri);
+    /**
+     * Name for the plugin.
+     *
+     * @var string
+     */
+    public $name;
+    
+    /**
+     * Version of the plugin.
+     *
+     * @var string
+     */
+    public $version;
+    
+    /**
+     * Name of the author of the plugin.
+     *
+     * @var string
+     */
+    public $author;
+    
+    /**
+     * Manager running this plugin.
+     *
+     * @var UNL_UCBCN_Manager
+     */
+    public $manager;
+    
+    /**
+     * The URI to this plugin.
+     *
+     * @var string
+     */
+    public $uri;
+    
+    /**
+     * This will be called when the plugin is initialized on load of a page.
+     *
+     * @param UNL_UCBCN_Manager &$manager The manager object currently running.
+     * @param string            $uri      The URI assigned to this plugin.
+     * 
+     * @return void
+     */
+    abstract function startup(&$manager,$uri);
 }
 ?>

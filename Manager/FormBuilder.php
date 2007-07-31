@@ -91,23 +91,6 @@
 // Import requirements
 require_once ('DB/DataObject/FormBuilder.php');
 
-// Constants used for forceQueryType()
-define ('DB_DATAOBJECT_FORMBUILDER_QUERY_AUTODETECT',    0);
-define ('DB_DATAOBJECT_FORMBUILDER_QUERY_FORCEINSERT',   1);
-define ('DB_DATAOBJECT_FORMBUILDER_QUERY_FORCEUPDATE',   2);
-define ('DB_DATAOBJECT_FORMBUILDER_QUERY_FORCENOACTION', 3);
-
-// Constants used for cross/triple links
-define ('DB_DATAOBJECT_FORMBUILDER_CROSSLINK',   1048576);
-define ('DB_DATAOBJECT_FORMBUILDER_TRIPLELINK',  2097152);
-define ('DB_DATAOBJECT_FORMBUILDER_ENUM',        4194304);
-define ('DB_DATAOBJECT_FORMBUILDER_REVERSELINK', 8388608);
-define ('DB_DATAOBJECT_FORMBUILDER_GROUP',      16777216);
-
-// Error code constants
-define ('DB_DATAOBJECT_FORMBUILDER_ERROR_UNKNOWNDRIVER', 4711);
-define ('DB_DATAOBJECT_FORMBUILDER_ERROR_NODATAOBJECT',  4712);
-
 /**
  * This is the main class for FormBuilder. It does most of the real work.
  *

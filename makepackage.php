@@ -57,6 +57,8 @@ $pfm->setAPIVersion('0.5.0');
 $pfm->setReleaseVersion('0.5.2');
 $pfm->setNotes('Redirect to users list when adding or saving permissions.
 Minor CSS, and javascript fixes which remove some warnings and errors.
+Coding standards and documentation additions.
+Throws an exception if authentication mechanism is not defined.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');

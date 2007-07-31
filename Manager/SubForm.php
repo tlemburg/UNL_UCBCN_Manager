@@ -2,18 +2,36 @@
 /**
  * This file extends the subform class to override the toHTML issue.
  * 
+ * PHP version 5
+ * 
+ * @category  Events 
+ * @package   UNL_UCBCN_Manager
+ * @author    Brett Bieber <brett.bieber@gmail.com>
+ * @copyright 2007 Regents of the University of Nebraska
+ * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
+ * @link      http://pear.unl.edu/
  */
 
-require_once('DB/DataObject/FormBuilder/QuickForm/SubForm.php');
+require_once 'DB/DataObject/FormBuilder/QuickForm/SubForm.php';
 
-class UNL_UCBCN_Manager_SubForm extends HTML_QuickForm_SubForm {
+/**
+ * Makes subforms use the correct renderer and do some minor manupulations.
+ * 
+ * @category Events
+ * @package  UNL_UCBCN_Manager
+ * @author   Brett Bieber <brett.bieber@gmail.com>
+ * @license  http://www1.unl.edu/wdn/wiki/Software_License BSD License
+ * @link     http://pear.unl.edu/
+ */
+class UNL_UCBCN_Manager_SubForm extends HTML_QuickForm_SubForm
+{
 
     /**
      * renders the element
      *
      * @return string the HTML for the element
      */
-    function toHtml()
+    public function toHtml()
     {
         if (!isset($this->_renderer) || !is_a($this->_renderer, 'HTML_QuickForm_Renderer_Default')) {
             $this->_renderer = clone(HTML_QuickForm::defaultRenderer());
@@ -23,13 +41,15 @@ class UNL_UCBCN_Manager_SubForm extends HTML_QuickForm_SubForm {
             $this->_renderer->_groupTemplate = 
             $this->_renderer->_groupWrap = '';
         $this->_renderer->_groupElements = array();
-        $this->_renderer->_inGroup = false;
+        $this->_renderer->_inGroup       = false;
         $this->_renderer->setFormTemplate(preg_replace('!</?form[^>]*>!', '', $this->_renderer->_formTemplate));
         $this->_subForm->accept($this->_renderer);
         if (isset($this->_renderer->_fieldsetIsOpen) && $this->_renderer->_fieldsetIsOpen) {
             $this->_renderer->_fieldsetIsOpen = false;
+            
             $this->_subForm->accept($this->_renderer);
-            $html = $this->_renderer->toHtml();
+            
+            $html                             = $this->_renderer->toHtml();
             $this->_renderer->_fieldsetIsOpen = true;
             return $html;
         } else {
