@@ -28,6 +28,11 @@ require_once 'UNL/UCBCN/Manager/FormBuilder_Driver.php';
 require_once 'HTML/QuickForm/group.php';
 
 /**
+ * For pagination of results.
+ */
+require_once 'Pager/Pager.php';
+
+/**
  * Class which handles all event creation and authentication. This class acts as the basis for the
  * management portion of a university event publisher, through which users will log in and create and manage
  * their calendars.
@@ -689,16 +694,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                     AND calendar_has_event.calendar_id = '.$this->calendar->id.' 
                     ORDER BY '.$orderby;
         $e   = array();
-        $res = $mdb2->query($sql);
-        if (PEAR::isError($res)) {
-            return new UNL_UCBCN_Error($res->getMessage());
-        }
-        if ($res->numRows()) {
+        $paged_result = $this->pagerWrapper($mdb2, $sql, array('totalItems'=>$this->getEventCount($this->calendar, $status)));
+        if ($paged_result['totalItems']) {
+            $e[] = $paged_result['links'];
             $listing         = new UNL_UCBCN_EventListing();
             $listing->status = $status;
-            while ($row = $res->fetchRow()) {
+            foreach ($paged_result['data'] as $event_id) {
                 $event = $this->factory('event');
-                if ($event->get($row[0])) {
+                if ($event->get($event_id['id'])) {
                     if (isset($_POST['event'.$event->id])) {
                         $this->processPostStatusChange($event);
                     } else {
@@ -707,6 +710,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                 }
             }
             $e[] = $listing;
+            $e[] = $paged_result['links'];
         } else {
             $e[] = '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
         }
@@ -996,4 +1000,79 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $_UNL_UCBCN['plugins'] = array($class_name);
         }
     }
+    
+	function pagerWrapper(&$db, $query, $pager_options = array(), $disabled = false, $fetchMode = MDB2_FETCHMODE_ASSOC)
+	{
+	    if (!array_key_exists('totalItems', $pager_options)) {
+	        //be smart and try to guess the total number of records
+	        if ($countQuery = $this->rewriteCountQuery($query)) {
+	            $totalItems = $db->queryOne($countQuery);
+	            if (PEAR::isError($totalItems)) {
+	                return $totalItems;
+	            }
+	        } else {
+	            //GROUP BY => fetch the whole resultset and count the rows returned
+	            $res =& $db->queryCol($query);
+	            if (PEAR::isError($res)) {
+	                return $res;
+	            }
+	            $totalItems = count($res);
+	        }
+	        $pager_options['totalItems'] = $totalItems;
+	    }
+	    if (!isset($pager_options['perPage'])) {
+	        $pager_options['perPage'] = 30;
+	    }
+	    $pager = Pager::factory($pager_options);
+	
+	    $page = array();
+	    $page['links'] = $pager->links;
+	    $page['totalItems'] = $pager_options['totalItems'];
+	    $page['page_numbers'] = array(
+	        'current' => $pager->getCurrentPageID(),
+	        'total'   => $pager->numPages()
+	    );
+	    list($page['from'], $page['to']) = $pager->getOffsetByPageId();
+	    $page['limit'] = $page['to'] - $page['from'] +1;
+	    if (!$disabled) {
+	        $db->setLimit($pager_options['perPage'], $page['from']-1);
+	    }
+	    $page['data'] = $db->queryAll($query, null, $fetchMode);
+	    if (PEAR::isError($page['data'])) {
+	        return $page['data'];
+	    }
+	    if ($disabled) {
+	        $page['links'] = '';
+	        $page['page_numbers'] = array(
+	            'current' => 1,
+	            'total'   => 1
+	        );
+	    }
+	    return $page;
+	}
+	
+	private function rewriteCountQuery($sql)
+	{
+	    if (preg_match('/^\s*SELECT\s+\bDISTINCT\b/is', $sql) ||
+	        preg_match('/\s+GROUP\s+BY\s+/is', $sql) ||
+	        preg_match('/\s+UNION\s+/is', $sql)) {
+	        return false;
+	    }
+	    $open_parenthesis = '(?:\()';
+	    $close_parenthesis = '(?:\))';
+	    $subquery_in_select = $open_parenthesis.'.*\bFROM\b.*'.$close_parenthesis;
+	    $pattern = '/(?:.*'.$subquery_in_select.'.*)\bFROM\b\s+/Uims';
+	    if (preg_match($pattern, $sql)) {
+	        return false;
+	    }
+	    $subquery_with_limit_order = $open_parenthesis.'.*\b(LIMIT|ORDER)\b.*'.$close_parenthesis;
+	    $pattern = '/.*\bFROM\b.*(?:.*'.$subquery_with_limit_order.'.*).*/Uims';
+	    if (preg_match($pattern, $sql)) {
+	        return false;
+	    }
+	    $queryCount = preg_replace('/(?:.*)\bFROM\b\s+/Uims', 'SELECT COUNT(*) FROM ', $sql, 1);
+	    list($queryCount, ) = preg_split('/\s+ORDER\s+BY\s+/is', $queryCount);
+	    list($queryCount, ) = preg_split('/\bLIMIT\b/is', $queryCount);
+	    return trim($queryCount);
+	}
 }

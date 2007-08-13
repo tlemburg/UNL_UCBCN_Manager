@@ -54,11 +54,8 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.5.0');
-$pfm->setReleaseVersion('0.5.2');
-$pfm->setNotes('Redirect to users list when adding or saving permissions.
-Minor CSS, and javascript fixes which remove some warnings and errors.
-Coding standards and documentation additions.
-Throws an exception if authentication mechanism is not defined.
+$pfm->setReleaseVersion('0.5.3');
+$pfm->setNotes('Add paginated results to the event listings.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
@@ -70,6 +67,7 @@ $pfm->setPearinstallerDep('1.4.3');
 $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.php.net', '0.18.1');
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
 $pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.5.0');
+$pfm->addPackageDepWithChannel('required', 'Pager', 'pear.php.net', '2.2.1');
 foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
 	$pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
 	$pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
