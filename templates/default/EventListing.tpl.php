@@ -3,8 +3,8 @@
 <thead>
 <tr>
 <th scope="col" class="select">Select</th>
-<th scope="col" class="title"><a href="?list=<?php echo $_GET['list']; ?>&amp;orderby=title">Event Title</a></th>
-<th scope="col" class="date"><a href="?list=<?php echo $_GET['list']; ?>&amp;orderby=starttime">Date</a></th>
+<th scope="col" class="title"><a href="?list=<?php echo @$_GET['list']; ?>&amp;orderby=title">Event Title</a></th>
+<th scope="col" class="date"><a href="?list=<?php echo @$_GET['list']; ?>&amp;orderby=starttime">Date</a></th>
 <th scope="col" class="edit">Edit</th>
 </tr>
 </thead>
