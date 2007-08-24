@@ -894,29 +894,27 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                         } else {
                             $user_li .= '>';    
                         }
-                        $oddrow   = !$oddrow;
                         $user_li .= '<td>'.$users->uid.'</td><td><a class="user_perm_edit" href="?action=permissions&amp;uid='.$users->uid.'">Edit</a></td>';
-                        if ($this->userHasPermission($this->user, 'Calendar Delete User', $this->calendar)) {
+                        if ($this->userHasPermission($this->user, 'Calendar Delete User', $this->calendar) && $users->uid != $this->user->uid) {
                             // This user can delete calendar users.
                             if (isset($_GET['remove']) 
                                 && isset($_GET['uid']) 
                                 && ($_GET['uid']==$users->uid)) {
                                 // The user has clicked the remove user.
-                                if ($users->uid != $this->user->uid) {
-                                    $this->calendar->removeUser($users);
-                                    $user_li = '<li>'.$users->uid.' (DELETED)';
-                                } else {
-                                    $li .= 'ERROR, you cannot delete yourself!';
-                                }
+                                $this->calendar->removeUser($users);
+                                continue;
                             } else {
-                                $user_li .= '<td><a class="user_perm_remove" href="?action=calendar&amp;uid='.$users->uid.'&amp;remove=true">Remove User</a></td>';
+                                $user_li .= '<td><a class="user_perm_remove" href="?action=users&amp;uid='.$users->uid.'&amp;remove=true">Remove User</a></td>';
                             }
+                        } else {
+                            $user_li .= '<td></td>';
                         }
                         $user_li .= '</tr>';
                     } else {
                         $user_li = '<tr><td>'.$users->uid.'</td></tr>';
                     }
                     $permissions_list[] = $user_li;
+                    $oddrow   = !$oddrow;
                 }
             }
             $permissions_list[] = '</tbody></table>';
