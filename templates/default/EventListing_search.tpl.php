@@ -31,7 +31,17 @@ foreach ($this->events as $event) {
 				<ul>
 				<?php
 					while ($edt->fetch()) {
-						echo '<li>'.date('M jS g:ia',strtotime($edt->starttime)).'</li>';
+						$starttime = strtotime($edt->starttime);
+					    if (date('Y', $starttime) == date('Y')) {
+					        // Date is in current year.
+						    $datestring = date('M jS', $starttime);
+						    if (substr($edt->starttime, 11) != '00:00:00') {
+						        $datestring .= date(' g:ia', $starttime);
+						    }
+					    } else {
+					        $datestring = date('M jS, Y', $starttime);
+					    }
+					    echo '<li><abbr class="dtstart" title="'.date(DATE_ISO8601, $starttime).'">'.$datestring.'</abbr></li>';
 					}
 				?>
 				</ul>
