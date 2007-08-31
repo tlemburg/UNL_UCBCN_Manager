@@ -18,10 +18,10 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2007-07-31</date>
- <time>14:35:52</time>
+ <date>2007-08-31</date>
+ <time>13:20:57</time>
  <version>
-  <release>0.5.2</release>
+  <release>0.5.3</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -29,10 +29,9 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
- <notes>Redirect to users list when adding or saving permissions.
-Minor CSS, and javascript fixes which remove some warnings and errors.
-Coding standards and documentation additions.
-Throws an exception if authentication mechanism is not defined.
+ <notes>* Paginate results in the event listings.
+* Require Pager package.
+* Display year in event listing if year is not the current year.
  </notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
@@ -226,6 +225,11 @@ Throws an exception if authentication mechanism is not defined.
     <channel>pear.unl.edu</channel>
     <min>0.5.0</min>
    </package>
+   <package>
+    <name>Pager</name>
+    <channel>pear.php.net</channel>
+    <min>2.2.1</min>
+   </package>
   </required>
  </dependencies>
  <phprelease />
@@ -403,12 +407,27 @@ Upgrade FormBuilder code to latest release.</notes>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2007-07-31</date>
+   <date>2007-08-13</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
    <notes>Redirect to users list when adding or saving permissions.
 Minor CSS, and javascript fixes which remove some warnings and errors.
 Coding standards and documentation additions.
-Throws an exception if authentication mechanism is not defined.
+Throws an exception if authentication mechanism is not defined.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.3</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-08-31</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>* Paginate results in the event listings.
+* Require Pager package.
+* Display year in event listing if year is not the current year.
    </notes>
   </release>
  </changelog>

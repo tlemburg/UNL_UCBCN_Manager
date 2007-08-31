@@ -55,7 +55,9 @@ $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.5.0');
 $pfm->setReleaseVersion('0.5.3');
-$pfm->setNotes('Add paginated results to the event listings.
+$pfm->setNotes('* Paginate results in the event listings.
+* Require Pager package.
+* Display year in event listing if year is not the current year.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
