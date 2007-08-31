@@ -680,7 +680,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         default:
         case 'eventdatetime.starttime':
         case 'starttime':
-            $orderby = 'eventdatetime.starttime';
+            $orderby = 'eventdatetime.starttime DESC';
             break;
         case 'title':
         case 'event.title':

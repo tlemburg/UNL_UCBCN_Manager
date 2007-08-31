@@ -535,6 +535,8 @@ table.eventlisting {
 	width: 100%;
 }
 
+#maincontent table.eventlisting abbr:after {content:'';}
+
 #maincontent form fieldset li table.eventlisting{background:#fff;width:680px;margin:0 0 0 10px}
 #maincontent form fieldset li table.eventlisting th{text-align:left;padding:4px;background:#666;color:#fff;}
 #maincontent form fieldset li table.eventlisting td{border:none;text-align:left;}

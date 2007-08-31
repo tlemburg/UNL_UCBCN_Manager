@@ -34,11 +34,17 @@ foreach ($this->events as $e) {
 	if ($instances) {
 		$row .= '<ul>';
 			while ($edt->fetch()) {
-			    if (substr($edt->starttime,11) != '00:00:00') {
-			        $row .= '<li>'.date('M jS g:ia',strtotime($edt->starttime)).'</li>';
+			    $starttime = strtotime($edt->starttime);
+			    if (date('Y', $starttime) == date('Y')) {
+			        // Date is in current year.
+				    $datestring = date('M jS', $starttime);
+				    if (substr($edt->starttime, 11) != '00:00:00') {
+				        $datestring .= date(' g:ia', $starttime);
+				    }
 			    } else {
-			        $row .= '<li>'.date('M jS',strtotime($edt->starttime)).'</li>';
+			        $datestring = date('M jS, Y', $starttime);
 			    }
+			    $row .= '<li><abbr class="dtstart" title="'.date(DATE_ISO8601, $starttime).'">'.$datestring.'</abbr></li>';
 			}
 		$row .= '</ul>';
     } else {
