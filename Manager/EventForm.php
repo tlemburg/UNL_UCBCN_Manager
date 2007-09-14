@@ -52,6 +52,9 @@ class UNL_UCBCN_Manager_EventForm
         }
         $form = new HTML_QuickForm('unl_ucbcn_event', 'post', $this->manager->uri.'?action=createEvent');
         $fb   =& UNL_UCBCN_Manager_FormBuilder::create($events, false, 'UCBCN_QuickForm', 'UNL_UCBCN_Manager_FormBuilder');
+        $form->setDefaults(array(
+                    'uidcreated'        => $this->manager->user->uid,
+                    'uidlastupdated'    => $this->manager->user->uid));
         $fb->useForm($form);
         $form =& $fb->getForm($this->manager->uri.'?action=createEvent');
         
@@ -60,11 +63,7 @@ class UNL_UCBCN_Manager_EventForm
             $form->insertElementBefore(HTML_QuickForm::createElement('static', 'datestimes', $this->getRelatedLocationDateAndTimes($events)),
                 'optionaldetailsheader');
         }
-        if (!isset($events->id)) {
-	        $form->setDefaults(array(
-	                    'uidcreated'        => $this->manager->user->uid,
-	                    'uidlastupdated'    => $this->manager->user->uid));
-        }
+        
         if ($form->isSubmitted() && $form->validate()) {
             // Form has passed the client/server validation and can be inserted.
             /* If this is an update, first check to see if the current user has permission to edit
