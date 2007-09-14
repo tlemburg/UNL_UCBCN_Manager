@@ -98,7 +98,7 @@ class UNL_UCBCN_Manager_EventForm
      * 
      * @return bool
      */
-    function addToCalendar($event)
+    function addToCalendar(UNL_UCBCN_Event $event)
     {
         $che =& UNL_UCBCN::calendarHasEvent($this->manager->calendar, $event);
         if ($che===false) {
@@ -128,7 +128,7 @@ class UNL_UCBCN_Manager_EventForm
      * 
      * @return string html
      */
-    function getRelatedLocationDateAndTimes($event)
+    function getRelatedLocationDateAndTimes(UNL_UCBCN_Event $event)
     {
         $edt = UNL_UCBCN::factory('eventdatetime');
         $edt->selectAdd('UNIX_TIMESTAMP(starttime) AS starttimeu, UNIX_TIMESTAMP(endtime) AS endtimeu');
