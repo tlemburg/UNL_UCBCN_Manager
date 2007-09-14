@@ -60,10 +60,11 @@ class UNL_UCBCN_Manager_EventForm
             $form->insertElementBefore(HTML_QuickForm::createElement('static', 'datestimes', $this->getRelatedLocationDateAndTimes($events)),
                 'optionaldetailsheader');
         }
-        
-        $form->setDefaults(array(
-                    'uidcreated'        => $this->manager->user->uid,
-                    'uidlastupdated'    => $this->manager->user->uid));
+        if (!isset($events->id)) {
+	        $form->setDefaults(array(
+	                    'uidcreated'        => $this->manager->user->uid,
+	                    'uidlastupdated'    => $this->manager->user->uid));
+        }
         if ($form->isSubmitted() && $form->validate()) {
             // Form has passed the client/server validation and can be inserted.
             /* If this is an update, first check to see if the current user has permission to edit
