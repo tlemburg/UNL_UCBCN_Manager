@@ -343,6 +343,7 @@ form#cal_choose br {
 	display: inline
 }
 
+#maincontent form fieldset#contactheader .reqnote,
 #maincontent form fieldset.ddetailsheader_class .reqnote, 
 #maincontent form fieldset.deventlocationheader_class .reqnote,
 #maincontent form fieldset.doptionaldetailsheader_class .reqnote {
