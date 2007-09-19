@@ -326,6 +326,8 @@ form div.error {
 	text-decoration: underline;
 }
 
+#maincontent #description {margin-bottom:-25px;}
+
 form#cal_choose select {
 	font-size: 1em;
 }
