@@ -171,6 +171,8 @@ div.cal_widget fieldset legend {
 	background: #ecf4f8 url(images/fieldsetline.gif) no-repeat;
 }
 
+#maincontent form fieldset fieldset {margin-left:-10px !important;}
+
 #maincontent form fieldset ol {
 	margin: 0;
 	padding: 0;
@@ -218,8 +220,6 @@ div.cal_widget fieldset legend {
 	{
 	background: #ffffcc;
 }
-
-
 
 #maincontent form select {
 	font-size: 0.8em;
