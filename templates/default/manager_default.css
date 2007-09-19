@@ -344,7 +344,7 @@ form#cal_choose br {
 
 #maincontent form fieldset.ddetailsheader_class .reqnote, 
 #maincontent form fieldset.deventlocationheader_class .reqnote,
-#maincontent form fieldset.dcontactheader_class .reqnote {
+#maincontent form fieldset.doptionaldetailsheader_class .reqnote {
 	display: none;
 }
 #maincontent form#unl_ucbcn_event fieldset.d__header___class input {
