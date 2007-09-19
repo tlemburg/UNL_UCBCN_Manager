@@ -44,6 +44,7 @@
 			<?php if (isset($this->user)) { ?>
 			<ul>
 				<li class="first"><a href="http://ucommdev.unl.edu/webdev/wiki/index.php/UNL_Calendar_Documentation">Help</a></li>
+				<li><a href="http://www1.unl.edu/wdn/wiki/UNL_Calendar_FAQs"><abbr title="Frequently asked questions">FAQs</abbr></a></li>
 				<li><a href="<?php echo $this->uri; ?>?logout=true">LogOut</a></li>
 			</ul>
 				
@@ -140,7 +141,7 @@
 <div id="footer">
 	<div id="footer_floater"> <!-- InstanceBeginEditable name="optionalfooter" --> <!-- InstanceEndEditable -->
 		<div id="copyright"> <!-- InstanceBeginEditable name="footercontent" -->
-			&copy; 2007 University of Nebraska&ndash;Lincoln | <a href="http://www.unl.edu/webdevnet/">Web Developer Network</a>
+			&copy; 2007 University of Nebraska&ndash;Lincoln | <a href="http://www.unl.edu/webdevnet/">Web Developer Network</a> | <a href="http://www1.unl.edu/wdn/wiki/UNL_Calendar_FAQs"><abbr title="Frequently asked questions">FAQs</abbr></a> | <a href="http://www1.unl.edu/comments/">Comments?</a>
 			<!-- InstanceEndEditable --> <span><a href="http://jigsaw.w3.org/css-validator/check/referer">CSS</a> <a href="http://validator.w3.org/check/referer">W3C</a> <a href="http://www-1.unl.edu/feeds/">RSS</a> </span><a href="http://www.unl.edu/" title="UNL Home"><img src="/ucomm/templatedependents/templatecss/images/wordmark.png" alt="UNL's wordmark" id="wordmark" /></a></div>
 	</div>
 </div>
