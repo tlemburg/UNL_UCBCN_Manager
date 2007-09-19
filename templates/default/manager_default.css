@@ -172,6 +172,7 @@ div.cal_widget fieldset legend {
 }
 
 #maincontent form fieldset fieldset {margin-left:-10px !important;}
+#maincontent form fieldset fieldset fieldset {margin-left:0 !important;}
 
 #maincontent form fieldset ol {
 	margin: 0;
