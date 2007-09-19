@@ -231,7 +231,6 @@ div.cal_widget fieldset legend {
 
 #maincontent form textarea {
 	overflow: auto;
-	height: 100px;
 }
 
 #maincontent form br {
