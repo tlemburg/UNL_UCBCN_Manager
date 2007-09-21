@@ -326,8 +326,6 @@ form div.error {
 	text-decoration: underline;
 }
 
-#maincontent #description {margin-bottom:-25px;}
-
 form#cal_choose select {
 	font-size: 1em;
 }
@@ -359,7 +357,7 @@ form#cal_choose br {
 	margin-top: -23px;
 }
 body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
-
+/*
 #maincontent form div.newlocation {
 	background: #eee;
 	width: 500px;
@@ -379,7 +377,7 @@ body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
 
 #maincontent form div.newlocation legend {
 	display: none;
-}
+}*/
 
 /*	-------------------------------------------------------------
 	Top right/college nav form elements

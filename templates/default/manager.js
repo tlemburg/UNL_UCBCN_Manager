@@ -111,7 +111,7 @@ function updateRow(){
 function requiredField(){
 	var fieldset = document.getElementsByTagName('fieldset');
 	var lastrequired = getElementsByClassName(document, "span", "required");
-	//try {
+	try {
 		//alert(lastrequired.length);
 		lastrequired[lastrequired.length - 1].id = 'lastfieldset';
 		
@@ -130,7 +130,7 @@ function requiredField(){
 				}
 			}
 		}
-	//} catch(e) {}
+	} catch(e) {}
 }
 
 /*safari fixes*/
@@ -145,12 +145,15 @@ function showIsAppleWebKit() {
 			if (isAppleWebkit) {
 			var fieldObj = getElementsByClassName(document, "fieldset", "d__header___class"); 
 			fieldObj[0].style.marginTop = '-10px';	
-		
-			} else {}
+			} else {
+			
+				var eventLoc = document.getElementById('eventlocationheader');
+	  			eventLoc.getElementsByTagName('label')[0].style.display = 'none';
+	  		}
 }
 
 function hideField(){
-	try {
+	
 		var id = document.getElementById('optionaldetailsheader');
 		var formContainer = id.getElementsByTagName('ol');
 		createButton('Click to add additional details', id, formHide, 'formShow')
@@ -158,17 +161,15 @@ function hideField(){
 	  	
 	  
 	  	//fix some layout problem at the same time
-	  	var eventLoc = document.getElementById('eventlocationheader');
-	  	eventLoc.getElementsByTagName('label')[0].style.display = 'none';
-	  	var eventNewLoc = document.getElementById('__reverseLink_eventdatetime_event_idlocation_id_1__subForm__div');
-	  	eventNewLoc.className = 'newlocation';
+	  	//var eventNewLoc = document.getElementById('__reverseLink_eventdatetime_event_idlocation_id_1__subForm__div');
+	  	//eventNewLoc.className = 'newlocation';
 	  	var eventBr = document.getElementById('__header__');
 	  	eventBr.getElementsByTagName('br')[1].style.display = 'none';
 	  	
 	  	var eventLi = eventBr.getElementsByTagName('li')[1];
 	  	eventLi.className='consider';
 	  	showIsAppleWebKit();
-	} catch(e) {}
+	
 }
 
 function formHide(){
