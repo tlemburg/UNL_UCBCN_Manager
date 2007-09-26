@@ -70,6 +70,7 @@ $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.ph
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
 $pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.5.0');
 $pfm->addPackageDepWithChannel('required', 'Pager', 'pear.php.net', '2.2.1');
+$pfm->addPackageDepWithChannel('required', 'HTML_Table', 'pear.php.net', '1.6.0');
 foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
 	$pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
 	$pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
