@@ -17,6 +17,8 @@ require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
 require_once 'UNL/UCBCN/ManagerTest.php';
+require_once 'CreateEventTest.php';
+
 
 class UNL_UCBCN_Manager_AllTests
 {
@@ -41,7 +43,7 @@ class UNL_UCBCN_Manager_AllTests
         $suite = new PHPUnit_Framework_TestSuite('UNL_UCBCN_Manager tests');
         /** Add testsuites, if there is. */
         $suite->addTestSuite('UNL_UCBCN_ManagerTest');
-
+        $suite->addTestSuite('UNL_UCBCN_Manager_CreateEventTest');
 
         return $suite;
     }

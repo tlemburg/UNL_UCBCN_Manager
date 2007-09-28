@@ -327,6 +327,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                 $this->uniquebody = 'id="import"';
                 $this->sectitle   = 'Import .ics or .xml Event';
                 break;
+            case 'recommend':
+                $this->output[] = $this->showRecommendForm();
+                break;
             case 'search':
                 UNL_UCBCN::outputTemplate('UNL_UCBCN_EventListing', 'EventListing_search');
                 $this->uniquebody = 'id="search"';
@@ -831,6 +834,22 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             }
             return $renderer->toHtml();
         }
+    }
+    
+    /**
+     * This form allows the user to recommend an event for other calendars.
+     *
+     */
+    public function showRecommendForm()
+    {
+         $event = $this->factory('event');
+         if (isset($_GET['event_id']) && $event->get($_GET['event_id'])) {
+             include_once 'UNL/UCBCN/Manager/Recommend.php';
+             $r = new UNL_UCBCN_Manager_Recommend($this, $event);
+             return $r;
+         } else {
+             return new UNL_UCBCN_Error('No event selected to recommend!');
+         }
     }
     
     /**

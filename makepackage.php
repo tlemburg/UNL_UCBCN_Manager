@@ -14,43 +14,44 @@ chdir(dirname(__FILE__));
 $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
 //$pfm = new PEAR_PackageFileManager2();
 //$pfm->setOptions(array(
-	'packagedirectory' => dirname(__FILE__),
-	'baseinstalldir' => 'UNL/UCBCN',
-	'filelistgenerator' => 'file',
-	'ignore' => array(	'package.xml',
-						'.project',
-						'*.tgz',
-						'makepackage.php',
-						'*CVS/*',
-						'*.sh',
-						'*.svg',
-						'.cache',
-						'install.sh',
-						'InDesignExport.php',
-						'idexport_makepackage.php',
+    'packagedirectory' => dirname(__FILE__),
+    'baseinstalldir' => 'UNL/UCBCN',
+    'filelistgenerator' => 'file',
+    'ignore' => array(    'package.xml',
+                        '.project',
+                        '*.tgz',
+                        'makepackage.php',
+                        '*CVS/*',
+                        '*.sh',
+                        '*.svg',
+                        '.cache',
+                        'install.sh',
+                        'InDesignExport.php',
+                        'idexport_makepackage.php',
                         '*tests*'),
-	'simpleoutput' => true,
-	'roles'=>array('php'=>'data'	),
-	'exceptions'=>array('UNL_UCBCN_Manager_setup.php'	=> 'php',
-						'Manager.php'					=> 'php',
-						'Manager/Login.php'				=> 'php',
-						'Manager/FormBuilder_Driver.php' => 'php',
-						'Manager/SubForm.php'			=> 'php',
-						'Manager/Tableless.php'		=> 'php',
-						'Manager/FormBuilder.php'		=> 'php',
-						'Manager/Plugin.php'			=> 'php',
-						'Manager/EventForm.php'        => 'php',
-						'Manager/jscalendar.php'        => 'php'
-						)
+    'simpleoutput' => true,
+    'roles'=>array('php'=>'data'    ),
+    'exceptions'=>array('UNL_UCBCN_Manager_setup.php'    => 'php',
+                        'Manager.php'                    => 'php',
+                        'Manager/Login.php'              => 'php',
+                        'Manager/FormBuilder_Driver.php' => 'php',
+                        'Manager/SubForm.php'            => 'php',
+                        'Manager/Tableless.php'          => 'php',
+                        'Manager/FormBuilder.php'        => 'php',
+                        'Manager/Recommend.php'          => 'php',
+                        'Manager/Plugin.php'             => 'php',
+                        'Manager/EventForm.php'          => 'php',
+                        'Manager/jscalendar.php'         => 'php'
+                        )
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
 $pfm->setPackageType('php'); // this is a PEAR-style php script package
 $pfm->setSummary('A Management frontend for publishing University events.');
 $pfm->setDescription('This package gives authenticated users access to publish events ' .
-		'into their own calendar for their Department/Unit within a University.
-		It uses PEAR Auth to connect with existing authentication sources (LDAP etc).
-		It handles authentication for the user and allows ' .
-				'insertion of event details into the calendar backend.');
+        'into their own calendar for their Department/Unit within a University.
+        It uses PEAR Auth to connect with existing authentication sources (LDAP etc).
+        It handles authentication for the user and allows ' .
+                'insertion of event details into the calendar backend.');
 $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
@@ -73,10 +74,10 @@ $pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.5.0')
 $pfm->addPackageDepWithChannel('required', 'Pager', 'pear.php.net', '2.2.1');
 $pfm->addPackageDepWithChannel('required', 'HTML_Table', 'pear.php.net', '1.6.0');
 foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
-	$pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
-	$pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
-	$pfm->addReplacement($file, 'pear-config', '@DATA_DIR@', 'data_dir');
-	$pfm->addReplacement($file, 'pear-config', '@DOC_DIR@', 'doc_dir');
+    $pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
+    $pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
+    $pfm->addReplacement($file, 'pear-config', '@DATA_DIR@', 'data_dir');
+    $pfm->addReplacement($file, 'pear-config', '@DOC_DIR@', 'doc_dir');
 }
 
 $config = PEAR_Config::singleton();
@@ -84,18 +85,18 @@ $log = PEAR_Frontend::singleton();
 $task = new PEAR_Task_Postinstallscript_rw($pfm, $config, $log,
     array('name' => 'UNL_UCBCN_Manager_setup.php', 'role' => 'php'));
 $task->addParamGroup('questionCreate', array(
-	$task->getParam('createtemplate',		'Create/Upgrade default templates?', 'string', 'yes'),
-	$task->getParam('createindex',			'Create/Upgrade sample index page?', 'string', 'yes'),
-	$task->getParam('createaccount',		'Create a calendar account?', 'string', 'yes'),
-	));
+    $task->getParam('createtemplate',        'Create/Upgrade default templates?', 'string', 'yes'),
+    $task->getParam('createindex',            'Create/Upgrade sample index page?', 'string', 'yes'),
+    $task->getParam('createaccount',        'Create a calendar account?', 'string', 'yes'),
+    ));
 $task->addParamGroup('fileSetup', array(
-	$task->getParam('docroot',		'Path to root of webserver', 'string', '/Library/WebServer/Documents/events/manager'),
-	$task->getParam('template',		'Template style to use', 'string', 'default')
+    $task->getParam('docroot',        'Path to root of webserver', 'string', '/Library/WebServer/Documents/events/manager'),
+    $task->getParam('template',        'Template style to use', 'string', 'default')
     ));
 $task->addParamGroup('accountSetup', array(
-	$task->getParam('dsn',			'Database connection string (DSN)', 'string', 'mysqli://eventcal:eventcal@localhost/eventcal'),
-	$task->getParam('name',			'Account Title', 'string', 'UNL Events'),
-	$task->getParam('shortname',	'Account Short Name', 'string', 'unlevents')
+    $task->getParam('dsn',            'Database connection string (DSN)', 'string', 'mysqli://eventcal:eventcal@localhost/eventcal'),
+    $task->getParam('name',            'Account Title', 'string', 'UNL Events'),
+    $task->getParam('shortname',    'Account Short Name', 'string', 'unlevents')
     ));
 
 $pfm->addPostinstallTask($task, 'UNL_UCBCN_Manager_setup.php');
