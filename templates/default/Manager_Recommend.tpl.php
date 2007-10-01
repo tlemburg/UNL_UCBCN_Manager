@@ -1,5 +1,5 @@
-<h3>Recommend <span class="title">'<?php echo $this->event->title; ?>'</span> for other calendars:</h3>
-<form action="<?php echo $this->manager->uri; ?>?action=recommend&amp;event_id=<?php echo $this->event->id; ?>" method="post">
+<h3>Recommend <span class="title">'<?php echo $this->events[0]->title; ?>'</span> for other calendars:</h3>
+<form action="<?php echo $this->uri; ?>" method="post">
 <?php
 ini_set('display_errors',true);
 require_once 'HTML/Table.php';
@@ -12,7 +12,11 @@ foreach ($this->calendars as $calendar_id=>$permissions) {
     $elid    = 'cal'.$calendar->id;
     $posted  = '';
     $pending = '';
-    $curr_status = UNL_UCBCN_Calendar_has_event::calendarHasEvent($calendar, $this->event);
+    if (count($this->events) == 1) {
+        $curr_status = UNL_UCBCN_Calendar_has_event::calendarHasEvent($calendar, $this->events[0]);
+    } else {
+        $curr_status = false;
+    }
     if ($curr_status === false) {
         if (isset($permissions['Event Post'])) {
             $posted  = HTML_QuickForm::createElement('radio',$elid,null,null,'Event Post');

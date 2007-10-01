@@ -30,11 +30,18 @@ class UNL_UCBCN_Manager_Recommend
     public $manager;
     
     /**
-     * Event to build a recommendation form for.
+     * URI to this recommend screen.
      *
-     * @var UNL_UCBCN_Event
+     * @var unknown_type
      */
-    public $event;
+    public $uri;
+    
+    /**
+     * Events to build a recommendation form for.
+     *
+     * @var array of UNL_UCBCN_Event
+     */
+    public $events;
     
     /**
      * Calendars which this user has permission to post events to by permission.
@@ -43,34 +50,45 @@ class UNL_UCBCN_Manager_Recommend
      */
     public $calendars;
     
-    public function __construct(UNL_UCBCN_Manager &$manager, UNL_UCBCN_Event $event)
+    public function __construct(UNL_UCBCN_Manager &$manager, $events)
     {
-        $submitted       = false;
-        $this->manager   = $manager;
-        $this->event     = $event;
-        $permissions     = array('Event Post','Event Send Event to Pending Queue');
-        $cal_rows        = $this->getCalendarsWithPermission($this->manager->user, $permissions);
-        $this->calendars = array();
-        foreach ($cal_rows as $cal) {
-            if (isset($_POST['cal'.$cal[0]]) && $_POST['cal'.$cal[0]] == $cal[1]) {
-                $submitted = true;
-                $calendar  = $this->manager->factory('calendar');
-                $calendar->get($cal[0]);
-                switch ($_POST['cal'.$cal[0]]) {
-                case 'Event Post':
-                    $calendar->addEvent($event,'posted', $this->manager->user,'recommended');
-                    break;
-                case 'Event Send Event to Pending Queue':
-                    $calendar->addEvent($event,'posted', $this->manager->user,'recommended');
-                    break;
+        if (count($events) > 0) {
+            $submitted       = false;
+            $this->manager   = $manager;
+            $this->events    = $events;
+            $this->uri       = $this->getURI();
+            $permissions     = array('Event Post','Event Send Event to Pending Queue');
+            $cal_rows        = $this->getCalendarsWithPermission($this->manager->user, $permissions);
+            $this->calendars = array();
+            foreach ($cal_rows as $cal) {
+                if (isset($_POST['cal'.$cal[0]]) && $_POST['cal'.$cal[0]] == $cal[1]) {
+                    $submitted = true;
+                    $calendar  = $this->manager->factory('calendar');
+                    $calendar->get($cal[0]);
+                    switch ($_POST['cal'.$cal[0]]) {
+                    case 'Event Post':
+                        $status = 'post';
+                        break;
+                    case 'Event Send Event to Pending Queue':
+                        $status = 'pending';
+                        break;
+                    default:
+                        // Should never enter here.
+                        throw new Exception('unknown event status sent');
+                    }
+                    foreach ($this->events as $event) {
+                        $calendar->addEvent($event,$status, $this->manager->user,'recommended');
+                    }
                 }
+                $this->calendars[$cal[0]][$cal[1]] = 1;
             }
-            $this->calendars[$cal[0]][$cal[1]] = 1;
-        }
-        if ($submitted) {
-            // We have processed the recommendations. Redirect.
-            $this->manager->localRedirect($this->manager->uri);
-            exit();
+            if ($submitted) {
+                // We have processed the recommendations. Redirect.
+                $this->manager->localRedirect($this->manager->uri);
+                exit();
+            }
+        } else {
+            return new UNL_UCBCN_Error('No events selected!');
         }
     }
     
@@ -96,6 +114,20 @@ class UNL_UCBCN_Manager_Recommend
                            AND uhp.calendar_id = c.id";
         }
         return $db->queryAll(implode(' UNION ',$sql).' ORDER BY calname, calendar_id, permission;');
+    }
+    
+    /**
+     * Returns the URI to this recommend screen.
+     *
+     * @return string
+     */
+    public function getURI()
+    {
+        $url = $this->manager->uri.'?action=recommend';
+        foreach ($this->events as $event) {
+            $url .= '&event_id[]='.$event->id;
+        }
+        return $url;
     }
 }
 ?>
