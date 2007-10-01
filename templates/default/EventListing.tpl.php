@@ -62,6 +62,17 @@ foreach ($this->events as $e) {
 </table>
 <a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
 <a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
+<fieldset>
+<legend>Action</legend>
+<label for="action">Action</label>
+<select name="action" onfocus="return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+    <option>Select action...</option>
+    <option value="posted"    disabled="disabled">Add to Posted</option>
+    <option value="pending"   disabled="disabled">Move to Pending</option>
+    <option value="recommend" disabled="disabled">Recommend</option>
+    <option value="delete"    disabled="disabled">Delete</option>
+</select>
+</fieldset>
 <input class="btnsubmit" id="delete_event" type="submit" name="delete" onclick="return confirm('Are you sure?');" value="Delete" />
 <?php if ($this->status=='posted') { ?>
 <input class="btnsubmit" id="moveto_pending" type="submit" name="pending" value="Move to Pending" />
@@ -69,3 +80,54 @@ foreach ($this->events as $e) {
 <input class="btnsubmit" id="moveto_posted" type="submit" name="posted" value="Add to Posted" />
 <?php } ?>
 </form>
+<script type="text/javascript">
+var manager = function() {
+    return {
+        list : '<?php echo $this->status; ?>',
+        /* Updates elements to what is selected.  */
+        updateActionMenus : function(sel) {
+            if (manager.anEventIsSelected()) {
+                if (manager.list != 'pending') {
+                    sel[1].disabled = 'disabled';
+                    sel[2].disabled = null;
+                } else {
+                    sel[1].disabled = null;
+                    sel[2].disabled = 'disabled';
+                }
+                sel[3].disabled = null;
+                sel[4].disabled = null;
+            } else {
+                sel[1].disabled = 'disabled';
+                sel[2].disabled = 'disabled';
+                sel[3].disabled = 'disabled';
+                sel[4].disabled = 'disabled';
+            }
+        },
+        
+        anEventIsSelected : function() {
+            var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+            if (inputUncheck[0].style.display == 'none') {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        
+        /* This function is called when an action is selected within an event listing */
+        actionMenuChange  : function(sel) {
+            switch(sel[sel.selectedIndex].value) {
+            case 'posted':
+            case 'pending':
+            case 'recommend':
+                alert('Send them to the '+sel[sel.selectedIndex].value+' screen now');
+                break;
+            case 'delete':
+                if (confirm('Are you sure?')) {
+                    alert('I would delete them now');
+                }
+                break;
+            }
+        }
+    };
+}();
+</script>

@@ -87,7 +87,7 @@ function animation(l,id){
 }
 
 function checkevent(id) {
-	 checkSet = eval("document.formlist.event" + id);
+	 var checkSet = eval("document.formlist.event" + id);
 	 checkSet.checked = !checkSet.checked
 }
 
@@ -238,7 +238,7 @@ function checkInput(){
 	var f = document.getElementById('formlist');
 	var checks = f.getElementsByTagName('input');
 	
-	for(k=0;k<checks.length;k++){
+	for(var k=0;k<checks.length;k++){
 		if(checks[k].checked == true){
 			flag = 1;
 		}
