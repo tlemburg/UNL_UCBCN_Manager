@@ -1027,78 +1027,78 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         }
     }
     
-	function pagerWrapper(&$db, $query, $pager_options = array(), $disabled = false, $fetchMode = MDB2_FETCHMODE_ASSOC)
-	{
-	    if (!array_key_exists('totalItems', $pager_options)) {
-	        //be smart and try to guess the total number of records
-	        if ($countQuery = $this->rewriteCountQuery($query)) {
-	            $totalItems = $db->queryOne($countQuery);
-	            if (PEAR::isError($totalItems)) {
-	                return $totalItems;
-	            }
-	        } else {
-	            //GROUP BY => fetch the whole resultset and count the rows returned
-	            $res =& $db->queryCol($query);
-	            if (PEAR::isError($res)) {
-	                return $res;
-	            }
-	            $totalItems = count($res);
-	        }
-	        $pager_options['totalItems'] = $totalItems;
-	    }
-	    if (!isset($pager_options['perPage'])) {
-	        $pager_options['perPage'] = 30;
-	    }
-	    $pager = Pager::factory($pager_options);
-	
-	    $page = array();
-	    $page['links'] = $pager->links;
-	    $page['totalItems'] = $pager_options['totalItems'];
-	    $page['page_numbers'] = array(
-	        'current' => $pager->getCurrentPageID(),
-	        'total'   => $pager->numPages()
-	    );
-	    list($page['from'], $page['to']) = $pager->getOffsetByPageId();
-	    $page['limit'] = $page['to'] - $page['from'] +1;
-	    if (!$disabled) {
-	        $db->setLimit($pager_options['perPage'], $page['from']-1);
-	    }
-	    $page['data'] = $db->queryAll($query, null, $fetchMode);
-	    if (PEAR::isError($page['data'])) {
-	        return $page['data'];
-	    }
-	    if ($disabled) {
-	        $page['links'] = '';
-	        $page['page_numbers'] = array(
-	            'current' => 1,
-	            'total'   => 1
-	        );
-	    }
-	    return $page;
-	}
-	
-	private function rewriteCountQuery($sql)
-	{
-	    if (preg_match('/^\s*SELECT\s+\bDISTINCT\b/is', $sql) ||
-	        preg_match('/\s+GROUP\s+BY\s+/is', $sql) ||
-	        preg_match('/\s+UNION\s+/is', $sql)) {
-	        return false;
-	    }
-	    $open_parenthesis = '(?:\()';
-	    $close_parenthesis = '(?:\))';
-	    $subquery_in_select = $open_parenthesis.'.*\bFROM\b.*'.$close_parenthesis;
-	    $pattern = '/(?:.*'.$subquery_in_select.'.*)\bFROM\b\s+/Uims';
-	    if (preg_match($pattern, $sql)) {
-	        return false;
-	    }
-	    $subquery_with_limit_order = $open_parenthesis.'.*\b(LIMIT|ORDER)\b.*'.$close_parenthesis;
-	    $pattern = '/.*\bFROM\b.*(?:.*'.$subquery_with_limit_order.'.*).*/Uims';
-	    if (preg_match($pattern, $sql)) {
-	        return false;
-	    }
-	    $queryCount = preg_replace('/(?:.*)\bFROM\b\s+/Uims', 'SELECT COUNT(*) FROM ', $sql, 1);
-	    list($queryCount, ) = preg_split('/\s+ORDER\s+BY\s+/is', $queryCount);
-	    list($queryCount, ) = preg_split('/\bLIMIT\b/is', $queryCount);
-	    return trim($queryCount);
-	}
+    function pagerWrapper(&$db, $query, $pager_options = array(), $disabled = false, $fetchMode = MDB2_FETCHMODE_ASSOC)
+    {
+        if (!array_key_exists('totalItems', $pager_options)) {
+            //be smart and try to guess the total number of records
+            if ($countQuery = $this->rewriteCountQuery($query)) {
+                $totalItems = $db->queryOne($countQuery);
+                if (PEAR::isError($totalItems)) {
+                    return $totalItems;
+                }
+            } else {
+                //GROUP BY => fetch the whole resultset and count the rows returned
+                $res =& $db->queryCol($query);
+                if (PEAR::isError($res)) {
+                    return $res;
+                }
+                $totalItems = count($res);
+            }
+            $pager_options['totalItems'] = $totalItems;
+        }
+        if (!isset($pager_options['perPage'])) {
+            $pager_options['perPage'] = 30;
+        }
+        $pager = Pager::factory($pager_options);
+    
+        $page = array();
+        $page['links'] = $pager->links;
+        $page['totalItems'] = $pager_options['totalItems'];
+        $page['page_numbers'] = array(
+            'current' => $pager->getCurrentPageID(),
+            'total'   => $pager->numPages()
+        );
+        list($page['from'], $page['to']) = $pager->getOffsetByPageId();
+        $page['limit'] = $page['to'] - $page['from'] +1;
+        if (!$disabled) {
+            $db->setLimit($pager_options['perPage'], $page['from']-1);
+        }
+        $page['data'] = $db->queryAll($query, null, $fetchMode);
+        if (PEAR::isError($page['data'])) {
+            return $page['data'];
+        }
+        if ($disabled) {
+            $page['links'] = '';
+            $page['page_numbers'] = array(
+                'current' => 1,
+                'total'   => 1
+            );
+        }
+        return $page;
+    }
+    
+    private function rewriteCountQuery($sql)
+    {
+        if (preg_match('/^\s*SELECT\s+\bDISTINCT\b/is', $sql) ||
+            preg_match('/\s+GROUP\s+BY\s+/is', $sql) ||
+            preg_match('/\s+UNION\s+/is', $sql)) {
+            return false;
+        }
+        $open_parenthesis = '(?:\()';
+        $close_parenthesis = '(?:\))';
+        $subquery_in_select = $open_parenthesis.'.*\bFROM\b.*'.$close_parenthesis;
+        $pattern = '/(?:.*'.$subquery_in_select.'.*)\bFROM\b\s+/Uims';
+        if (preg_match($pattern, $sql)) {
+            return false;
+        }
+        $subquery_with_limit_order = $open_parenthesis.'.*\b(LIMIT|ORDER)\b.*'.$close_parenthesis;
+        $pattern = '/.*\bFROM\b.*(?:.*'.$subquery_with_limit_order.'.*).*/Uims';
+        if (preg_match($pattern, $sql)) {
+            return false;
+        }
+        $queryCount = preg_replace('/(?:.*)\bFROM\b\s+/Uims', 'SELECT COUNT(*) FROM ', $sql, 1);
+        list($queryCount, ) = preg_split('/\s+ORDER\s+BY\s+/is', $queryCount);
+        list($queryCount, ) = preg_split('/\bLIMIT\b/is', $queryCount);
+        return trim($queryCount);
+    }
 }
