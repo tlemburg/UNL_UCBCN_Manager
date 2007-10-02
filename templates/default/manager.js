@@ -63,7 +63,7 @@ var manager = function() {
         updateActionMenus : function(sel) {
             sel.selectedIndex = 0;
             if (manager.anEventIsSelected()) {
-                if (manager.list != 'pending') {
+                if (manager.list == 'posted' || manager.list == 'archived') {
                     sel[1].disabled = 'disabled';
                     sel[2].disabled = null;
                 } else if (manager.list == 'search') {

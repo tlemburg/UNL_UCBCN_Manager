@@ -69,7 +69,7 @@ class UNL_UCBCN_Manager_Recommend
                         throw new Exception('unknown event status sent');
                     }
                     foreach ($this->events as $event) {
-                        $calendar->addEvent($event,$status, $this->manager->user,'recommended');
+                        $calendar->addEvent($event, $status, $this->manager->user, 'recommended');
                     }
                 }
                 $this->calendars[$cal[0]][$cal[1]] = 1;
