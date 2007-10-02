@@ -52,6 +52,69 @@ function showHide(e)
    return false;
 }
 
+
+/**
+ * Namespace for manager javascript.
+ */
+var manager = function() {
+    return {
+        list : 'unset',
+        /* Updates elements to what is selected.  */
+        updateActionMenus : function(sel) {
+            sel.selectedIndex = 0;
+            if (manager.anEventIsSelected()) {
+                if (manager.list != 'pending') {
+                    sel[1].disabled = 'disabled';
+                    sel[2].disabled = null;
+                } else if (manager.list == 'search') {
+                    sel[1].disabled = null;
+                    sel[2].disabled = null;
+                } else {
+                    sel[1].disabled = null;
+                    sel[2].disabled = 'disabled';
+                }
+                sel[3].disabled = null;
+                sel[4].disabled = null;
+            } else {
+                sel[1].disabled = 'disabled';
+                sel[2].disabled = 'disabled';
+                sel[3].disabled = 'disabled';
+                sel[4].disabled = 'disabled';
+            }
+        },
+        
+        /** Determines if an event is currently selected. */
+        anEventIsSelected : function() {
+            var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+            if (inputUncheck[0].style.display == 'none') {
+                return false;
+            } else {
+                return true;
+            }
+        },
+        
+        /* This function is called when an action is selected within an event listing */
+        actionMenuChange  : function(sel) {
+            switch(sel[sel.selectedIndex].value) {
+            case 'posted':
+            case 'pending':
+                var button = document.getElementById('moveto_'+sel[sel.selectedIndex].value);
+                button.click();
+                break;
+            case 'recommend':
+                document.formlist.action = '?action=recommend';
+                document.formlist.submit();
+                break;
+            case 'delete':
+                var button = document.getElementById('delete_event');
+                button.click();
+                break;
+            }
+        }
+    };
+}();
+
+
 function checknegate(id){
 	checkevent(id);
 }

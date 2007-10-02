@@ -1,7 +1,10 @@
 <h3>Recommend <span class="title">'<?php echo $this->events[0]->title; ?>'</span> for other calendars:</h3>
-<form action="<?php echo $this->uri; ?>" method="post">
+<form action="<?php echo $this->manager->uri; ?>?action=recommend" method="post">
 <?php
 ini_set('display_errors',true);
+foreach ($this->events as $event) {
+    echo '<input type="hidden" name="event'.$event->id.'" value="true" />';
+}
 require_once 'HTML/Table.php';
 require_once 'UNL/UCBCN/Calendar_has_event.php';
 $t = new HTML_Table(array('id'=>'recommend_cals'));
@@ -19,7 +22,7 @@ foreach ($this->calendars as $calendar_id=>$permissions) {
     }
     if ($curr_status === false) {
         if (isset($permissions['Event Post'])) {
-            $posted  = HTML_QuickForm::createElement('radio',$elid,null,null,'Event Post');
+            $posted = HTML_QuickForm::createElement('radio',$elid,null,null,'Event Post');
             $posted = $posted->toHtml();
         }
         if (isset($permissions['Event Send Event to Pending Queue'])) {

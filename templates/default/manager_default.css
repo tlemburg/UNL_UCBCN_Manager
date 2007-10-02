@@ -609,7 +609,7 @@ table.eventlisting tr.alt {
 	color: #fff;
 }
 
-#maincontent table.eventlisting td.delete a, button#delete_event {
+#maincontent table.eventlisting td.delete a {
 	display: block;
 	padding: 0;
 	text-indent: -9999px;
@@ -632,56 +632,6 @@ table.eventlisting tr.alt {
 	background-position: 0 -22px;
 }
 
-button#delete_event {
-	float: left;
-}
-
-button {
-	margin: 10px 5px 0 0;
-}
-.btnsubmit, #maincontent form input.submitButton  {
-	display:block;
-	margin:10px 0 0!important;
-	cursor: pointer;
-	border:1px solid #ccc!important;
-	background:#ddd!important;
-	border-color:#d6d6d6 #909090 #909090 #d6d6d6!important;
-}
-.btnsubmit#delete_event{
-	float:left;
-	color:#fff!important;
-	margin:10px 5px 0 0!important;
-	background:#990000!important;
-	border-color:#d52828 #620404 #620404 #d52828!important;
-}
-button#moveto_pending {
-	width: 99px;
-	float: left;
-	height: 22px;
-	background: url(images/button/movetodraft.gif) no-repeat;
-}
-
-button#search {
-	width: 48px;
-	height: 22px;
-	background: url(images/button/search.gif) no-repeat;
-}
-
-button#moveto_posted {
-	width: 89px;
-	float: left;
-	height: 21px;
-	background: url(images/button/addtoposted.gif) no-repeat;
-}
-
-button#moveto_posted,button#delete_event,button#moveto_pending,button#search
-	{
-	text-indent: -9999em;
-	display: block;
-	border: none;
-	cursor: pointer;
-}
-
-button#moveto_posted:hover,button#delete_event:hover,button#moveto_pending:hover,button#search:hover {
-	background-position: 0 -22px;
-}
+.btnsubmit {
+	display:none;
+	}

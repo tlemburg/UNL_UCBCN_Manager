@@ -842,13 +842,22 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      */
     public function showRecommendForm()
     {
-         $event = $this->factory('event');
-         if (isset($_GET['event_id']) && $event->get($_GET['event_id'])) {
-             include_once 'UNL/UCBCN/Manager/Recommend.php';
-             $r = new UNL_UCBCN_Manager_Recommend($this, $event);
+         include_once 'UNL/UCBCN/Manager/Recommend.php';
+         $events = array();
+         foreach ($_POST as $key=>$value) {
+             $matches = array();
+             if (preg_match('/event([\d]+)/', $key, $matches)) {
+                 $event = $this->factory('event');
+                 if ($event->get($matches[1])) {
+                    $events[] =  $event;
+                 }
+             }
+         }
+         if (count($events) > 0) {
+             $r = new UNL_UCBCN_Manager_Recommend($this, $events);
              return $r;
          } else {
-             return new UNL_UCBCN_Error('No event selected to recommend!');
+             return new UNL_UCBCN_Error('No event(s) selected to recommend!');
          }
     }
     

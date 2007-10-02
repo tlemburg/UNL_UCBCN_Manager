@@ -30,13 +30,6 @@ class UNL_UCBCN_Manager_Recommend
     public $manager;
     
     /**
-     * URI to this recommend screen.
-     *
-     * @var unknown_type
-     */
-    public $uri;
-    
-    /**
      * Events to build a recommendation form for.
      *
      * @var array of UNL_UCBCN_Event
@@ -56,7 +49,6 @@ class UNL_UCBCN_Manager_Recommend
             $submitted       = false;
             $this->manager   = $manager;
             $this->events    = $events;
-            $this->uri       = $this->getURI();
             $permissions     = array('Event Post','Event Send Event to Pending Queue');
             $cal_rows        = $this->getCalendarsWithPermission($this->manager->user, $permissions);
             $this->calendars = array();
@@ -82,7 +74,7 @@ class UNL_UCBCN_Manager_Recommend
                 }
                 $this->calendars[$cal[0]][$cal[1]] = 1;
             }
-            if ($submitted) {
+            if ($submitted && !empty($this->manager->uri)) {
                 // We have processed the recommendations. Redirect.
                 $this->manager->localRedirect($this->manager->uri);
                 exit();
@@ -116,18 +108,5 @@ class UNL_UCBCN_Manager_Recommend
         return $db->queryAll(implode(' UNION ',$sql).' ORDER BY calname, calendar_id, permission;');
     }
     
-    /**
-     * Returns the URI to this recommend screen.
-     *
-     * @return string
-     */
-    public function getURI()
-    {
-        $url = $this->manager->uri.'?action=recommend';
-        foreach ($this->events as $event) {
-            $url .= '&event_id[]='.$event->id;
-        }
-        return $url;
-    }
 }
 ?>
