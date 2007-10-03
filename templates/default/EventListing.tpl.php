@@ -74,7 +74,7 @@ foreach ($this->events as $e) {
 </select>
 </fieldset>
 <input class="btnsubmit" id="delete_event" type="submit" name="delete" onclick="return confirm('Are you sure?');" value="Delete" />
-<?php if ($this->status=='posted') { ?>
+<?php if ($this->status=='posted' || $this->status=='archived') { ?>
 <input class="btnsubmit" id="moveto_pending" type="submit" name="pending" value="Move to Pending" />
 <?php } elseif ($this->status=='pending') { ?>
 <input class="btnsubmit" id="moveto_posted" type="submit" name="posted" value="Add to Posted" />

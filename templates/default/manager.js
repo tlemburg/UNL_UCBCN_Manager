@@ -97,8 +97,12 @@ var manager = function() {
         actionMenuChange  : function(sel) {
             switch(sel[sel.selectedIndex].value) {
             case 'posted':
+            case 'archived':
+                var button = document.getElementById('moveto_pending');
+                button.click();
+                break;
             case 'pending':
-                var button = document.getElementById('moveto_'+sel[sel.selectedIndex].value);
+                var button = document.getElementById('moveto_posted');
                 button.click();
                 break;
             case 'recommend':
