@@ -311,6 +311,7 @@ form div.error {
 	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;
 	background: #3e83c9;
 	color: #fff;
+	font-size:10px;
 	}
 #maincontent a#formShow, #maincontent .subsectionlink{
 	clear: both;
@@ -360,35 +361,34 @@ body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
 
 .eventAction{
 	overflow:auto;
-	width:270px;
+	padding:4px 5px;
 	position:relative;
-	
+	background:#ededed;
+	margin:0 0 5px 0;
+	border-right:1px solid #ddd;
+	border-bottom:1px solid #ddd;
 }
 .eventButtonAction{
-	width:140px;
+	width:132px;
 	float:left;	
-	margin:13px 0 0;
+	margin:3px 0 0;	
 }
 #maincontent form fieldset.eventFieldsetAction{
 	background:none;
 	float:right;
-	border: 1px solid #cfcfcf;
 	width:110px;
-	margin:0;
+	margin:0 435px 0 0 ;
 	clear:none;
+	padding:0;
+	border:none;
+	border-left:1px solid #bbb;
 }
 
-#maincontent form fieldset.eventFieldsetAction label{
+#maincontent form fieldset.eventFieldsetAction label, #maincontent form fieldset.eventFieldsetAction legend{
 	display:none;
 }
 #maincontent form fieldset.eventFieldsetAction select{
-	margin:0 5px 5px;
-	background:#dfdfdf;
-	border: 1px solid #cfcfcf; 
-}
-#maincontent form fieldset.eventFieldsetAction legend {
-	border: none;
-	margin:0 0 0 5px;
+	margin:0 5px 0;	
 }
 
 /*	-------------------------------------------------------------
