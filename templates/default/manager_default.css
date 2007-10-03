@@ -357,27 +357,39 @@ form#cal_choose br {
 	margin-top: -23px;
 }
 body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
-/*
-#maincontent form div.newlocation {
-	background: #eee;
-	width: 500px;
-	margin: 4px 0 2px 0;
-	border: 1px solid #ccc;
-	overflow-x: hidden !important;
+
+.eventAction{
+	overflow:auto;
+	width:270px;
+	position:relative;
+	
+}
+.eventButtonAction{
+	width:140px;
+	float:left;	
+	margin:13px 0 0;
+}
+#maincontent form fieldset.eventFieldsetAction{
+	background:none;
+	float:right;
+	border: 1px solid #cfcfcf;
+	width:110px;
+	margin:0;
+	clear:none;
 }
 
-#maincontent form div.newlocation fieldset {
-	margin: 0px;
-	padding: 0px;
+#maincontent form fieldset.eventFieldsetAction label{
+	display:none;
+}
+#maincontent form fieldset.eventFieldsetAction select{
+	margin:0 5px 5px;
+	background:#dfdfdf;
+	border: 1px solid #cfcfcf; 
+}
+#maincontent form fieldset.eventFieldsetAction legend {
 	border: none;
-	background: #eee;
-	width: 500px;
-	overflow-x: hidden !important;
+	margin:0 0 0 5px;
 }
-
-#maincontent form div.newlocation legend {
-	display: none;
-}*/
 
 /*	-------------------------------------------------------------
 	Top right/college nav form elements
@@ -533,7 +545,7 @@ body#normal div#maincontent form {
 table.eventlisting {
 	border-collapse: collapse;
 	clear: both;
-	margin: 0 0 12px 0;
+	margin: 0 0 5px 0;
 	width: 100%;
 }
 

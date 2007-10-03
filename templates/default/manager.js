@@ -19,10 +19,6 @@ addLoadEvent(function() {
 		requiredField();
 		hideField();
    	}
-   	if(document.getElementById('formlist')){
-   		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
-    	inputUncheck[0].style.display = 'none';
-    }
     try {
 	    document.getElementById('__submit__').className = 'submitButton';
 	} catch (e) {}

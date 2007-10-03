@@ -1,4 +1,5 @@
 <form action="?list=<?php echo $this->status; ?>" id="formlist" name="formlist" method="post">
+
 <table class="eventlisting">
 <thead>
 <tr>
@@ -60,19 +61,23 @@ foreach ($this->events as $e) {
 } ?>
 </tbody>
 </table>
-<a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
-<a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
-<fieldset>
-<legend>Action</legend>
-<label for="action">Action</label>
-<select name="action" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
-    <option>Select action...</option>
-    <option value="posted"    disabled="disabled">Add to Posted</option>
-    <option value="pending"   disabled="disabled">Move to Pending</option>
-    <option value="recommend" disabled="disabled">Recommend</option>
-    <option value="delete"    disabled="disabled">Delete</option>
-</select>
-</fieldset>
+<div class="eventAction">
+	<div class="eventButtonAction">
+		<a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
+		<a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
+	</div>
+	<fieldset class="eventFieldsetAction">
+	<legend>Action</legend>
+	<label for="action">Action</label>
+	<select name="action" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+	    <option>Select action...</option>
+	    <option value="posted"    disabled="disabled">Add to Posted</option>
+	    <option value="pending"   disabled="disabled">Move to Pending</option>
+	    <option value="recommend" disabled="disabled">Recommend</option>
+	    <option value="delete"    disabled="disabled">Delete</option>
+	</select>
+	</fieldset>
+</div>
 <input class="btnsubmit" id="delete_event" type="submit" name="delete" onclick="return confirm('Are you sure?');" value="Delete" />
 <?php if ($this->status=='posted' || $this->status=='archived') { ?>
 <input class="btnsubmit" id="moveto_pending" type="submit" name="pending" value="Move to Pending" />
