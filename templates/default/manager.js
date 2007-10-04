@@ -56,7 +56,7 @@ var manager = function() {
     return {
         list : 'unset',
         eventselected : false,
-        /* Updates elements to what is selected.  */
+        /* Updates elements to which actions can be selected.  */
         updateActionMenus : function(sel) {
             sel.selectedIndex = 0;
             if (manager.anEventIsSelected()) {
@@ -67,6 +67,7 @@ var manager = function() {
                 } else if (manager.list == 'search') {
                     sel[1].disabled = null;
                     sel[2].disabled = null;
+                    sel[4].disabled = 'disabled';
                 } else {
                     sel[1].disabled = null;
                     sel[2].disabled = 'disabled';
@@ -124,31 +125,34 @@ function highlightLine(l,id) {
 
 function animation(l,id){
 	var TRrow = "row" + id;
-	var input = l.childNodes[0].childNodes[0];	
-	if (input.checked == true){
-		if(!l.className){
-			Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffcc',to:'#ffffff',restoreColor: '#ffffff',toggle: false});
+	var input = l.getElementsByTagName('input')[0];
+	try {
+		if (input.checked == true){
+			if(!l.className){
+				Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffcc',to:'#ffffff',restoreColor: '#ffffff',toggle: false});
+			}
+			else{
+				Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffcc',to:'#e8f5fa',restoreColor: '#e8f5fa',toggle: false});
+			} 
+		} else {
+			if(!l.className){
+				Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffff',to:'#ffffcc',restoreColor: '#ffffcc',toggle: false});
+			}
+			else{
+				Spry.Effect.Highlight(TRrow,{duration:400,from:'#e8f5fa',to:'#ffffcc',restoreColor: '#ffffcc',toggle: false});
+			} 
+			//bring back uncheck all button
+			var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
+			inputUncheck[0].style.display = 'inline';
 		}
-		else{
-			Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffcc',to:'#e8f5fa',restoreColor: '#e8f5fa',toggle: false});
-		} 
-	}
-	else{
-		if(!l.className){
-			Spry.Effect.Highlight(TRrow,{duration:400,from:'#ffffff',to:'#ffffcc',restoreColor: '#ffffcc',toggle: false});
-		}
-		else{
-			Spry.Effect.Highlight(TRrow,{duration:400,from:'#e8f5fa',to:'#ffffcc',restoreColor: '#ffffcc',toggle: false});
-		} 
-		//bring back uncheck all button
-		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
-		inputUncheck[0].style.display = 'inline';
-	}
+	} catch(e) {}
 }
 
 function checkevent(id) {
-	 var checkSet = eval("document.formlist.event" + id);
-	 checkSet.checked = !checkSet.checked
+    try {
+		var checkSet = eval("document.formlist.event" + id);
+		checkSet.checked = !checkSet.checked
+	} catch(e) {}
 }
 
 function updateRow(){
@@ -296,7 +300,7 @@ function checkInput(){
 	var flag = 0;
 	var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
 	var inputCheck = getElementsByClassName(document, "a", "checkall");
-	var f = document.getElementById('formlist');
+	var f = document.formlist;
 	var checks = f.getElementsByTagName('input');
 	
 	for(var k=0;k<checks.length;k++){

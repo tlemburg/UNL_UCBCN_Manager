@@ -7,7 +7,7 @@
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
 	<label for="action">Action</label>
-	<select name="action" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+	<select name="action" onfocus="manager.list = 'search'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
 	    <option>Select action...</option>
 	    <option value="posted"    disabled="disabled">Add to Posted</option>
 	    <option value="pending"   disabled="disabled">Move to Pending</option>
@@ -34,11 +34,11 @@ foreach ($this->events as $event) {
 	$edt->orderBy('starttime DESC');
 	$instances = $edt->find();
 	?>
-		<tr<?php if ($oddrow) echo ' class="alt"'; ?>>
+		<tr <?php echo ' id="row'.$event['id'].'" onclick="highlightLine(this,'.$event['id'].');"'; if ($oddrow) echo ' class="alt"'; ?>>
 			<td class="select">
 				<?php
 				if ($event['calendarhasevent']===false) {
-					echo '<input type="checkbox" name="event'.$event['id'].'" />';
+					echo '<input type="checkbox" name="event'.$event['id'].'" onclick="checknegate('.$event['id'].')" />';
 				} else {
 				    echo $event['calendarhasevent'];
 				} ?>
@@ -90,7 +90,7 @@ foreach ($this->events as $event) {
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
 	<label for="action">Action</label>
-	<select name="action" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+	<select name="action" onfocus="manager.list = 'search'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
 	    <option>Select action...</option>
 	    <option value="posted"    disabled="disabled">Add to Posted</option>
 	    <option value="pending"   disabled="disabled">Move to Pending</option>
