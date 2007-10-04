@@ -1,8 +1,8 @@
 <form action="<?php echo $_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q']; ?>" name="formlist" id="searchlist" method="post">
 <div class="eventAction">
 	<div class="eventButtonAction">
-		<a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
-		<a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
+		<a href="#" class="checkall" onclick="setCheckboxes('searchlist',true); return false">Check All</a>
+		<a href="#" class="uncheckall" onclick="setCheckboxes('searchlist',false); return false">Uncheck All</a>
 	</div>
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
@@ -84,8 +84,8 @@ foreach ($this->events as $event) {
 </table>
 <div class="eventAction">
 	<div class="eventButtonAction">
-		<a href="#" class="checkall" onclick="setCheckboxes('formlist',true); return false">Check All</a>
-		<a href="#" class="uncheckall" onclick="setCheckboxes('formlist',false); return false">Uncheck All</a>
+		<a href="#" class="checkall" onclick="setCheckboxes('searchlist',true); return false">Check All</a>
+		<a href="#" class="uncheckall" onclick="setCheckboxes('searchlist',false); return false">Uncheck All</a>
 	</div>
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
