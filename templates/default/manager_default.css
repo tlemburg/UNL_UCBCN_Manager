@@ -306,11 +306,14 @@ form div.error {
 }
 #maincontent .subsectionlink{width:20em;margin-top:10px;text-align:left;}
 #maincontent .subsectionlink, #maincontent a#formShow, #maincontent a.checkall, #maincontent a.uncheckall {
-	padding: 2px;
+	padding: 1px 4px;
 	border: 1px solid #266cb3;
 	border-color: #77a9dc #1a5898 #1a5898 #77a9dc;
 	background: #3e83c9;
 	color: #fff;
+	display:block;
+	float:left;
+	margin-right:4px;
 	font-size:10px;
 	}
 #maincontent a#formShow, #maincontent .subsectionlink{
@@ -364,20 +367,21 @@ body#subscribe #maincontent form fieldset.d__header___class{margin:10px 0 0 0;}
 	padding:4px 5px;
 	position:relative;
 	background:#ededed;
+	height:1%;
 	margin:0 0 5px 0;
 	border-right:1px solid #ddd;
 	border-bottom:1px solid #ddd;
 }
 .eventButtonAction{
-	width:132px;
+	width:144px;
 	float:left;	
-	margin:3px 0 0;	
+	margin:2px 0 0;	
 }
 #maincontent form fieldset.eventFieldsetAction{
 	background:none;
 	float:right;
 	width:110px;
-	margin:0 435px 0 0 ;
+	margin:2px 423px 0 0 ;
 	clear:none;
 	padding:0;
 	border:none;

@@ -261,7 +261,7 @@ function createButton(linktext, attachE, actionFunc, idN){
  */
 function setCheckboxes(formid,val)
 {
-	try {
+	//try {
 		var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
 		var inputCheck = getElementsByClassName(document, "a", "checkall");
     	var f = document.getElementById(formid);
@@ -271,10 +271,10 @@ function setCheckboxes(formid,val)
 			if (val) {
 				checks[i].checked = true;
 				if (formid != 'unl_ucbcn_user') {
-    				Spry.Effect.Highlight(TDcell,{duration:400,from:'#FFFFFF',to:'#ffffcc',restoreColor:'#ffffcc',toggle: false});
+    				//Spry.Effect.Highlight(TDcell,{duration:400,from:'#FFFFFF',to:'#ffffcc',restoreColor:'#ffffcc',toggle: false});
                 }
-				inputCheck[0].style.display = 'none';
-				inputUncheck[0].style.display = 'inline';
+			//	inputCheck[0].style.display = 'none';
+			//	inputUncheck[0].style.display = 'inline';
 			} else {
 				checks[i].checked = false;
 				if (formid != 'unl_ucbcn_user'){
@@ -282,15 +282,15 @@ function setCheckboxes(formid,val)
                         Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#e8f5fa',restoreColor:'#e8f5fa',toggle: false});
                     }
                     else{
-                        Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#ffffff',restoreColor:'#ffffff',toggle: false});					
+                      //  Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#ffffff',restoreColor:'#ffffff',toggle: false});					
                     }
                 }
-				inputCheck[0].style.display = 'inline';
-				inputUncheck[0].style.display = 'none';
+			//	inputCheck[0].style.display = 'inline';
+			//	inputUncheck[0].style.display = 'none';
 			}
 		}
 	
-	} catch(e) {}
+	//} catch(e) {}
 }
 
 //we need to constantly check whether any of the inputs are selected
@@ -307,9 +307,9 @@ function checkInput(){
 		}
 	}
 	if (flag == 0){
-		inputUncheck[0].style.display = 'none';
+		//inputUncheck[0].style.display = 'none';
 	}
 	else{
-		inputCheck[0].style.display = 'inline';
+		//inputCheck[0].style.display = 'inline';
 	}
 }
