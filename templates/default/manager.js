@@ -55,6 +55,7 @@ function showHide(e)
 var manager = function() {
     return {
         list : 'unset',
+        eventselected : false,
         /* Updates elements to what is selected.  */
         updateActionMenus : function(sel) {
             sel.selectedIndex = 0;
@@ -81,12 +82,7 @@ var manager = function() {
         
         /** Determines if an event is currently selected. */
         anEventIsSelected : function() {
-            var inputUncheck = getElementsByClassName(document, "a", "uncheckall");
-            if (inputUncheck[0].style.display == 'none') {
-                return false;
-            } else {
-                return true;
-            }
+            return manager.eventselected;
         },
         
         /* This function is called when an action is selected within an event listing */
@@ -273,7 +269,7 @@ function setCheckboxes(formid,val)
 				if (formid != 'unl_ucbcn_user') {
     				//Spry.Effect.Highlight(TDcell,{duration:400,from:'#FFFFFF',to:'#ffffcc',restoreColor:'#ffffcc',toggle: false});
                 }
-			//	inputCheck[0].style.display = 'none';
+				manager.eventselected = true;
 			//	inputUncheck[0].style.display = 'inline';
 			} else {
 				checks[i].checked = false;
@@ -285,7 +281,8 @@ function setCheckboxes(formid,val)
                       //  Spry.Effect.Highlight(TDcell,{duration:400,from:'#FAFAB7',to:'#ffffff',restoreColor:'#ffffff',toggle: false});					
                     }
                 }
-			//	inputCheck[0].style.display = 'inline';
+            manager.eventselected = false;
+			//    inputCheck[0].className += 'eventselected';
 			//	inputUncheck[0].style.display = 'none';
 			}
 		}
@@ -310,6 +307,7 @@ function checkInput(){
 		//inputUncheck[0].style.display = 'none';
 	}
 	else{
-		//inputCheck[0].style.display = 'inline';
+		//inputCheck[0].className += 'eventselected';
+		manager.eventselected = true;
 	}
 }
