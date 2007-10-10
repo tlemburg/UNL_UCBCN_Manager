@@ -718,7 +718,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             }
             if ($events_changed) {
                 // Redirect here.
-                $this->localRedirect($this->uri);
+                $this->localRedirect($this->uri.'?list='.$status);
             }
             $e[] = $listing;
             $e[] = $paged_result['links'];
