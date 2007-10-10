@@ -563,7 +563,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      * @param UNL_UCBCN_Event $event  Event to update.
      * @param string          $source Source of this change in status.
      * 
-     * @return void
+     * @return bool
      */
     function processPostStatusChange($event,$source='search')
     {
@@ -576,30 +576,31 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                 if (isset($_POST['delete']) 
                     && $this->userHasPermission($this->user, 'Event Delete', $this->calendar)) {
                     // User has chosen to delete the event selected, and has permission to delete from pending.
-                    $a_event->delete();
+                    return $a_event->delete();
                 } elseif (isset($_POST['pending'])
                     && $this->userHasPermission($this->user, 'Event Send Event to Pending Queue', $this->calendar)) {
                     $a_event->status = 'pending';
-                    $a_event->update();
+                    return $a_event->update();
                 } elseif (isset($_POST['posted'])
                     && $this->userHasPermission($this->user, 'Event Post', $this->calendar)) {
                     $a_event->status = 'posted';
-                    $a_event->update();
+                    return $a_event->update();
                 }
             } else {
                 if (isset($_POST['pending'])
                     && $this->userHasPermission($this->user, 'Event Send Event to Pending Queue', $this->calendar)) {
                     $a_event->status = 'pending';
                     $a_event->source = $source;
-                    $a_event->insert();
+                    return $a_event->insert();
                 } elseif (isset($_POST['posted'])
                     && $this->userHasPermission($this->user, 'Event Post', $this->calendar)) {
                     $a_event->status = 'posted';
                     $a_event->source = $source;
-                    $a_event->insert();
+                    return $a_event->insert();
                 }
             }
         }
+        return false;
     }
     
     /**
@@ -702,15 +703,22 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $e[] = $paged_result['links'];
             $listing         = new UNL_UCBCN_EventListing();
             $listing->status = $status;
+            $events_changed  = false;
             foreach ($paged_result['data'] as $event_id) {
                 $event = $this->factory('event');
                 if ($event->get($event_id['id'])) {
                     if (isset($_POST['event'.$event->id])) {
-                        $this->processPostStatusChange($event);
+                        if ($this->processPostStatusChange($event)) {
+                            $events_changed = true;
+                        }
                     } else {
                         $listing->events[] = $event;
                     }
                 }
+            }
+            if ($events_changed) {
+                // Redirect here.
+                $this->localRedirect($this->uri);
             }
             $e[] = $listing;
             $e[] = $paged_result['links'];
