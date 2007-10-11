@@ -557,6 +557,47 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     }
     
     /**
+     * Runs actions on the posted events.
+     *
+     * @return bool
+     */
+    public function processPostedEvents()
+    {
+        $events         = UNL_UCBCN_Manager::getPostedEvents();
+        $events_changed = false;
+        if (count($events)) {
+            foreach ($events as $event) {
+                if ($this->processPostStatusChange($event)) {
+                    $events_changed = true;
+                }
+            }
+        }
+        return $events_changed;
+    }
+    
+    /**
+     * This function returns an array of all posted events.
+     * Events should be posted in the form event1923 Where 1923 is
+     * the ID of the event.
+     * 
+     * @return array(UNL_UCBCN_Event)
+     */
+    static function getPostedEvents()
+    {
+        $events = array();
+        foreach ($_POST as $key=>$value) {
+             $matches = array();
+             if (preg_match('/event([\d]+)/', $key, $matches)) {
+                 $event = UNL_UCBCN::factory('event');
+                 if ($event->get($matches[1])) {
+                    $events[] =  $event;
+                 }
+             }
+         }
+         return $events;
+    }
+    
+    /**
      * Handles the posting of an updated event. This will alter the event's status
      * based on what the user chose within the manager interface.
      *
@@ -679,6 +720,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      */
     function showEventListing($status='pending',$orderby='eventdatetime.starttime')
     {
+        if (isset($_POST) && $this->processPostedEvents()) {
+            // Redirect here.
+            $this->localRedirect($this->uri.'?list='.$status);
+        }
         $mdb2 = $this->getDatabaseConnection();
         switch($orderby) {
         default:
@@ -703,31 +748,17 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $e[] = $paged_result['links'];
             $listing         = new UNL_UCBCN_EventListing();
             $listing->status = $status;
-            $events_changed  = false;
             foreach ($paged_result['data'] as $event_id) {
                 $event = $this->factory('event');
                 if ($event->get($event_id['id'])) {
-                    if (isset($_POST['event'.$event->id])) {
-                        if ($this->processPostStatusChange($event)) {
-                            $events_changed = true;
-                        }
-                    } else {
-                        $listing->events[] = $event;
-                    }
+                    $listing->events[] = $event;
                 }
-            }
-            if ($events_changed) {
-                // Redirect here.
-                $this->localRedirect($this->uri.'?list='.$status);
             }
             $e[] = $listing;
             $e[] = $paged_result['links'];
         } else {
             $e[] = '<p>Sorry, there are no '.$status.' events.</p><p>Perhaps you would like to create some?<br />Use the <a href="?action=createEvent">Create Event interface.</a></p>';
         }
-        
-        
-        
         array_unshift($e, '<ul class="eventsbystatus '.$status.'">' .
                             '<li id="pending_manager"><a href="'.$this->uri.'?list=pending">Pending ('.$this->getEventCount($this->calendar, 'pending').')</a></li>' .
                             '<li id="posted_manager"><a href="'.$this->uri.'?list=posted">Posted ('.$this->getEventCount($this->calendar, 'posted').')</a></li>' .
