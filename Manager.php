@@ -586,15 +586,15 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     {
         $events = array();
         foreach ($_POST as $key=>$value) {
-             $matches = array();
-             if (preg_match('/event([\d]+)/', $key, $matches)) {
-                 $event = UNL_UCBCN::factory('event');
-                 if ($event->get($matches[1])) {
+            $matches = array();
+            if (preg_match('/event([\d]+)/', $key, $matches)) {
+                $event = UNL_UCBCN::factory('event');
+                if ($event->get($matches[1])) {
                     $events[] =  $event;
-                 }
-             }
-         }
-         return $events;
+                }
+            }
+        }
+        return $events;
     }
     
     /**
@@ -677,7 +677,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $fb =& DB_DataObject_FormBuilder::create($user);
             if (!isset($user->uid)) {
                 $fb->enumFields = array('uid');
-                $uids = array();
+                $uids           = array();
                 foreach (array_values($this->a->listUsers()) as $key=>$val) {
                     $uids[$val['username']] = $val['username'];
                 }
@@ -685,8 +685,8 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             }
             $fb->formHeaderText = $user->uid.' Permissions for '.$this->calendar->name;
             $fb->crossLinks     = array(array('table'=>'user_has_permission'));
-            $form = $fb->getForm('?action=permissions&uid='.$user->uid);
-            $el   =& $form->getElement('__crossLink_user_has_permission_user_uid_permission_id');
+            $form               = $fb->getForm('?action=permissions&uid='.$user->uid);
+            $el                 =& $form->getElement('__crossLink_user_has_permission_user_uid_permission_id');
             $el->setLabel('Permissions');
             $el =& $form->getElement('uid');
             $el->setLabel('User ID');
@@ -736,16 +736,16 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $orderby = 'event.title';
             break;
         }
-        $sql = 'SELECT DISTINCT event.id FROM calendar_has_event, eventdatetime, event 
-                    WHERE calendar_has_event.status = \''.$status.'\' 
-                    AND calendar_has_event.event_id = event.id
-                    AND eventdatetime.event_id = event.id
-                    AND calendar_has_event.calendar_id = '.$this->calendar->id.' 
-                    ORDER BY '.$orderby;
-        $e   = array();
+        $sql          = 'SELECT DISTINCT event.id FROM calendar_has_event, eventdatetime, event 
+                        WHERE calendar_has_event.status = \''.$status.'\' 
+                        AND calendar_has_event.event_id = event.id
+                        AND eventdatetime.event_id = event.id
+                        AND calendar_has_event.calendar_id = '.$this->calendar->id.' 
+                        ORDER BY '.$orderby;
+        $e            = array();
         $paged_result = $this->pagerWrapper($mdb2, $sql, array('totalItems'=>$this->getEventCount($this->calendar, $status)));
         if ($paged_result['totalItems']) {
-            $e[] = $paged_result['links'];
+            $e[]             = $paged_result['links'];
             $listing         = new UNL_UCBCN_EventListing();
             $listing->status = $status;
             foreach ($paged_result['data'] as $event_id) {
@@ -772,7 +772,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      * 
      * @return string html form.
      */
-    function showAccountForm()
+    public function showAccountForm()
     {
         if (isset($this->account)) {
             $msg = '';
@@ -877,27 +877,19 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * This form allows the user to recommend an event for other calendars.
-     *
+     * 
+     * @return UNL_UCBCN_Manager_Recommend
      */
     public function showRecommendForm()
     {
-         include_once 'UNL/UCBCN/Manager/Recommend.php';
-         $events = array();
-         foreach ($_POST as $key=>$value) {
-             $matches = array();
-             if (preg_match('/event([\d]+)/', $key, $matches)) {
-                 $event = $this->factory('event');
-                 if ($event->get($matches[1])) {
-                    $events[] =  $event;
-                 }
-             }
-         }
-         if (count($events) > 0) {
-             $r = new UNL_UCBCN_Manager_Recommend($this, $events);
-             return $r;
-         } else {
-             return new UNL_UCBCN_Error('No event(s) selected to recommend!');
-         }
+        include_once 'UNL/UCBCN/Manager/Recommend.php';
+        $events = $this->getPostedEvents();
+        if (count($events) > 0) {
+            $r = new UNL_UCBCN_Manager_Recommend($this, $events);
+            return $r;
+        } else {
+            return new UNL_UCBCN_Error('No event(s) selected to recommend!');
+        }
     }
     
     /**
@@ -981,7 +973,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                         $user_li = '<tr><td>'.$users->uid.'</td></tr>';
                     }
                     $permissions_list[] = $user_li;
-                    $oddrow   = !$oddrow;
+                    $oddrow             = !$oddrow;
                 }
             }
             $permissions_list[] = '</tbody></table>';
@@ -1056,7 +1048,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      * 
      * @return void
      */
-    function registerPlugin($class_name)
+    public function registerPlugin($class_name)
     {
         global $_UNL_UCBCN;
         if (array_key_exists('plugins', $_UNL_UCBCN) && is_array($_UNL_UCBCN['plugins'])) {
@@ -1066,11 +1058,22 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         }
     }
     
-    function pagerWrapper(&$db, $query, $pager_options = array(), $disabled = false, $fetchMode = MDB2_FETCHMODE_ASSOC)
+    /**
+     * This function handles pagination of a database query.
+     *
+     * @param object &$db           Database connection
+     * @param string $query         SQL to send
+     * @param array  $pager_options Options for the pager class
+     * @param bool   $disabled      Boolean option
+     * @param int    $fetchMode     The type of mode to fetch
+     * 
+     * @return pager object
+     */
+    protected function pagerWrapper(&$db, $query, $pager_options = array(), $disabled = false, $fetchMode = MDB2_FETCHMODE_ASSOC)
     {
         if (!array_key_exists('totalItems', $pager_options)) {
             //be smart and try to guess the total number of records
-            if ($countQuery = $this->rewriteCountQuery($query)) {
+            if ($countQuery = $this->_rewriteCountQuery($query)) {
                 $totalItems = $db->queryOne($countQuery);
                 if (PEAR::isError($totalItems)) {
                     return $totalItems;
@@ -1088,17 +1091,16 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         if (!isset($pager_options['perPage'])) {
             $pager_options['perPage'] = 30;
         }
-        $pager = Pager::factory($pager_options);
-    
-        $page = array();
-        $page['links'] = $pager->links;
-        $page['totalItems'] = $pager_options['totalItems'];
-        $page['page_numbers'] = array(
+        $pager                           = Pager::factory($pager_options);
+        $page                            = array();
+        $page['links']                   = $pager->links;
+        $page['totalItems']              = $pager_options['totalItems'];
+        $page['page_numbers']            = array(
             'current' => $pager->getCurrentPageID(),
             'total'   => $pager->numPages()
         );
         list($page['from'], $page['to']) = $pager->getOffsetByPageId();
-        $page['limit'] = $page['to'] - $page['from'] +1;
+        $page['limit']                   = $page['to'] - $page['from'] +1;
         if (!$disabled) {
             $db->setLimit($pager_options['perPage'], $page['from']-1);
         }
@@ -1107,7 +1109,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             return $page['data'];
         }
         if ($disabled) {
-            $page['links'] = '';
+            $page['links']        = '';
             $page['page_numbers'] = array(
                 'current' => 1,
                 'total'   => 1
@@ -1116,26 +1118,33 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         return $page;
     }
     
-    private function rewriteCountQuery($sql)
+    /**
+     * This function modifies queries to return a paged subset.
+     * 
+     * @param string $sql The SQL to rewrite.
+     * 
+     * @return string
+     */
+    private function _rewriteCountQuery($sql)
     {
         if (preg_match('/^\s*SELECT\s+\bDISTINCT\b/is', $sql) ||
             preg_match('/\s+GROUP\s+BY\s+/is', $sql) ||
             preg_match('/\s+UNION\s+/is', $sql)) {
             return false;
         }
-        $open_parenthesis = '(?:\()';
-        $close_parenthesis = '(?:\))';
+        $open_parenthesis   = '(?:\()';
+        $close_parenthesis  = '(?:\))';
         $subquery_in_select = $open_parenthesis.'.*\bFROM\b.*'.$close_parenthesis;
-        $pattern = '/(?:.*'.$subquery_in_select.'.*)\bFROM\b\s+/Uims';
+        $pattern            = '/(?:.*'.$subquery_in_select.'.*)\bFROM\b\s+/Uims';
         if (preg_match($pattern, $sql)) {
             return false;
         }
         $subquery_with_limit_order = $open_parenthesis.'.*\b(LIMIT|ORDER)\b.*'.$close_parenthesis;
-        $pattern = '/.*\bFROM\b.*(?:.*'.$subquery_with_limit_order.'.*).*/Uims';
+        $pattern                   = '/.*\bFROM\b.*(?:.*'.$subquery_with_limit_order.'.*).*/Uims';
         if (preg_match($pattern, $sql)) {
             return false;
         }
-        $queryCount = preg_replace('/(?:.*)\bFROM\b\s+/Uims', 'SELECT COUNT(*) FROM ', $sql, 1);
+        $queryCount         = preg_replace('/(?:.*)\bFROM\b\s+/Uims', 'SELECT COUNT(*) FROM ', $sql, 1);
         list($queryCount, ) = preg_split('/\s+ORDER\s+BY\s+/is', $queryCount);
         list($queryCount, ) = preg_split('/\bLIMIT\b/is', $queryCount);
         return trim($queryCount);
