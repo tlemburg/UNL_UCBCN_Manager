@@ -1,10 +1,25 @@
 <?php
-
+if (!defined('PHPUnit_MAIN_METHOD')) {
+    define('PHPUnit_MAIN_METHOD', 'UNL_UCBCN_Manager_CreateEventTest::main');
+}
 require_once 'Testing/Selenium.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
 class UNL_UCBCN_Manager_CreateEventTest extends PHPUnit_Framework_TestCase
 {
+    /**
+     * Runs the test methods of this class.
+     *
+     * @access public
+     * @static
+     */
+    public static function main() {
+        require_once 'PHPUnit/TextUI/TestRunner.php';
+
+        $suite  = new PHPUnit_Framework_TestSuite(__CLASS__);
+        $result = PHPUnit_TextUI_TestRunner::run($suite);
+    }
+    
     function setUp()
     {
         $this->verificationErrors = array();
@@ -41,5 +56,9 @@ class UNL_UCBCN_Manager_CreateEventTest extends PHPUnit_Framework_TestCase
         $this->selenium->waitForPageToLoad("30000");
 
     }
+}
+
+if (PHPUnit_MAIN_METHOD == 'UNL_UCBCN_Manager_CreateEventTest::main') {
+    UNL_UCBCN_Manager_CreateEventTest::main();
 }
 ?>
