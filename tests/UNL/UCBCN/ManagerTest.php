@@ -66,43 +66,37 @@ class UNL_UCBCN_ManagerTest extends PHPUnit_Framework_TestCase {
     }
 
     /**
-     * @todo Implement testStartSession().
+     * testStartSession().
      */
     public function testStartSession() {
         $this->b->startSession();
         $this->assertEquals($this->auth->getUsername(), $this->b->user->uid);
         $this->assertEquals($this->auth->getUsername(), $this->b->session->user_uid);
         $this->assertEquals(get_class($this->b->calendar),'UNL_UCBCN_Calendar');
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals(get_class($this->b->account), 'UNL_UCBCN_Account');
+        $this->assertEquals($this->b->user->calendar_id, $this->b->calendar->id);
     }
 
     /**
-     * @todo Implement testEndSession().
+     * Tests testEndSession().
      */
     public function testEndSession() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->b->endSession();
+        $this->assertFalse(isset($_SESSION['calendar_id']));
     }
 
     /**
-     * @todo Implement testShowLoginForm().
+     * testShowLoginForm().
      */
     public function testShowLoginForm() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-          'This test has not been implemented yet.'
-        );
+        $this->assertEquals(get_class($this->b->showLoginForm()), 'UNL_UCBCN_Manager_Login');
     }
 
     /**
-     * @todo Implement testShowEventSubmitForm().
+     * testShowEventSubmitForm().
      */
     public function testShowEventSubmitForm() {
-        // Remove the following lines when you implement this test.
+        //$this->assertNotEquals(strpos('<form',$this->b->showEventSubmitForm()), false);
         $this->markTestIncomplete(
           'This test has not been implemented yet.'
         );
