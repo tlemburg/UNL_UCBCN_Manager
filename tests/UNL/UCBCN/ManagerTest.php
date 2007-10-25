@@ -1,11 +1,7 @@
 <?php
-// Call UNL_UCBCN_ManagerTest::main() if this source file is executed directly.
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'UNL_UCBCN_ManagerTest::main');
-}
 
 require_once 'PHPUnit/Framework.php';
-
+chdir(dirname(__FILE__).'/../../../');
 require_once 'Manager.php';
 
 /**
@@ -271,10 +267,5 @@ class UNL_UCBCN_ManagerTest extends PHPUnit_Framework_TestCase {
           'This test has not been implemented yet.'
         );
     }
-}
-
-// Call UNL_UCBCN_ManagerTest::main() if this source file is executed directly.
-if (PHPUnit_MAIN_METHOD == 'UNL_UCBCN_ManagerTest::main') {
-    UNL_UCBCN_ManagerTest::main();
 }
 ?>

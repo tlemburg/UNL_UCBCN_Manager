@@ -1,7 +1,4 @@
 <?php
-if (!defined('PHPUnit_MAIN_METHOD')) {
-    define('PHPUnit_MAIN_METHOD', 'UNL_UCBCN_Manager_CreateEventTest::main');
-}
 require_once 'Testing/Selenium.php';
 require_once 'PHPUnit/Framework/TestCase.php';
 
@@ -58,7 +55,4 @@ class UNL_UCBCN_Manager_CreateEventTest extends PHPUnit_Framework_TestCase
     }
 }
 
-if (PHPUnit_MAIN_METHOD == 'UNL_UCBCN_Manager_CreateEventTest::main') {
-    UNL_UCBCN_Manager_CreateEventTest::main();
-}
 ?>

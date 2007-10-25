@@ -16,9 +16,9 @@ if (!defined('PHPUnit_MAIN_METHOD')) {
 require_once 'PHPUnit/Framework/TestSuite.php';
 require_once 'PHPUnit/TextUI/TestRunner.php';
 
-require_once 'UNL/UCBCN/ManagerTest.php';
-require_once 'CreateEventTest.php';
-
+require_once dirname(__FILE__) . '/UNL/UCBCN/ManagerTest.php';
+require_once dirname(__FILE__) . '/CreateEventTest.php';
+require_once dirname(__FILE__) . '/EventActionsTest.php';
 
 class UNL_UCBCN_Manager_AllTests
 {
@@ -44,7 +44,7 @@ class UNL_UCBCN_Manager_AllTests
         /** Add testsuites, if there is. */
         $suite->addTestSuite('UNL_UCBCN_ManagerTest');
         $suite->addTestSuite('UNL_UCBCN_Manager_CreateEventTest');
-
+        $suite->addTestSuite('UNL_UCBCN_Manager_EventActionsTest');
         return $suite;
     }
 }
