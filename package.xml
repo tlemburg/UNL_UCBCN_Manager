@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.6.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
  <summary>A Management frontend for publishing University events.</summary>
  <description>This package gives authenticated users access to publish events into their own calendar for their Department/Unit within a University.
-		It uses PEAR Auth to connect with existing authentication sources (LDAP etc).
-		It handles authentication for the user and allows insertion of event details into the calendar backend.</description>
+        It uses PEAR Auth to connect with existing authentication sources (LDAP etc).
+        It handles authentication for the user and allows insertion of event details into the calendar backend.</description>
  <lead>
   <name>Brett Bieber</name>
   <user>saltybeagle</user>
@@ -18,10 +18,10 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2007-08-31</date>
- <time>13:20:57</time>
+ <date>2007-10-30</date>
+ <time>09:58:16</time>
  <version>
-  <release>0.5.3</release>
+  <release>0.5.4</release>
   <api>0.5.0</api>
  </version>
  <stability>
@@ -29,9 +29,11 @@
   <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
- <notes>* Paginate results in the event listings.
-* Require Pager package.
-* Display year in event listing if year is not the current year.
+ <notes>* Add a screen for recommending events to other calendars. This allows a user to post an event to another calendar the user has access to. ?action=recommend
+* Fix to actions on paginated results - when a user selected an action on events from the second page the action was not performed.
+* Coding standards fixes.
+* New drop down for selecting actions within the default/unl template.
+* Fix - defaults for uidcreated and uidlastupdated were not being set on the Create Event Form.
  </notes>
  <contents>
   <dir baseinstalldir="UNL/UCBCN" name="/">
@@ -42,6 +44,7 @@
     <file name="jscalendar.php" role="php" />
     <file name="Login.php" role="php" />
     <file name="Plugin.php" role="php" />
+    <file name="Recommend.php" role="php" />
     <file name="SubForm.php" role="php" />
     <file name="Tableless.php" role="php" />
    </dir> <!-- /Manager -->
@@ -120,6 +123,7 @@
      <file name="manager_ieonly.css" role="data" />
      <file name="Manager_Login.tpl.php" role="data" />
      <file name="manager_main.css" role="data" />
+     <file name="Manager_Recommend.tpl.php" role="data" />
     </dir> <!-- /templates/default -->
    </dir> <!-- /templates -->
    <file name="index.php" role="data">
@@ -229,6 +233,11 @@
     <name>Pager</name>
     <channel>pear.php.net</channel>
     <min>2.2.1</min>
+   </package>
+   <package>
+    <name>HTML_Table</name>
+    <channel>pear.php.net</channel>
+    <min>1.6.0</min>
    </package>
   </required>
  </dependencies>
@@ -423,11 +432,28 @@ Throws an exception if authentication mechanism is not defined.</notes>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2007-08-31</date>
+   <date>2007-10-11</date>
    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
    <notes>* Paginate results in the event listings.
 * Require Pager package.
-* Display year in event listing if year is not the current year.
+* Display year in event listing if year is not the current year.</notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.4</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-10-30</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+   <notes>* Add a screen for recommending events to other calendars. This allows a user to post an event to another calendar the user has access to. ?action=recommend
+* Fix to actions on paginated results - when a user selected an action on events from the second page the action was not performed.
+* Coding standards fixes.
+* New drop down for selecting actions within the default/unl template.
+* Fix - defaults for uidcreated and uidlastupdated were not being set on the Create Event Form.
    </notes>
   </release>
  </changelog>

@@ -11,7 +11,7 @@
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
  * @link      http://pear.unl.edu/
  */
-ini_set('display_errors',false);
+ini_set('display_errors', false);
 require_once 'UNL/UCBCN/Manager.php';
 require_once 'Auth.php';
 $GLOBALS['unl_template_dependents'] = $_SERVER['DOCUMENT_ROOT'].'/ucomm/templatedependents';

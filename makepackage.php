@@ -56,10 +56,12 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.5.0');
-$pfm->setReleaseVersion('0.5.3');
-$pfm->setNotes('* Paginate results in the event listings.
-* Require Pager package.
-* Display year in event listing if year is not the current year.
+$pfm->setReleaseVersion('0.5.4');
+$pfm->setNotes('* Add a screen for recommending events to other calendars. This allows a user to post an event to another calendar the user has access to. ?action=recommend
+* Fix to actions on paginated results - when a user selected an action on events from the second page the action was not performed.
+* Coding standards fixes.
+* New drop down for selecting actions within the default/unl template.
+* Fix - defaults for uidcreated and uidlastupdated were not being set on the Create Event Form.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
