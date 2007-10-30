@@ -73,7 +73,7 @@ foreach ($this->events as $event) {
 			<td class="delete">
 				<?php
 				if ($event['usercandeleteevent']) {
-					echo '<a onclick="return confirm(\'Are you sure you wish to delete '.htmlentities($event['title']).'?\');" href="'.$_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q'].'&amp;delete='.$event['id'].'">Delete</a></td>';
+					echo '<a onclick="return confirm(\'Are you sure you wish to delete '.addslashes(htmlentities($event['title'])).'?\');" href="'.$_SERVER['PHP_SELF'].'?action=search&amp;q='.$_GET['q'].'&amp;delete='.$event['id'].'">Delete</a></td>';
 				} ?>
 			</td>
 		</tr>
