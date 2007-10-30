@@ -209,11 +209,10 @@ function showIsAppleWebKit() {
 			if (isAppleWebkit) {
 			var fieldObj = getElementsByClassName(document, "fieldset", "d__header___class"); 
 			fieldObj[0].style.marginTop = '-10px';	
-			} else {			
+			} else {
+			
 				var eventLoc = document.getElementById('eventlocationheader');
-	  			if(!eventLoc.getElementsByTagName('table')[0]){
-	  				eventLoc.getElementsByTagName('label')[0].style.display = 'none';
-	  			}
+	  			eventLoc.getElementsByTagName('label')[0].style.display = 'none';
 	  		}
 }
 
