@@ -200,25 +200,24 @@ function requiredField(){
 /*safari fixes*/
 function showIsAppleWebKit() {
 			
-			// String found if this is a AppleWebKit based product
-			var kitName = "applewebkit/";
-			var tempStr = navigator.userAgent.toLowerCase();
-			var pos = tempStr.indexOf(kitName);
-			var isAppleWebkit = (pos != -1);
-		
-			if (isAppleWebkit) {
-			var fieldObj = getElementsByClassName(document, "fieldset", "d__header___class"); 
-			fieldObj[0].style.marginTop = '-10px';	
-			} else {			
-				var eventLoc = document.getElementById('eventlocationheader');
-	  			if(!eventLoc.getElementsByTagName('table')[0]){
-	  				eventLoc.getElementsByTagName('label')[0].style.display = 'none';
-	  			}
-	  		}
+	// String found if this is a AppleWebKit based product
+	var kitName = "applewebkit/";
+	var tempStr = navigator.userAgent.toLowerCase();
+	var pos = tempStr.indexOf(kitName);
+	var isAppleWebkit = (pos != -1);
+
+	if (isAppleWebkit) {
+	var fieldObj = getElementsByClassName(document, "fieldset", "d__header___class"); 
+	fieldObj[0].style.marginTop = '-10px';	
+	} else {
+	
+    var eventLoc = document.getElementById('eventlocationheader');
+		eventLoc.getElementsByTagName('label')[0].style.display = 'none';
+	}
 }
 
-function hideField(){
-	
+function hideField() {
+    try {
 		var id = document.getElementById('optionaldetailsheader');
 		var formContainer = id.getElementsByTagName('ol');
 		createButton('Click to add additional details', id, formHide, 'formShow')
@@ -234,7 +233,7 @@ function hideField(){
 	  	var eventLi = eventBr.getElementsByTagName('li')[1];
 	  	eventLi.className='consider';
 	  	showIsAppleWebKit();
-	
+  	} catch(e) {}
 }
 
 function formHide(){
