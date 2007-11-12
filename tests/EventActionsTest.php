@@ -31,7 +31,15 @@ class UNL_UCBCN_Manager_EventActionsTest extends PHPUnit_Framework_TestCase
     
     function testResetDatabase()
     {
-        $mysqlbin = '/usr/local/mysql/bin/mysql';
+    	switch(true) {
+    	case file_exists('/usr/local/mysql/bin/mysql'):
+    		$mysqlbin = '/usr/local/mysql/bin/mysql';
+    		break;
+    	default:
+    		$mysqlbin = 'mysql';
+    		break;
+    	}
+        
         $res = system($mysqlbin.' -u eventcal --password=eventcal eventcal < '.dirname(__FILE__).'/EventActionsTest.sql');
         $this->assertEquals('', $res);
     }
