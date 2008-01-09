@@ -691,9 +691,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $el =& $form->getElement('uid');
             $el->setLabel('User ID');
             $form->setDefaults(array('calendar_id'=>$calendar->id, 'account_id'=>$this->account->id));
-            $checkall = HTML_QuickForm::createElement('static', 'checkall', null, '<a href="#" class="checkall" onclick="setCheckboxes(\'unl_ucbcn_user\',true); return false">Check All</a>');
+            $checkall = HTML_QuickForm::createElement('static', 'checkall', null, '<a href="#" class="checkall" id="checkall" onclick="setCheckboxes(\'unl_ucbcn_user\',true); return false">Check All</a>');
             $form->insertElementBefore($checkall, '__crossLink_user_has_permission_user_uid_permission_id');
-            $uncheckall = HTML_QuickForm::createElement('static', 'uncheckall', null, '<a href="#" class="uncheckall" onclick="setCheckboxes(\'unl_ucbcn_user\',false); return false">Uncheck All</a>');
+            $uncheckall = HTML_QuickForm::createElement('static', 'uncheckall', null, '<a href="#" class="uncheckall" id="uncheckall" onclick="setCheckboxes(\'unl_ucbcn_user\',false); return false">Uncheck All</a>');
             $form->insertElementBefore($uncheckall, '__crossLink_user_has_permission_user_uid_permission_id');
             $renderer =& new HTML_QuickForm_Renderer_Tableless();
             $form->accept($renderer);
