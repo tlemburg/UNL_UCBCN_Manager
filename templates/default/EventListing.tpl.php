@@ -41,7 +41,7 @@ foreach ($this->events as $e) {
 	}
 	$row .= ' onclick="highlightLine(this,'.$e->id.');">';
 	$oddrow = !$oddrow;
-	$row .=	'<td class="select"><input type="checkbox" onclick="checknegate('.$e->id.')" name="event'.$e->id.'" />' .
+	$row .=	'<td class="select"><input type="checkbox" onclick="checknegate('.$e->id.')" name="event'.$e->id.'" /></td>' .
 			'<td class="title">'.$e->title.'</td>' .
 			'<td class="date">';
 	$edt = UNL_UCBCN::factory('eventdatetime');
