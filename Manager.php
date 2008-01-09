@@ -905,7 +905,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         if ($calendars->find()) {
             $l = array('<ul>');
             while ($calendars->fetch()) {
-                $li = $calendars->name;
+                $li = htmlspecialchars($calendars->name);
                 if ($this->userHasPermission($this->user, 'Calendar Edit', $this->calendar)) {
                     $li .= '&nbsp;<a href="'.$this->uri.'?action=calendar&amp;calendar_id='.$calendars->id.'">Edit</a>';
                 }

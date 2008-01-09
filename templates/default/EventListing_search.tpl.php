@@ -43,7 +43,7 @@ foreach ($this->events as $event) {
 				    echo $event['calendarhasevent'];
 				} ?>
 			</td>
-			<td class="title"><span class='title' style="float:left;"><?php echo $event['title']; ?></span>
+			<td class="title"><span class='title' style="float:left;"><?php echo htmlspecialchars($event['title']); ?></span>
 				<div id='instances_<?php echo $event['id']; ?>' class="instances">
 				<ul>
 				<?php
