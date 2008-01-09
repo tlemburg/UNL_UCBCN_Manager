@@ -7,7 +7,7 @@
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
 	<label for="action">Action</label>
-	<select name="action" onfocus="manager.list = 'search'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+	<select id="action" onfocus="manager.list = 'search'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
 	    <option>Select action...</option>
 	    <option value="posted"    disabled="disabled">Add to Posted</option>
 	    <option value="pending"   disabled="disabled">Move to Pending</option>
