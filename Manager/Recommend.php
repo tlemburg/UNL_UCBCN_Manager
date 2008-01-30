@@ -59,7 +59,7 @@ class UNL_UCBCN_Manager_Recommend
                     $calendar->get($cal[0]);
                     switch ($_POST['cal'.$cal[0]]) {
                     case 'Event Post':
-                        $status = 'post';
+                        $status = 'posted';
                         break;
                     case 'Event Send Event to Pending Queue':
                         $status = 'pending';
