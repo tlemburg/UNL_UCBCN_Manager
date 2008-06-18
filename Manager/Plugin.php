@@ -7,7 +7,7 @@
  * @category  Events 
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
- * @copyright 2007 Regents of the University of Nebraska
+ * @copyright 2008 Regents of the University of Nebraska
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
  * @link      http://pear.unl.edu/
  */
@@ -20,7 +20,7 @@ require_once 'UNL/UCBCN/Manager.php';
  * @category  Events 
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
- * @copyright 2007 Regents of the University of Nebraska
+ * @copyright 2008 Regents of the University of Nebraska
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
  * @link      http://pear.unl.edu/
  */
