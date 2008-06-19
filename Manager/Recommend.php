@@ -43,13 +43,20 @@ class UNL_UCBCN_Manager_Recommend
      */
     public $calendars;
     
+    /**
+     * Calendars which this user can recommend events to.
+     * 
+     * @var array
+     */
+    public $recommendable;
+    
     public function __construct(UNL_UCBCN_Manager &$manager, $events)
     {
         if (count($events) > 0) {
             $submitted       = false;
             $this->manager   = $manager;
             $this->events    = $events;
-            $permissions     = array('Event Post','Event Send Event to Pending Queue');
+            $permissions     = array('Event Post', 'Event Send Event to Pending Queue');
             $cal_rows        = $this->getCalendarsWithPermission($this->manager->user, $permissions);
             $this->calendars = array();
             foreach ($cal_rows as $cal) {
@@ -73,6 +80,19 @@ class UNL_UCBCN_Manager_Recommend
                     }
                 }
                 $this->calendars[$cal[0]][$cal[1]] = 1;
+            }
+            $recommendable = $this->manager->factory('calendar');
+            $recommendable->recommendwithinaccount = true;
+            if ($recommendable->find()) {
+                while ($recommendable->fetch()) {
+                    if (isset($_POST['cal'.$recommendable->id])) {
+                        $submitted = true;
+                        foreach ($this->events as $event) {
+                            $recommendable->addEvent($event, 'pending', $this->manager->user, 'recommended');
+                        }
+                    }
+                    $this->recommendable[] = $recommendable->id;
+                }
             }
             if ($submitted && !empty($this->manager->uri)) {
                 // We have processed the recommendations. Redirect.
