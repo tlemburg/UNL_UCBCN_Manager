@@ -26,6 +26,10 @@
 	font-style: normal;
 }
 
+#maincontent p {
+	margin-bottom:2.2em;
+}
+
 /*	-------------------------------------------------------------
 	Navigation Styles
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
@@ -153,6 +157,7 @@ div.cal_widget fieldset legend {
 /*	-------------------------------------------------------------
 	Form elements
 	- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -	*/
+
 #maincontent form {
 	margin: 0 0 0 0;
 	padding: 0 0 0 0;
@@ -650,4 +655,8 @@ table.eventlisting tr.alt {
 
 .btnsubmit {
 	display:none;
+	}
+	
+table#recommend_cals th {
+	padding-top:1em;
 	}

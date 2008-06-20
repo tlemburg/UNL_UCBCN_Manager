@@ -7,7 +7,9 @@ foreach ($this->events as $event) {
 require_once 'HTML/Table.php';
 require_once 'UNL/UCBCN/Calendar_has_event.php';
 $t = new HTML_Table(array('id'=>'recommend_cals'));
-$t->addRow(array('Calendar','Pending','Posted'), null, 'TH');
+$t->addRow(array('Calendars You Can Send This Event To'),array('colspan'=>'3'), 'TH');
+
+$t->addRow(array('Calendar', 'Pending', 'Posted'), null, 'TH');
 foreach ($this->calendars as $calendar_id=>$permissions) {
     $calendar = $this->manager->factory('calendar');
     $calendar->get($calendar_id);
@@ -36,6 +38,37 @@ foreach ($this->calendars as $calendar_id=>$permissions) {
     }
     $t->addRow(array("<label for='{$elid}'>".$calendar->name.'</label>', $pending, $posted));
 }
+
+if (count($this->recommendable)) {
+    $t->addRow(array('Calendars Accepting Reccomendations'),array('colspan'=>'3'), 'TH');
+    $t->addRow(array('Calendar', 'Pending', 'Posted'), null, 'TH');
+    
+    foreach ($this->recommendable as $calendar_id) {
+        $calendar = $this->manager->factory('calendar');
+        $calendar->get($calendar_id);
+        $elid        = 'cal'.$calendar->id;
+        $posted      = '';
+        $pending     = '';
+        $curr_status = false;
+        if (count($this->events) == 1) {
+            $curr_status = UNL_UCBCN_Calendar_has_event::calendarHasEvent($calendar, $this->events[0]);
+        }
+        if ($curr_status === false) {
+            if (isset($permissions['Event Send Event to Pending Queue'])) {
+                $pending = HTML_QuickForm::createElement('radio', $elid, null, null, 'Event Send Event to Pending Queue');
+                $pending = $pending->toHtml();
+            }
+        } else {
+            if ($curr_status == 'pending') {
+                $pending = 'X';
+            } else {
+                $posted = 'X';
+            }
+        }
+        $t->addRow(array("<label for='{$elid}'>".$calendar->name.'</label>', $pending, $posted));
+    }
+}
+
 echo $t->toHtml();
 ?>
 <input type="submit" value="Go" />
