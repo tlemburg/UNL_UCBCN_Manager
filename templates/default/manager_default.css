@@ -300,6 +300,15 @@ form div.error {
 	border: none;
 }
 
+#maincontent label{
+    vertical-align:20%;
+    margin-left:4px;
+}
+
+body:last-child:not(:root:root) #maincontent label {
+	vertical-align:baseline;
+}
+
 #maincontent h3 {
 	clear: left;
 }
