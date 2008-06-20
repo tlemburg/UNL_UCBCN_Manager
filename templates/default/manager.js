@@ -100,8 +100,9 @@ var manager = function() {
                 button.click();
                 break;
             case 'recommend':
-                document.formlist.action = '?action=recommend';
-                document.formlist.submit();
+                var form = document.getElementById('formlist');
+                form.action = '?action=recommend';
+                form.submit();
                 break;
             case 'delete':
                 var button = document.getElementById('delete_event');
