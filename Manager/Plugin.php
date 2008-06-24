@@ -9,7 +9,7 @@
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @copyright 2008 Regents of the University of Nebraska
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
- * @link      http://pear.unl.edu/
+ * @link      http://code.google.com/p/unl-event-publisher/
  */
 
 require_once 'UNL/UCBCN/Manager.php';
@@ -22,7 +22,7 @@ require_once 'UNL/UCBCN/Manager.php';
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @copyright 2008 Regents of the University of Nebraska
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
- * @link      http://pear.unl.edu/
+ * @link      http://code.google.com/p/unl-event-publisher/
  */
 abstract class UNL_UCBCN_Manager_Plugin
 {

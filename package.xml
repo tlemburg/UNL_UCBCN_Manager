@@ -19,7 +19,7 @@
   <active>yes</active>
  </developer>
  <date>2008-06-20</date>
- <time>11:46:04</time>
+ <time>16:53:24</time>
  <version>
   <release>0.6.0</release>
   <api>0.6.0</api>
@@ -227,7 +227,7 @@ CSS Fix:
    <package>
     <name>UNL_UCBCN</name>
     <channel>pear.unl.edu</channel>
-    <min>0.5.0</min>
+    <min>0.6.0</min>
    </package>
    <package>
     <name>Pager</name>
