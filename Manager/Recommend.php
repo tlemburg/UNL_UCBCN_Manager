@@ -82,7 +82,8 @@ class UNL_UCBCN_Manager_Recommend
                 $this->calendars[$cal[0]][$cal[1]] = 1;
             }
             $recommendable = $this->manager->factory('calendar');
-            $recommendable->recommendwithinaccount = true;
+            $recommendable->account_id = $this->manager->account->id;
+            $recommendable->recommendationswithinaccount = true;
             if ($recommendable->find()) {
                 while ($recommendable->fetch()) {
                     if (isset($_POST['cal'.$recommendable->id])) {
