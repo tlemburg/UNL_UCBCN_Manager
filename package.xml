@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.7.3" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
  <summary>A Management frontend for publishing University events.</summary>
@@ -18,8 +18,8 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2008-06-20</date>
- <time>16:53:24</time>
+ <date>2008-08-21</date>
+ <time>09:40:06</time>
  <version>
   <release>0.6.0</release>
   <api>0.6.0</api>
@@ -30,10 +30,22 @@
  </stability>
  <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
  <notes>
+Fixes:
+* Update BSD license link to the UNL copy.
+* Update copyright date to 2008.
+* Change homepage URLs to Google Code project page.
+* Minor validation and html entity fixes.
+* Remove display errors from recommendation screen.
+* Minor Coding Standards fixes.
+
 Feature Release:
 * Users can recommend events to calendars which allow recommendations.
+    Individual calendars will need to set their preference to allow recommendations
+    from other calendars within the same account. Once set, users of other calendars
+    can &quot;recommend&quot; an event for a calendar, which will send it to the list of 
+    pending events.
 
-CSS Fix:
+CSS Fixes:
 * Add margin to paragraphs, fixes form legend overlapping text.
  </notes>
  <contents>
@@ -464,13 +476,25 @@ Throws an exception if authentication mechanism is not defined.</notes>
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2008-06-20</date>
+   <date>2008-08-21</date>
    <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
    <notes>
+Fixes:
+* Update BSD license link to the UNL copy.
+* Update copyright date to 2008.
+* Change homepage URLs to Google Code project page.
+* Minor validation and html entity fixes.
+* Remove display errors from recommendation screen.
+* Minor Coding Standards fixes.
+
 Feature Release:
 * Users can recommend events to calendars which allow recommendations.
+    Individual calendars will need to set their preference to allow recommendations
+    from other calendars within the same account. Once set, users of other calendars
+    can &quot;recommend&quot; an event for a calendar, which will send it to the list of 
+    pending events.
 
-CSS Fix:
+CSS Fixes:
 * Add margin to paragraphs, fixes form legend overlapping text.
    </notes>
   </release>

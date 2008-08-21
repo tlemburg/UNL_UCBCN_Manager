@@ -58,10 +58,22 @@ $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.6.0');
 $pfm->setReleaseVersion('0.6.0');
 $pfm->setNotes('
+Fixes:
+* Update BSD license link to the UNL copy.
+* Update copyright date to 2008.
+* Change homepage URLs to Google Code project page.
+* Minor validation and html entity fixes.
+* Remove display errors from recommendation screen.
+* Minor Coding Standards fixes.
+
 Feature Release:
 * Users can recommend events to calendars which allow recommendations.
+    Individual calendars will need to set their preference to allow recommendations
+    from other calendars within the same account. Once set, users of other calendars
+    can "recommend" an event for a calendar, which will send it to the list of 
+    pending events.
 
-CSS Fix:
+CSS Fixes:
 * Add margin to paragraphs, fixes form legend overlapping text.
 ');
 
