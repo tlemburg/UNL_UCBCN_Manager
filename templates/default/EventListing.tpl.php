@@ -6,8 +6,8 @@
 	</div>
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
-	<label for="action">Action</label> 
-	<select id="action" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+	<label for="eventaction">Action</label> 
+	<select name="eventaction" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
 	    <option>Select action...</option>
 	    <option value="posted"    disabled="disabled">Add to Posted</option>
 	    <option value="pending"   disabled="disabled">Move to Pending</option>
@@ -84,13 +84,13 @@ foreach ($this->events as $e) {
 	</div>
 	<fieldset class="eventFieldsetAction">
 	<legend>Action</legend>
-	<label for="action">Action</label>
-	<select name="action" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
+	<label for="eventaction">Action</label>
+	<select name="eventaction" onfocus="manager.list = '<?php echo $this->status; ?>'; return manager.updateActionMenus(this)" onchange="return manager.actionMenuChange(this)">
 	    <option>Select action...</option>
-	    <option value="posted"    disabled="disabled">Add to Posted</option>
-	    <option value="pending"   disabled="disabled">Move to Pending</option>
-	    <option value="recommend" disabled="disabled">Recommend</option>
-	    <option value="delete"    disabled="disabled">Delete</option>
+	    <option value="posted">Add to Posted</option>
+	    <option value="pending">Move to Pending</option>
+	    <option value="recommend">Recommend</option>
+	    <option value="delete">Delete</option>
 	</select>
 	</fieldset>
 </div>
