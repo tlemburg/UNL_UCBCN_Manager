@@ -616,7 +616,12 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                 // This event date time combination was selected... find out what they chose.
                 if (isset($_POST['delete']) 
                     && $this->userHasPermission($this->user, 'Event Delete', $this->calendar)) {
-                    // User has chosen to delete the event selected, and has permission to delete from pending.
+                    // User has chosen to delete the event selected, and has permission to delete the event.
+                    if ($a_event->source == 'create event form') {
+                        // This is the calendar the event was originally created on, delete from the entire system.
+                        return $event->delete();
+                    }
+                    // Remove the event from this calendar
                     return $a_event->delete();
                 } elseif (isset($_POST['pending'])
                     && $this->userHasPermission($this->user, 'Event Send Event to Pending Queue', $this->calendar)) {
