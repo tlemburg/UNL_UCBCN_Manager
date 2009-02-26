@@ -55,34 +55,29 @@ $pfm->setDescription('This package gives authenticated users access to publish e
 $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
-$pfm->setAPIVersion('0.6.0');
-$pfm->setReleaseVersion('0.6.0');
+$pfm->setAPIVersion('0.7.0');
+$pfm->setReleaseVersion('0.7.0');
 $pfm->setNotes('
-Fixes:
-* Update BSD license link to the UNL copy.
-* Update copyright date to 2008.
-* Change homepage URLs to Google Code project page.
-* Minor validation and html entity fixes.
-* Remove display errors from recommendation screen.
-* Minor Coding Standards fixes.
+0.7.0 Changes
 
-Feature Release:
-* Users can recommend events to calendars which allow recommendations.
-    Individual calendars will need to set their preference to allow recommendations
-    from other calendars within the same account. Once set, users of other calendars
-    can "recommend" an event for a calendar, which will send it to the list of 
-    pending events.
+* Add default value for the \'frontenduri\' option.
+* Delete event from the system if deleting the event from the originating calendar.
+* Correct default calendar for new/editing user permissions. [mfkwmfk]
+* Coding standards updates for the post-install script.
 
-CSS Fixes:
-* Add margin to paragraphs, fixes form legend overlapping text.
+Template Updates:
+* Fix duplicate id \'action\' on EvenListing.tpl.php
+
+* Increase PHP Dependency to 5.1.2
+* Increase PEAR dependency to 1.5.4
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
 //$pfm->addMaintainer('developer','alvinwoon','Alvin Woon','alvinwoon@gmail.com');
 $pfm->setLicense('BSD License', 'http://www1.unl.edu/wdn/wiki/Software_License');
 $pfm->clearDeps();
-$pfm->setPhpDep('5.0.0');
-$pfm->setPearinstallerDep('1.4.3');
+$pfm->setPhpDep('5.1.2');
+$pfm->setPearinstallerDep('1.5.4');
 $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.php.net', '0.18.1');
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
 $pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.6.0');

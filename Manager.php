@@ -11,7 +11,7 @@
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @author    Alvin Woon <alvinwoon@gmail.com>
- * @copyright 2008 Regents of the University of Nebraska
+ * @copyright 2009 Regents of the University of Nebraska
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
  * @link      http://code.google.com/p/unl-event-publisher/
  */
@@ -41,7 +41,7 @@ require_once 'Pager/Pager.php';
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @author    Alvin Woon <alvinwoon@gmail.com>
- * @copyright 2008 Regents of the University of Nebraska
+ * @copyright 2009 Regents of the University of Nebraska
  * @license   http://www1.unl.edu/wdn/wiki/Software_License BSD License
  * @link      http://code.google.com/p/unl-event-publisher/
  */

@@ -65,7 +65,7 @@ class UNL_UCBCN_ManagerTest extends PHPUnit_Framework_TestCase {
      * testStartSession().
      */
     public function testStartSession() {
-        $this->b->startSession();
+        //$this->b->startSession();
         $this->assertEquals($this->auth->getUsername(), $this->b->user->uid);
         $this->assertEquals($this->auth->getUsername(), $this->b->session->user_uid);
         $this->assertEquals(get_class($this->b->calendar),'UNL_UCBCN_Calendar');

@@ -57,10 +57,10 @@ class UNL_UCBCN_Manager_EventActionsTest extends PHPUnit_Framework_TestCase
             array_push($this->verificationErrors, $e->toString());
         }
         $this->selenium->click("link=Check All");
-        $this->selenium->select("document.formlist.action[0]", "label=Select action...");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Select action...");
         
         // Delete all elements.
-        $this->selenium->select("document.formlist.action[0]", "label=Delete");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Delete");
         $this->selenium->waitForPageToLoad("30000");
         $this->assertTrue((bool)preg_match('/^Are you sure[\s\S]$/',$this->selenium->getConfirmation()));
         try {
@@ -71,9 +71,9 @@ class UNL_UCBCN_Manager_EventActionsTest extends PHPUnit_Framework_TestCase
         $this->selenium->click("link=6");
         $this->selenium->waitForPageToLoad("30000");
         $this->selenium->click("link=Check All");
-        $this->selenium->select("document.formlist.action[0]", "label=Select action...");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Select action...");
         // Delete all elements.
-        $this->selenium->select("document.formlist.action[0]", "label=Delete");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Delete");
         $this->selenium->waitForPageToLoad("30000");
         $this->assertTrue((bool)preg_match('/^Are you sure[\s\S]$/',$this->selenium->getConfirmation()));
         try {
@@ -82,35 +82,37 @@ class UNL_UCBCN_Manager_EventActionsTest extends PHPUnit_Framework_TestCase
             array_push($this->verificationErrors, $e->toString());
         }
         $this->selenium->click("link=Check All");
-        $this->selenium->select("document.formlist.action[0]", "label=Add to Posted");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Add to Posted");
+        $this->selenium->waitForPageToLoad("50000");
         try {
             $this->assertTrue($this->selenium->isTextPresent("Pending (316)"));
         } catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
-        $this->selenium->click("link=Archived (21)");
-        $this->selenium->waitForPageToLoad("30000");
+        $this->selenium->click("link=Archived (*)");
+        $this->selenium->waitForPageToLoad("50000");
         $this->selenium->click("link=Check All");
-        $this->selenium->select("document.formlist.action[0]", "label=Move to Pending");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Move to Pending");
         $this->selenium->waitForPageToLoad("30000");
         try {
             $this->assertTrue($this->selenium->isTextPresent("Archived (0)"));
         } catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
-        $this->selenium->click("link=Posted (9)");
-        $this->selenium->waitForPageToLoad("30000");
+        /*
+        $this->selenium->click("link=Posted (*)");
+        $this->selenium->waitForPageToLoad("50000");
         $this->selenium->click("link=Check All");
-        $this->selenium->select("document.formlist.action[0]", "label=Move to Pending");
+        $this->selenium->select("document.formlist.eventaction[0]", "label=Move to Pending");
         $this->selenium->waitForPageToLoad("30000");
         try {
             $this->assertTrue($this->selenium->isTextPresent("Posted (0)"));
         } catch (PHPUnit_Framework_AssertionFailedError $e) {
             array_push($this->verificationErrors, $e->toString());
         }
-        $this->selenium->click("link=Pending (346)");
+        $this->selenium->click("link=Pending (*)");
         $this->selenium->waitForPageToLoad("30000");
+        */
         $this->selenium->type("searchinput", "hannukah");
         $this->selenium->click("document.event_search.submit");
         $this->selenium->waitForPageToLoad("30000");
