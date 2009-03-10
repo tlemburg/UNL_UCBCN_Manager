@@ -41,7 +41,6 @@ class UNL_UCBCN_Manager_CreateEventTest extends PHPUnit_Framework_TestCase
         $this->selenium->type("document.unl_ucbcn_event.title", "This is a test event.");
         $this->selenium->select("__reverseLink_event_has_eventtype_event_ideventtype_id_1", "label=Exhibit - Photography");
         $this->selenium->select("__reverseLink_eventdatetime_event_idlocation_id_1", "label=AGRICULTURAL HALL");
-        $this->selenium->click("date1_calendar_trigger");
         $this->selenium->type("__reverseLink_eventdatetime_event_idstarttime_1", date('Y-m-d'));
         $this->selenium->click("__submit__");
         $this->selenium->waitForPageToLoad("150000");

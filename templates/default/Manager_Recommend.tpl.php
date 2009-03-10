@@ -11,7 +11,7 @@ $t->addRow(array('Calendars You Can Send This Event To'),array('colspan'=>'3'), 
 
 $t->addRow(array('Calendar', 'Pending', 'Posted'), null, 'TH');
 foreach ($this->calendars as $calendar_id=>$permissions) {
-    $calendar = $this->manager->factory('calendar');
+    $calendar = UNL_UCBCN_Manager::factory('calendar');
     $calendar->get($calendar_id);
     $elid        = 'cal'.$calendar->id;
     $posted      = '';
@@ -44,7 +44,7 @@ if (count($this->recommendable)) {
     $t->addRow(array('Calendar', 'Pending', 'Posted'), null, 'TH');
     
     foreach ($this->recommendable as $calendar_id) {
-        $calendar = $this->manager->factory('calendar');
+        $calendar = UNL_UCBCN_Manager::factory('calendar');
         $calendar->get($calendar_id);
         $elid        = 'cal'.$calendar->id;
         $posted      = '';

@@ -62,7 +62,7 @@ class UNL_UCBCN_Manager_Recommend
             foreach ($cal_rows as $cal) {
                 if (isset($_POST['cal'.$cal[0]]) && $_POST['cal'.$cal[0]] == $cal[1]) {
                     $submitted = true;
-                    $calendar  = $this->manager->factory('calendar');
+                    $calendar  = UNL_UCBCN_Manager::factory('calendar');
                     $calendar->get($cal[0]);
                     switch ($_POST['cal'.$cal[0]]) {
                     case 'Event Post':
@@ -81,7 +81,7 @@ class UNL_UCBCN_Manager_Recommend
                 }
                 $this->calendars[$cal[0]][$cal[1]] = 1;
             }
-            $recommendable = $this->manager->factory('calendar');
+            $recommendable = UNL_UCBCN_Manager::factory('calendar');
             $recommendable->account_id = $this->manager->account->id;
             $recommendable->recommendationswithinaccount = true;
             if ($recommendable->find()) {

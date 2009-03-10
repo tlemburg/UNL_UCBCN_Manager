@@ -133,7 +133,7 @@ class UNL_UCBCN_Manager_setup_postinstall
     function createAccount($answers)
     {
         $back               = new UNL_UCBCN(array('dsn'=>$answers['dsn']));
-        $account            = $back->factory('account');
+        $account            = UNL_UCBCN::factory('account');
         $account->shortname = $answers['shortname'];
         if (!$account->find()) {
             $op = 'insert';

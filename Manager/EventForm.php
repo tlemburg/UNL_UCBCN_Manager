@@ -44,7 +44,7 @@ class UNL_UCBCN_Manager_EventForm
      */
     function toHtml($id=null)
     {
-        $events = $this->manager->factory('event');
+        $events = UNL_UCBCN_Manager::factory('event');
         if (isset($id) && $id > 0) {
             if (!$events->get($id)) {
                 return new UNL_UCBCN_Error('Error, the event with that record was not found!');

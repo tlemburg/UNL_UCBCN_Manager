@@ -208,7 +208,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         $this->account = $this->getAccount($this->user);
         if (isset($_GET['calendar_id']) ||
             (isset($this->user->calendar_id) && ($this->user->calendar_id != 0))) {
-            $this->calendar = $this->factory('calendar');
+            $this->calendar = UNL_UCBCN_Manager::factory('calendar');
             if (isset($_GET['calendar_id'])) {
                 $cid = $_GET['calendar_id'];
             } else {
@@ -431,7 +431,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      */
     function showSubscribeForm()
     {
-        $subscription =& $this->factory('subscription');
+        $subscription =& UNL_UCBCN_Manager::factory('subscription');
         if (isset($_GET['id'])) {
             $subscription->get($_GET['id']);
         }
@@ -468,7 +468,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      */
     function showSubscriptions()
     { 
-        $subscriptions              = $this->factory('subscription');
+        $subscriptions              = UNL_UCBCN_Manager::factory('subscription');
         $subscriptions->calendar_id = $this->calendar->id;
         if ($subscriptions->find()) {
             $list = array('<ul>');
@@ -511,7 +511,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         $q    = (isset($_GET['q']))?$_GET['q']:null;
         $mdb2 =& $this->getDatabaseConnection();
         if (!empty($q)) {
-            $events = $this->factory('event');
+            $events = UNL_UCBCN_Manager::factory('event');
             if ($t = strtotime($q)) {
                 // This is a time...
                 $events->query('SELECT event.* FROM event, eventdatetime WHERE ' .
@@ -609,7 +609,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     function processPostStatusChange($event,$source='search')
     {
         if (isset($_POST['event'.$event->id])) {
-            $a_event              = $this->factory('calendar_has_event');
+            $a_event              = UNL_UCBCN_Manager::factory('calendar_has_event');
             $a_event->calendar_id = $this->calendar->id;
             $a_event->event_id    = $event->id;
             if ($a_event->find() && $a_event->fetch()) {
@@ -662,7 +662,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         if ($this->userHasPermission($this->user, 'Calendar Change User Permissions', $this->calendar)) {
             $msg = '';
             if (!is_object($uid)) {
-                $user =& $this->factory('user');
+                $user =& UNL_UCBCN_Manager::factory('user');
                 if (isset($uid) && !empty($uid)) {
                     $user->uid = $uid;
                     if ($user->find()) {
@@ -754,7 +754,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $listing         = new UNL_UCBCN_EventListing();
             $listing->status = $status;
             foreach ($paged_result['data'] as $event_id) {
-                $event = $this->factory('event');
+                $event = UNL_UCBCN_Manager::factory('event');
                 if ($event->get($event_id['id'])) {
                     $listing->events[] = $event;
                 }
@@ -835,7 +835,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     {
         include_once 'UNL/UCBCN/Manager/jscalendar.php';
         $msg = '';
-        $edt = $this->factory('eventdatetime');
+        $edt = UNL_UCBCN_Manager::factory('eventdatetime');
         if (isset($_GET['delete'])) {
             if (UNL_UCBCN::userHasPermission($this->user, 'Event Delete', $this->calendar) && $edt->get($_GET['delete'])) {
                 $event_id = $edt->event_id;
@@ -858,7 +858,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             
             if (isset($_GET['event_id']) && !isset($edt->id)) {
                 $form->setDefaults(array('event_id'=>$_GET['event_id']));
-                $event = $this->factory('event');
+                $event = UNL_UCBCN_Manager::factory('event');
                 if ($event->get($_GET['event_id'])) {
                     $msg = 'New Event Date &amp; Time for '.$event->title;
                 }
@@ -904,7 +904,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      */
     function showCalendars()
     {
-        $calendars             = $this->factory('calendar');
+        $calendars             = UNL_UCBCN_Manager::factory('calendar');
         $calendars->account_id = $this->account->id;
         $calendars->orderBy('name');
         if ($calendars->find()) {
@@ -943,10 +943,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                                         </thead>
                                         <tbody>');
 
-            $user_has_permission              = $this->factory('user_has_permission');
+            $user_has_permission              = UNL_UCBCN_Manager::factory('user_has_permission');
             $user_has_permission->calendar_id = $this->calendar->id;
 
-            $users = $this->factory('user');
+            $users = UNL_UCBCN_Manager::factory('user');
             $users->groupBy('uid');
             $users->joinAdd($user_has_permission);
             if ($users->find()) {
