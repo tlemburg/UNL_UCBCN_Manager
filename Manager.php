@@ -4,10 +4,10 @@
  * a management frontend. It handles authentication for the user and allows
  * insertion of event details into the calendar backend.
  * It allows authenticated users to submit new events into the system.
- * 
+ *
  * PHP version 5
- * 
- * @category  Events 
+ *
+ * @category  Events
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @author    Alvin Woon <alvinwoon@gmail.com>
@@ -36,8 +36,8 @@ require_once 'Pager/Pager.php';
  * Class which handles all event creation and authentication. This class acts as the basis for the
  * management portion of a university event publisher, through which users will log in and create and manage
  * their calendars.
- * 
- * @category  Events 
+ *
+ * @category  Events
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @author    Alvin Woon <alvinwoon@gmail.com>
@@ -49,50 +49,50 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
 {
 
     /**
-     * Auth object 
-     * 
+     * Auth object
+     *
      * @var object
      */
     public $a;
     
     /**
      * UNL_UCBCN_Account
-     * 
+     *
      * @var object
      */
     public $account;
     
     /**
      * UNL_UCBCN_Calendar this user is managing.
-     * 
+     *
      * @var object
      */
     public $calendar;
     
     /**
      * UNL_UCBCN_User object for the user who is logged in and managing a calendar.
-     * 
+     *
      * @var UNL_UCBCN_User
      */
     public $user;
     
     /**
      * URI to the management frontend
-     * 
+     *
      * @var string
      */
     public $uri = '';
     
     /**
      * URI to the public frontend UNL_UCBCN_Frontend
-     * 
+     *
      * @var string
      */
     public $frontenduri = '';
 
     /**
      * Indicates which calendars you have access to.
-     * 
+     *
      * @var array|string
      */
     public $calendarselect;
@@ -123,14 +123,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
 
     /**
      * Registered and running plugins.
-     * 
+     *
      * @var array
      */
     public $plugins = array();
     
     /**
      * Constructor for the UNL_UCBCN_Manager.
-     * 
+     *
      * @param array $options Associative array with options to set for member variables.
      */
     function __construct($options)
@@ -154,7 +154,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * This function initializes all plugins.
-     * 
+     *
      * @return void
      */
     function startupPlugins()
@@ -162,7 +162,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         global $_UNL_UCBCN;
         $ds         = DIRECTORY_SEPARATOR;
         $plugin_dir = '@PHP_DIR@'.$ds.'UNL'.$ds.'UCBCN'.$ds.'Manager'.$ds.'Plugins';
-        if (is_dir($plugin_dir)) { 
+        if (is_dir($plugin_dir)) {
             if ($handle = opendir($plugin_dir)) {
                 while (false !== ($file = readdir($handle))) {
                     if ($file != '.' && $file != '..') {
@@ -189,7 +189,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Begins a calendar management session for this user.
-     * 
+     *
      * @return void
      */
     function startSession()
@@ -231,7 +231,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Ends a calendar management session for the current user.
-     * 
+     *
      * @return void
      */
     function endSession()
@@ -241,7 +241,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Returns login object which will be used for the user to authenticate with.
-     * 
+     *
      * @return object UNL_UCBCN_Manager_Login.
      */
     function showLoginForm()
@@ -252,9 +252,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Returns a form for entering/editing an event.
-     * 
+     *
      * @param int $id ID of the event to retrieve and generate a form for.
-     * 
+     *
      * @return string HTML form for entering an event into the database.
      */
     function showEventSubmitForm($id = null)
@@ -266,7 +266,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Returns a html form for importing xml/.ics files.
-     * 
+     *
      * @return string HTML form for uploading a file.
      */
     function showImportForm()
@@ -284,9 +284,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      * This function is the hub for the manager frontend.
      * All output sent to the client is set up here, based
      * on querystring parameters and authentication level.
-     * 
+     *
      * @param string $action A manual action to send to the client.
-     * 
+     *
      * @return none.
      */
     function run($action='')
@@ -463,11 +463,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Returns a listing of the subscriptions for the current calendar.
-     * 
+     *
      * @return string html list of subscriptions.
      */
     function showSubscriptions()
-    { 
+    {
         $subscriptions              = UNL_UCBCN_Manager::factory('subscription');
         $subscriptions->calendar_id = $this->calendar->id;
         if ($subscriptions->find()) {
@@ -502,7 +502,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Returns an event listing of search results.
-     * 
+     *
      * @return array of html snippets and events
      */
     function showSearchResults()
@@ -526,7 +526,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             }
             $listing = new UNL_UCBCN_EventListing();
             while ($events->fetch()) {
-                if (isset($_GET['delete']) 
+                if (isset($_GET['delete'])
                     && ($_GET['delete']==$events->id)
                     && UNL_UCBCN::userHasPermission($this->user, 'Event Delete', $this->calendar)) {
                     $this->calendar->removeEvent($events);
@@ -579,7 +579,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      * This function returns an array of all posted events.
      * Events should be posted in the form event1923 Where 1923 is
      * the ID of the event.
-     * 
+     *
      * @return array(UNL_UCBCN_Event)
      */
     static function getPostedEvents()
@@ -603,18 +603,19 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      *
      * @param UNL_UCBCN_Event $event  Event to update.
      * @param string          $source Source of this change in status.
-     * 
+     *
      * @return bool
      */
-    function processPostStatusChange($event,$source='search')
+    function processPostStatusChange($event, $source='search')
     {
         if (isset($_POST['event'.$event->id])) {
             $a_event              = UNL_UCBCN_Manager::factory('calendar_has_event');
             $a_event->calendar_id = $this->calendar->id;
             $a_event->event_id    = $event->id;
-            if ($a_event->find() && $a_event->fetch()) {
+            if ($a_event->find()) {
+                $a_event->fetch();
                 // This event date time combination was selected... find out what they chose.
-                if (isset($_POST['delete']) 
+                if (isset($_POST['delete'])
                     && $this->userHasPermission($this->user, 'Event Delete', $this->calendar)) {
                     // User has chosen to delete the event selected, and has permission to delete the event.
                     if ($a_event->source == 'create event form') {
@@ -651,10 +652,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * This function generates and returns a permissions form for the given user and calendar.
-     * 
+     *
      * @param string             $uid      User id to edit permissions for.
      * @param UNL_UCBCN_Calendar $calendar Calendar to edit permissions for.
-     * 
+     *
      * @return string HTML form.
      */
     function showPermissionsForm($uid,$calendar)
@@ -717,10 +718,10 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Shows the list of events for the current user.
-     * 
+     *
      * @param string $status  The type of events to return, pending, posted or archived
      * @param string $orderby The SQL ORDER BY statement
-     * 
+     *
      * @return array mixed, navigation list, events currently in the system.
      */
     function showEventListing($status='pending',$orderby='eventdatetime.starttime')
@@ -741,11 +742,11 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
             $orderby = 'event.title';
             break;
         }
-        $sql          = 'SELECT DISTINCT event.id FROM calendar_has_event, eventdatetime, event 
-                        WHERE calendar_has_event.status = \''.$status.'\' 
+        $sql          = 'SELECT DISTINCT event.id FROM calendar_has_event, eventdatetime, event
+                        WHERE calendar_has_event.status = \''.$status.'\'
                         AND calendar_has_event.event_id = event.id
                         AND eventdatetime.event_id = event.id
-                        AND calendar_has_event.calendar_id = '.$this->calendar->id.' 
+                        AND calendar_has_event.calendar_id = '.$this->calendar->id.'
                         ORDER BY '.$orderby;
         $e            = array();
         $paged_result = $this->pagerWrapper($mdb2, $sql, array('totalItems'=>$this->getEventCount($this->calendar, $status)));
@@ -774,7 +775,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Returns a form to edit the current acccount.
-     * 
+     *
      * @return string html form.
      */
     public function showAccountForm()
@@ -801,9 +802,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
         }
     }
     
-    /** 
+    /**
      * This function returns a form for editing the calendar details.
-     * 
+     *
      * @return string HTML form for editing a calendar.
      */
     function showCalendarForm()
@@ -828,7 +829,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      
     /**
      * Returns a form for editing an event date & time instance.
-     * 
+     *
      * @return string HTML form for editing an event date & time
      */
     function showEventDateTimeForm()
@@ -882,7 +883,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * This form allows the user to recommend an event for other calendars.
-     * 
+     *
      * @return UNL_UCBCN_Manager_Recommend
      */
     public function showRecommendForm()
@@ -899,7 +900,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * This function returns a list of calendars for the current account.
-     * 
+     *
      * @return string Unordered list of calendars.
      */
     function showCalendars()
@@ -924,14 +925,14 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     }
     
     /**
-     * This function returns a list of users that have 'some' 
+     * This function returns a list of users that have 'some'
      * permission to the current calendar.
-     * 
+     *
      * @return string html list of users.
      */
     function showCalendarUsers()
-    {    
-        $oddrow = false;        
+    {
+        $oddrow = false;
         if ($this->userHasPermission($this->user, 'Calendar Change User Permissions', $this->calendar)) {
             $permissions_list = array('<table class="eventlisting no_onclick">
                                         <thead>
@@ -956,13 +957,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
                         if ($oddrow) {
                             $user_li .= ' class="alt">';
                         } else {
-                            $user_li .= '>';    
+                            $user_li .= '>';
                         }
                         $user_li .= '<td>'.$users->uid.'</td><td><a class="user_perm_edit" href="?action=permissions&amp;uid='.$users->uid.'">Edit</a></td>';
                         if ($this->userHasPermission($this->user, 'Calendar Delete User', $this->calendar) && $users->uid != $this->user->uid) {
                             // This user can delete calendar users.
-                            if (isset($_GET['remove']) 
-                                && isset($_GET['uid']) 
+                            if (isset($_GET['remove'])
+                                && isset($_GET['uid'])
                                 && ($_GET['uid']==$users->uid)) {
                                 // The user has clicked the remove user.
                                 $this->calendar->removeUser($users);
@@ -1010,15 +1011,15 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
 
     /**
      * This function returns all the calendars this user has access to.
-     * 
+     *
      * @return html form for choosing account
      */
     function showChooseCalendar()
     {
         $db  = UNL_UCBCN::getDatabaseConnection();
-        $res =& $db->query('SELECT u.calendar_id, c.name FROM user_has_permission AS u, calendar AS c WHERE 
-                    u.user_uid=\''.$this->user->uid.'\' AND 
-                    u.calendar_id = c.id 
+        $res =& $db->query('SELECT u.calendar_id, c.name FROM user_has_permission AS u, calendar AS c WHERE
+                    u.user_uid=\''.$this->user->uid.'\' AND
+                    u.calendar_id = c.id
                     GROUP BY u.calendar_id ORDER BY c.name');
         if (PEAR::isError($res)) {
             return new UNL_UCBCN_Error($res->getMessage());
@@ -1044,13 +1045,13 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * Registers a plugin for use within the manager.
-     * 
+     *
      * <code>
      * UNL_UCBCN_Manager::registerPlugin('UNL_UCBCN_Manager_InDesignExport');
      * </code>
-     * 
+     *
      * @param string $class_name Name of the class of the plugin to register.
-     * 
+     *
      * @return void
      */
     public function registerPlugin($class_name)
@@ -1071,7 +1072,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
      * @param array  $pager_options Options for the pager class
      * @param bool   $disabled      Boolean option
      * @param int    $fetchMode     The type of mode to fetch
-     * 
+     *
      * @return pager object
      */
     protected function pagerWrapper(&$db, $query, $pager_options = array(), $disabled = false, $fetchMode = MDB2_FETCHMODE_ASSOC)
@@ -1125,9 +1126,9 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     
     /**
      * This function modifies queries to return a paged subset.
-     * 
+     *
      * @param string $sql The SQL to rewrite.
-     * 
+     *
      * @return string
      */
     private function _rewriteCountQuery($sql)
