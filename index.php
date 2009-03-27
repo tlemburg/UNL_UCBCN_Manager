@@ -12,7 +12,7 @@
  * @link      http://code.google.com/p/unl-event-publisher/
  */
 ini_set('display_errors', false);
-require_once 'UNL/UCBCN/Manager.php';
+require_once 'UNL/Autoload.php';
 require_once 'Auth.php';
 $GLOBALS['unl_template_dependents'] = $_SERVER['DOCUMENT_ROOT'].'/ucomm/templatedependents';
 
