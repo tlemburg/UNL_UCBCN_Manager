@@ -18,11 +18,11 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2009-02-26</date>
- <time>08:17:10</time>
+ <date>2009-04-08</date>
+ <time>10:40:53</time>
  <version>
-  <release>0.7.0</release>
-  <api>0.7.0</api>
+  <release>0.8.0</release>
+  <api>0.8.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -30,32 +30,11 @@
  </stability>
  <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
  <notes>
-0.7.0 Changes
-
-* Add default value for the &apos;frontenduri&apos; option.
-* Delete event from the system if deleting the event from the originating calendar.
-* Correct default calendar for new/editing user permissions. [mfkwmfk]
-* Coding standards updates for the post-install script.
-
-Template Updates:
-* Fix duplicate id &apos;action&apos; on EvenListing.tpl.php
-
-* Increase PHP Dependency to 5.1.2
-* Increase PEAR dependency to 1.5.4
+0.8.0 Changes
+Rearrange SVN so package can be used from checkout.
  </notes>
  <contents>
-  <dir baseinstalldir="UNL/UCBCN" name="/">
-   <dir name="Manager">
-    <file name="EventForm.php" role="php" />
-    <file name="FormBuilder.php" role="php" />
-    <file name="FormBuilder_Driver.php" role="php" />
-    <file name="jscalendar.php" role="php" />
-    <file name="Login.php" role="php" />
-    <file name="Plugin.php" role="php" />
-    <file name="Recommend.php" role="php" />
-    <file name="SubForm.php" role="php" />
-    <file name="Tableless.php" role="php" />
-   </dir> <!-- /Manager -->
+  <dir baseinstalldir="/" name="/">
    <dir name="templates">
     <dir name="default">
      <dir name="images">
@@ -134,82 +113,88 @@ Template Updates:
      <file name="Manager_Recommend.tpl.php" role="data" />
     </dir> <!-- /templates/default -->
    </dir> <!-- /templates -->
+   <dir name="UNL">
+    <dir name="UCBCN">
+     <dir name="Manager">
+      <file name="EventForm.php" role="php" />
+      <file name="FormBuilder.php" role="php" />
+      <file name="FormBuilder_Driver.php" role="php" />
+      <file name="jscalendar.php" role="php" />
+      <file name="Login.php" role="php" />
+      <file name="Plugin.php" role="php" />
+      <file name="Recommend.php" role="php" />
+      <file name="SubForm.php" role="php" />
+      <file name="Tableless.php" role="php" />
+     </dir> <!-- /UNL/UCBCN/Manager -->
+     <file name="Manager.php" role="php" />
+     <file name="Manager_setup.php" role="php">
+      <tasks:postinstallscript>
+       <tasks:paramgroup>
+        <tasks:id>questionCreate</tasks:id>
+        <tasks:param>
+         <tasks:name>createtemplate</tasks:name>
+         <tasks:prompt>Create/Upgrade default templates?</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>yes</tasks:default>
+        </tasks:param>
+        <tasks:param>
+         <tasks:name>createindex</tasks:name>
+         <tasks:prompt>Create/Upgrade sample index page?</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>yes</tasks:default>
+        </tasks:param>
+        <tasks:param>
+         <tasks:name>createaccount</tasks:name>
+         <tasks:prompt>Create a calendar account?</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>yes</tasks:default>
+        </tasks:param>
+       </tasks:paramgroup>
+       <tasks:paramgroup>
+        <tasks:id>fileSetup</tasks:id>
+        <tasks:param>
+         <tasks:name>docroot</tasks:name>
+         <tasks:prompt>Path to root of webserver</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>/Library/WebServer/Documents/events/manager</tasks:default>
+        </tasks:param>
+        <tasks:param>
+         <tasks:name>template</tasks:name>
+         <tasks:prompt>Template style to use</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>default</tasks:default>
+        </tasks:param>
+       </tasks:paramgroup>
+       <tasks:paramgroup>
+        <tasks:id>accountSetup</tasks:id>
+        <tasks:param>
+         <tasks:name>dsn</tasks:name>
+         <tasks:prompt>Database connection string (DSN)</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>mysqli://eventcal:eventcal@localhost/eventcal</tasks:default>
+        </tasks:param>
+        <tasks:param>
+         <tasks:name>name</tasks:name>
+         <tasks:prompt>Account Title</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>UNL Events</tasks:default>
+        </tasks:param>
+        <tasks:param>
+         <tasks:name>shortname</tasks:name>
+         <tasks:prompt>Account Short Name</tasks:prompt>
+         <tasks:type>string</tasks:type>
+         <tasks:default>unlevents</tasks:default>
+        </tasks:param>
+       </tasks:paramgroup>
+      </tasks:postinstallscript>
+     </file>
+    </dir> <!-- /UNL/UCBCN -->
+   </dir> <!-- /UNL -->
    <file name="index.php" role="data">
     <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
     <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
     <tasks:replace from="@DATA_DIR@" to="data_dir" type="pear-config" />
     <tasks:replace from="@DOC_DIR@" to="doc_dir" type="pear-config" />
-   </file>
-   <file name="Manager.php" role="php">
-    <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
-    <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
-    <tasks:replace from="@DATA_DIR@" to="data_dir" type="pear-config" />
-    <tasks:replace from="@DOC_DIR@" to="doc_dir" type="pear-config" />
-   </file>
-   <file name="UNL_UCBCN_Manager_setup.php" role="php">
-    <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
-    <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
-    <tasks:replace from="@DATA_DIR@" to="data_dir" type="pear-config" />
-    <tasks:replace from="@DOC_DIR@" to="doc_dir" type="pear-config" />
-    <tasks:postinstallscript>
-     <tasks:paramgroup>
-      <tasks:id>questionCreate</tasks:id>
-      <tasks:param>
-       <tasks:name>createtemplate</tasks:name>
-       <tasks:prompt>Create/Upgrade default templates?</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>yes</tasks:default>
-      </tasks:param>
-      <tasks:param>
-       <tasks:name>createindex</tasks:name>
-       <tasks:prompt>Create/Upgrade sample index page?</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>yes</tasks:default>
-      </tasks:param>
-      <tasks:param>
-       <tasks:name>createaccount</tasks:name>
-       <tasks:prompt>Create a calendar account?</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>yes</tasks:default>
-      </tasks:param>
-     </tasks:paramgroup>
-     <tasks:paramgroup>
-      <tasks:id>fileSetup</tasks:id>
-      <tasks:param>
-       <tasks:name>docroot</tasks:name>
-       <tasks:prompt>Path to root of webserver</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>/Library/WebServer/Documents/events/manager</tasks:default>
-      </tasks:param>
-      <tasks:param>
-       <tasks:name>template</tasks:name>
-       <tasks:prompt>Template style to use</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>default</tasks:default>
-      </tasks:param>
-     </tasks:paramgroup>
-     <tasks:paramgroup>
-      <tasks:id>accountSetup</tasks:id>
-      <tasks:param>
-       <tasks:name>dsn</tasks:name>
-       <tasks:prompt>Database connection string (DSN)</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>mysqli://eventcal:eventcal@localhost/eventcal</tasks:default>
-      </tasks:param>
-      <tasks:param>
-       <tasks:name>name</tasks:name>
-       <tasks:prompt>Account Title</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>UNL Events</tasks:default>
-      </tasks:param>
-      <tasks:param>
-       <tasks:name>shortname</tasks:name>
-       <tasks:prompt>Account Short Name</tasks:prompt>
-       <tasks:type>string</tasks:type>
-       <tasks:default>unlevents</tasks:default>
-      </tasks:param>
-     </tasks:paramgroup>
-    </tasks:postinstallscript>
    </file>
   </dir> <!-- / -->
  </contents>
@@ -234,7 +219,7 @@ Template Updates:
    <package>
     <name>UNL_UCBCN</name>
     <channel>pear.unl.edu</channel>
-    <min>0.6.0</min>
+    <min>0.8.0</min>
    </package>
    <package>
     <name>Pager</name>
@@ -543,6 +528,22 @@ Template Updates:
 
 * Increase PHP Dependency to 5.1.2
 * Increase PEAR dependency to 1.5.4
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.0</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-04-08</date>
+   <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
+   <notes>
+0.8.0 Changes
+Rearrange SVN so package can be used from checkout.
    </notes>
   </release>
  </changelog>

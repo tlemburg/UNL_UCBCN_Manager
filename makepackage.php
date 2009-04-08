@@ -15,7 +15,7 @@ $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
 //$pfm = new PEAR_PackageFileManager2();
 //$pfm->setOptions(array(
     'packagedirectory'  => dirname(__FILE__),
-    'baseinstalldir'    => 'UNL/UCBCN',
+    'baseinstalldir'    => '/',
     'filelistgenerator' => 'svn',
     'ignore' => array(  'package.xml',
                         '.project',
@@ -31,17 +31,17 @@ $pfm = PEAR_PackageFileManager2::importOptions('package.xml', array(
                         '*tests*'),
     'simpleoutput' => true,
     'roles'=>array('php'=>'data'),
-    'exceptions'=>array('UNL_UCBCN_Manager_setup.php'    => 'php',
-                        'Manager.php'                    => 'php',
-                        'Manager/Login.php'              => 'php',
-                        'Manager/FormBuilder_Driver.php' => 'php',
-                        'Manager/SubForm.php'            => 'php',
-                        'Manager/Tableless.php'          => 'php',
-                        'Manager/FormBuilder.php'        => 'php',
-                        'Manager/Recommend.php'          => 'php',
-                        'Manager/Plugin.php'             => 'php',
-                        'Manager/EventForm.php'          => 'php',
-                        'Manager/jscalendar.php'         => 'php'
+    'exceptions'=>array('UNL/UCBCN/Manager_setup.php'              => 'php',
+                        'UNL/UCBCN/Manager.php'                    => 'php',
+                        'UNL/UCBCN/Manager/Login.php'              => 'php',
+                        'UNL/UCBCN/Manager/FormBuilder_Driver.php' => 'php',
+                        'UNL/UCBCN/Manager/SubForm.php'            => 'php',
+                        'UNL/UCBCN/Manager/Tableless.php'          => 'php',
+                        'UNL/UCBCN/Manager/FormBuilder.php'        => 'php',
+                        'UNL/UCBCN/Manager/Recommend.php'          => 'php',
+                        'UNL/UCBCN/Manager/Plugin.php'             => 'php',
+                        'UNL/UCBCN/Manager/EventForm.php'          => 'php',
+                        'UNL/UCBCN/Manager/jscalendar.php'         => 'php'
                         )
 ));
 $pfm->setPackage('UNL_UCBCN_Manager');
@@ -55,21 +55,11 @@ $pfm->setDescription('This package gives authenticated users access to publish e
 $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
-$pfm->setAPIVersion('0.7.0');
-$pfm->setReleaseVersion('0.7.0');
+$pfm->setAPIVersion('0.8.0');
+$pfm->setReleaseVersion('0.8.0');
 $pfm->setNotes('
-0.7.0 Changes
-
-* Add default value for the \'frontenduri\' option.
-* Delete event from the system if deleting the event from the originating calendar.
-* Correct default calendar for new/editing user permissions. [mfkwmfk]
-* Coding standards updates for the post-install script.
-
-Template Updates:
-* Fix duplicate id \'action\' on EvenListing.tpl.php
-
-* Increase PHP Dependency to 5.1.2
-* Increase PEAR dependency to 1.5.4
+0.8.0 Changes
+Rearrange SVN so package can be used from checkout.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
@@ -80,10 +70,10 @@ $pfm->setPhpDep('5.1.2');
 $pfm->setPearinstallerDep('1.5.4');
 $pfm->addPackageDepWithChannel('required', 'DB_DataObject_FormBuilder', 'pear.php.net', '0.18.1');
 $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
-$pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.6.0');
+$pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.8.0');
 $pfm->addPackageDepWithChannel('required', 'Pager', 'pear.php.net', '2.2.1');
 $pfm->addPackageDepWithChannel('required', 'HTML_Table', 'pear.php.net', '1.6.0');
-foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file) {
+foreach (array('Manager.php','Manager_setup.php','index.php') as $file) {
     $pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
     $pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
     $pfm->addReplacement($file, 'pear-config', '@DATA_DIR@', 'data_dir');
@@ -93,7 +83,7 @@ foreach (array('Manager.php','UNL_UCBCN_Manager_setup.php','index.php') as $file
 $config = PEAR_Config::singleton();
 $log = PEAR_Frontend::singleton();
 $task = new PEAR_Task_Postinstallscript_rw($pfm, $config, $log,
-    array('name' => 'UNL_UCBCN_Manager_setup.php', 'role' => 'php'));
+    array('name' => 'UNL/UCBCN/Manager_setup.php', 'role' => 'php'));
 $task->addParamGroup('questionCreate', array(
     $task->getParam('createtemplate', 'Create/Upgrade default templates?', 'string', 'yes'),
     $task->getParam('createindex',    'Create/Upgrade sample index page?', 'string', 'yes'),
@@ -109,7 +99,7 @@ $task->addParamGroup('accountSetup', array(
     $task->getParam('shortname',      'Account Short Name', 'string', 'unlevents')
     ));
 
-$pfm->addPostinstallTask($task, 'UNL_UCBCN_Manager_setup.php');
+$pfm->addPostinstallTask($task, 'UNL/UCBCN/Manager_setup.php');
 $pfm->generateContents();
 if (isset($_SERVER['argv']) && $_SERVER['argv'][1] == 'make') {
     $pfm->writePackageFile();

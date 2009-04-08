@@ -13,8 +13,8 @@
 <?php require_once($GLOBALS['unl_template_dependents'].'/templatesharedcode/includes/comments/developersnote.html'); ?>
 <?php require_once($GLOBALS['unl_template_dependents'].'/templatesharedcode/includes/metanfavico/metanfavico.html'); ?>
 <!-- InstanceBeginEditable name="head" -->
-<link rel="stylesheet" type="text/css" media="screen" href="templates/@TEMPLATE@/manager_main.css" />
-<script type="text/javascript" src="templates/@TEMPLATE@/manager.js"></script>
+<link rel="stylesheet" type="text/css" media="screen" href="templates/default/manager_main.css" />
+<script type="text/javascript" src="templates/default/manager.js"></script>
 
 <!-- InstanceEndEditable -->
 </head>
@@ -30,7 +30,7 @@
 			<ul>
 				<li class="first"><a href="http://www.unl.edu/">UNL</a></li>
 				<li>Events</li>
-			</ul><img src="templates/@TEMPLATE@/images/eventbeta.png" alt="Event publishing system is still in beta phase" id="badge" />
+			</ul><img src="templates/default/images/eventbeta.png" alt="Event publishing system is still in beta phase" id="badge" />
 			<!-- InstanceEndEditable --> </div>
 	</div>
 </div>
