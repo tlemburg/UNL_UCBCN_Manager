@@ -1,10 +1,10 @@
 <?php
 /**
  * This file instantiates the Event manager interface.
- * 
+ *
  * PHP version 5
- * 
- * @category  Events 
+ *
+ * @category  Events
  * @package   UNL_UCBCN_Manager
  * @author    Brett Bieber <brett.bieber@gmail.com>
  * @copyright 2009 Regents of the University of Nebraska
@@ -12,7 +12,7 @@
  * @link      http://code.google.com/p/unl-event-publisher/
  */
 ini_set('display_errors', false);
-require_once 'UNL/Autoload.php';
+require_once 'UNL/UCBCN/Autoload.php';
 require_once 'Auth.php';
 $GLOBALS['unl_template_dependents'] = $_SERVER['DOCUMENT_ROOT'].'/ucomm/templatedependents';
 
