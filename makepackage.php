@@ -58,8 +58,9 @@ $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.8.0');
 $pfm->setReleaseVersion('0.8.0');
 $pfm->setNotes('
-0.8.0 Changes
+0.8.0 Changes:
 Rearrange SVN so package can be used from checkout.
+Always call the factory method statically.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');

@@ -18,12 +18,12 @@ $GLOBALS['unl_template_dependents'] = $_SERVER['DOCUMENT_ROOT'].'/ucomm/template
 
 $a = new Auth('DB',array('dsn'=>'mysql://eventcal:eventcal@localhost/eventcal'),null,false);
 
-$frontend = new UNL_UCBCN_Manager(array('template'=>'default',
+$manager = new UNL_UCBCN_Manager(array('template'=>'default',
                                         'dsn'=>'mysql://eventcal:eventcal@localhost/eventcal',
                                         'default_calendar_id'=>1,
                                         'a'=>$a,
                                         'frontenduri'=>'../'));
-$frontend->run();
-UNL_UCBCN::displayRegion($frontend);
+$manager->run();
+UNL_UCBCN::displayRegion($manager);
 
 ?>

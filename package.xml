@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.8.0alpha1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.8.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
  <name>UNL_UCBCN_Manager</name>
  <channel>pear.unl.edu</channel>
  <summary>A Management frontend for publishing University events.</summary>
@@ -18,8 +18,8 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2009-04-08</date>
- <time>10:40:53</time>
+ <date>2009-07-09</date>
+ <time>11:22:51</time>
  <version>
   <release>0.8.0</release>
   <api>0.8.0</api>
@@ -30,8 +30,9 @@
  </stability>
  <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
  <notes>
-0.8.0 Changes
+0.8.0 Changes:
 Rearrange SVN so package can be used from checkout.
+Always call the factory method statically.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -539,11 +540,12 @@ Template Updates:
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2009-04-08</date>
+   <date>2009-07-09</date>
    <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
    <notes>
-0.8.0 Changes
+0.8.0 Changes:
 Rearrange SVN so package can be used from checkout.
+Always call the factory method statically.
    </notes>
   </release>
  </changelog>
