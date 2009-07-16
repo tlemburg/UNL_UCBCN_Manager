@@ -260,8 +260,7 @@ class UNL_UCBCN_Manager extends UNL_UCBCN
     function showEventSubmitForm($id = null)
     {
         include_once 'UNL/UCBCN/Manager/EventForm.php';
-        $form = new UNL_UCBCN_Manager_EventForm($this);
-        return $form->toHtml($id);
+        return new UNL_UCBCN_Manager_EventForm($this, $id);
     }
     
     /**
