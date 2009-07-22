@@ -56,11 +56,10 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.8.0');
-$pfm->setReleaseVersion('0.8.0');
+$pfm->setReleaseVersion('0.8.1');
 $pfm->setNotes('
-0.8.0 Changes:
-Rearrange SVN so package can be used from checkout.
-Always call the factory method statically.
+0.8.1 Changes:
+Fix data directory replacements in the Manager.php and Manager_setup.php files.
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');
@@ -74,7 +73,7 @@ $pfm->addPackageDepWithChannel('required', 'Auth', 'pear.php.net', '1.3.0');
 $pfm->addPackageDepWithChannel('required', 'UNL_UCBCN', 'pear.unl.edu', '0.8.0');
 $pfm->addPackageDepWithChannel('required', 'Pager', 'pear.php.net', '2.2.1');
 $pfm->addPackageDepWithChannel('required', 'HTML_Table', 'pear.php.net', '1.6.0');
-foreach (array('Manager.php','Manager_setup.php','index.php') as $file) {
+foreach (array('UNL/UCBCN/Manager.php','UNL/UCBCN/Manager_setup.php','index.php') as $file) {
     $pfm->addReplacement($file, 'pear-config', '@PHP_BIN@', 'php_bin');
     $pfm->addReplacement($file, 'pear-config', '@PHP_DIR@', 'php_dir');
     $pfm->addReplacement($file, 'pear-config', '@DATA_DIR@', 'data_dir');

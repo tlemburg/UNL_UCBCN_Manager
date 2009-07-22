@@ -18,10 +18,10 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2009-07-09</date>
- <time>11:22:51</time>
+ <date>2009-07-22</date>
+ <time>13:59:20</time>
  <version>
-  <release>0.8.0</release>
+  <release>0.8.1</release>
   <api>0.8.0</api>
  </version>
  <stability>
@@ -30,9 +30,8 @@
  </stability>
  <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
  <notes>
-0.8.0 Changes:
-Rearrange SVN so package can be used from checkout.
-Always call the factory method statically.
+0.8.1 Changes:
+Fix data directory replacements in the Manager.php and Manager_setup.php files.
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -127,8 +126,17 @@ Always call the factory method statically.
       <file name="SubForm.php" role="php" />
       <file name="Tableless.php" role="php" />
      </dir> <!-- /UNL/UCBCN/Manager -->
-     <file name="Manager.php" role="php" />
+     <file name="Manager.php" role="php">
+      <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
+      <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
+      <tasks:replace from="@DATA_DIR@" to="data_dir" type="pear-config" />
+      <tasks:replace from="@DOC_DIR@" to="doc_dir" type="pear-config" />
+     </file>
      <file name="Manager_setup.php" role="php">
+      <tasks:replace from="@PHP_BIN@" to="php_bin" type="pear-config" />
+      <tasks:replace from="@PHP_DIR@" to="php_dir" type="pear-config" />
+      <tasks:replace from="@DATA_DIR@" to="data_dir" type="pear-config" />
+      <tasks:replace from="@DOC_DIR@" to="doc_dir" type="pear-config" />
       <tasks:postinstallscript>
        <tasks:paramgroup>
         <tasks:id>questionCreate</tasks:id>
@@ -540,12 +548,28 @@ Template Updates:
     <release>beta</release>
     <api>beta</api>
    </stability>
-   <date>2009-07-09</date>
+   <date>2009-07-22</date>
    <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
    <notes>
 0.8.0 Changes:
 Rearrange SVN so package can be used from checkout.
 Always call the factory method statically.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.1</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-07-22</date>
+   <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
+   <notes>
+0.8.1 Changes:
+Fix data directory replacements in the Manager.php and Manager_setup.php files.
    </notes>
   </release>
  </changelog>
