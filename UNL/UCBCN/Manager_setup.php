@@ -164,7 +164,7 @@ class UNL_UCBCN_Manager_setup_postinstall
         $datadir      = '@DATA_DIR@'. DIRECTORY_SEPARATOR . 'UNL_UCBCN_Manager' . DIRECTORY_SEPARATOR;
         if ($this->createIndex) {
             if (!is_dir($answers['docroot'].DIRECTORY_SEPARATOR)) {
-                mkdir($answers['docroot'].DIRECTORY_SEPARATOR, null, true);
+                mkdir($answers['docroot'].DIRECTORY_SEPARATOR);
             }
             copy($datadir.'index.php', $docroot.'index.php');
         }
@@ -237,7 +237,7 @@ class UNL_UCBCN_Manager_setup_postinstall
     {
         if ($handle = opendir($source)) {        // if the folder exploration is sucsessful, continue
             if (!is_dir($dest)) {
-                mkdir($dest, null, true);
+                mkdir($dest);
             }
             while (false !== ($file = readdir($handle))) { // as long as storing the next file to $file is successful, continue
                 if ($file != '.' && $file != '..') {

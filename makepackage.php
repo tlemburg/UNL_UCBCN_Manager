@@ -56,10 +56,11 @@ $pfm->setChannel('pear.unl.edu');
 $pfm->setAPIStability('beta');
 $pfm->setReleaseStability('beta');
 $pfm->setAPIVersion('0.8.0');
-$pfm->setReleaseVersion('0.8.1');
+$pfm->setReleaseVersion('0.8.2');
 $pfm->setNotes('
-0.8.1 Changes:
-Fix data directory replacements in the Manager.php and Manager_setup.php files.
+0.8.2 Changes:
+Post-install script would create template directories with no permissions 
+resulting in "template error, examine fetch() result."
 ');
 
 //$pfm->addMaintainer('lead','saltybeagle','Brett Bieber','brett.bieber@gmail.com');

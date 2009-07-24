@@ -18,10 +18,10 @@
   <email>alvinwoon@gmail.com</email>
   <active>yes</active>
  </developer>
- <date>2009-07-22</date>
- <time>13:59:20</time>
+ <date>2009-07-24</date>
+ <time>14:36:56</time>
  <version>
-  <release>0.8.1</release>
+  <release>0.8.2</release>
   <api>0.8.0</api>
  </version>
  <stability>
@@ -30,8 +30,9 @@
  </stability>
  <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
  <notes>
-0.8.1 Changes:
-Fix data directory replacements in the Manager.php and Manager_setup.php files.
+0.8.2 Changes:
+Post-install script would create template directories with no permissions 
+resulting in &quot;template error, examine fetch() result.&quot;
  </notes>
  <contents>
   <dir baseinstalldir="/" name="/">
@@ -102,6 +103,7 @@ Fix data directory replacements in the Manager.php and Manager_setup.php files.
       <file name="menuarrow.gif" role="data" />
      </dir> <!-- /templates/default/jscalendar -->
      <file name="Error.tpl.php" role="data" />
+     <file name="Eventdatetime.tpl.php" role="data" />
      <file name="EventListing.tpl.php" role="data" />
      <file name="EventListing_search.tpl.php" role="data" />
      <file name="manager.js" role="data" />
@@ -570,6 +572,23 @@ Always call the factory method statically.
    <notes>
 0.8.1 Changes:
 Fix data directory replacements in the Manager.php and Manager_setup.php files.
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.8.2</release>
+    <api>0.8.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2009-07-24</date>
+   <license uri="http://www1.unl.edu/wdn/wiki/Software_License">BSD License</license>
+   <notes>
+0.8.2 Changes:
+Post-install script would create template directories with no permissions 
+resulting in &quot;template error, examine fetch() result.&quot;
    </notes>
   </release>
  </changelog>
