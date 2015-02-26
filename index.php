@@ -28,7 +28,5 @@ $manager = new UNL_UCBCN_Manager($manager_config);
 
 $manager->run();
 
-error_log("after run");
-
 UNL_UCBCN::displayRegion($manager);
 
